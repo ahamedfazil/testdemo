@@ -1,0 +1,11 @@
+{
+  "name": "kats",
+  "version": "1.0.0",
+  "description": "Source code for KATS tool built for KPMG Auditing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Larry Akin",
+  "license": "ISC"
+}
