@@ -25,3 +25,5 @@ const constants = {
     REMOVE_COMMENT: "REMOVE_COMMENT",
 
 }
+
+export default constants
