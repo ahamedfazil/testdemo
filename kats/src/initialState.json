@@ -1,0 +1,58 @@
+{
+    "query": {
+        "Submitter": {
+            "Display name": "Neil Manning",
+            "Job Title": "Manager",
+            "Department": "NM Audit Manchester 2",
+            "Office Location": "Manchester",
+            "Office Number": 442076948910,
+            "Mobile Number": 7717719,
+            "Other Number": 7242019
+        },
+        "Audit Team CC'd": [
+            "John Doe",
+            "Lewis Blackwell",
+            "Martina Hinges"
+        ],
+        "Responsible Individual": "Tracy Newman",
+        "Engagement Name": "Hartshead Square Developments Ltd ",
+        "Engagement Charge Code": 2551346,
+        "Accounting Period End": "31/03/2019",
+        "Engagement Type": [
+            "EU PIE",
+            "AQR",
+            "Significant Other"
+        ],
+        "Auditing Standards": "ISRE (UK&I)",
+        "Accounting Framework": [
+            "EU IFRS",
+            "IFRS",
+            "FRS101"
+        ],
+        "Category": "Materiality",
+        "Ticket Type": "General Query",
+        "Subject": "Approval needed for Equinox Employee Benefit Trust Limited",
+        "Detailed Analysis": "",
+        "Question": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
+        "Priority": "Urgent",
+        "Reason for urgency": "",
+        "Assigned to": "",
+        "Watcher": [
+            "Christopher Martin",
+            "Jonathan Brown"
+        ],
+        "Comments": [
+            {
+                "notes": "Sorry you were asked to look at this.  The team had not consulted me first.",
+                "owner": "Greg McIntosh",
+                "date": "14/12/2018"
+            },
+            {
+                "notes": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
+                "owner": "Philip Johnstone",
+                "date": "14/12/2018"
+            }
+        ],
+        "Status": "Unassigned"
+    }
+}
