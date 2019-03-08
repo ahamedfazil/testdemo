@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import C from './constants'
-import { submitter} from './store/reducers'
-import {} from './actions'
+
 
 
 class App extends Component {

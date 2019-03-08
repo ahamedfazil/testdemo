@@ -40,7 +40,7 @@ export const submitter = (state = User, action) =>
     (action.type === addSubmitter) ? (action.payload) :
         state
 
-export const errors = (state = [], action) => {
+export const errors = (state, action) => {
     switch (action.type) {
         case addError:
             return [
@@ -54,7 +54,7 @@ export const errors = (state = [], action) => {
     }
 }
 //how do we prevent duplicate requests/tickets?
-export const allQueries = (state = [], action) => {
+export const allQueries = (state, action) => {
     switch (action.type) {
         case addQuery:
             const hasQuery = state.some((query: Query) => query.id === action.payload.id)

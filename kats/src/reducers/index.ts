@@ -14,7 +14,6 @@ export default combineReducers({
     query,
     dictionary,
     visibilityFilter,
-    query,
     submitter,
     errors,
     user,
