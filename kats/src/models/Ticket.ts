@@ -1,1 +1,3 @@
-export default undefined
+export class Ticket{
+    id: number;
+}

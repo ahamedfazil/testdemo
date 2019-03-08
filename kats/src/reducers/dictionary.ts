@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import {
     addEngagementType,
     removeEngagementType,
@@ -10,7 +9,7 @@ import {
     setPriority
 } from '../actions';
 
-export const dictionary = (state, action) => {
+export const dictionary = (state=[], action) => {
     switch (action.type) {
 
         case addEngagementType:
@@ -45,10 +44,13 @@ export const dictionary = (state, action) => {
         case setStatus:
             return action.payload
 
+        default:
+            return state
+
     }
 }
 
 
-
+export default dictionary
 
 

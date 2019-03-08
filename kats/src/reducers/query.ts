@@ -36,16 +36,16 @@ export const query = (state = null, action) =>
         action.payload :
         state
 
-export const submitter = (state = User, action) =>
+export const submitter = (state=null, action) =>
     (action.type === addSubmitter) ? (action.payload) :
         state
 
-export const errors = (state, action) => {
+export const errors = (state: any = {name: ''}, action) => {
     switch (action.type) {
         case addError:
             return [
                 ...state,
-                action.payload
+                action.payload.name
             ]
         case clearError:
             return state.filter((message, i) => i !== action.payload)
@@ -53,8 +53,7 @@ export const errors = (state, action) => {
             return state
     }
 }
-//how do we prevent duplicate requests/tickets?
-export const allQueries = (state, action) => {
+export const allQueries = (state: any = {name: ''}, action) => {
     switch (action.type) {
         case addQuery:
             const hasQuery = state.some((query: Query) => query.id === action.payload.id)
@@ -74,7 +73,7 @@ export const allQueries = (state, action) => {
 
     }
 }
-export const user = (state, action) => {
+export const user = (state:any = {name: ''}, action) => {
     switch (action.type) {
 
         case C.ADD_RESPONSIBLE_INDIVIDUAL:
@@ -112,7 +111,7 @@ export const user = (state, action) => {
     }
 }
 
-export const comment = (state, action) => {
+export const comment = (state:any = {name: ''}, action) => {
     switch (action.type) {
         case addComment:
             return [
