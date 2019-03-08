@@ -1,5 +1,6 @@
 {
     "query": {
+        "visibilityFilter": "SHOW_ALL",
         "Submitter": {
             "Full name": "Neil Manning",
             "Job Title": "Manager",

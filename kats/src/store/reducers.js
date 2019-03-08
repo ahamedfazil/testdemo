@@ -1,4 +1,3 @@
-"use strict";
 exports.__esModule = true;
 var constants_1 = require("../constants");
 exports.submitter = function (state, action) {
