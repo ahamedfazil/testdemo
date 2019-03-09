@@ -1,12 +1,8 @@
 import {
     addEngagementType,
     removeEngagementType,
-    addAccountFramework,
-    removeAccountFramework,
-    addCategory,
-    changeCategory,
-    setStatus,
-    setPriority
+    addAccFramewk,
+    removeAccFramewk
 } from '../actions';
 
 export const dictionary = (state=[], action) => {
@@ -21,28 +17,14 @@ export const dictionary = (state=[], action) => {
         case removeEngagementType:
             return state.filter(i => i !== action.payload)
 
-        case addAccountFramework:
+        case addAccFramewk:
             return [
                 ...state,
                 action.payload
             ]
 
-        case removeAccountFramework:
+        case removeAccFramewk:
             return state.filter(i => i !== action.payload)
-
-        case addCategory:
-            return action.payload
-
-        case changeCategory:
-            return Object.assign({}, state, {
-                category: !action.payload
-            })
-
-        case setPriority:
-            return action.payload
-
-        case setStatus:
-            return action.payload
 
         default:
             return state

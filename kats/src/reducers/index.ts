@@ -1,23 +1,14 @@
 import { combineReducers } from 'redux'
-import { 
-    visibilityFilter,
-    query,
-    submitter,
-    errors,
-    user,
-    comment,
-    allQueries
- } from './query'
+import { request, auditTeamCc, errors, visibilityFilter,comment } from './query'
 import { dictionary } from './dictionary'
 
 export default combineReducers({
-    query,
-    dictionary,
-    visibilityFilter,
-    submitter,
-    errors,
-    user,
+    request,
     comment,
-    allQueries
+    auditTeamCc, 
+    errors, 
+    visibilityFilter,
+    dictionary
+
 
 })

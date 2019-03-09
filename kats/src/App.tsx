@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import storeFactory from './store'
-import { addSubmitter, addQuery, addError, addAuditingStandards, addCategory, setStatus, removeQuery, addComment } from './actions';
+import C from './constants';
 import initialState from './initialState/queryState.json'
 import appReducer from './reducers'
 import { createStore } from 'redux'
+import { addEngagementType, removeEngagementType, addComment, setCategory, setStatus, removeComment, editComment } from './actions';
 
 
 
@@ -29,36 +30,72 @@ store.subscribe(() =>console.log(store.getState()))
 
 //console.log('initial state', store.getState());
 
- store.dispatch({
-    type: addSubmitter,
-    payload:{
-      fullName: "Chris Evans",
-      jobTitle: "Manager",
-      department: "DPP - Audit Finance",
-      office: "Canada Square",
-      officeNumber: 3344,
-      mobileNumber: 447596490012,
-      otherNumber: 442087596490012
-    }
-  })
+//  store.dispatch({
+//     type: C.SET_SUBMITTER,
+//     payload:{
+//       fullName: "Chris Evans",
+//       jobTitle: "Manager",
+//       department: "DPP - Audit Finance",
+//       office: "Canada Square",
+//       officeNumber: 3344,
+//       mobileNumber: 447596490012,
+//       otherNumber: 442087596490012
+//     }
+//   })
 
   store.dispatch({
-    type:addError,
+    type:C.ADD_ERROR,
     payload: "Server not found"
     
   })
   store.dispatch({
-    type:addCategory,
-    payload: "Materiality"
+    type:setCategory,
+    payload: 1
   })
 
   store.dispatch({
     type:setStatus,
-    payload: "unassigned"
+    payload: 2
+  })
+  store.dispatch({
+    type:addEngagementType,
+    payload: 1
+  })
+  store.dispatch({
+    type:addEngagementType,
+    payload: 2
   })
 
   store.dispatch({
-    type:addQuery,
+    type:addEngagementType,
+    payload: 3
+  })
+
+  store.dispatch({
+    type:removeEngagementType,
+    payload: 2
+  })
+
+store.dispatch({
+  type:C.ADD_AUDIT_TEAM_CC,
+  payload: "Theresa May"
+})
+
+store.dispatch({
+  type:C.ADD_AUDIT_TEAM_CC,
+  payload: 5
+})
+
+
+store.dispatch({
+  type:C.REMOVE_AUDIT_TEAM_CC,
+  payload: 5
+})
+
+
+
+  store.dispatch({
+    type:C.ADD_QUERY,
     payload:{
       id:1234,
     submitter: "laza ",
@@ -85,11 +122,28 @@ store.subscribe(() =>console.log(store.getState()))
 
   store.dispatch({
     type:addComment,
-    payload:{
-      note: "I love Fridays"
-      
+    payload: {
+      "note": "Where are we with the responses?",
+      "owner": "Neil Manning",
+      "date": "15-04-2017"
     }
     })
+
+  store.dispatch({
+    type:addComment,
+    payload: {
+      "note": "I love Fridays",
+      "owner": "Lazza",
+      "date": "20-05-2019"
+    }
+    })
+
+    store.dispatch({
+      type:removeComment,
+      payload: 1
+      })
+
+
 
 //console.log('next state', store.getState());
 
