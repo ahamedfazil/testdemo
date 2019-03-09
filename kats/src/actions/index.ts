@@ -10,16 +10,36 @@ export const visibilityFilters = {
 
 }
 
-export function addSubmitter (user:User){
-    return{
-        type:C.ADD_SUBMITTER,
-        payload: user
-    }
-}
 
-export const changeSubmitter = function(user:User){
-    return {
-        type: C.CHANGE_SUBMITTER,
+export const setRespIndividual = (user:string) =>
+({
+    type: C.SET_RESPONSIBLE_INDIVIDUAL,
+    payload: user
+})
+
+export const setEngagementName = (text:string) =>
+({
+    type: C.SET_ENGAGEMENT_NAME,
+    payload: text
+})
+
+export const setEngagementChargeCode = (text:string)=>
+({
+    type:C.SET_ENGAGEMENT_CHARGE_CODE,
+    payload:text
+})
+
+export const setAccEndPeriod = (text:string) =>
+({
+    type: C.SET_ACCOUNTING_PERIOD_END,
+    payload:text
+})
+
+
+
+export function setSubmitter (user:User){
+    return{
+        type:C.SET_SUBMITTER,
         payload: user
     }
 }
@@ -54,10 +74,113 @@ export const setVisibilityFilter = (filter) =>
     payload: filter
 })
 
-export const addComment = (note:string) =>
+export const addEngagementType = (index:number) =>
+({
+    type: C.ADD_ENGAGEMENT_TYPE,
+    payload:index
+})
+
+export const removeEngagementType = (index:number) =>
+({
+    type: C.REMOVE_ENGAGEMENT_TYPE,
+    payload: index
+})
+
+export const setAuditStd = (index:number) =>
+({
+    type: C.SET_AUDITING_STANDARDS,
+    payload:index
+})
+
+
+export const addAccFramewk = (index:number) =>
+({
+    type: C.ADD_ACCOUNTING_FRAMEWORK,
+    payload:index
+})
+
+export const removeAccFramewk = (index:number) =>
+({
+    type: C.REMOVE_ACCOUNTING_FRAMEWORK,
+    payload: index
+})
+
+export const setCategory = (index:number) =>
+({
+    type: C.SET_CATEGORY,
+    payload: index
+})
+
+export const addTopic = (index:number) =>
+({
+    type: C.ADD_TOPIC,
+    payload: index
+})
+
+export const clearTopic = (index:number) =>
+({
+    type: C.CLEAR_TOPIC,
+    payload: index
+})
+
+export const setSubject = (text:string) =>
+({
+    type: C.SET_SUBJECT,
+    payload: text
+})
+
+export const setDetailedAnalysis = (text:string) =>
+({
+    type: C.SET_DETAILED_ANALYSIS,
+    payload: text
+})
+
+export const setPriority = (isUrgent:boolean) =>
+({
+    type: C.SET_PRIORITY,
+    payload: isUrgent
+})
+
+export const setUrgencyReason = (text:string) =>
+({
+    type: C.SET_REASON_FOR_URGENCY,
+    payload: text
+})
+
+export const uploadFile = (text:string) =>
+({
+    type: C.UPLOAD_FILE,
+    payload: text
+})
+
+export const removeFile = (index:number) =>
+({
+    type: C.REMOVE_FILE,
+    payload: index
+})
+
+export const addWatcher = (text:string) =>
+({
+    type: C.ADD_WATCHER,
+    payload: text
+})
+
+export const removeWatcher = (index:number) =>
+({
+    type:C.REMOVE_WATCHER,
+    payload: index
+})
+
+export const setStatus = (index:number) =>
+({
+    type: C.SET_STATUS,
+    payload:index
+})
+
+export const addComment = (note:string,owner:string,date:number) =>
 ({
     type: C.ADD_COMMENT,
-    payload: note
+    payload: {note,owner,date}
 })
 
 export const removeComment = (index:number) =>
@@ -72,78 +195,3 @@ export const editComment = (index:number) =>
     type: C.EDIT_COMMENT,
     payload: index
 })
-
-export const addEngagementType = (index:number) =>
-({
-    type: C.ADD_ENGAGEMENT_TYPE,
-    payload:index
-})
-
-export const removeEngagementType = (index:number) =>
-({
-    type: C.REMOVE_ENGAGEMENT_TYPE,
-    payload: index
-})
-
-export const addAuditingStandards = (index:number) =>
-({
-    type: C.ADD_AUDITING_STANDARDS,
-    payload:index
-})
-
-export const removeAuditingStandards = (index:number) =>
-({
-    type: C.REMOVE_AUDITING_STANDARDS,
-    payload: index
-})
-
-export const addAccountFramework = (index:number) =>
-({
-    type: C.ADD_ACCOUNT_FRAMEWORK,
-    payload:index
-})
-
-export const removeAccountFramework = (index:number) =>
-({
-    type: C.REMOVE_ACCOUNT_FRAMEWORK,
-    payload: index
-})
-
-export const addCategory = (index:number) =>
-({
-    type: C.ADD_CATEGORY,
-    payload: index
-})
-
-export const changeCategory = (index:number) =>
-({
-    type: C.CHANGE_CATEGORY,
-    payload: index
-})
-
-export const setPriority = (index:number) =>
-({
-    type: C.SET_PRIORITY,
-    payload: index
-})
-
-export const setStatus = (index:number) =>
-({
-    type: C.SET_STATUS,
-    payload:index
-})
-
-
-
-// export function addUser (user:User) {
-//     switch (user) {
-//         case C.ADD_WATCHER:
-
-            
-//             break;
-    
-//         default:
-//             break;
-//     }
-// }
-

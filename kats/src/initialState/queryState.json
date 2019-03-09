@@ -31,6 +31,11 @@
             "FRS101"
         ],
         "Category": "Materiality",
+        "topic": [
+            "Financial instruments",
+            "Cash flow statement",
+            "Foreign currency"
+        ],
         "Ticket Type": "General Query",
         "Subject": "Approval needed for Equinox Employee Benefit Trust Limited",
         "Detailed Analysis": "",
@@ -42,7 +47,7 @@
             "Christopher Martin",
             "Jonathan Brown"
         ],
-        "Comments": [
+        "allComments": [
             {
                 "notes": "Sorry you were asked to look at this.  The team had not consulted me first.",
                 "owner": "Greg McIntosh",

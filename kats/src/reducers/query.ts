@@ -2,20 +2,7 @@ import { combineReducers } from 'redux'
 import C from '../constants'
 import { User } from '../models/User';
 import { Query } from '../models/Query';
-import {
-    addSubmitter,
-    changeSubmitter,
-    addError,
-    clearError,
-    addQuery,
-    removeQuery,
-    setVisibilityFilter,
-    addComment,
-    editComment,
-    removeComment,
-    visibilityFilters,
-
-} from '../actions';
+import * as actions from '../actions';
 
 
 //TODO: Include user context i.e. support user or auditor in initial state reducer
@@ -24,7 +11,7 @@ const { SHOW_MY_SUBMITTED } = visibilityFilters
 
 export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
     switch (action.type) {
-        case setVisibilityFilter:
+        case actions.setVisibilityFilter:
             return action.filter
         default:
             return state
@@ -32,21 +19,21 @@ export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
 }
 
 export const query = (state = null, action) =>
-    (action.type === addQuery) ?
+    (action.type === actions.addQuery) ?
         action.payload :
         state
 
 export const submitter = (state=null, action) =>
-    (action.type === addSubmitter) ? (action.payload) :
+    (action.type === actions.setSubmitter) ? (action.payload) :
         state
 
 export const errors = (state: any = {name: ''}, action) => {
     switch (action.type) {
         case addError:
-            return [
+            return {
                 ...state,
-                action.payload.name
-            ]
+                name:action.payload.name
+            };
         case clearError:
             return state.filter((message, i) => i !== action.payload)
         default:
@@ -56,14 +43,15 @@ export const errors = (state: any = {name: ''}, action) => {
 export const allQueries = (state: any = {name: ''}, action) => {
     switch (action.type) {
         case addQuery:
-            const hasQuery = state.some((query: Query) => query.id === action.payload.id)
+           // const hasQuery = state.some((query: Query) => query.id === action.payload.id)
 
-            return (hasQuery) ?
-                state :
-                [
+            //return (hasQuery) ?
+               // state :{
+               return {
                     ...state,
-                    query(null, action)
-                ].sort()
+                    name:query(null, action).name
+               // }.sort()
+            }
 
         case removeQuery:
             return state.filter((query: Query) => query.id !== action.payload.id)
@@ -87,19 +75,19 @@ export const user = (state:any = {name: ''}, action) => {
             })
 
         case C.ADD_WATCHER:
-            return [
+            return {
                 ...state,
-                action.payload
-            ]
+                name:action.payload.name
+            };
 
         case C.REMOVE_WATCHER:
             return state.filter((user, i) => i !== action.payload)
 
         case C.ADD_AUDIT_TEAM_CC:
-            return [
+            return {
                 ...state,
-                action.payload
-            ]
+                name:action.payload.name
+            };
 
         case C.REMOVE_AUDIT_TEAM_CC:
             return state.filter((user, i) => i !== action.payload)
@@ -114,10 +102,10 @@ export const user = (state:any = {name: ''}, action) => {
 export const comment = (state:any = {name: ''}, action) => {
     switch (action.type) {
         case addComment:
-            return [
+            return {
                 ...state,
-                action.payload
-            ]
+                name:action.payload.name
+            };
         case removeComment:
             return state.filter((note, i) => i !== action.payload)
         default:
