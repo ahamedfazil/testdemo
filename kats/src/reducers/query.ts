@@ -1,8 +1,5 @@
 import { combineReducers } from 'redux'
-import C from '../constants'
-import { User } from '../models/User';
 import * as A from '../actions'
-import { Comment } from '../models/Comment';
 import initialState from '../initialState/queryState.json'
 
 
@@ -12,7 +9,7 @@ const { SHOW_MY_SUBMITTED } = A.visibilityFilters
 
 export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
     switch (action.type) {
-        case C.SET_VISIBILITY_FILTER:
+        case A.setVisibilityFilter:
             return action.filter
         default:
             return state
@@ -131,23 +128,6 @@ export const accFramework = (state = initialState, action) => {
     }
 }
 
-export const errors = (state: any[] = [], action) => {
-    switch (action.type) {
-        case A.addError:
-            return [
-                ...state,
-                action.payload
-            ]
-
-        // TODO: Refactor clear error
-        case C.CLEAR_ERROR:
-
-            return state.filter((message, i) => i !== action.payload)
-        default:
-            return state
-    }
-}
-
 export const auditTeamCc = (state = initialState, action) => {
 
     switch (action.type) {
@@ -172,23 +152,54 @@ export const auditTeamCc = (state = initialState, action) => {
     }
 }
 
-export const comment = (state: Comment[] = [], action) => {
+export const comment = (state=initialState, action) => {
     switch (action.type) {
         case A.addComment:
+            return Object.assign({}, state, {
+
+                allComments: [
+                    ...state.allComments,
+                    action.payload
+                ]
+
+            })
+
+        case A.editComment:
+
+            return Object.assign({}, state, {
+
+                allComments: [
+                    ...state.allComments,
+                    
+                ].filter(comment => comment.id !== action.payload.id)
+                .concat(action.payload)
+            })
+
+        case A.removeComment:
+            return Object.assign({}, state, {
+
+                allComments: [
+                    ...state.allComments,
+                    
+                ].filter((note, i) => i !== action.payload)
+            })
+        default:
+            return state
+    }
+}
+
+export const errors = (state: any[] = [], action) => {
+    switch (action.type) {
+        case A.addError:
             return [
                 ...state,
                 action.payload
             ]
 
-        case A.editComment:
+        // TODO: Refactor clear error
+        case A.clearError:
 
-            return [
-                ...state
-            ].filter(comment => comment.id !== action.payload.id)
-                .concat(action.payload);
-
-        case A.removeComment:
-            return state.filter((note, i) => i !== action.payload)
+            return state.filter((message, i) => i !== action.payload)
         default:
             return state
     }
