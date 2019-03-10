@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
-import { request, 
-    auditTeamCc, 
+import {
+    request,
+    auditTeamCc,
     engagementType,
     accFramework,
-    errors, 
+    errors,
     visibilityFilter,
-    comment } from './query'
+    comment
+} from './request'
 
 
 export default combineReducers({
@@ -13,11 +15,11 @@ export default combineReducers({
     engagementType,
     accFramework,
     comment,
-    auditTeamCc, 
-    errors, 
+    auditTeamCc,
+    errors,
     visibilityFilter,
-   
-   
+
+
 
 
 })

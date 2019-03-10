@@ -1,0 +1,34 @@
+{
+    "supportTeamAllocated": {
+        "id": 5,
+        "name": "DPP Accounting & Reporting"
+    },
+    "training": false,
+    "faq": false,
+    "labels": [],
+    "assignee": {
+        "id": 100,
+        "name": "Loretta Newman"
+    },
+    "reviewer": {
+        "id": 100,
+        "name": "Barbara Newman"
+    },
+    "supportTeamComments": [
+        {
+            "id": 285,
+            "content": "Sorry you were asked to look at this.  The team had not consulted me first.",
+            "owner": "Greg McIntosh",
+            "date": "14/12/2018"
+        },
+        {
+            "id": 288,
+            "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
+            "owner": "Philip Johnstone",
+            "date": "14/12/2018"
+        }
+    ],
+    "finalConsultationAnalysis": "Lorem ipsum...",
+    "conclusion": "Lorem ipsum",
+    "addToKB": true
+}
