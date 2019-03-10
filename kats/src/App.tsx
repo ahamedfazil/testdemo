@@ -123,7 +123,8 @@ store.dispatch({
   store.dispatch({
     type:addComment,
     payload: {
-      "note": "Where are we with the responses?",
+      "id":4,
+      "note": "Where are we with responses?",
       "owner": "Neil Manning",
       "date": "15-04-2017"
     }
@@ -132,18 +133,37 @@ store.dispatch({
   store.dispatch({
     type:addComment,
     payload: {
+      "id":100,
       "note": "I love Fridays",
       "owner": "Lazza",
       "date": "20-05-2019"
     }
     })
 
+  // store.dispatch({
+  //   type:removeComment,
+  //   payload: 1
+  //   })
+
+  store.dispatch({
+    type:editComment,
+    payload: {
+      "id":4,
+      "note": "I like it when a plan comes together?",
+      "owner": "Neil Manning",
+      "date": "15-04-2017"
+    }
+    })
+
     store.dispatch({
-      type:removeComment,
-      payload: 1
+      type:addComment,
+      payload: {
+        "id":12,
+        "note": "Solomon Grandy, born on Monday...",
+        "owner": "Frank",
+        "date": "20-05-2019"
+      }
       })
-
-
 
 //console.log('next state', store.getState());
 

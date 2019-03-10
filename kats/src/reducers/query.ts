@@ -108,7 +108,7 @@ export const auditTeamCc = (state =[], action) => {
     
 }
 
-export const comment = (state= [], action) => {
+export const comment = (state:any[]= [], action) => {
     switch (action.type) {
         case A.addComment:
             return[ 
@@ -117,13 +117,12 @@ export const comment = (state= [], action) => {
             ]
 
         case A.editComment:
-            
-                      
+                             
             return [
-            ...state,
-            comment(state,action)
-            ].filter((note, i) => i !== action.payload)
-
+            ...state
+        ].filter(comment => comment.id !== action.payload.id)
+        .concat(action.payload);
+        
         case A.removeComment:
             return state.filter((note, i) => i !== action.payload)
         default:
@@ -131,13 +130,3 @@ export const comment = (state= [], action) => {
     }
 }
 
-// export const changeComment =(state =[],action) =>{
-//     state.filter((note, i) => i !== action.payload)
-//     //const hasComment = (state.index === action.payload.index)
-//     return (hasComment) ?
-//                 state:
-//                 [
-//                 ...state,
-//                 comment(state,action)
-//                 ].filter((note, i) => i !== action.payload)
-// }

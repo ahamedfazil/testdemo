@@ -1,6 +1,8 @@
 import C from '../constants';
 import { User } from '../models/User'
 import { Query } from '../models/Query';
+import { DictionaryItem } from '../models/DictionaryItem';
+import { Comment } from '../models/Comment';
 
 
 export const visibilityFilters = {
@@ -74,10 +76,10 @@ export const setVisibilityFilter = (filter) =>
     payload: filter
 })
 
-export const addEngagementType = (index:number) =>
+export const addEngagementType = (item:DictionaryItem) =>
 ({
     type: C.ADD_ENGAGEMENT_TYPE,
-    payload:index
+    payload:item
 })
 
 export const removeEngagementType = (index:number) =>
@@ -177,10 +179,10 @@ export const setStatus = (index:number) =>
     payload:index
 })
 
-export const addComment = (note:string,owner:string,date:number) =>
+export const addComment = (item:Comment) =>
 ({
     type: C.ADD_COMMENT,
-    payload: {note,owner,date}
+    payload: item
 })
 
 export const removeComment = (index:number) =>
@@ -190,8 +192,8 @@ export const removeComment = (index:number) =>
 })
 
 
-export const editComment = (index:number) =>
+export const editComment = (item:Comment) =>
 ({
     type: C.EDIT_COMMENT,
-    payload: index
+    payload: item
 })
