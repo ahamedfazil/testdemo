@@ -1,5 +1,7 @@
 export class Comment {
     id:number;
-    date:number;
-    note:string;
+    content:string;
+    userId:string;
+    date:string;
+    
 }

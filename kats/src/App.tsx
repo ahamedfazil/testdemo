@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import storeFactory from './store'
-import C from './constants';
 import initialState from './initialState/queryState.json'
 import appReducer from './reducers'
 import { createStore } from 'redux'
-import { addEngagementType, removeEngagementType, addComment, setCategory, setStatus, removeComment, editComment } from './actions';
+import { setCategory, setStatus, addComment, addEngagementType, setRespIndividual, setEngagementName, addAuditTeamCc, removeAuditTeamCc } from './actions';
+
 
 
 
@@ -43,127 +43,58 @@ store.subscribe(() =>console.log(store.getState()))
 //     }
 //   })
 
+  
   store.dispatch({
-    type:C.ADD_ERROR,
-    payload: "Server not found"
+    type:setRespIndividual,
+    payload: "Coral James"
     
   })
+
   store.dispatch({
-    type:setCategory,
-    payload: 1
+    type:setEngagementName,
+    payload: "Life of Pi"
   })
 
   store.dispatch({
-    type:setStatus,
-    payload: 2
-  })
-  store.dispatch({
-    type:addEngagementType,
-    payload: 1
-  })
-  store.dispatch({
-    type:addEngagementType,
-    payload: 2
-  })
-
-  store.dispatch({
-    type:addEngagementType,
-    payload: 3
-  })
-
-  store.dispatch({
-    type:removeEngagementType,
-    payload: 2
-  })
-
-store.dispatch({
-  type:C.ADD_AUDIT_TEAM_CC,
-  payload: "Theresa May"
-})
-
-store.dispatch({
-  type:C.ADD_AUDIT_TEAM_CC,
-  payload: 5
-})
-
-
-store.dispatch({
-  type:C.REMOVE_AUDIT_TEAM_CC,
-  payload: 5
-})
-
-
-
-  store.dispatch({
-    type:C.ADD_QUERY,
-    payload:{
-      id:1234,
-    submitter: "laza ",
-    auditTeamCc: "UKTP",
-    respIndividual: "Me",
-    engagementName: "Read",
-    engagementChargeCode:5,
-    periodEnd:"20/3/2109",
-    engagementType:4,
-    auditStandardsId:12,
-    accountFramework: "Minecraft",
-    categoryId:2,
-    ticketTypeId: 6,
-    subject:"Pfizer chief wants to run..",
-    detailedAnalysis:"Blah blah",
-    question: "People can have a look",
-    priorityId: 10,
-    reasonForUrgency:"I want it now",
-    watcher: "Michelle Banrnier",
-    status:"not done",
-    commentsId: 5
-    }
-  })
-
-  store.dispatch({
-    type:addComment,
+    type:addAuditTeamCc,
     payload: {
-      "id":4,
-      "note": "Where are we with responses?",
-      "owner": "Neil Manning",
-      "date": "15-04-2017"
+      "id": 32,
+      "fullName": "Larry Akin-Olamiti"
     }
-    })
+  })
 
   store.dispatch({
-    type:addComment,
-    payload: {
-      "id":100,
-      "note": "I love Fridays",
-      "owner": "Lazza",
-      "date": "20-05-2019"
-    }
-    })
+    type: removeAuditTeamCc,
+    payload:2
+  })
 
   // store.dispatch({
-  //   type:removeComment,
-  //   payload: 1
-  //   })
+  //   type:C.ADD_QUERY,
+  //   payload:{
+  //     id:1234,
+  //   submitter: "laza ",
+  //   auditTeamCc: "UKTP",
+  //   respIndividual: "Me",
+  //   engagementName: "Read",
+  //   engagementChargeCode:5,
+  //   periodEnd:"20/3/2109",
+  //   engagementType:4,
+  //   auditStandardsId:12,
+  //   accountFramework: "Minecraft",
+  //   categoryId:2,
+  //   ticketTypeId: 6,
+  //   subject:"Pfizer chief wants to run..",
+  //   detailedAnalysis:"Blah blah",
+  //   question: "People can have a look",
+  //   priorityId: 10,
+  //   reasonForUrgency:"I want it now",
+  //   watcher: "Michelle Banrnier",
+  //   status:"not done",
+  //   commentsId: 5
+  //   }
+  // })
 
-  store.dispatch({
-    type:editComment,
-    payload: {
-      "id":4,
-      "note": "I like it when a plan comes together?",
-      "owner": "Neil Manning",
-      "date": "15-04-2017"
-    }
-    })
-
-    store.dispatch({
-      type:addComment,
-      payload: {
-        "id":12,
-        "note": "Solomon Grandy, born on Monday...",
-        "owner": "Frank",
-        "date": "20-05-2019"
-      }
-      })
+  
 
 //console.log('next state', store.getState());
 

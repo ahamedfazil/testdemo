@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux'
 import C from '../constants'
 import { User } from '../models/User';
-import { Query } from '../models/Query';
 import * as A from '../actions'
-import { number } from 'prop-types';
-
+import { Comment } from '../models/Comment';
+import initialState from '../initialState/queryState.json'
 
 
 //TODO: Include user context i.e. support user or auditor in initial state reducer
@@ -20,109 +19,174 @@ export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
     }
 }
 
-export const request = (state = null , action) => {
+export const request = (state = initialState, action) => {
 
     switch (action.type) {
 
         case A.setRespIndividual:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                respIndividual: action.payload
+            })
 
-        case A.addEngagementType:
-            action.payload
-            return state
+        case A.setEngagementName:
+            return Object.assign({}, state, {
+                engagementName: action.payload
+            })
+
+        case A.setEngagementChargeCode:
+            return Object.assign({}, state, {
+                engagementChargeCode: action.payload
+            })
 
         case A.setAccEndPeriod:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                periodEnd: action.payload
+            })
 
-        case A.setAuditStd:
-            action.payload
-            return state
+        case A.setAuditStandard:
+            return Object.assign({}, state, {
+                auditingStandards: action.payload
+            })
 
         case A.setCategory:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                category: action.payload
+            })
 
         case A.setSubject:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                subject: action.payload
+            })
 
         case A.setDetailedAnalysis:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                detailedAnalysis: action.payload
+            })
+
+        case A.setQuestion:
+            return Object.assign({}, state, {
+                question: action.payload
+            })
 
         case A.setPriority:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                isUrgent: action.payload
+            })
 
         case A.setUrgencyReason:
-            action.payload
-            return state
+            return Object.assign({}, state, {
+                isUrgent: action.payload
+            })
 
-        case A.setStatus:
-            action.payload
-            return state
         default:
             return state
     }
 }
 
-export const errors = (state=[],action) => {
+export const engagementType = (state = initialState, action) => {
     switch (action.type) {
-        case C.ADD_ERROR:
+
+        case A.addEngagementType:
+            return Object.assign({}, state, {
+
+                engagementType: [
+                    ...state.engagementType,
+                    action.payload
+                ]
+
+            })
+
+        case A.removeEngagementType:
+            return Object.assign({}, state, {
+                engagementType: state.engagementType.filter((note, i) => i !== action.payload)
+            })
+
+        default:
+            return state
+
+    }
+}
+
+export const accFramework = (state = initialState, action) => {
+    switch (action.type) {
+
+        case A.addAccFramework:
+            return Object.assign({}, state, {
+
+                accountingFramework: [
+                    ...state.accountingFramework,
+                    action.payload
+                ]
+
+            })
+
+        case A.removeAccFramework:
+            return Object.assign({}, state, {
+                accountingFramework: state.accountingFramework.filter((note, i) => i !== action.payload)
+            })
+
+        default:
+            return state
+
+    }
+}
+
+export const errors = (state: any[] = [], action) => {
+    switch (action.type) {
+        case A.addError:
             return [
                 ...state,
                 action.payload
             ]
+
+        // TODO: Refactor clear error
         case C.CLEAR_ERROR:
+
             return state.filter((message, i) => i !== action.payload)
         default:
             return state
     }
 }
 
-export const auditTeamCc = (state =[], action) => {
+export const auditTeamCc = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case C.ADD_AUDIT_TEAM_CC:
-            return [
-                ...state,
-                {
-                    text:action.payload
-                }
-            ]
+        case A.addAuditTeamCc:
+            return Object.assign({}, state, {
 
-        case C.REMOVE_AUDIT_TEAM_CC:
-            return state.map((user,index)=>{
-                if(index === action.payload){
-                    return Object.assign({},user,{
-                        index:!action.payload
-                    })
-                }
+                auditTeamCc: [
+                    ...state.auditTeamCc,
+                    action.payload
+                ]
+
             })
-            default:
-                return state
+        case A.removeAuditTeamCc:
+            return Object.assign({}, state, {
+                auditTeamCc: state.auditTeamCc.filter((note, i) => i !== action.payload)
+            })
+
+
+        default:
+            return state
     }
-    
 }
 
-export const comment = (state:any[]= [], action) => {
+export const comment = (state: Comment[] = [], action) => {
     switch (action.type) {
         case A.addComment:
-            return[ 
+            return [
                 ...state,
                 action.payload
             ]
 
         case A.editComment:
-                             
+
             return [
-            ...state
-        ].filter(comment => comment.id !== action.payload.id)
-        .concat(action.payload);
-        
+                ...state
+            ].filter(comment => comment.id !== action.payload.id)
+                .concat(action.payload);
+
         case A.removeComment:
             return state.filter((note, i) => i !== action.payload)
         default:

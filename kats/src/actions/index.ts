@@ -3,6 +3,7 @@ import { User } from '../models/User'
 import { Query } from '../models/Query';
 import { DictionaryItem } from '../models/DictionaryItem';
 import { Comment } from '../models/Comment';
+import { Submitter } from '../models/Submitter';
 
 
 export const visibilityFilters = {
@@ -12,8 +13,32 @@ export const visibilityFilters = {
 
 }
 
+export const setVisibilityFilter = (filter) =>
+({
+    type: C.SET_VISIBILITY_FILTER,
+    payload: filter
+})
 
-export const setRespIndividual = (user:string) =>
+export function setSubmitter (user:Submitter){
+    return{
+        type:C.SET_SUBMITTER,
+        payload: user
+    }
+}
+
+export const addAuditTeamCc = (user:User) =>
+({
+    type: C.ADD_AUDIT_TEAM_CC,
+    payload: user
+})
+
+export const removeAuditTeamCc = (index:number) =>
+({
+    type: C.REMOVE_AUDIT_TEAM_CC,
+    payload: index
+})
+
+export const setRespIndividual = (user:User) =>
 ({
     type: C.SET_RESPONSIBLE_INDIVIDUAL,
     payload: user
@@ -25,55 +50,16 @@ export const setEngagementName = (text:string) =>
     payload: text
 })
 
-export const setEngagementChargeCode = (text:string)=>
+export const setEngagementChargeCode = (value:number)=>
 ({
     type:C.SET_ENGAGEMENT_CHARGE_CODE,
-    payload:text
+    payload:value
 })
 
 export const setAccEndPeriod = (text:string) =>
 ({
     type: C.SET_ACCOUNTING_PERIOD_END,
     payload:text
-})
-
-
-
-export function setSubmitter (user:User){
-    return{
-        type:C.SET_SUBMITTER,
-        payload: user
-    }
-}
-
-export const addError = (index:number) =>
-({
-    type: C.ADD_ERROR,
-    payload: index
-})
-
-export const clearError = (index:number) =>
-({
-    type: C.CLEAR_ERROR,
-    payload:index
-})
-
-export const addQuery = (query:Query) =>
-({
-    type: C.ADD_QUERY,
-    payload: query
-})
-
-export const removeQuery = (index:number) =>
-({
-    type:C.REMOVE_QUERY,
-    payload: index
-})
-
-export const setVisibilityFilter = (filter) =>
-({
-    type: C.SET_VISIBILITY_FILTER,
-    payload: filter
 })
 
 export const addEngagementType = (item:DictionaryItem) =>
@@ -88,29 +74,29 @@ export const removeEngagementType = (index:number) =>
     payload: index
 })
 
-export const setAuditStd = (index:number) =>
+export const setAuditStandard = (item:DictionaryItem) =>
 ({
     type: C.SET_AUDITING_STANDARDS,
-    payload:index
+    payload:item
 })
 
 
-export const addAccFramewk = (index:number) =>
+export const addAccFramework = (item:DictionaryItem) =>
 ({
     type: C.ADD_ACCOUNTING_FRAMEWORK,
-    payload:index
+    payload:item
 })
 
-export const removeAccFramewk = (index:number) =>
+export const removeAccFramework = (item:DictionaryItem) =>
 ({
     type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-    payload: index
+    payload: item
 })
 
-export const setCategory = (index:number) =>
+export const setCategory = (item:DictionaryItem) =>
 ({
     type: C.SET_CATEGORY,
-    payload: index
+    payload: item
 })
 
 export const addTopic = (index:number) =>
@@ -134,6 +120,12 @@ export const setSubject = (text:string) =>
 export const setDetailedAnalysis = (text:string) =>
 ({
     type: C.SET_DETAILED_ANALYSIS,
+    payload: text
+})
+
+export const setQuestion = (text:string) =>
+({
+    type: C.SET_QUESTION,
     payload: text
 })
 
@@ -161,22 +153,16 @@ export const removeFile = (index:number) =>
     payload: index
 })
 
-export const addWatcher = (text:string) =>
+export const addWatcher = (user:User) =>
 ({
     type: C.ADD_WATCHER,
-    payload: text
+    payload: user
 })
 
 export const removeWatcher = (index:number) =>
 ({
     type:C.REMOVE_WATCHER,
     payload: index
-})
-
-export const setStatus = (index:number) =>
-({
-    type: C.SET_STATUS,
-    payload:index
 })
 
 export const addComment = (item:Comment) =>
@@ -196,4 +182,23 @@ export const editComment = (item:Comment) =>
 ({
     type: C.EDIT_COMMENT,
     payload: item
+})
+
+export const setStatus = (item:DictionaryItem) =>
+({
+    type: C.SET_STATUS,
+    payload:item
+})
+
+
+export const addError = (index:number) =>
+({
+    type: C.ADD_ERROR,
+    payload: index
+})
+
+export const clearError = (index:number) =>
+({
+    type: C.CLEAR_ERROR,
+    payload:index
 })

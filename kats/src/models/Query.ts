@@ -1,4 +1,6 @@
 import { User } from "./User";
+import { DictionaryItem } from "./DictionaryItem";
+import { Comment } from "./Comment";
 
 export class Query {
     id:number;
@@ -7,19 +9,19 @@ export class Query {
     respIndividual: User;
     engagementName: string;
     engagementChargeCode:number;
-    periodEnd:number;
-    engagementType:any[];
-    auditStandardsId:number;
-    accountFramework: any[];
-    categoryId:number;
-    ticketTypeId: number;
+    periodEnd:Date;
+    engagementType:DictionaryItem;
+    auditStandards:DictionaryItem;
+    accountFramework: DictionaryItem[];
+    category:DictionaryItem;
+    ticketType: DictionaryItem[];
     subject:string;
     detailedAnalysis:string;
     question:string;
-    priorityId: number;
+    isUrgent: boolean;
     reasonForUrgency:string;
-    watcher: User;
-    status:string;
-    commentsId: number;
+    watcher: User[];
+    status:DictionaryItem;
+    comments: Comment[];
 
 }
