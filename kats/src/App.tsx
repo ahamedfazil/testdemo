@@ -3,12 +3,12 @@ import './App.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { Provider } from 'react-redux'
-import { addError } from './actions'
+import { addError, addToKB, setSubject } from './actions'
 
 
 const initialState = (localStorage['redux-store']) ?
   JSON.parse(localStorage['redux-store']) :
-  sampleData  
+  {}  
 
 const saveState = () => 
   localStorage['redux-store'] = JSON.stringify(store.getState())
@@ -26,12 +26,16 @@ store.subscribe(saveState)
 
 window.addEventListener("error", handleError)
 
+store.dispatch({
+  type: setSubject,
+  payload: "The Life of Pi"
+})
 
 class App extends Component {
   
   render() {
     return (
-      <Provider>
+      <Provider store ={store}>
       <div className="App">
         <header className="App-header">
           
