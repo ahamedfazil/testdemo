@@ -202,3 +202,75 @@ export const clearError = (index:number) =>
     type: C.CLEAR_ERROR,
     payload:index
 })
+
+export const assignSupportTeam = (index: number) =>
+({
+    type: C.ASSIGN_SUPPORT_TEAM,
+    payload: index
+})
+
+export const requireTraining = (isTraining:boolean) =>
+({
+    type: C.REQUIRE_TRAINING,
+    payload: isTraining
+})
+
+export const setFaq = (isFaq:boolean) =>
+({
+    type: C.SET_FAQ,
+    payload: isFaq
+})
+
+export const changeSuggestions = suggestions =>
+({
+    type:C.CHANGE_SUGGESTIONS,
+    payload: suggestions
+})
+
+export const clearSuggestions = () => 
+    ({
+        type: C.CLEAR_SUGGESTIONS
+    })
+
+export const suggestLabelName = value => dispatch => {
+    dispatch({
+        type: C.FETCH_LABELS
+    })
+    //TODO: Add rest API call to term store for enterprise keywords/term set
+}
+
+export const removeLabel = (index:number) =>
+({
+    type: C.REMOVE_LABEL,
+    payload: index
+})
+
+export const setAssignee = (user: User) =>
+({
+    type: C.SET_ASSIGNEE,
+    payload: user
+})
+
+export const setReviewer = (user: User) =>
+({
+    type: C.SET_REVIEWER,
+    payload: user
+})
+
+export const setConsultation = (text:string) =>
+({
+    type: C.SET_CONSULTATION,
+    payload: text
+})
+
+export const setConculsion = (text:string) =>
+({
+    type: C.SET_CONCLUSION,
+    payload: text
+})
+
+export const addToKB = (isKb:boolean) =>
+({
+    type: C.ADD_TO_KB,
+    payload: isKb
+})

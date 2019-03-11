@@ -1,11 +1,15 @@
 {
+    "visibilityFilter": "SHOW_ALL",
     "supportTeamAllocated": {
         "id": 5,
         "name": "DPP Accounting & Reporting"
     },
     "training": false,
     "faq": false,
-    "labels": [],
+    "labels": {
+        "fetching":false,
+        "suggestions": []
+    },
     "assignee": {
         "id": 100,
         "name": "Loretta Newman"
@@ -19,16 +23,18 @@
             "id": 285,
             "content": "Sorry you were asked to look at this.  The team had not consulted me first.",
             "owner": "Greg McIntosh",
-            "date": "14/12/2018"
+            "date": "14/12/2018",
+            "isInternalOnly":true
         },
         {
             "id": 288,
             "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
             "owner": "Philip Johnstone",
-            "date": "14/12/2018"
+            "date": "14/12/2018",
+            "isInternalOnly":true
         }
     ],
-    "finalConsultationAnalysis": "Lorem ipsum...",
+    "finalConsultation": "Lorem ipsum...",
     "conclusion": "Lorem ipsum",
-    "addToKB": true
+    "addToKb": true
 }

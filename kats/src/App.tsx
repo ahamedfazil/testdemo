@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import storeFactory from './store'
-import initialState from './initialState/queryState.json'
+import initialState from './initialState/requestState.json'
 import appReducer from './reducers'
 import { createStore } from 'redux'
-import { setCategory, setStatus, addComment, addEngagementType, setRespIndividual, setEngagementName, addAuditTeamCc, removeAuditTeamCc } from './actions';
+import { setRespIndividual, setEngagementName, addAuditTeamCc, removeAuditTeamCc } from './actions';
 
 
 

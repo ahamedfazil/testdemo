@@ -1,6 +1,5 @@
-import { combineReducers } from 'redux'
 import * as A from '../actions'
-import initialState from '../initialState/queryState.json'
+import initialState from '../initialState/requestState.json'
 
 
 //TODO: Include user context i.e. support user or auditor in initial state reducer

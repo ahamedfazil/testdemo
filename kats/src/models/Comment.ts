@@ -3,5 +3,6 @@ export class Comment {
     content:string;
     userId:string;
     date:string;
+    isInternalOnly:boolean;
     
 }

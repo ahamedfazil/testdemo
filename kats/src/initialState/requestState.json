@@ -105,13 +105,16 @@
             "id": 285,
             "content": "Sorry you were asked to look at this.  The team had not consulted me first.",
             "owner": "Greg McIntosh",
-            "date": "14/12/2018"
+            "date": "14/12/2018",
+            "isInternalOnly":false
+            
         },
         {
             "id": 288,
             "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
             "owner": "Philip Johnstone",
-            "date": "14/12/2018"
+            "date": "14/12/2018",
+            "isInternalOnly":false
         }
     ],
     "status": {
