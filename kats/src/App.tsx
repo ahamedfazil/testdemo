@@ -21,8 +21,8 @@ const handleError = error => {
 const store = storeFactory(initialState)
 store.subscribe(saveState)
 
-window.React = React
-window.store = store
+// window.React = React
+// window.store = store
 
 window.addEventListener("error", handleError)
 
@@ -43,3 +43,4 @@ class App extends Component {
 }
 
 export default App;
+
