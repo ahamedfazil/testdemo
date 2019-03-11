@@ -9,6 +9,8 @@
   "author": "Larry Akin",
   "license": "ISC",
   "dependencies": {
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
     "redux-starter-kit": "^0.4.3"
   }
 }

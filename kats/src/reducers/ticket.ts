@@ -4,7 +4,7 @@ import initialState from '../initialState/ticketState.json'
 
 const { SHOW_MY_SUBMITTED } = A.visibilityFilters
 
-export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
+export const supportVisibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
     switch (action.type) {
         case A.setVisibilityFilter:
             return action.filter
@@ -113,17 +113,23 @@ export const fetching = (state = false, action) => {
 
 }
 
-export const suggestions = (state, action) => {
+export const suggestions = (state = initialState, action) => {
 
-    switch(action.type){
+    switch (action.type) {
         
-        case A.clearSuggestions :
-        return []
+        case A.clearSuggestions:
+        
+            return Object.assign({}, state, {
+                suggestions: [
+                    ...state.labels.suggestions].splice(0)
+                    
+            
+            })
 
-        case A.changeSuggestions :
-        return action.payload  
+        case A.changeSuggestions:
+            return action.payload
 
-        default :
-        return state
+        default:
+            return state
     }
 }

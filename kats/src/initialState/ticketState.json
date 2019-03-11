@@ -8,7 +8,7 @@
     "faq": false,
     "labels": {
         "fetching":false,
-        "suggestions": []
+        "suggestions": ["Subsequent events", "Substantive sampling", "Substantive testing"]
     },
     "assignee": {
         "id": 100,

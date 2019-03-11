@@ -9,6 +9,14 @@ import {
     comment
 } from './request'
 
+import {
+    supportVisibilityFilter,
+    supportFields,
+    fetching,
+    suggestions
+
+} from './ticket'
+
 
 export default combineReducers({
     request,
@@ -18,6 +26,13 @@ export default combineReducers({
     auditTeamCc,
     errors,
     visibilityFilter,
+    supportVisibilityFilter,
+    supportFields,
+    labelNames: combineReducers({
+        fetching,
+        suggestions
+    })
+    
 
 
 
