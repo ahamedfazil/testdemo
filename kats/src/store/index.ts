@@ -2,31 +2,31 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers'
 
-// const store = createStore(combineReducers)
 
-const consoleMessages = store =>next => action => {
+
+const consoleMessages = store => next => action => {
     let result
 
     console.groupCollapsed(`dispatching action => ${action.type}`)
-    console.log('Request', store.getstate().allQueries);
+    console.log('Request', store.getState().subject);
     result = next(action)
 
 
-    let {allQueries,submitter, errors} = store.getstate()
+    let { subject, engagementType, errors } = store.getState()
 
     console.log(`
-            Request info: ${allQueries.length}
-            Submitter: ${submitter}
-            errors: ${errors}
+            Request info: ${subject}
+            Engagement type: ${engagementType}
+            errors: ${errors.length}
     `)
 
     console.groupEnd()
 
     return result
-    
-    
+
+
 }
 
 export default (intialState = {}) => {
-    return applyMiddleware(thunk,consoleMessages)(createStore)(appReducer,intialState)
+    return applyMiddleware(thunk, consoleMessages)(createStore)(appReducer, intialState)
 }
