@@ -1,6 +1,6 @@
 import C from '../constants';
 import { User } from '../models/User'
-import { Query } from '../models/Query';
+import { Request } from '../models/Request';
 import { DictionaryItem } from '../models/DictionaryItem';
 import { Comment } from '../models/Comment';
 import { Submitter } from '../models/Submitter';
@@ -191,10 +191,10 @@ export const setStatus = (item:DictionaryItem) =>
 })
 
 
-export const addError = (index:number) =>
+export const addError = (message:string) =>
 ({
     type: C.ADD_ERROR,
-    payload: index
+    payload: message
 })
 
 export const clearError = (index:number) =>

@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers'
+import Request from '../models/Request'
 
-
+var request = new Request();
 
 const consoleMessages = store => next => action => {
     let result
@@ -11,13 +12,13 @@ const consoleMessages = store => next => action => {
     console.log('Request', store.getState().subject);
     result = next(action)
 
-
-    let { subject, engagementType, errors } = store.getState()
+     
+    request = store.getState()
 
     console.log(`
-            Request info: ${subject}
-            Engagement type: ${engagementType}
-            errors: ${errors.length}
+            Subject: ${request.subject}
+            Engagement type: ${request.engagementType}
+            errors: ${request.errors.length}
     `)
 
     console.groupEnd()

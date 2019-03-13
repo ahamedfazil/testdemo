@@ -3,7 +3,7 @@ import './App.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { Provider } from 'react-redux'
-import { addError,addEngagementType, addToKB } from './actions'
+import { addError,addEngagementType, addToKB, setSubject } from './actions'
 
 
 const initialState = (localStorage['redux-store']) ?
@@ -36,13 +36,14 @@ window.addEventListener("error", handleError)
 //   addEngagementType({5,"EU FRA"}))
 
 store.dispatch(
-  addError(4)
+  addError("Please try again later")
 )
 
 store.dispatch(
   addToKB(true)
 )
 
+store.dispatch(setSubject("The Life of Pi"))
 
 class App extends Component {
   

@@ -2,7 +2,7 @@ import { User } from "./User";
 import { DictionaryItem } from "./DictionaryItem";
 import { Comment } from "./Comment";
 
-export class Query {
+export class Request {
     id:number;
     submitter: User;
     auditTeamCc: [];
@@ -23,5 +23,8 @@ export class Query {
     watcher: User[];
     status:DictionaryItem;
     comments: Comment[];
+    errors: any[]
 
 }
+
+export default Request
