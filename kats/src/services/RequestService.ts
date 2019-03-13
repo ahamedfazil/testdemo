@@ -1,4 +1,5 @@
 import { Query } from "../models/Query";
+import { setup as pnpSetup } from "@pnp/common";
 
 export interface IRequestService{
     add(request:Query):Query;
