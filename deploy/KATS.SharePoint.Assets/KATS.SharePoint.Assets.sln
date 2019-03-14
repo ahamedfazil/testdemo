@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KATS.SharePoint.Assets", "KATS.SharePoint.Assets\KATS.SharePoint.Assets.csproj", "{32396451-2D92-446B-B994-5168C2637544}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32396451-2D92-446B-B994-5168C2637544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32396451-2D92-446B-B994-5168C2637544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32396451-2D92-446B-B994-5168C2637544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32396451-2D92-446B-B994-5168C2637544}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D3F4E17-E7E7-45EA-BC69-CBF276882CBD}
+	EndGlobalSection
+EndGlobal
