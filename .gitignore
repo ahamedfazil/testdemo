@@ -1,3 +1,9 @@
+*.suo
+*.csproj
+debug/
+server/
+packages/
+bin/
 *.dll
 # Logs
 logs
