@@ -3,9 +3,10 @@ import thunk from 'redux-thunk'
 import appReducer from '../reducers'
 import Request from '../models/Request'
 
-var request = new Request();
+
 
 const consoleMessages = store => next => action => {
+    
     let result
 
     console.groupCollapsed(`dispatching action => ${action.type}`)
@@ -13,11 +14,11 @@ const consoleMessages = store => next => action => {
     result = next(action)
 
      
-    request = store.getState()
+    let request:Request = store.getState()
 
     console.log(`
             Subject: ${request.subject}
-            Engagement type: ${request.engagementType}
+            Engagement type: ${request.engagementType.value}
             errors: ${request.errors.length}
     `)
 

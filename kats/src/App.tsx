@@ -32,8 +32,8 @@ window.addEventListener("error", handleError)
 //   payload:"Hello"
 // })
 
-// store.dispatch(
-//   addEngagementType({5,"EU FRA"}))
+store.dispatch(
+  addEngagementType({id:5,value:"EU FRA"}))
 
 store.dispatch(
   addError("Please try again later")

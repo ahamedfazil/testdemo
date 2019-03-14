@@ -1,8 +1,8 @@
 export class Comment {
     id:number;
+    ticketId:number;
     content:string;
     userId:string;
-    date:string;
-    isInternalOnly:boolean;
+    isPrivate:boolean;
     
 }
