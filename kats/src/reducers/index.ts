@@ -14,8 +14,9 @@ import {
     supportFields,
     fetching,
     suggestions
-
 } from './ticket'
+
+import { setSubmitter,infoBySubmitter } from './submitter'
 
 
 export default combineReducers({
@@ -28,6 +29,10 @@ export default combineReducers({
     visibilityFilter,
     supportVisibilityFilter,
     supportFields,
+    submitter:combineReducers({
+        setSubmitter,
+        infoBySubmitter
+    }),
     labelNames: combineReducers({
         fetching,
         suggestions

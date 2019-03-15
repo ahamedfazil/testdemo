@@ -19,6 +19,11 @@ export const request = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case A.setSubmitter:
+        return Object.assign({}, state,{
+            submitter: action.payload
+        })
+
         case A.setRespIndividual:
             return Object.assign({}, state, {
                 respIndividual: action.payload

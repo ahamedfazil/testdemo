@@ -1,9 +1,8 @@
 import C from '../constants';
 import { User } from '../models/User'
-import { Request } from '../models/Request';
 import { DictionaryItem } from '../models/DictionaryItem';
 import { Comment } from '../models/Comment';
-import { Submitter } from '../models/Submitter';
+import { SubmitterService } from '../services/SubmitterService'
 
 
 export const visibilityFilters = {
@@ -19,11 +18,16 @@ export const setVisibilityFilter = (filter) =>
     payload: filter
 })
 
-export function setSubmitter (user:Submitter){
-    return{
-        type:C.SET_SUBMITTER,
-        payload: user
-    }
+export const setSubmitter = (userId: string) => dispatch => {
+
+    dispatch({
+        type: C.REQUEST_SUBMITTER_INFO
+    })
+
+    let svc: SubmitterService = new SubmitterService();
+    let submitter = svc.get(userId);
+
+    return submitter
 }
 
 export const addAuditTeamCc = (user:User) =>

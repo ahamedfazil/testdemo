@@ -3,8 +3,6 @@ import thunk from 'redux-thunk'
 import appReducer from '../reducers'
 import Request from '../models/Request'
 
-
-
 const consoleMessages = store => next => action => {
     
     let result
@@ -30,5 +28,6 @@ const consoleMessages = store => next => action => {
 }
 
 export default (intialState = {}) => {
-    return applyMiddleware(thunk, consoleMessages)(createStore)(appReducer, intialState)
+    return applyMiddleware(consoleMessages)(createStore)(appReducer, 
+        intialState)
 }

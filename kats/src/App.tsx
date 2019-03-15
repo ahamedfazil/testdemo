@@ -3,7 +3,9 @@ import './App.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { Provider } from 'react-redux'
-import { addError,addEngagementType, addToKB, setSubject } from './actions'
+import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
+import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
+
 
 
 const initialState = (localStorage['redux-store']) ?
@@ -32,30 +34,41 @@ window.addEventListener("error", handleError)
 //   payload:"Hello"
 // })
 
-store.dispatch(
-  addEngagementType({id:5,value:"EU FRA"}))
+
+store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
+//store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
 
 store.dispatch(
-  addError("Please try again later")
-)
+    addEngagementType({id:5,value:"EU FRA"}))
+  
+  store.dispatch(
+    addError("Please try again later")
+  )
+  
+  store.dispatch(
+    addToKB(true)
+  )
+  
+  store.dispatch(setSubject("The Life of Pi"))
 
-store.dispatch(
-  addToKB(true)
-)
 
-store.dispatch(setSubject("The Life of Pi"))
+// store.dispatch(
+//   setSubmitter("larry.akin@kpmg.co.uk")
+//   )
+
+
 
 class App extends Component {
   
   render() {
     return (
-      <Provider store ={store}>
+     
       <div className="App">
         <header className="App-header">
           
         </header>
-      </div>
-      </Provider>
+     </div>
+     
     );
   }
 }
