@@ -1,7 +1,7 @@
 import C from '../constants'
+import initialState from '../initialState/requestState.json'
 
-
-export const setSubmitter = (state:string,action)=> {
+export const setSubmitter = (state:string="",action)=> {
     switch (action.type) {
         case C.SET_SUBMITTER:
             return action.payload
@@ -10,7 +10,7 @@ export const setSubmitter = (state:string,action)=> {
     }
 }
 
-const submitterInfo = (state = {
+const userInfo = (state = {
     isFetching: false,
     didInvalidate: false,
     submitter: {}
@@ -44,13 +44,16 @@ const submitterInfo = (state = {
     }
 }
 
-export const infoBySubmitter = (state={},action) => {
+export const infoBySubmitter = (state=initialState,action) => {
     switch (action.type) {
         case C.INVALIDATE_SUBMITTER:
         case C.RECEIVE_SUBMITTER_INFO:
         case C.REQUEST_SUBMITTER_INFO:
             return Object.assign({}, state, {
-                [action.payload]: submitterInfo(state[action.payload],action)
+                [action.payload]: userInfo(state[action.payload],action)
             })
+        default:
+            return state
     }
+   
 }

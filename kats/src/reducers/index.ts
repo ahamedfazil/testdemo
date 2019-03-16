@@ -16,7 +16,7 @@ import {
     suggestions
 } from './ticket'
 
-import { setSubmitter,infoBySubmitter } from './submitter'
+import { setSubmitter } from './submitter'
 
 
 export default combineReducers({
@@ -31,7 +31,7 @@ export default combineReducers({
     supportFields,
     submitter:combineReducers({
         setSubmitter,
-        infoBySubmitter
+      //  infoBySubmitter
     }),
     labelNames: combineReducers({
         fetching,

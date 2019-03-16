@@ -16,7 +16,7 @@ const loggerMiddleware = createLogger()
 
 const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
-    middleware.push(createLogger())
+    middleware.push(loggerMiddleware)
 }
 
 const store = createStore(

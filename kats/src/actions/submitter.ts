@@ -20,7 +20,7 @@ export const invalidateSubmitterInfo = (userId) => ({
 })
 
 export function fetchSubmitterInfo (userId:string) {
-    return function (dispatch){
+    return function (dispatch:any){
         dispatch(requestSubmitterInfo(userId))
         return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/sp.userprofiles.peoplemanager/getpropertiesfor(@v)?@v=${userId}.json')
         .then(
@@ -33,5 +33,25 @@ export function fetchSubmitterInfo (userId:string) {
                 )
     }
 }
+
+export const shouldFetchUserInfo= (state,action)=>{
+    const userInfo = state.infoBySubmitter[action]
+    if(!userInfo) {
+        return true
+    }
+    if(userInfo.isFetching){
+        return false
+    }
+    return userInfo.didInvalidate
+}
+
+export const fetchUserInfoIfNeeded=(userInfo)=>
+(dispacth,getState)=>{
+    if(shouldFetchUserInfo(getState(),userInfo)){
+        return dispacth(fetchSubmitterInfo(userInfo))
+
+    }
+}
+
 
 export default requestSubmitterInfo
