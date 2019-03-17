@@ -3,30 +3,39 @@ import { sp } from '@pnp/sp'
 
 export class SubmitterService{
     
-async get (userId:string) {
-    sp
-    .profiles
-    .getPropertiesFor(userId).then((profile:any) => {
-    
-        console.log(profile.DisplayName);
-        console.log(profile.Email);
-        console.log(profile.Title);
-        console.log(profile.UserProfileProperties.length);
+    async get (userId:string):Promise<Submitter> {
+  
+        const userInfo = new Submitter;
+      
+        try {
+      
+        sp
+        .profiles
+        .getPropertiesFor(userId).then((profile:any) => {
         
-        let properties = new Submitter;
-
-        properties.user.fullname = profile.DisplayName;
-        properties.user.id = profile.Username;
-        properties.jobTitle = profile.Title;
-        properties.department = profile.Department;
-        properties.office = profile.Office;
-
-        })
-        
-        return new Submitter;
-    }
+            console.log(profile.DisplayName);
+            console.log(profile.Email);
+            console.log(profile.Title);
+            console.log(profile.UserProfileProperties.length);
+            
+           
+      
+           userInfo.user.fullname = profile.DisplayName;
+           userInfo.user.id = profile.Username;
+           userInfo.jobTitle = profile.Title;
+           userInfo.department = profile.Department;
+           userInfo.office = profile.Office;
+      
+            
+      
+            })}
+            catch (ex) {
+              console.log(ex);
+              
+          }
+          return userInfo;
+            }
 }
-
     // private url: string = 'https://localhost:44399/api'
     
     // async get(_userId: string): Promise<Submitter[]> {

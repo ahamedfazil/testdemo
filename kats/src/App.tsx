@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
-import { Provider } from 'react-redux'
 import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
 import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
 import { Submitter } from './models/Submitter'
 import { sp } from '@pnp/sp'
+import { DictionaryService } from './services/DictionaryService';
 
 
 
@@ -38,34 +38,51 @@ window.addEventListener("error", handleError)
 
 
 
-function get (userId:string) {
-  sp
-  .profiles
-  .getPropertiesFor(userId).then((profile:any) => {
+// async function get (userId:string):Promise<Submitter> {
   
-      console.log(profile.DisplayName);
-      console.log(profile.Email);
-      console.log(profile.Title);
-      console.log(profile.UserProfileProperties.length);
+//   const userInfo = new Submitter;
+
+//   try {
+
+//   sp
+//   .profiles
+//   .getPropertiesFor(userId).then((profile:any) => {
+  
+//       console.log(profile.DisplayName);
+//       console.log(profile.Email);
+//       console.log(profile.Title);
+//       console.log(profile.UserProfileProperties.length);
       
-      let properties = new Submitter;
+     
 
-      properties.user.fullname = profile.DisplayName;
-      properties.user.id = profile.Username;
-      properties.jobTitle = profile.Title;
-      properties.department = profile.Department;
-      properties.office = profile.Office;
+//      userInfo.user.fullname = profile.DisplayName;
+//      userInfo.user.id = profile.Username;
+//      userInfo.jobTitle = profile.Title;
+//      userInfo.department = profile.Department;
+//      userInfo.office = profile.Office;
 
-      })
       
-      return new Submitter;
-  }
 
-get("larry.akin@kpmg.co.uk")
+//       })}
+//       catch (ex) {
+//         console.log(ex);
+        
+//     }
+//     return userInfo;
+//       }      
+// get("larry.akin@kpmg.co.uk")
 
 
 store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
 //store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
+
+
+let svc:DictionaryService = new DictionaryService;
+let engagementType = JSON.stringify(svc.getAllEngagementTypes());
+console.log(engagementType);
+
+
+
 
 store.dispatch(
     addEngagementType({id:5,value:"EU FRA"}))

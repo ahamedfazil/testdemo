@@ -22,7 +22,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
+    ]
   },
   "include": [
     "src"
