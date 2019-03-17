@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../src/assets/styles/App.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
