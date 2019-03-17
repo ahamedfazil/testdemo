@@ -1,10 +1,11 @@
 import { User } from "./User";
 import { DictionaryItem } from "./DictionaryItem";
 import { Comment } from "./Comment";
+import { Submitter } from "./Submitter";
 
 export class Request {
     id:number;
-    submitter: User;
+    submitter: Submitter;
     auditTeamCc: [];
     respIndividual: User;
     engagementName: string;

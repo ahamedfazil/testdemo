@@ -4,8 +4,6 @@ import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
 import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
-import { Submitter } from './models/Submitter'
-import { sp } from '@pnp/sp'
 import { DictionaryService } from './services/DictionaryService';
 
 
@@ -38,39 +36,7 @@ window.addEventListener("error", handleError)
 
 
 
-// async function get (userId:string):Promise<Submitter> {
-  
-//   const userInfo = new Submitter;
 
-//   try {
-
-//   sp
-//   .profiles
-//   .getPropertiesFor(userId).then((profile:any) => {
-  
-//       console.log(profile.DisplayName);
-//       console.log(profile.Email);
-//       console.log(profile.Title);
-//       console.log(profile.UserProfileProperties.length);
-      
-     
-
-//      userInfo.user.fullname = profile.DisplayName;
-//      userInfo.user.id = profile.Username;
-//      userInfo.jobTitle = profile.Title;
-//      userInfo.department = profile.Department;
-//      userInfo.office = profile.Office;
-
-      
-
-//       })}
-//       catch (ex) {
-//         console.log(ex);
-        
-//     }
-//     return userInfo;
-//       }      
-// get("larry.akin@kpmg.co.uk")
 
 
 store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))

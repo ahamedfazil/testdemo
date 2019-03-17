@@ -127,12 +127,6 @@ export const setDetailedAnalysis = (text:string) =>
     payload: text
 })
 
-export const setQuestion = (text:string) =>
-({
-    type: C.SET_QUESTION,
-    payload: text
-})
-
 export const setPriority = (isUrgent:boolean) =>
 ({
     type: C.SET_PRIORITY,

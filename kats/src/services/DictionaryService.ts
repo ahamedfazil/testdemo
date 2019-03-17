@@ -3,29 +3,34 @@ import {DictionaryItem} from '../models/DictionaryItem';
 
 export class DictionaryService  {
     async getAllEngagementTypes(): Promise<DictionaryItem[]> {
-        const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
-        const listName = 'EngagementType';
-        var d = $.Deferred();
+        
+        // try {
+        // const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
+        // const listName = 'EngagementType';
+        // var d = $.Deferred();
 
-        var url = siteurl + "/_api/web/lists/getbytitle('" + listName + "')/items";
-        $.ajax({
-            url: url,
-            method: "GET",
-            headers: { "Accept": "application/json; odata=verbose" },
-            success: function (data) {
-                d.resolve(data.d.results);
-            },
-            error: function (data) {
-               d.reject(data);
-            }
-        });
-        return d.promise();
-
-       
-
+        // var url = siteurl + "/_api/web/lists/getbytitle('" + listName + "')/items";
+        // $.ajax({
+        //     url: url,
+        //     method: "GET",
+        //     headers: { "Accept": "application/json; odata=verbose" },
+        //     success: function (data) {
+        //         d.resolve(data.d.results);
+        //     },
+        //     error: function (data) {
+        //        d.reject(data);
+        //     }
+        // });
+        // return d.promise();
+            
+        // } 
+        // catch (error) {
+        //     console.log(error);
+            throw new Error() ;            
+        }
         
         
-    }
+    
 
     // async getAllAuditingStandards(): Promise<DictionaryItem[]> {
     //     const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';

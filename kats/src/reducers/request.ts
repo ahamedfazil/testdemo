@@ -64,11 +64,6 @@ export const request = (state = initialState, action) => {
                 detailedAnalysis: action.payload
             })
 
-        case A.setQuestion:
-            return Object.assign({}, state, {
-                question: action.payload
-            })
-
         case A.setPriority:
             return Object.assign({}, state, {
                 isUrgent: action.payload
