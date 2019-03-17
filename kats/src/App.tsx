@@ -43,9 +43,9 @@ store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
 //store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
 
 
-let svc:DictionaryService = new DictionaryService;
-let engagementType = JSON.stringify(svc.getAllEngagementTypes());
-console.log(engagementType);
+// let svc:DictionaryService = new DictionaryService;
+// let engagementType = JSON.stringify(svc.getAllEngagementTypes());
+// console.log(engagementType);
 
 
 

@@ -26,7 +26,7 @@ export class DictionaryService  {
         // } 
         // catch (error) {
         //     console.log(error);
-            throw new Error() ;            
+            throw new Error;            
         }
         
         
