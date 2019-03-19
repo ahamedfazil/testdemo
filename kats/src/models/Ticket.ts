@@ -26,7 +26,7 @@ export class Ticket{
     comments: Comment[];
     errors: any[];
 
-    supportTeamAllocated:DictionaryItem;
+    supportTeam:DictionaryItem;
     training:boolean;
     faq: boolean;
     assignee:User;

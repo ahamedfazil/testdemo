@@ -14,11 +14,11 @@ export class Request {
     engagementType:DictionaryItem;
     auditStandards:DictionaryItem;
     accountFramework: DictionaryItem[];
+    topic:DictionaryItem[]; //TODO : add actions and reducers
     category:DictionaryItem;
     ticketType: DictionaryItem[];
     subject:string;
     detailedAnalysis:string;
-    question:string;
     isUrgent: boolean;
     reasonForUrgency:string;
     watcher: User[];
