@@ -5,6 +5,7 @@ import sampleData from './initialState/requestState.json';
 import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
 import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
 import { DictionaryService } from './services/DictionaryService';
+import NewTicket from './components/ui/NewTicket';
 
 
 
@@ -77,8 +78,9 @@ class App extends Component {
      
       <div className="App">
         <header className="App-header">
-          
+        <NewTicket/> 
         </header>
+       
      </div>
      
     );
