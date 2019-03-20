@@ -1,19 +1,58 @@
 import {
   DefaultButton,
   Dropdown, IDropdown, IDropdownOption, BaseComponent,
-  TextField
+  TextField,
+  DatePicker,
+  NormalPeoplePicker,
+  IPersonaProps
 } from 'office-ui-fabric-react';
 import { NewTicketProps } from '../containers/NewTicketProps';
 import React from 'react';
+import { Ticket } from '../../models/Ticket';
+import { DictionaryItem } from '../../models/DictionaryItem';
+import { User } from '../../models/User';
+import { Submitter } from '../../models/Submitter';
 
 
-export class NewTicket extends BaseComponent<NewTicketProps, {
-  selectedItem?: { key: string | number | undefined };
-  selectedItems: string[];
+export class NewTicket extends React.Component<NewTicketProps, {
+  selectedItem?: { key: string | number | undefined | any };
+  selectedItems: any[];
 }>{
+    _id: number;
+    _requestId: Request;
+    _submitter: IPersonaProps[];
+    _submitterId:number; 
+    _auditTeamCc: [];
+    _respIndividual: User;
+    _engagementName: string;
+    _engagementChargeCode:number;
+    _periodEnd:Date = this._periodEnd;
+    _engagementType:DictionaryItem;
+    _auditStandards:DictionaryItem;
+    _accountFramework: DictionaryItem[];
+    _category:DictionaryItem;
+    _ticketType: DictionaryItem[];
+    _subject:string;
+    _detailedAnalysis:string;
+    _isUrgent: boolean;
+    _reasonForUrgency:string;
+    _watcher: User[];
+    _status:DictionaryItem;
+    _comments: Comment[];
+    _errors: any[];
 
+    _supportTeam:DictionaryItem;
+    _training:boolean;
+    _faq: boolean;
+    _assignee:User;
+    _reviewer:User;
+    _supportTeamComments:Comment[];
+    _finalConsultation:string;
+    _conclusion:string;
+    _addToKb: boolean;
+    _ticket: Ticket = this._ticket;
 
-
+ 
 
   private _basicDropdown = React.createRef<IDropdown>();
 
@@ -21,7 +60,8 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
     super(props);
     this.state = {
       selectedItem: undefined,
-      selectedItems: []
+      selectedItems: [],
+      
     };
   }
 
@@ -31,16 +71,78 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
       <form>
         <section id = 'ticket'>
         <div className="content-wrap">
-          <div className="col-one ms-TextField">
-
           
+
+            <div className="col-one ms-TextField">
             <label className="ms-Label">Ticket ID</label>
             <input className="ms-TextField-field" type="text" placeholder="" />
+            </div>
 
+            <div className="col-two ms-TextField">
+            <label className="ms-Label">Created</label>
+            <input className="ms-TextField-field" type="text" placeholder="" />
+            </div>
+
+            <div className="col-three ms-TextField">
+            <Dropdown
+          label="Priority:"
+          selectedKey={selectedItem ? selectedItem.key : 0}
+          onChange={this.changeState}
+          onFocus={this._log('onFocus called')}
+          onBlur={this._log('onBlur called')}
+          placeholder="Select an Option"
+          options={[
+            { key: 0, text: 'Unassigned' },
+            { key: 1, text: 'In Progress' },
+            { key: 2, text: 'Pending Audit Team Input' },
+            { key: 3, text: 'Completed' },
+            { key: 4, text: 'Cancelled' },
+            { key: 5, text: 'Under Review' },
+            
+          ]}
+        />
+          </div>
+
+
+          <div className="col-one ms-TextField">
             <label className="ms-Label">Engagement Name</label>
             <input className="ms-TextField-field" type="text" placeholder="" />
+            </div>
 
-            <div className='ms-Dropdown-container root-47'>
+            <div className="col-two ms-TextField">
+            <Dropdown
+          label="Priority:"
+          selectedKey={selectedItem ? selectedItem.key : 0}
+          onChange={this.changeState}
+          onFocus={this._log('onFocus called')}
+          onBlur={this._log('onBlur called')}
+          placeholder="Select an Option"
+          options={[
+            { key: 0, text: 'Normal' },
+            { key: 1, text: 'Urgent' },
+            
+          ]}
+        />
+          </div >
+          <div className="col-three ms-TextField">
+            <label className="ms-Label">Submitter</label>
+            <NormalPeoplePicker
+                                onChange={this.onMemberChange}
+                                onResolveSuggestions={this.onFilterChanged}
+                                getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
+                                className={'ms-PeoplePicker'}
+                                key={'normal'}
+                                itemLimit={1}
+                                selectedItems={this._submitter}
+                                pickerSuggestionsProps={{
+                                    noResultsFoundText: 'No results found',
+                                    loadingText: 'Loading...'
+                                }}
+                            />
+          </div>
+
+
+            <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 placeholder="Select options"
                 label="Engagement Type:"
@@ -57,8 +159,19 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
                 ]}
               />
             </div>
+            
+            <div className='col-two ms-TextField'>
+            <label className="ms-Label">Period End</label>
+            <DatePicker isRequired={true} placeholder='Enter Date'
+                            value={this._periodEnd}
+                            onSelectDate={this.onPeriodEndDateChange} />
+            </div>
+            
+            <div className='col-three'>
+            </div>
 
-            <div className='ms-Dropdown-container root-47'>
+
+            <div className='ms-Dropdown-container root-47 col-one'>
               <Dropdown
                 placeholder="Select options"
                 label="Accounting Frameworks:"
@@ -78,6 +191,13 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
               />
             </div>
 
+            <div className='col-two'>
+            </div>
+            
+            <div className='col-three'>
+            </div>
+
+            <div className='ms-Dropdown-container root-47 col-one'>
             <Dropdown
           label="Ticket Type:"
           selectedKey={selectedItem ? selectedItem.key : undefined}
@@ -94,7 +214,16 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
             { key: 'F', text: 'PIR' }
           ]}
         />
-
+        </div>
+        
+        <div className='col-one'>
+            </div>
+        
+        <div className='col-two'>
+            </div>
+            
+            <div className='col-three'>
+            </div>
 
             <label className="ms-Label">Subject</label>
             <input className="ms-TextField-field" type="text" placeholder="" />
@@ -110,20 +239,10 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
             <DefaultButton>
               Submit
           </DefaultButton>
-          </div>
-          <div className="col-two ms-TextField">
-            <label className="ms-Label">Created</label>
-            <input className="ms-TextField-field" type="text" placeholder="" />
+          
+          
 
-            <label className="ms-Label">Priority</label>
-            <input className="ms-TextField-field" type="text" placeholder="" />
-
-          </div >
-
-          <div className="col-three ms-TextField">
-            <label className="ms-Label">Submitter</label>
-            <input className="ms-TextField-field" type="text" placeholder="submitter name here..." />
-          </div>
+          
 
         </div>
         </section>
@@ -173,6 +292,37 @@ export class NewTicket extends BaseComponent<NewTicketProps, {
       console.log(str);
     };
   }
+  private onPeriodEndDateChange(date: Date): void {
+    this._periodEnd = date;
+  }
+
+  private onMemberChange(items: any[]): void {
+    this._submitterId = items[0] ? +items[0].key : undefined;
+    this._submitter= items;
+}
+
+private searchPeople(terms: string): IPersonaProps[] | Promise<IPersonaProps[]> {
+  return this.props.children
+      .filter(x => x.fullName.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
+      .map(x => {
+          return {
+              id: x.id.toString(),
+              primaryText: x.fullName,
+              secondaryText: x.login
+          } as IPersonaProps;
+      });
+}
+
+private onFilterChanged(filterText: string) {
+  if (filterText) {
+    if (filterText.length > 2) {
+      return this.searchPeople(filterText);
+    }
+  } else {
+    return [];
+  }
+  return [];
+}
 }
 
 
