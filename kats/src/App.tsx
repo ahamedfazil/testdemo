@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import '../src/assets/styles/App.css';
+import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import sampleData from './initialState/requestState.json';
 import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
 import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
 import { DictionaryService } from './services/DictionaryService';
 import NewTicket from './components/ui/NewTicket';
+import { initializeIcons } from '@uifabric/icons';
+
+initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
 
 
 

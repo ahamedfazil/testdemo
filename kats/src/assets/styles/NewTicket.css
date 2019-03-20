@@ -1,0 +1,46 @@
+/*
+---------------------Global styles-----------------------------------
+*/
+
+.new-request{
+    margin: 0;
+}
+
+.content-wrap{
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 60px 50px;
+    overflow: hidden;
+}
+
+.col-one {
+    width: 30%;
+    float: left
+}
+
+.col-two{
+    width: 30%;
+    float: left;
+    padding-left: 2.5%;
+}
+
+.col-three{
+    width: 30%;
+    float: left;
+    padding-left: 2.5%;
+}
+
+
+/* ------------Media queries---------------------------*/
+
+@media (min-width: 900px) {
+    .col-one {
+      width: 33%;
+      float: left;
+    }
+    .col-two {
+      width: 33%;
+      float: left;
+      padding-left: 20px;
+    }
+  }
