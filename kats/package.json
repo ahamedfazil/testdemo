@@ -20,6 +20,7 @@
     "babel-polyfill": "^6.26.0",
     "class-transformer": "^0.2.0",
     "cross-fetch": "^3.0.1",
+    "es6-promise": "^4.2.6",
     "normalizr": "^3.3.0",
     "office-ui-fabric-react": "^6.157.0",
     "react": "^16.8.3",
