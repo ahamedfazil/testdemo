@@ -30,6 +30,10 @@
     padding-left: 2.5%;
 }
 
+.col-wide {
+    width: 66%;
+    float: left
+}
 
 /* ------------Media queries---------------------------*/
 
@@ -42,5 +46,15 @@
       width: 33%;
       float: left;
       padding-left: 20px;
+    }
+    .col-three{
+        width: 33%;
+        float: left;
+        padding-left: 20px;
+    }
+    
+    .col-wide {
+        width: 66%;
+        float: left
     }
   }

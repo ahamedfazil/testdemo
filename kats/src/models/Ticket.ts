@@ -16,6 +16,7 @@ export class Ticket{
     auditStandards:DictionaryItem;
     accountFramework: DictionaryItem[];
     category:DictionaryItem;
+    topics:DictConstructor[];
     ticketType: DictionaryItem[];
     subject:string;
     detailedAnalysis:string;
