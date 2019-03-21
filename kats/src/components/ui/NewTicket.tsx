@@ -1,12 +1,12 @@
 import {
   DefaultButton,
-  Dropdown, IDropdown, IDropdownOption, BaseComponent,
+  Dropdown, IDropdown, IDropdownOption,
   TextField,
   DatePicker,
   NormalPeoplePicker,
-  IPersonaProps
+  IPersonaProps,
+  BaseComponent
 } from 'office-ui-fabric-react';
-import { NewTicketProps } from '../containers/NewTicketProps';
 import React from 'react';
 import { Ticket } from '../../models/Ticket';
 import { DictionaryItem } from '../../models/DictionaryItem';
@@ -14,45 +14,46 @@ import { User } from '../../models/User';
 import { Submitter } from '../../models/Submitter';
 
 
-export class NewTicket extends React.Component<NewTicketProps, {
+export class NewTicket extends BaseComponent<any, {
   selectedItem?: { key: string | number | undefined | any };
-  selectedItems: any[];
+  selectedItems: any[]
 }>{
-    _id: number;
-    _requestId: Request;
-    _submitter: IPersonaProps[];
-    _submitterId:number; 
-    _auditTeamCc: [];
-    _respIndividual: User;
-    _engagementName: string;
-    _engagementChargeCode:number;
+    _id: number = this._id;
+    _requestId: Request = this._requestId;
+    _submitter: IPersonaProps[] = this._submitter;
+    _submitterId:number = this._submitterId; 
+    _auditTeamCc: [] = this._auditTeamCc;
+    _respIndividual: User = this._respIndividual;
+    _engagementName: string = this._engagementName;
+    _engagementChargeCode:number = this._engagementChargeCode;
     _periodEnd:Date = this._periodEnd;
-    _engagementType:DictionaryItem;
-    _auditStandards:DictionaryItem;
-    _accountFramework: DictionaryItem[];
-    _category:DictionaryItem;
-    _ticketType: DictionaryItem[];
-    _subject:string;
-    _detailedAnalysis:string;
-    _isUrgent: boolean;
-    _reasonForUrgency:string;
-    _watcher: User[];
-    _status:DictionaryItem;
-    _comments: Comment[];
-    _errors: any[];
+    _engagementType:DictionaryItem = this._engagementType;
+    _auditStandards:DictionaryItem = this._auditStandards;
+    _accountFramework: DictionaryItem[] = this._accountFramework;
+    _category:DictionaryItem = this._category;
+    _ticketType: DictionaryItem[] = this._ticketType;
+    _subject:string = this._subject;
+    _detailedAnalysis:string = this._detailedAnalysis;
+    _isUrgent: boolean = this._isUrgent;
+    _reasonForUrgency:string = this._reasonForUrgency;
+    _watcher: User[] = this._watcher;
+    _status:DictionaryItem = this._status;
+    _comments: Comment[] = this._comments;
+    _errors: any[] = this._errors;
 
-    _supportTeam:DictionaryItem;
-    _training:boolean;
-    _faq: boolean;
-    _assignee:User;
-    _reviewer:User;
-    _supportTeamComments:Comment[];
-    _finalConsultation:string;
-    _conclusion:string;
-    _addToKb: boolean;
+    _supportTeam:DictionaryItem = this._supportTeam;
+    _training:boolean = this._training;
+    _faq: boolean = this._faq;
+    _assignee:User = this._assignee;
+    _reviewer:User = this._reviewer;
+    _supportTeamComments:Comment[] = this._supportTeamComments;
+    _finalConsultation:string = this._finalConsultation;
+    _conclusion:string = this._conclusion;
+    _addToKb: boolean = this._addToKb;
     _ticket: Ticket = this._ticket;
 
- 
+
+
 
   private _basicDropdown = React.createRef<IDropdown>();
 
@@ -65,10 +66,19 @@ export class NewTicket extends React.Component<NewTicketProps, {
     };
   }
 
+  // public submit = e => {
+  //   e.preventDefault()
+    
+  //   onNewTicket({
+  //     Ticket: this._ticket
+  //   })
+  
+  // }
+
   public render() {
     const { selectedItem, selectedItems } = this.state;
     return (
-      <form>
+      <form >}>
         <section id = 'ticket'>
         <div className="content-wrap">
           
@@ -162,12 +172,14 @@ export class NewTicket extends React.Component<NewTicketProps, {
             
             <div className='col-two ms-TextField'>
             <label className="ms-Label">Period End</label>
-            <DatePicker isRequired={true} placeholder='Enter Date'
+            <DatePicker isRequired={false} placeholder='Enter Date'
                             value={this._periodEnd}
                             onSelectDate={this.onPeriodEndDateChange} />
             </div>
             
-            <div className='col-three'>
+            <div className='col-three ms-TextField'>
+            <label className="ms-Label">Assignee</label>
+            <input className="ms-TextField-field" type="text" placeholder="" />
             </div>
 
 
@@ -301,8 +313,8 @@ export class NewTicket extends React.Component<NewTicketProps, {
     this._submitter= items;
 }
 
-private searchPeople(terms: string): IPersonaProps[] | Promise<IPersonaProps[]> {
-  return this.props.children
+private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
+  return this.props
       .filter(x => x.fullName.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
           return {
@@ -323,22 +335,20 @@ private onFilterChanged(filterText: string) {
   }
   return [];
 }
+
+
+
 }
 
 
 // const newTicket = ({ticket={},onNewTicket=f=>f}) => {
 //     //let ticket = new Ticket();
 
-//     const submit = e => {
-//         e.preventDefault()
-//         ticket = new Ticket();
-//         onNewTicket({
+    
 
 
 
-//         })
 
-// }
 
 
 //  }

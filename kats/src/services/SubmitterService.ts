@@ -61,4 +61,10 @@ export class SubmitterService {
         });
         return d.promise();
     };
+
+    async getAll():Promise<Submitter[]>{
+        //get connection to user information list then SP user profile
+        throw new Error();
+    }
+
 }
