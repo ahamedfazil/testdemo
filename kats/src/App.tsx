@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
-// import sampleData from './initialState/requestState.json';
 import sampleData from './initialState/index.json';
 import { addError, addToKB, setSubject, setSubmitter } from './actions'
-// import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
 import NewTicket from './components/ui/NewTicket';
 import { Provider } from 'react-redux';
 import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
-
-
 import { initializeIcons } from '@uifabric/icons';
 
 initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
@@ -62,7 +58,7 @@ store.dispatch(
 store.dispatch(setSubject("The Life of Pi"))
 
 store.dispatch(selectEngagementType(1))
-store.dispatch(fetchEngagementTypes('engagemenetType')).then(
+store.dispatch<any>(fetchEngagementTypes(1)).then(
   () => console.log(store.getState()))
 
 

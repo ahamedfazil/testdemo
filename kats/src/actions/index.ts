@@ -67,11 +67,11 @@ export const setAccEndPeriod = (text:string) =>
 
 
 
-export const removeEngagementType = (index:number) =>
-({
-    type: C.REMOVE_ENGAGEMENT_TYPE,
-    payload: index
-})
+// export const removeEngagementType = (index:number) =>
+// ({
+//     type: C.REMOVE_ENGAGEMENT_TYPE,
+//     payload: index
+// })
 
 export const setAuditStandard = (item:DictionaryItem) =>
 ({

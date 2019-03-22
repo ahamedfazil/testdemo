@@ -17,7 +17,7 @@ const consoleMessages = store => next => action => {
 
     console.log(`
             Subject: ${ticket.subject}
-            Engagement type: ${ticket.engagementType.value}
+            Engagement type: 
             errors: ${ticket.errors.length}
     `)
 
