@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
-import sampleData from './initialState/requestState.json';
-import { addError,addEngagementType, addToKB, setSubject, setSubmitter } from './actions'
-import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
-import { DictionaryService } from './services/DictionaryService';
+// import sampleData from './initialState/requestState.json';
+import sampleData from './initialState/index.json';
+import { addError, addToKB, setSubject, setSubmitter } from './actions'
+// import requestSubmitterInfo, { fetchSubmitterInfo } from '../src/actions/submitter'
 import NewTicket from './components/ui/NewTicket';
+import { Provider } from 'react-redux';
+import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
+
+
 import { initializeIcons } from '@uifabric/icons';
 
 initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
@@ -28,65 +32,52 @@ const handleError = error => {
 const store = storeFactory(initialState)
 store.subscribe(saveState)
 
-//window.React = React
-// window.store = store
+
 
 window.addEventListener("error", handleError)
 
-// let state = initialState
-// state = apppReducer(state,{
-//   type:setSubject,
-//   payload:"Hello"
-// })
 
 
 
 
 
 
-store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
+// store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
 //store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
 
 
-// let svc:DictionaryService = new DictionaryService;
-// let engagementType = JSON.stringify(svc.getAllEngagementTypes());
-// console.log(engagementType);
 
 
 
 
-store.dispatch(
-    addEngagementType({id:5,value:"EU FRA"}))
   
-  store.dispatch(
+store.dispatch(
     addError("Please try again later")
   )
   
-  store.dispatch(
+store.dispatch(
     addToKB(true)
   )
   
-  store.dispatch(setSubject("The Life of Pi"))
+store.dispatch(setSubject("The Life of Pi"))
 
-
-// store.dispatch(
-//   setSubmitter("larry.akin@kpmg.co.uk")
-//   )
-
+store.dispatch(selectEngagementType(1))
+store.dispatch(fetchEngagementTypes('engagemenetType')).then(
+  () => console.log(store.getState()))
 
 
 class App extends Component {
   
   render() {
     return (
-     
+      <Provider store={store}>
       <div className="App">
         <header className="App-header">
-        <NewTicket/> 
+        <App/> 
         </header>
        
      </div>
-     
+     </Provider>
     );
   }
 }

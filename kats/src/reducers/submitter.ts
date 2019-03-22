@@ -1,7 +1,8 @@
 import C from '../constants'
-import initialState from '../initialState/requestState.json'
+// import initialState from '../initialState/requestState.json'
+import initialState from '../initialState/index.json'
 
-export const setSubmitter = (state:string="",action)=> {
+export const setSubmitter = (state,action)=> {
     switch (action.type) {
         case C.SET_SUBMITTER:
             return action.payload

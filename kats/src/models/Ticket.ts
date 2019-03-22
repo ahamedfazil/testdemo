@@ -1,41 +1,46 @@
 import Request from "./Request";
-import { Submitter } from "./Submitter";
 import { User } from "./User";
 import { DictionaryItem } from "./DictionaryItem";
 
 export class Ticket{
-    id: number;
-    requestId: Request;
-    submitter: Submitter;
-    auditTeamCc: [];
-    respIndividual: User;
-    engagementName: string;
-    engagementChargeCode:number;
-    periodEnd:Date;
-    engagementType:DictionaryItem;
-    auditStandards:DictionaryItem;
-    accountFramework: DictionaryItem[];
-    category:DictionaryItem;
-    topics:DictConstructor[];
-    ticketType: DictionaryItem[];
-    subject:string;
-    detailedAnalysis:string;
-    isUrgent: boolean;
-    reasonForUrgency:string;
-    watcher: User[];
-    status:DictionaryItem;
-    comments: Comment[];
+    public id: number | null;
+    public requestId: number;
+    public submitter: User;
+    public submitterJobTitle: string;
+    public submitterSegment:string;
+    public submitterDepartment: string;
+    public submitterOffice: string;
+    public submitterOfficeNumber: number;
+    public submitterMobileNumber: number;
+    public auditTeamCc: User[];
+    public respIndividual: User;
+    public engagementName: string;
+    public engagementChargeCode:number;
+    public periodEnd:Date;
+    public engagementType:DictionaryItem;
+    public auditStandards:DictionaryItem;
+    public accountFramework: DictionaryItem[];
+    public category:DictionaryItem;
+    public topics:DictionaryItem[];
+    public ticketType: DictionaryItem[];
+    public subject:string;
+    public detailedAnalysis:string;
+    public isUrgent: boolean;
+    public reasonForUrgency:string;
+    public watcher: User[];
+    public status:DictionaryItem;
+    public comments: Comment[];
     errors: any[];
 
-    supportTeam:DictionaryItem;
-    training:boolean;
-    faq: boolean;
-    assignee:User;
-    reviewer:User;
-    supportTeamComments:Comment[];
-    finalConsultation:string;
-    conclusion:string;
-    addToKb: boolean
+    public supportTeam:DictionaryItem;
+    public training:boolean;
+    public faq: boolean;
+    public assignee:User;
+    public reviewer:User;
+    public supportTeamComments:Comment[];
+    public finalConsultation:string;
+    public conclusion:string;
+    public addToKb: boolean
 
 
 

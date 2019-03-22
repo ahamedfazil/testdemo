@@ -1,14 +1,15 @@
-import NewTicket from '../ui/NewTicket'
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
-import * as A from '../../actions'
-import { addTicket, setTicketId } from '../../actions/ticket'
+import NewTicket from '../ui/NewTicket';
+import { withRouter } from 'react-router';
+import { bindActionCreators, Dispatch } from 'redux'
+import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
+import { addTicket, setTicketId } from '../../actions/ticket';
+import ticketState from '../../initialState/requestState.json'
 import { Ticket } from '../../models/Ticket';
 
-const mapStateToProps = (state,props) =>
+const mapStateToProps = (state:Ticket) =>
 ({
-    ticket:state.ticket,
-    router:props.router
+    // ticket:state.ticket,
+   
 })
 
 const mapDispatchToProps = dispatch =>

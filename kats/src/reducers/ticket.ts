@@ -1,10 +1,11 @@
 import * as A from '../actions';
 import C from '../constants';
-import initialState from '../initialState/ticketState.json'
+// import initialState from '../initialState/ticketState.json'
+import initialState from '../initialState/index.json'
 
-const { SHOW_MY_SUBMITTED } = A.visibilityFilters
+const { SHOW_ALL_FIELDS } = A.visibilityFilters
 
-export const supportVisibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
+export const supportVisibilityFilter = (state = SHOW_ALL_FIELDS, action) => {
     switch (action.type) {
         case A.setVisibilityFilter:
             return action.filter
@@ -45,7 +46,7 @@ export const supportFields = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.supportTeamComments,
+                    ...state.tickets[12].supportTeamComments,
                     action.payload
                 ]
 
@@ -56,9 +57,9 @@ export const supportFields = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.supportTeamComments,
+                    ...state.tickets[12].supportTeamComments,
 
-                ].filter(comment => comment.id !== action.payload.id)
+                ].filter(comment => comment !== action.payload.id)
                     .concat(action.payload)
             })
 
@@ -66,7 +67,7 @@ export const supportFields = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.supportTeamComments,
+                    ...state.tickets[12].supportTeamComments,
 
                 ].filter((note, i) => i !== action.payload)
             })

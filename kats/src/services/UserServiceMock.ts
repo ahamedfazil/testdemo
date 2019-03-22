@@ -1,8 +1,8 @@
 import { Submitter } from '../models/Submitter';
-import { SubmitterService } from './SubmitterService';
+import { UserService } from './UserService';
 import { classToClass } from 'class-transformer';
 
-export class SubmitterServiceMock extends SubmitterService{
+export class UserServiceMock extends UserService{
 
     // private static readonly submitters: Submitter[] = [];
     

@@ -2,13 +2,12 @@ import C from '../constants';
 import { User } from '../models/User'
 import { DictionaryItem } from '../models/DictionaryItem';
 import { Comment } from '../models/Comment';
-import { SubmitterService } from '../services/SubmitterService'
+import { UserService } from '../services/UserService'
 
 
 export const visibilityFilters = {
-    SHOW_MY_SUBMITTED:"SHOW_MY_SUBMITTED",
-    SHOW_MY_UNASSIGNED:"SHOW_MY_UNASSIGNED",
-    SHOW_MY_WATCHED:"SHOW_MY_WATCHED"
+    SHOW_ALL_FIELDS: "SHOW_ALL_FIELDS",
+    HIDE_SUPPORT_FIELDS: "HIDE_SUPPORT_FIELDS",
 
 }
 
@@ -24,7 +23,7 @@ export const setSubmitter = (userId: string) => dispatch => {
         type: C.REQUEST_SUBMITTER_INFO
     })
 
-    let svc: SubmitterService = new SubmitterService();
+    let svc = new UserService();
     let submitter = svc.get(userId);
 
     return submitter
@@ -66,11 +65,7 @@ export const setAccEndPeriod = (text:string) =>
     payload:text
 })
 
-export const addEngagementType = (item:DictionaryItem) =>
-({
-    type: C.ADD_ENGAGEMENT_TYPE,
-    payload:item
-})
+
 
 export const removeEngagementType = (index:number) =>
 ({

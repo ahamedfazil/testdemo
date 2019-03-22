@@ -1,30 +1,37 @@
 import { User } from "./User";
 import { DictionaryItem } from "./DictionaryItem";
 import { Comment } from "./Comment";
-import { Submitter } from "./Submitter";
+
 
 export class Request {
-    id:number;
-    submitter: Submitter;
-    auditTeamCc: [];
-    respIndividual: User;
-    engagementName: string;
-    engagementChargeCode:number;
-    periodEnd:Date;
-    engagementType:DictionaryItem;
-    auditStandards:DictionaryItem;
-    accountFramework: DictionaryItem[];
-    topic:DictionaryItem[]; //TODO : add actions and reducers
-    category:DictionaryItem;
-    ticketType: DictionaryItem[];
-    subject:string;
-    detailedAnalysis:string;
-    isUrgent: boolean;
-    reasonForUrgency:string;
-    watcher: User[];
-    status:DictionaryItem;
-    comments: Comment[];
-    errors: any[]
+    public id: number;
+    public requestId: number;
+    public submitter: User;
+    public submitterJobTitle: string;
+    public submitterSegment:string;
+    public submitterDepartment: string;
+    public submitterOffice: string;
+    public submitterOfficeNumber: number;
+    public submitterMobileNumber: number;
+    public auditTeamCc: User[];
+    public respIndividual: User;
+    public engagementName: string;
+    public engagementChargeCode:number;
+    public periodEnd:Date;
+    public engagementType:DictionaryItem;
+    public auditStandards:DictionaryItem;
+    public accountFramework: DictionaryItem[];
+    public category:DictionaryItem;
+    public topics:DictionaryItem[];
+    public ticketType: DictionaryItem[];
+    public subject:string;
+    public detailedAnalysis:string;
+    public isUrgent: boolean;
+    public reasonForUrgency:string;
+    public watcher: User[];
+    public status:DictionaryItem;
+    public comments: Comment[];
+    errors: any[];
 
 }
 

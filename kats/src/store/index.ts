@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers'
 import Request from '../models/Request'
+import { Ticket } from '../models/Ticket';
 
 const consoleMessages = store => next => action => {
     
@@ -12,12 +13,12 @@ const consoleMessages = store => next => action => {
     result = next(action)
 
      
-    let request:Request = store.getState()
+    let ticket:Ticket = store.getState()
 
     console.log(`
-            Subject: ${request.subject}
-            Engagement type: ${request.engagementType.value}
-            errors: ${request.errors.length}
+            Subject: ${ticket.subject}
+            Engagement type: ${ticket.engagementType.value}
+            errors: ${ticket.errors.length}
     `)
 
     console.groupEnd()
@@ -28,6 +29,6 @@ const consoleMessages = store => next => action => {
 }
 
 export default (intialState = {}) => {
-    return applyMiddleware(consoleMessages)(createStore)(appReducer, 
+    return applyMiddleware(thunk,consoleMessages)(createStore)(appReducer, 
         intialState)
 }

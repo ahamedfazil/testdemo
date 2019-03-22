@@ -1,8 +1,8 @@
 export class Comment {
-    id:number;
-    ticketId:number;
-    content:string;
-    userId:string;
-    isPrivate:boolean;
+    public id:number;
+    public ticketId:number;
+    public content:string;
+    public userId:string;
+    public isPrivate:boolean;
     
 }

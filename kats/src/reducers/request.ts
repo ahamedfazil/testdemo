@@ -1,12 +1,13 @@
 import * as A from '../actions'
-import initialState from '../initialState/requestState.json'
+// import initialState from '../initialState/requestState.json'
+import initialState from '../initialState/index.json'
 
 
 //TODO: Include user context i.e. support user or auditor in initial state reducer
 
-const { SHOW_MY_SUBMITTED } = A.visibilityFilters
+const { SHOW_ALL_FIELDS } = A.visibilityFilters
 
-export const visibilityFilter = (state = SHOW_MY_SUBMITTED, action) => {
+export const visibilityFilter = (state = SHOW_ALL_FIELDS, action) => {
     switch (action.type) {
         case A.setVisibilityFilter:
             return action.filter
@@ -79,29 +80,29 @@ export const request = (state = initialState, action) => {
     }
 }
 
-export const engagementType = (state = initialState, action) => {
-    switch (action.type) {
+// export const engagementType = (state = initialState, action) => {
+//     switch (action.type) {
 
-        case A.addEngagementType:
-            return Object.assign({}, state, {
+//         case A.selectEngagementType:
+//             return Object.assign({}, state, {
 
-                engagementType: [
-                    ...state.engagementType,
-                    action.payload
-                ]
+//                 engagementType: [
+//                     ...state.engagementType,
+//                     action.payload
+//                 ]
 
-            })
+//             })
 
-        case A.removeEngagementType:
-            return Object.assign({}, state, {
-                engagementType: state.engagementType.filter((note, i) => i !== action.payload)
-            })
+//         case A.removeEngagementType:
+//             return Object.assign({}, state, {
+//                 engagementType: state.engagementType.filter((note, i) => i !== action.payload)
+//             })
 
-        default:
-            return state
+//         default:
+//             return state
 
-    }
-}
+//     }
+// }
 
 export const accFramework = (state = initialState, action) => {
     switch (action.type) {
@@ -110,7 +111,7 @@ export const accFramework = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 accountingFramework: [
-                    ...state.accountingFramework,
+                    ...state.tickets[12].accountingFramework,
                     action.payload
                 ]
 
@@ -118,7 +119,7 @@ export const accFramework = (state = initialState, action) => {
 
         case A.removeAccFramework:
             return Object.assign({}, state, {
-                accountingFramework: state.accountingFramework.filter((note, i) => i !== action.payload)
+                accountingFramework: state.tickets[12].accountingFramework.filter((note, i) => i !== action.payload)
             })
 
         default:
@@ -135,14 +136,14 @@ export const auditTeamCc = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 auditTeamCc: [
-                    ...state.auditTeamCc,
+                    ...state.tickets[12].auditTeam,
                     action.payload
                 ]
 
             })
         case A.removeAuditTeamCc:
             return Object.assign({}, state, {
-                auditTeamCc: state.auditTeamCc.filter((note, i) => i !== action.payload)
+                auditTeamCc: state.tickets[12].auditTeam.filter((note, i) => i !== action.payload)
             })
 
 
@@ -157,7 +158,7 @@ export const comment = (state=initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.allComments,
+                    ...state.tickets[12].comments,
                     action.payload
                 ]
 
@@ -168,9 +169,9 @@ export const comment = (state=initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.allComments,
+                    ...state.tickets[12].comments,
                     
-                ].filter(comment => comment.id !== action.payload.id)
+                ].filter(comment => comment !== action.payload.id)
                 .concat(action.payload)
             })
 
@@ -178,7 +179,7 @@ export const comment = (state=initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.allComments,
+                    ...state.tickets[12].comments,
                     
                 ].filter((note, i) => i !== action.payload)
             })

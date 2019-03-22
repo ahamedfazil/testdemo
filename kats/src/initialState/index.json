@@ -1,0 +1,205 @@
+{
+    "visibilityFilter": "SHOW_SUPPORT_FIELDS",
+    "users": {
+        "1": {
+            "id": "i:05.t|kpmg staff federation|barbara.newman@kpmg.co.uk",
+            "name": "Laura Austin",
+            "jobTitle": "Audit Controller",
+            "department": "ITS Build",
+            "officeLocation": "Watford",
+            "officeNumber": 442076948910,
+            "mobileNumber": 7717719
+        },
+        "2": {
+            "id": "i:05.t|kpmg staff federation|laura.austin@kpmg.co.uk",
+            "name": "Barbara Newman",
+            "jobTitle": "Manager",
+            "department": "NM Audit Manchester 2",
+            "officeLocation": "Manchester",
+            "officeNumber": 442076948910,
+            "mobileNumber": 7717719
+        },
+        "3": {
+            "fullName": "Neil Manning",
+            "jobTitle": "Manager",
+            "department": "NM Audit Manchester 2",
+            "officeLocation": "Manchester",
+            "officeNumber": 442076948910,
+            "mobileNumber": 7717719
+        }
+    },
+    "tickets": {
+      "12":{
+        "id":12,
+        "submitter": 1,
+        "watchers": [
+            2,
+            3
+        ],
+        "respIndividual": 4,
+        "assignee": 5,
+        "reviewer": 6,
+        "assignedTo": 5,
+        "auditTeam": [
+            9,
+            10
+        ],
+        "engagementName": "Hartshead Square Developments Ltd ",
+        "engagementChargeCode": 2551346,
+        "periodEnd": "31/03/2019",
+        "engagementType": {
+            "isFetching": false,
+            "didInvalidate": false,
+            "lastUpdated": 1439478405547,
+            "items": [1,2]
+        },
+        "auditingStandards": [
+            1,
+            2
+        ],
+        "accountingFramework": [
+            1
+        ],
+        "category": 1,
+        "topic": [
+            2,
+            3
+        ],
+        "ticketType": 2,
+        "subject": "Approval needed for Equinox Employee Benefit Trust Limited",
+        "detailedAnalysis": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
+        "isUrgent": true,
+        "reasonForUrgency": "I need it done ASAP",
+        "supportTeam": 1,
+        "status": 1,
+        "training": false,
+        "faq": false,
+        "labels": [
+            1,
+            35,
+            18
+        ],
+        "finalConsultation": "Lorem ipsum...",
+        "conclusion": "Lorem ipsum",
+        "addToKb": true,
+        "errors": [
+            "Server not found"
+        ],
+        "comments": [
+            2,
+            15,
+            5,
+            8
+        ],
+        "supportTeamComments": [
+            1,
+            18
+        ]}
+    },
+    "comments": {
+        "2": {
+            "id": 2,
+            "content": "Sorry you were asked to look at this.  The team had not consulted me first.",
+            "owner": 10
+        },
+        "15": {
+            "id": 15,
+            "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
+            "owner": 10
+        }
+    },
+    "supportTeamComments": {
+        "1": {
+            "id": 1,
+            "content": "This ticket should be shared out as a KB, could prove useful?",
+            "owner": 5
+        },
+        "18": {
+            "id": 15,
+            "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
+            "owner": 6
+        }
+    },
+    "engagementType": [
+        {
+            "id": 1,
+            "value": "EU PIE"
+        },
+        {
+            "id": 2,
+            "value": "AQR"
+        },
+        {
+            "id": 3,
+            "value": "Significant Other"
+        }
+    ],
+    "auditingStandards": [
+        {
+            "id": 1,
+            "value": "ISRE (UK&I)"
+        },
+        {
+            "id": 2,
+            "value": "ISAE 3000"
+        }
+    ],
+    "accountingFrameworks": [
+        {
+            "id": 1,
+            "value": "EU IFRS"
+        },
+        {
+            "id": 2,
+            "value": "IFRS"
+        },
+        {
+            "id": 3,
+            "value": "FRS101"
+        }
+    ],
+    "category": [
+        {
+            "id": 1,
+            "value": "Materiality"
+        },
+        {
+            "id": 3,
+            "value": "Group audit file structure"
+        }
+    ],
+    "topic": [
+        {
+            "id": 1,
+            "value": "Financial instruments"
+        },
+        {
+            "id": 2,
+            "value": "Cash flow statement"
+        },
+        {
+            "id": 3,
+            "value": "Foreign currency"
+        }
+    ],
+    "ticketType": {
+        "id": 1,
+        "value": "General Query"
+    },
+    "status": {
+        "id": 1,
+        "value": "Unassigned"
+    },
+    "supportTeam": {
+        "id": 5,
+        "name": "DPP Accounting & Reporting"
+    },
+    "labels": {
+        "fetching": false,
+        "suggestions": [
+            "Subsequent events",
+            "Substantive sampling",
+            "Substantive testing"
+        ]
+    }
+}

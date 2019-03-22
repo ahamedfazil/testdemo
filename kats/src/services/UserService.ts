@@ -1,11 +1,15 @@
 import { Submitter } from "../models/Submitter";
+import { User } from "../models/User";
 //import { sp } from '@pnp/sp'
 
-export class SubmitterService {
+export class UserService {
 
-    async get(_userId: string): Promise<Submitter[]> {
+    async get(_userId: string): Promise<User[]> {
 
-        const submitterInfo = new Submitter;
+        const submitterInfo = new User;
+  
+
+
 
         let d = $.Deferred();
 
@@ -38,8 +42,8 @@ export class SubmitterService {
                     d.resolve(userProfile);
                     console.log(`
                     
-                                LoginName: ${userProfile.user.id},
-                                Name: ${userProfile.user.fullname}
+                                LoginName: ${userProfile.id}
+                                Name: ${userProfile.fullName}
                                 Department: ${userProfile.department}
                                 Job Title: ${userProfile.jobTitle}
                                 Office: ${userProfile.office}                                
@@ -62,7 +66,7 @@ export class SubmitterService {
         return d.promise();
     };
 
-    async getAll():Promise<Submitter[]>{
+    async getAll():Promise<User[]>{
         //get connection to user information list then SP user profile
         throw new Error();
     }

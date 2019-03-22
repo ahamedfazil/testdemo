@@ -20,7 +20,7 @@ export const invalidateSubmitterInfo = (userId) => ({
 })
 
 export function fetchSubmitterInfo (userId:string) {
-    return function (dispatch:any){
+    return function (dispatch){
         dispatch(requestSubmitterInfo(userId))
         return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/sp.userprofiles.peoplemanager/getpropertiesfor(@v)?@v=${userId}.json')
         .then(

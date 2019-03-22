@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import {
     request,
     auditTeamCc,
-    engagementType,
+    //engagementType,
     accFramework,
     errors,
     visibilityFilter,
@@ -16,12 +16,18 @@ import {
     suggestions
 } from './ticket'
 
-import { setSubmitter } from './submitter'
+import { setSubmitter } from './submitter';
 
+import {
+    selectedEngagementType,
+    engagementTypesByItem
+} from './dictionary'
 
 export default combineReducers({
     request,
-    engagementType,
+    //engagementType,
+    selectedEngagementType,
+    engagementTypesByItem,
     accFramework,
     comment,
     auditTeamCc,

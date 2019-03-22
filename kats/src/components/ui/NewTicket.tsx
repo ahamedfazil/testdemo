@@ -5,15 +5,17 @@ import {
   DatePicker,
   NormalPeoplePicker,
   IPersonaProps,
-  BaseComponent,
   Checkbox,
   ComboBox,
   IComboBoxOption,
   IComboBox
 } from 'office-ui-fabric-react';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Ticket } from '../../models/Ticket';
 import { DictionaryItem } from '../../models/DictionaryItem';
+import { User } from '../../models/User';
+
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
   { key: 'A', text: 'Option A' },
@@ -21,31 +23,53 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
   { key: 'C', text: 'Option C' },
   { key: 'D', text: 'Option D' },
   { key: 'E', text: 'Option E' },
-  { key: 'F', text: 'Option F', disabled: true },
+  { key: 'F', text: 'Option F' },
   { key: 'G', text: 'Option G' },
   { key: 'H', text: 'Option H' },
   { key: 'I', text: 'Option I' },
   { key: 'J', text: 'Option J' }
 ];
 
+interface NewTicketProps {
+  users: User[];
+  ticket: Ticket;
+  fetchSubmitterInfo: () => Promise<User>;
+  selectedItem: undefined,
+      selectedItems: [],
+      selectedOptionKeys: [],
+      optionsMulti: [],
+      initialDisplayValueMulti: '',
 
-export interface IComboBoxControlledExampleState {
-
-  /** Current options for the multi-select example */
-  optionsMulti: IComboBoxOption[];
-  /** Current selected options for the multi-select example */
-  selectedOptionKeys?: string[];
-  /**
-   * Initial display value for the multi-select example.
-   * This will be cleared after the options are resolved for the first time.
-   */
-  initialDisplayValueMulti?: string;
 }
 
-export class NewTicket extends BaseComponent<any, {
-  selectedItem?: { key: string | number | undefined | any };
-  selectedItems: any[], selectedOptionKeys?: string[]; optionsMulti: IComboBoxOption[]; initialDisplayValueMulti?: string;
-}>{
+
+export class NewTicket extends React.Component<NewTicketProps,
+  {
+    selectedItem?: { key: string | number | undefined | any };
+    selectedItems: any[],
+    selectedOptionKeys?: string[];
+    optionsMulti: IComboBoxOption[];
+    initialDisplayValueMulti?: string;
+  }>
+{
+
+
+  static propTypes = {
+    fetchSubmitterInfo: PropTypes.func.isRequired,
+    users: PropTypes.arrayOf(
+      PropTypes.instanceOf(User).isRequired,
+
+
+      // ticket:PropTypes.instanceOf(Ticket).isRequired
+    )
+
+  }
+
+  public static defaultProps = {
+    users: []
+  }
+
+
   _id: number = this._id;
   _requestId: Request = this._requestId;
   _submitter: IPersonaProps[] = this._submitter;
@@ -86,27 +110,20 @@ export class NewTicket extends BaseComponent<any, {
 
   private _basicDropdown = React.createRef<IDropdown>();
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      selectedItem: undefined,
-      selectedItems: [],
-      selectedOptionKeys: [],
-      optionsMulti: [],
-      initialDisplayValueMulti: ''
+  // constructor(props: {}) {
+  //   super(props);
+  //   this.state = {
+  //     selectedItem: undefined,
+  //     selectedItems: [],
+  //     selectedOptionKeys: [],
+  //     optionsMulti: [],
+  //     initialDisplayValueMulti: '',
 
 
-    };
-  }
 
-  // public submit = e => {
-  //   e.preventDefault()
-
-  //   onNewTicket({
-  //     Ticket: this._ticket
-  //   })
-
+  //   };
   // }
+
 
   public render() {
     const { selectedItem, selectedItems } = this.state;
@@ -129,18 +146,18 @@ export class NewTicket extends BaseComponent<any, {
             <div className="col-three ms-TextField">
               <Dropdown
                 label="Status:"
-                selectedKey={selectedItem ? selectedItem.key : 0}
+                selectedKey={selectedItem ? selectedItem.key : undefined}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
                 placeholder="Select an Option"
                 options={[
-                  { key: 0, text: 'Unassigned' },
-                  { key: 1, text: 'In Progress' },
-                  { key: 2, text: 'Pending Audit Team Input' },
-                  { key: 3, text: 'Completed' },
-                  { key: 4, text: 'Cancelled' },
-                  { key: 5, text: 'Under Review' },
+                  { key: 'unassigned', text: 'Unassigned' },
+                  { key: 'inprogress', text: 'In Progress' },
+                  { key: 'pendinginput', text: 'Pending Audit Team Input' },
+                  { key: 'completed', text: 'Completed' },
+                  { key: 'cancelled', text: 'Cancelled' },
+                  { key: 'review', text: 'Under Review' },
 
                 ]}
               />
@@ -195,10 +212,10 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 multiSelect
                 options={[
-                  { key: 'A', text: 'EU PIE' },
-                  { key: 'B', text: 'AQR' },
-                  { key: 'C', text: 'Significant Other' },
-                  { key: 'D', text: 'Other' },
+                  { key: 'eupie', text: 'EU PIE' },
+                  { key: 'aqr', text: 'AQR' },
+                  { key: 'significant', text: 'Significant Other' },
+                  { key: 'other', text: 'Other' },
                 ]}
               />
             </div>
@@ -237,12 +254,12 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 multiSelect
                 options={[
-                  { key: 'A', text: 'IFRS (EU)' },
-                  { key: 'B', text: 'IFRS (IASB)' },
-                  { key: 'C', text: 'FRS101' },
-                  { key: 'D', text: 'FRS 102' },
-                  { key: 'E', text: 'FRS 105' },
-                  { key: 'F', text: 'US GAAP' },
+                  { key: 'ifrseu', text: 'IFRS (EU)' },
+                  { key: 'ifrsiasb', text: 'IFRS (IASB)' },
+                  { key: 'frs101', text: 'FRS101' },
+                  { key: 'frs102', text: 'FRS 102' },
+                  { key: 'frs105', text: 'FRS 105' },
+                  { key: 'usgaap', text: 'US GAAP' },
                 ]}
               />
             </div>
@@ -279,12 +296,12 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 multiSelect
                 options={[
-                  { key: 'A', text: 'ISAs (UK)' },
-                  { key: 'B', text: 'ISRE (UK&I)' },
-                  { key: 'C', text: 'ISRS 4400' },
-                  { key: 'D', text: 'ISAE 3000' },
-                  { key: 'E', text: 'PCAOB' },
-                  { key: 'F', text: 'AICPA' },
+                  { key: 'isasuk', text: 'ISAs (UK)' },
+                  { key: 'isreuki', text: 'ISRE (UK&I)' },
+                  { key: 'isrs4400', text: 'ISRS 4400' },
+                  { key: 'isae3000', text: 'ISAE 3000' },
+                  { key: 'pcaob', text: 'PCAOB' },
+                  { key: 'aicpa', text: 'AICPA' },
                 ]}
               />
             </div>
@@ -320,12 +337,12 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 placeholder="Select an Option"
                 options={[
-                  { key: 'A', text: 'General Query' },
-                  { key: 'B', text: 'Technical Advice' },
-                  { key: 'C', text: 'Formal Consultation' },
-                  { key: 'D', text: 'Mandatory Consultation' },
-                  { key: 'E', text: 'LFAR - mandatory review' },
-                  { key: 'F', text: 'PIR' }
+                  { key: 'gq', text: 'General Query' },
+                  { key: 'ta', text: 'Technical Advice' },
+                  { key: 'fc', text: 'Formal Consultation' },
+                  { key: 'mc', text: 'Mandatory Consultation' },
+                  { key: 'lm', text: 'LFAR - mandatory review' },
+                  { key: 'pi', text: 'PIR' }
                 ]}
               />
             </div>
@@ -339,12 +356,12 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 placeholder="Select an Option"
                 options={[
-                  { key: 'A', text: 'Annual report – front end (APMs, strategic report, corporate governance)' },
-                  { key: 'B', text: 'Interim report' },
-                  { key: 'C', text: 'Formal Consultation' },
-                  { key: 'D', text: 'UK Company Law' },
-                  { key: 'E', text: 'Audit reports and other reporting' },
-                  { key: 'F', text: 'Prior period restatements and revised accounts' }
+                  { key: 'anrep', text: 'Annual report – front end (APMs, strategic report, corporate governance)' },
+                  { key: 'inrep', text: 'Interim report' },
+                  { key: 'focon', text: 'Formal Consultation' },
+                  { key: 'ukcom', text: 'UK Company Law' },
+                  { key: 'aurep', text: 'Audit reports and other reporting' },
+                  { key: 'prper', text: 'Prior period restatements and revised accounts' }
                 ]}
               />
             </div>
@@ -380,12 +397,12 @@ export class NewTicket extends BaseComponent<any, {
                 onBlur={this._log('onBlur called')}
                 placeholder="Select an Option"
                 options={[
-                  { key: 'A', text: 'Annual report – front end (APMs, strategic report, corporate governance)' },
-                  { key: 'B', text: 'Interim report' },
-                  { key: 'C', text: 'Formal Consultation' },
-                  { key: 'D', text: 'UK Company Law' },
-                  { key: 'E', text: 'Audit reports and other reporting' },
-                  { key: 'F', text: 'Prior period restatements and revised accounts' }
+                  { key: 'cash', text: 'Cash flow statement' },
+                  { key: 'foreign', text: 'Foreign currency' },
+                  { key: 'revenue', text: 'Revenue' },
+                  { key: 'joint', text: 'Joint arrangements' },
+                  { key: 'distributions', text: 'Distributions' },
+                  { key: 'materiality', text: 'Materiality - other' }
                 ]}
               />
             </div>
@@ -420,11 +437,11 @@ export class NewTicket extends BaseComponent<any, {
               <TextField label="Conclusion" multiline rows={5} />
             </div>
 
-           
+
             <div className='col-three ms-TextField'>
-                <Checkbox label="Knowledge Base candidate" onChange={this._onCheckboxChange} />
-              </div>
-      
+              <Checkbox label="Knowledge Base candidate" onChange={this._onCheckboxChange} />
+            </div>
+
 
             <div className='col-three ms-TextField'>
               <Checkbox label="Training flag" onChange={this._onCheckboxChange} />
@@ -435,7 +452,7 @@ export class NewTicket extends BaseComponent<any, {
               <Checkbox label="FAQ flag" onChange={this._onCheckboxChange} />
             </div>
 
-           
+
             <div className='col-three ms-TextField'>
               <ComboBox
                 multiSelect
@@ -468,6 +485,11 @@ export class NewTicket extends BaseComponent<any, {
 
     );
   }
+  public componentDidMount() {
+    this.props.fetchSubmitterInfo();
+  }
+
+
 
   public changeState = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
     console.log('here are the things updating...' + item.key + ' ' + item.text + ' ' + item.selected);
@@ -520,13 +542,13 @@ export class NewTicket extends BaseComponent<any, {
   }
 
   private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
-    return this.props
+    return this.props.users
       .filter(x => x.fullName.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
         return {
           id: x.id.toString(),
           primaryText: x.fullName,
-          secondaryText: x.login
+          secondaryText: x.id
         } as IPersonaProps;
       });
   }
@@ -595,19 +617,9 @@ export class NewTicket extends BaseComponent<any, {
 
 }
 
+// NewTicket.propT = {
 
-
-// const newTicket = ({ticket={},onNewTicket=f=>f}) => {
-//     //let ticket = new Ticket();
-
-
-
-
-
-
-
-
-//  }
+// }
 
 
 export default NewTicket

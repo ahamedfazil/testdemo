@@ -12,6 +12,6 @@ export function addTicket(ticket:Ticket){
 }
 export const setTicketId = ticketId => 
 ({
-    type: C.SET_ID,
+    type: C.SET_TICKET_ID,
     payload:ticketId
 })
