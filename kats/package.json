@@ -25,6 +25,7 @@
     "normalizr": "^3.3.0",
     "office-ui-fabric-react": "^6.157.0",
     "prop-types": "^15.7.2",
+    "raven-for-redux": "^1.4.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",

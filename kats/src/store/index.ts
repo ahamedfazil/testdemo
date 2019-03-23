@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers'
-import Request from '../models/Request'
 import { Ticket } from '../models/Ticket';
+import * as Raven from 'raven-for-redux';
 
 const consoleMessages = store => next => action => {
     
@@ -24,11 +24,24 @@ const consoleMessages = store => next => action => {
     console.groupEnd()
 
     return result
-
-
 }
 
+const crashReporter = store => next => action => {
+    try {
+      return next(action)
+    } catch (err) {
+      console.error('Caught an exception!', err)
+      Raven.captureException(err, {
+        extra: {
+          action,
+          state: store.getState()
+        }
+      })
+      throw err
+    }
+  }
+
 export default (intialState = {}) => {
-    return applyMiddleware(thunk,consoleMessages)(createStore)(appReducer, 
+    return applyMiddleware(thunk,consoleMessages,crashReporter)(createStore)(appReducer, 
         intialState)
 }
