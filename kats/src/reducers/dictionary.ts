@@ -1,6 +1,6 @@
 import C from '../constants'
 
-export const selectedEngagementType = (state = 'engagementType', action) => {
+export const selectedEngagementType = (state = 'engagementTypes', action) => {
     switch (action.type) {
         case C.SELECT_ENGAGEMENT_TYPE:
             return action.payload

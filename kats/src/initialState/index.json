@@ -47,7 +47,7 @@
         "engagementName": "Hartshead Square Developments Ltd ",
         "engagementChargeCode": 2551346,
         "periodEnd": "31/03/2019",
-        "engagementType": {
+        "engagementTypes": {
             "isFetching": false,
             "didInvalidate": false,
             "lastUpdated": 1439478405547,
@@ -120,7 +120,7 @@
             "owner": 6
         }
     },
-    "engagementType": [
+    "engagementTypes": [
         {
             "id": 1,
             "value": "EU PIE"
