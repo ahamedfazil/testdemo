@@ -543,11 +543,11 @@ export class NewTicket extends React.Component<NewTicketProps,
 
   private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
     return this.props.users
-      .filter(x => x.fullName.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
+      .filter(x => x.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
         return {
           id: x.id.toString(),
-          primaryText: x.fullName,
+          primaryText: x.name,
           secondaryText: x.id
         } as IPersonaProps;
       });

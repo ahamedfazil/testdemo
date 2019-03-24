@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
-import { addError, addToKB, setSubject } from './actions'
+import { addError } from './actions'
 import { Provider } from 'react-redux';
 import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
 import { initializeIcons } from '@uifabric/icons';
+import { addTicket } from './actions/ticket';
 
 
 // import * as SPScript from "spscript";
@@ -60,17 +61,67 @@ window.addEventListener("error", handleError)
 
 // console.log('the list items are ',result);
 
-
+store.dispatch(addTicket({
+  
+    "id":12,
+    "submitter": 1,
+    "watcher": [
+        2,
+        3
+    ],
+    "respIndividual": 4,
+    "assignee": 5,
+    "reviewer": 6,
+    "assignedTo": 5,
+    "auditTeam": [
+        9,
+        10
+    ],
+    "engagementName": "Hartshead Square Developments Ltd ",
+    "engagementChargeCode": 2551346,
+    "periodEnd": "31/03/2019",
+    "engagementType": [1,3],
+    "auditingStandard": [1,2],
+    "accountingFramework": [1],
+    "category": 1,
+    "topic": [2,3],
+    "ticketType": 2,
+    "subject": "Approval needed for Equinox Employee Benefit Trust Limited",
+    "detailedAnalysis": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
+    "isUrgent": true,
+    "reasonForUrgency": "I need it done ASAP",
+    "supportTeam": 1,
+    "status": 1,
+    "training": false,
+    "faq": false,
+    "label": [1,35,18],
+    "finalConsultation": "Lorem ipsum...",
+    "conclusion": "Lorem ipsum",
+    "addToKb": true,
+    "errors": [
+        "Server not found"
+    ],
+    "comments": [
+        2,
+        15,
+        5,
+        8
+    ],
+    "supportTeamComments": [
+        1,
+        18
+    ]}
+))
   
 store.dispatch(
     addError("Please try again later")
   )
   
-store.dispatch(
-    addToKB(true)
-  )
+// store.dispatch(
+//     addToKB(true)
+//   )
   
-store.dispatch(setSubject("The Life of Pi"))
+// store.dispatch(setSubject("The Life of Pi"))
 
 store.dispatch(selectEngagementType(1))
 store.dispatch<any>(fetchEngagementTypes('engagementTypes')).then(

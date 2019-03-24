@@ -43,10 +43,10 @@ export class UserService {
                     console.log(`
                     
                                 LoginName: ${userProfile.id}
-                                Name: ${userProfile.fullName}
+                                Name: ${userProfile.name}
                                 Department: ${userProfile.department}
                                 Job Title: ${userProfile.jobTitle}
-                                Office: ${userProfile.office}                                
+                                Office: ${userProfile.officeLocation}                                
                                 
                                 `);
                     

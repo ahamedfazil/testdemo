@@ -32,7 +32,7 @@
       "12":{
         "id":12,
         "submitter": 1,
-        "watchers": [
+        "watcher": [
             2,
             3
         ],
@@ -47,13 +47,13 @@
         "engagementName": "Hartshead Square Developments Ltd ",
         "engagementChargeCode": 2551346,
         "periodEnd": "31/03/2019",
-        "engagementTypes": {
+        "engagementType": {
             "isFetching": false,
             "didInvalidate": false,
             "lastUpdated": 1439478405547,
             "items": [1,2]
         },
-        "auditingStandards": [
+        "auditingStandard": [
             1,
             2
         ],
@@ -108,18 +108,18 @@
             "owner": 10
         }
     },
-    "supportTeamComments": {
-        "1": {
+    "supportTeamComments": [
+         {
             "id": 1,
             "content": "This ticket should be shared out as a KB, could prove useful?",
             "owner": 5
         },
-        "18": {
+        {
             "id": 15,
             "content": "​Discussed with the team. Letter of support to be obtained and basis of preparation note",
             "owner": 6
         }
-    },
+    ],
     "engagementTypes": [
         {
             "id": 1,

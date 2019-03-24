@@ -28,7 +28,7 @@ export const invalidateEngagamentType = (item) => ({
 
 export function fetchEngagementTypes(info) {
     return async function (dispatch) {
-        dispatch(requestEngagmentType())
+        //dispatch(requestEngagmentType())
         return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
             method: 'GET',
             headers: {
@@ -49,67 +49,67 @@ export function fetchEngagementTypes(info) {
 }
 
 
-export const shouldFetchEngagementTypes = (state, action) => {
-    const engagementTypes = state.engagementTypesByItem[action]
-    if (!engagementTypes) {
-        return true
-    } else if (engagementTypes.isFetching) {
-        return false
-    } else {
-        return engagementTypes.didInvalidate
-    }
-}
+// export const shouldFetchEngagementTypes = (state, action) => {
+//     const engagementTypes = state.engagementTypesByItem[action]
+//     if (!engagementTypes) {
+//         return true
+//     } else if (engagementTypes.isFetching) {
+//         return false
+//     } else {
+//         return engagementTypes.didInvalidate
+//     }
+// }
 
-export function fetchEngagementTypesIfNeeded(action) {
-    return (dispatch, getState) => {
-        if (shouldFetchEngagementTypes(getState(), action)) {
-            return dispatch(fetchEngagementTypes(action))
-        } else {
-            return Promise.resolve()
-        }
-    }
-}
-
-
-export const setAuditStandard = (item:DictionaryItem) =>
-({
-    type: C.SET_AUDITING_STANDARDS,
-    payload:item
-})
+// export function fetchEngagementTypesIfNeeded(action) {
+//     return (dispatch, getState) => {
+//         if (shouldFetchEngagementTypes(getState(), action)) {
+//             return dispatch(fetchEngagementTypes(action))
+//         } else {
+//             return Promise.resolve()
+//         }
+//     }
+// }
 
 
-export const addAccFramework = (item:DictionaryItem) =>
-({
-    type: C.ADD_ACCOUNTING_FRAMEWORK,
-    payload:item
-})
+// export const setAuditStandard = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_AUDITING_STANDARDS,
+//     payload:item
+// })
 
-export const removeAccFramework = (item:DictionaryItem) =>
-({
-    type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-    payload: item
-})
 
-export const setCategory = (item:DictionaryItem) =>
-({
-    type: C.SET_CATEGORY,
-    payload: item
-})
+// export const addAccFramework = (item:DictionaryItem) =>
+// ({
+//     type: C.ADD_ACCOUNTING_FRAMEWORK,
+//     payload:item
+// })
 
-export const addTopic = (index:number) =>
-({
-    type: C.ADD_TOPIC,
-    payload: index
-})
+// export const removeAccFramework = (item:DictionaryItem) =>
+// ({
+//     type: C.REMOVE_ACCOUNTING_FRAMEWORK,
+//     payload: item
+// })
 
-export const clearTopic = (index:number) =>
-({
-    type: C.REMOVE_TOPIC,
-    payload: index
-})
+// export const setCategory = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_CATEGORY,
+//     payload: item
+// })
 
-export const setStatus = (item:DictionaryItem) =>
-({
-    type: C.SET_STATUS,
-    payload:item
-})
+// export const addTopic = (index:number) =>
+// ({
+//     type: C.ADD_TOPIC,
+//     payload: index
+// })
+
+// export const clearTopic = (index:number) =>
+// ({
+//     type: C.REMOVE_TOPIC,
+//     payload: index
+// })
+
+// export const setStatus = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_STATUS,
+//     payload:item
+// })

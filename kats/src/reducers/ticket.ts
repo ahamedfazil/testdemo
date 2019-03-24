@@ -17,36 +17,11 @@ export const supportVisibilityFilter = (state = SHOW_ALL_FIELDS, action) => {
 export const supportFields = (state = initialState, action) => {
     switch (action.type) {
 
-        case A.assignSupportTeam:
-            return Object.assign({}, state, {
-                supportTeamAllocated: action.payload
-            })
-
-        case A.requireTraining:
-            return Object.assign({}, state, {
-                training: action.payload
-            })
-
-        case A.setFaq:
-            return Object.assign({}, state, {
-                faq: action.payload
-            })
-
-        case A.setAssignee:
-            return Object.assign({}, state, {
-                assignee: action.payload
-            })
-
-        case A.setReviewer:
-            return Object.assign({}, state, {
-                reviewer: action.payload
-            })
-
         case A.addComment:
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.tickets[12].supportTeamComments,
+                    ...state.supportTeamComments,
                     action.payload
                 ]
 
@@ -57,7 +32,7 @@ export const supportFields = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.tickets[12].supportTeamComments,
+                    ...state.supportTeamComments,
 
                 ].filter(comment => comment !== action.payload.id)
                     .concat(action.payload)
@@ -67,27 +42,9 @@ export const supportFields = (state = initialState, action) => {
             return Object.assign({}, state, {
 
                 allComments: [
-                    ...state.tickets[12].supportTeamComments,
+                    ...state.supportTeamComments,
 
                 ].filter((note, i) => i !== action.payload)
-            })
-
-        case A.setConsultation:
-            return Object.assign({}, state, {
-                finalConsultation: action.payload
-
-            })
-
-        case A.setConculsion:
-            return Object.assign({}, state, {
-                conclusion: action.payload
-
-            })
-
-        case A.addToKB:
-            return Object.assign({}, state, {
-                addToKb: action.payload
-
             })
 
         default:
