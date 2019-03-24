@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers'
 import { Ticket } from '../models/Ticket';
-import * as Raven from 'raven-for-redux';
+import * as Raven from 'raven-js';
 
 const consoleMessages = store => next => action => {
     
@@ -41,7 +41,12 @@ const crashReporter = store => next => action => {
     }
   }
 
+// export default (intialState = {}) => {
+//     return applyMiddleware(thunk,consoleMessages,crashReporter)(createStore)(appReducer, 
+//         intialState)
+// }
 export default (intialState = {}) => {
-    return applyMiddleware(thunk,consoleMessages,crashReporter)(createStore)(appReducer, 
-        intialState)
+  return createStore(appReducer, 
+      intialState,
+      compose(applyMiddleware(thunk,consoleMessages,crashReporter)))
 }

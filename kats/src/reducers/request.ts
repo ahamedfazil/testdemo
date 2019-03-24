@@ -1,4 +1,5 @@
 import * as A from '../actions'
+import C from '../constants';
 // import initialState from '../initialState/requestState.json'
 import initialState from '../initialState/index.json'
 
@@ -9,14 +10,14 @@ const { SHOW_ALL_FIELDS } = A.visibilityFilters
 
 export const visibilityFilter = (state = SHOW_ALL_FIELDS, action) => {
     switch (action.type) {
-        case A.setVisibilityFilter:
+        case C.SET_VISIBILITY_FILTER:
             return action.filter
         default:
             return state
     }
 }
 
-export const request = (state = initialState, action) => {
+export const ticket = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -25,35 +26,35 @@ export const request = (state = initialState, action) => {
         //     submitter: action.payload
         // })
 
-        case A.setRespIndividual:
+        case C.SET_RESPONSIBLE_INDIVIDUAL:
             return Object.assign({}, state, {
                 respIndividual: action.payload
             })
 
-        case A.setEngagementName:
+        case C.SET_ENGAGEMENT_NAME:
             return Object.assign({}, state, {
                 engagementName: action.payload
             })
 
-        case A.setEngagementChargeCode:
+        case C.SET_ENGAGEMENT_CHARGE_CODE:
             return Object.assign({}, state, {
                 engagementChargeCode: action.payload
             })
 
-        case A.setAccEndPeriod:
+        case C.SET_ACCOUNTING_PERIOD_END:
             return Object.assign({}, state, {
                 periodEnd: action.payload
             })
 
-        case A.setAuditStandard:
-            return Object.assign({}, state, {
-                auditingStandards: action.payload
-            })
+        // case A.setAuditStandard:
+        //     return Object.assign({}, state, {
+        //         auditingStandards: action.payload
+        //     })
 
-        case A.setCategory:
-            return Object.assign({}, state, {
-                category: action.payload
-            })
+        // case A.setCategory:
+        //     return Object.assign({}, state, {
+        //         category: action.payload
+        //     })
 
         case A.setSubject:
             return Object.assign({}, state, {
@@ -104,29 +105,29 @@ export const request = (state = initialState, action) => {
 //     }
 // }
 
-export const accFramework = (state = initialState, action) => {
-    switch (action.type) {
+// export const accFramework = (state = initialState, action) => {
+//     switch (action.type) {
 
-        case A.addAccFramework:
-            return Object.assign({}, state, {
+//         case A.addAccFramework:
+//             return Object.assign({}, state, {
 
-                accountingFramework: [
-                    ...state.tickets[12].accountingFramework,
-                    action.payload
-                ]
+//                 accountingFramework: [
+//                     ...state.tickets[12].accountingFramework,
+//                     action.payload
+//                 ]
 
-            })
+//             })
 
-        case A.removeAccFramework:
-            return Object.assign({}, state, {
-                accountingFramework: state.tickets[12].accountingFramework.filter((note, i) => i !== action.payload)
-            })
+//         case A.removeAccFramework:
+//             return Object.assign({}, state, {
+//                 accountingFramework: state.tickets[12].accountingFramework.filter((note, i) => i !== action.payload)
+//             })
 
-        default:
-            return state
+//         default:
+//             return state
 
-    }
-}
+//     }
+// }
 
 export const auditTeamCc = (state = initialState, action) => {
 

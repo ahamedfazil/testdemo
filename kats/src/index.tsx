@@ -1,4 +1,5 @@
 import 'babel-polyfill'
+require("isomorphic-fetch");
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

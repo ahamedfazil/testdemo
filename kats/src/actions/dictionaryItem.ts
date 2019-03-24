@@ -1,5 +1,7 @@
 import C from '../constants';
-import fetch from 'cross-fetch'
+import { DictionaryItem } from '../models/DictionaryItem';
+//import fetch from 'cross-fetch'
+
 
 export const selectEngagementType = (item) =>
     ({
@@ -7,9 +9,9 @@ export const selectEngagementType = (item) =>
         payload: item
     })
 
-export const requestEngagmentType = (item) => ({
+export const requestEngagmentType = () => ({
     type: C.REQUEST_ENGAGEMENT_TYPES,
-    payload: item
+    
 })
 
 export const receiveEngagementTypes = (info, json) => ({
@@ -25,14 +27,14 @@ export const invalidateEngagamentType = (item) => ({
 })
 
 export function fetchEngagementTypes(info) {
-    return function (dispatch) {
-        dispatch(requestEngagmentType(info))
+    return async function (dispatch) {
+        dispatch(requestEngagmentType())
         return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
             method: 'GET',
             headers: {
-                "Authorization": "Bearer " + "accessToken",
-                "accept": "application/json;odata=verbose",
-                'Content-Type': 'application/json'
+                Authorization: "Bearer " + 'accessToken',
+                accept: "application/json;odata=verbose",
+                //'Content-Type': 'application/json'
             }
         })
             .then(
@@ -67,3 +69,47 @@ export function fetchEngagementTypesIfNeeded(action) {
         }
     }
 }
+
+
+export const setAuditStandard = (item:DictionaryItem) =>
+({
+    type: C.SET_AUDITING_STANDARDS,
+    payload:item
+})
+
+
+export const addAccFramework = (item:DictionaryItem) =>
+({
+    type: C.ADD_ACCOUNTING_FRAMEWORK,
+    payload:item
+})
+
+export const removeAccFramework = (item:DictionaryItem) =>
+({
+    type: C.REMOVE_ACCOUNTING_FRAMEWORK,
+    payload: item
+})
+
+export const setCategory = (item:DictionaryItem) =>
+({
+    type: C.SET_CATEGORY,
+    payload: item
+})
+
+export const addTopic = (index:number) =>
+({
+    type: C.ADD_TOPIC,
+    payload: index
+})
+
+export const clearTopic = (index:number) =>
+({
+    type: C.REMOVE_TOPIC,
+    payload: index
+})
+
+export const setStatus = (item:DictionaryItem) =>
+({
+    type: C.SET_STATUS,
+    payload:item
+})

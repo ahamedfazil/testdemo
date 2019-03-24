@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import {
-    request,
+    ticket,
     auditTeamCc,
     //engagementType,
-    accFramework,
+   // accFramework,
     errors,
     visibilityFilter,
     comment
@@ -24,11 +24,11 @@ import {
 } from './dictionary'
 
 export default combineReducers({
-    request,
+    ticket,
     //engagementType,
     selectedEngagementType,
     engagementTypesByItem,
-    accFramework,
+    //accFramework,
     comment,
     auditTeamCc,
     errors,

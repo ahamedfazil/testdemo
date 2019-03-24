@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
-import sampleData from './initialState/index.json';
-import { addError, addToKB, setSubject, setSubmitter } from './actions'
-import NewTicket from './components/ui/NewTicket';
+import { addError, addToKB, setSubject } from './actions'
 import { Provider } from 'react-redux';
 import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
 import { initializeIcons } from '@uifabric/icons';
+
+
+// import * as SPScript from "spscript";
+// require("isomorphic-fetch");
+
+
+
 
 initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
 
 
 
-const initialState = (localStorage['redux-store']) ?
-  JSON.parse(localStorage['redux-store']) :
-  sampleData  
+const initialState = (localStorage['redux-store']) 
+// ?
+//   JSON.parse(localStorage['redux-store']) :
+//   sampleData  
 
 const saveState = () => 
   localStorage['redux-store'] = JSON.stringify(store.getState())
@@ -42,8 +48,17 @@ window.addEventListener("error", handleError)
 //store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
 
 
+// async function getSPList(siteUrl:string, listName: string) {
 
+//   let ctx = SPScript.createContext(siteUrl);
 
+//   let response = await ctx.lists(listName).getItems();
+//   return response
+// }
+
+// let result = getSPList('https://sites.kpmg.co.uk/apps/katsdev/', "Engagement Type");
+
+// console.log('the list items are ',result);
 
 
   

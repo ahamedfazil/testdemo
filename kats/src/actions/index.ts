@@ -17,19 +17,19 @@ export const setVisibilityFilter = (filter) =>
     payload: filter
 })
 
-export const setSubmitter = (userId: string) => dispatch => {
+// export const setSubmitter = (userId: string) => dispatch => {
 
-    dispatch({
-        type: C.REQUEST_SUBMITTER_INFO
-    })
+//     dispatch({
+//         type: C.REQUEST_SUBMITTER_INFO
+//     })
 
-    let svc = new UserService();
-    let submitter = svc.get(userId);
+//     let svc = new UserService();
+//     let submitter = svc.get(userId);
 
-    return submitter
-}
+//     return submitter
+// }
 
-export const addAuditTeamCc = (user:User) =>
+export const addAuditTeamCc = (user:number) =>
 ({
     type: C.ADD_AUDIT_TEAM_CC,
     payload: user
@@ -41,7 +41,7 @@ export const removeAuditTeamCc = (index:number) =>
     payload: index
 })
 
-export const setRespIndividual = (user:User) =>
+export const setRespIndividual = (user:number) =>
 ({
     type: C.SET_RESPONSIBLE_INDIVIDUAL,
     payload: user
@@ -63,51 +63,6 @@ export const setAccEndPeriod = (text:string) =>
 ({
     type: C.SET_ACCOUNTING_PERIOD_END,
     payload:text
-})
-
-
-
-// export const removeEngagementType = (index:number) =>
-// ({
-//     type: C.REMOVE_ENGAGEMENT_TYPE,
-//     payload: index
-// })
-
-export const setAuditStandard = (item:DictionaryItem) =>
-({
-    type: C.SET_AUDITING_STANDARDS,
-    payload:item
-})
-
-
-export const addAccFramework = (item:DictionaryItem) =>
-({
-    type: C.ADD_ACCOUNTING_FRAMEWORK,
-    payload:item
-})
-
-export const removeAccFramework = (item:DictionaryItem) =>
-({
-    type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-    payload: item
-})
-
-export const setCategory = (item:DictionaryItem) =>
-({
-    type: C.SET_CATEGORY,
-    payload: item
-})
-
-export const addTopic = (index:number) =>
-({
-    type: C.ADD_TOPIC,
-    payload: index
-})
-
-export const clearTopic = (index:number) =>
-({
-    type: C.CLEAR_TOPIC,
-    payload: index
 })
 
 export const setSubject = (text:string) =>
@@ -146,7 +101,7 @@ export const removeFile = (index:number) =>
     payload: index
 })
 
-export const addWatcher = (user:User) =>
+export const addWatcher = (user:number) =>
 ({
     type: C.ADD_WATCHER,
     payload: user
@@ -158,7 +113,7 @@ export const removeWatcher = (index:number) =>
     payload: index
 })
 
-export const addComment = (item:Comment) =>
+export const addComment = (item:number) =>
 ({
     type: C.ADD_COMMENT,
     payload: item
@@ -171,18 +126,11 @@ export const removeComment = (index:number) =>
 })
 
 
-export const editComment = (item:Comment) =>
+export const editComment = (item:number) =>
 ({
     type: C.EDIT_COMMENT,
     payload: item
 })
-
-export const setStatus = (item:DictionaryItem) =>
-({
-    type: C.SET_STATUS,
-    payload:item
-})
-
 
 export const addError = (message:string) =>
 ({
@@ -213,6 +161,8 @@ export const setFaq = (isFaq:boolean) =>
     type: C.SET_FAQ,
     payload: isFaq
 })
+
+//TODO : Refactor label suggestions later -24/03/2018
 
 export const changeSuggestions = suggestions =>
 ({
