@@ -73,7 +73,7 @@ store.dispatch(
 store.dispatch(setSubject("The Life of Pi"))
 
 store.dispatch(selectEngagementType(1))
-store.dispatch<any>(fetchEngagementTypes('engagementTypes')).then(
+store.dispatch<any>(fetchEngagementTypes()).then(
   () => console.log(store.getState()))
 
 

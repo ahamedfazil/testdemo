@@ -26,25 +26,29 @@ export const invalidateEngagamentType = (item) => ({
     payload: item
 })
 
-export function fetchEngagementTypes(info) {
+export function fetchEngagementTypes() {
     return async function (dispatch) {
         dispatch(requestEngagmentType())
-        return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
-            method: 'GET',
-            headers: {
-                Authorization: "Bearer " + 'accessToken',
-                accept: "application/json;odata=verbose",
-                //'Content-Type': 'application/json'
-            }
-        })
-            .then(
-                response => response.json(),
-                error => console.log('An error occurred.', error)
-            )
-            .then(json =>
+        try{
+            let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
+                method: 'GET',
+                headers: {
+                    Authorization: "Bearer " + 'accessToken',
+                    accept: "application/json;odata=verbose",
+                    //'Content-Type': 'application/json'
+                }
+            });
+           // dispatch(receiveEngagementTypes(info, json))
+           console.log(value);
+           
+        }
+        catch (error){
+            console.log(error)
 
-                dispatch(receiveEngagementTypes(info, json))
-            )
+            
+            
+        }
+       
     }
 }
 
@@ -63,7 +67,7 @@ export const shouldFetchEngagementTypes = (state, action) => {
 export function fetchEngagementTypesIfNeeded(action) {
     return (dispatch, getState) => {
         if (shouldFetchEngagementTypes(getState(), action)) {
-            return dispatch(fetchEngagementTypes(action))
+            return dispatch(fetchEngagementTypes())
         } else {
             return Promise.resolve()
         }
