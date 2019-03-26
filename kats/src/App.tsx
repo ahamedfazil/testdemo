@@ -4,7 +4,7 @@ import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import { addError } from './actions'
 import { Provider } from 'react-redux';
-// import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
+//import { selectEngagementType, fetchEngagementTypes } from '../src/actions/dictionaryItem'
 import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
 import { getEngagementTypes } from './actions/dictionaryItem';
@@ -118,13 +118,17 @@ store.dispatch(
 // store.dispatch(setSubject("The Life of Pi"))
 
 // store.dispatch(selectEngagementType(1))
-// store.dispatch<any>(fetchEngagementTypes()).then(
+// store.dispatch<any>(fetchEngagementTypes('engagaementType')).then(
 //   () => console.log(store.getState()))
 
 
-store.dispatch<any>(getEngagementTypes())
+
 
 class App extends Component {
+
+  componentWillMount(){
+    store.dispatch<any>(getEngagementTypes());
+  }
   
   render() {
     return (
