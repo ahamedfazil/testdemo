@@ -1,9 +1,11 @@
 import C from '../constants';
 import { DictionaryItem } from '../models/DictionaryItem';
+import { DictionaryService } from '../services/DictionaryService'
 //import fetch from 'cross-fetch'
 
+let svc = new DictionaryService;
 
-export const selectEngagementType = (item) =>
+export const selectEngagementType = item =>
     ({
         type: C.SELECT_ENGAGEMENT_TYPE,
         payload: item
@@ -11,8 +13,30 @@ export const selectEngagementType = (item) =>
 
 export const requestEngagmentType = () => ({
     type: C.REQUEST_ENGAGEMENT_TYPES,
-    
+
 })
+
+export const _receiveEngagementTypes = items => ({
+    type: C.RECEIVE_ENGAGEMENT_TYPES,
+    payload: items
+})
+
+export const _getEngagementTypes = () => dispatch => {
+    let value = svc.getAllEngagementTypes();
+    dispatch(_receiveEngagementTypes(value))
+
+}
+
+export const _addToTicketFromState = itemId => ({
+    type: C.SELECT_ENGAGEMENT_TYPE,
+    payload: itemId
+})
+
+export const _addToTicket = itemId => (dispatch, getState) => {
+    if (getState().engagementType.byId > 0) {
+        dispatch(_addToTicketFromState(itemId))
+    }
+}
 
 export const receiveEngagementTypes = (info, json) => ({
     type: C.RECEIVE_ENGAGEMENT_TYPES,
@@ -26,10 +50,10 @@ export const invalidateEngagamentType = (item) => ({
     payload: item
 })
 
-export function fetchEngagementTypes() {
+export const fetchEngagementTypes = () => {
     return async function (dispatch) {
-        dispatch(requestEngagmentType())
-        try{
+        //dispatch(requestEngagmentType())
+        try {
             let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
                 method: 'GET',
                 headers: {
@@ -38,22 +62,43 @@ export function fetchEngagementTypes() {
                     //'Content-Type': 'application/json'
                 }
             });
-           // dispatch(receiveEngagementTypes(info, json))
-           console.log(value);
-           
+            // dispatch(receiveEngagementTypes(info, json))
+            console.log(value);
+
         }
-        catch (error){
+        catch (error) {
             console.log(error)
 
-            
-            
+
+
         }
-       
+
+    }
+}
+
+export const shouldFetchEngagementTypes = (state, action) => {
+    const engagementTypes = state.engagementTypesByItem[action]
+    if (!engagementTypes) {
+        return true
+    } else if (engagementTypes.isFetching) {
+        return false
+    } else {
+        return engagementTypes.didInvalidate
+    }
+}
+
+export const fetchEngagementTypesIfNeeded = (action) => {
+    return (dispatch, getState) => {
+        if (shouldFetchEngagementTypes(getState(), action)) {
+            return dispatch(fetchEngagementTypes())
+        } else {
+            return Promise.resolve()
+        }
     }
 }
 
 
-<<<<<<< HEAD
+
 // export const shouldFetchEngagementTypes = (state, action) => {
 //     const engagementTypes = state.engagementTypesByItem[action]
 //     if (!engagementTypes) {
@@ -118,69 +163,47 @@ export function fetchEngagementTypes() {
 //     type: C.SET_STATUS,
 //     payload:item
 // })
-=======
-export const shouldFetchEngagementTypes = (state, action) => {
-    const engagementTypes = state.engagementTypesByItem[action]
-    if (!engagementTypes) {
-        return true
-    } else if (engagementTypes.isFetching) {
-        return false
-    } else {
-        return engagementTypes.didInvalidate
-    }
-}
-
-export function fetchEngagementTypesIfNeeded(action) {
-    return (dispatch, getState) => {
-        if (shouldFetchEngagementTypes(getState(), action)) {
-            return dispatch(fetchEngagementTypes())
-        } else {
-            return Promise.resolve()
-        }
-    }
-}
 
 
-export const setAuditStandard = (item:DictionaryItem) =>
-({
-    type: C.SET_AUDITING_STANDARDS,
-    payload:item
-})
+// export const setAuditStandard = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_AUDITING_STANDARDS,
+//     payload:item
+// })
 
 
-export const addAccFramework = (item:DictionaryItem) =>
-({
-    type: C.ADD_ACCOUNTING_FRAMEWORK,
-    payload:item
-})
+// export const addAccFramework = (item:DictionaryItem) =>
+// ({
+//     type: C.ADD_ACCOUNTING_FRAMEWORK,
+//     payload:item
+// })
 
-export const removeAccFramework = (item:DictionaryItem) =>
-({
-    type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-    payload: item
-})
+// export const removeAccFramework = (item:DictionaryItem) =>
+// ({
+//     type: C.REMOVE_ACCOUNTING_FRAMEWORK,
+//     payload: item
+// })
 
-export const setCategory = (item:DictionaryItem) =>
-({
-    type: C.SET_CATEGORY,
-    payload: item
-})
+// export const setCategory = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_CATEGORY,
+//     payload: item
+// })
 
-export const addTopic = (index:number) =>
-({
-    type: C.ADD_TOPIC,
-    payload: index
-})
+// export const addTopic = (index:number) =>
+// ({
+//     type: C.ADD_TOPIC,
+//     payload: index
+// })
 
-export const clearTopic = (index:number) =>
-({
-    type: C.REMOVE_TOPIC,
-    payload: index
-})
+// export const clearTopic = (index:number) =>
+// ({
+//     type: C.REMOVE_TOPIC,
+//     payload: index
+// })
 
-export const setStatus = (item:DictionaryItem) =>
-({
-    type: C.SET_STATUS,
-    payload:item
-})
->>>>>>> e48c43fb8fa0e7e2e7dd42c801e4f655f661bd01
+// export const setStatus = (item:DictionaryItem) =>
+// ({
+//     type: C.SET_STATUS,
+//     payload:item
+// })

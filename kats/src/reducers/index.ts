@@ -1,49 +1,19 @@
 import { combineReducers } from 'redux'
-import {
-    ticket,
-   
-  
-    errors,
-    visibilityFilter,
- 
-} from './request'
-
-// import {
-//     supportVisibilityFilter,
-//     supportFields,
-//     fetching,
-//     suggestions
-// } from './ticket'
-
 import { setSubmitter } from './submitter';
 
-import {
-    selectedEngagementType,
-    engagementTypesByItem
+import { selectedEngagementType, 
+        engagementTypesByItem
 } from './dictionary'
+import { allTickets, errors } from './ticket';
+import { visibilityFilter } from './request';
+
+
 
 export default combineReducers({
-    ticket,
-    //engagementType,
+    allTickets,
     selectedEngagementType,
     engagementTypesByItem,
-    //accFramework,
-    
-   
     errors,
     visibilityFilter,
-
-    submitter:combineReducers({
-        setSubmitter,
-      //  infoBySubmitter
-    }),
-    labelNames: combineReducers({
-        // fetching,
-        // suggestions
-    })
-    
-
-
-
-
-})
+    setSubmitter,
+        })

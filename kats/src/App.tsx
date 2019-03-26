@@ -24,8 +24,8 @@ const initialState = (localStorage['redux-store'])
 //   JSON.parse(localStorage['redux-store']) :
 //   sampleData  
 
-const saveState = () => 
-  localStorage['redux-store'] = JSON.stringify(store.getState())
+// const saveState = () => 
+//   localStorage['redux-store'] = JSON.stringify(store.getState())
 
 const handleError = error => {
   store.dispatch(addError(error.message))
@@ -33,16 +33,11 @@ const handleError = error => {
 } 
 
 const store = storeFactory(initialState)
-store.subscribe(saveState)
+// store.subscribe(saveState)
 
 
 
 window.addEventListener("error", handleError)
-
-
-
-
-
 
 
 // store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
@@ -63,13 +58,14 @@ window.addEventListener("error", handleError)
 
 store.dispatch(addTicket({
   
-    "id":12,
-    "submitter": 1,
+    "id":1894435,
+    "submitter": 26,
     "watcher": [
         2,
-        3
+        3,
+        19
     ],
-    "respIndividual": 4,
+    "respIndividual": 22,
     "assignee": 5,
     "reviewer": 6,
     "assignedTo": 5,
@@ -98,9 +94,6 @@ store.dispatch(addTicket({
     "finalConsultation": "Lorem ipsum...",
     "conclusion": "Lorem ipsum",
     "addToKb": true,
-    "errors": [
-        "Server not found"
-    ],
     "comments": [
         2,
         15,
@@ -124,7 +117,7 @@ store.dispatch(
 // store.dispatch(setSubject("The Life of Pi"))
 
 store.dispatch(selectEngagementType(1))
-store.dispatch<any>(fetchEngagementTypes('engagementTypes')).then(
+store.dispatch<any>(fetchEngagementTypes()).then(
   () => console.log(store.getState()))
 
 

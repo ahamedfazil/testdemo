@@ -9,16 +9,16 @@ const consoleMessages = store => next => action => {
     let result
 
     console.groupCollapsed(`dispatching action => ${action.type}`)
-    console.log('Request', store.getState().subject);
+    console.log('Request', store.getState());
     result = next(action)
 
      
-    let ticket:Ticket = store.getState()
+    let _state = store.getState()
 
     console.log(`
-            Subject: ${ticket.subject}
-            Engagement type: 
-            errors: ${ticket.errors.length}
+            
+            Tickets: ${_state.allTickets.length}
+            errors: ${_state.errors.length}
     `)
 
     console.groupEnd()

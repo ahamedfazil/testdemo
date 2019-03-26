@@ -12,7 +12,7 @@
         },
         "2": {
             "id": "i:05.t|kpmg staff federation|laura.austin@kpmg.co.uk",
-            "name": "Barbara Newman",
+            "name": "Laura Austin",
             "jobTitle": "Manager",
             "department": "NM Audit Manchester 2",
             "officeLocation": "Manchester",
@@ -20,7 +20,8 @@
             "mobileNumber": 7717719
         },
         "3": {
-            "fullName": "Neil Manning",
+            "id": "i:05.t|kpmg staff federation|neil.manning@kpmg.co.uk",
+            "name": "Neil Manning",
             "jobTitle": "Manager",
             "department": "NM Audit Manchester 2",
             "officeLocation": "Manchester",
@@ -28,8 +29,8 @@
             "mobileNumber": 7717719
         }
     },
-    "tickets": {
-      "12":{
+    "allTickets": [
+      {
         "id":12,
         "submitter": 1,
         "watcher": [
@@ -47,12 +48,7 @@
         "engagementName": "Hartshead Square Developments Ltd ",
         "engagementChargeCode": 2551346,
         "periodEnd": "31/03/2019",
-        "engagementType": {
-            "isFetching": false,
-            "didInvalidate": false,
-            "lastUpdated": 1439478405547,
-            "items": [1,2]
-        },
+        "engagementType": [1,2],
         "auditingStandard": [
             1,
             2
@@ -82,9 +78,6 @@
         "finalConsultation": "Lorem ipsum...",
         "conclusion": "Lorem ipsum",
         "addToKb": true,
-        "errors": [
-            "Server not found"
-        ],
         "comments": [
             2,
             15,
@@ -95,7 +88,7 @@
             1,
             18
         ]}
-    },
+    ],
     "comments": {
         "2": {
             "id": 2,
@@ -120,7 +113,10 @@
             "owner": 6
         }
     ],
-    "engagementTypes": [
+    "engagementTypes": {
+        "isFetching": false,
+        "didInvalidate": false,
+        "items":[
         {
             "id": 1,
             "value": "EU PIE"
@@ -133,7 +129,7 @@
             "id": 3,
             "value": "Significant Other"
         }
-    ],
+    ]},
     "auditingStandards": [
         {
             "id": 1,
@@ -194,12 +190,15 @@
         "id": 5,
         "name": "DPP Accounting & Reporting"
     },
-    "labels": {
+    "labelNames": {
         "fetching": false,
         "suggestions": [
             "Subsequent events",
             "Substantive sampling",
             "Substantive testing"
         ]
-    }
+    },
+    "errors": [
+        "Server not found"
+    ]
 }

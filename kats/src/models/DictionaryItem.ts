@@ -1,4 +1,4 @@
-export class DictionaryItem {
-    public id:number;
-    public value: string;
+export interface DictionaryItem {
+    id:number;
+    value: string;
 }

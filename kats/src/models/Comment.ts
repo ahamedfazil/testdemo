@@ -1,8 +1,8 @@
-export class Comment {
-    public id:number;
-    public ticketId:number;
-    public content:string;
-    public userId:string;
-    public isPrivate:boolean;
+export interface Comment {
+    id:number;
+    ticketId:number;
+    content:string;
+    userId:string;
+    isPrivate:boolean;
     
 }

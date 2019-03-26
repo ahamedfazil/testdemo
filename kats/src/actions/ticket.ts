@@ -10,6 +10,14 @@ export function addTicket(ticket:Ticket){
         payload: ticket
     }
 }
+
+export const removeTicket = function(id) {
+    return {
+        type: C.REMOVE_TICKET,
+        payload:id
+    }
+}
+
 export const setTicketId = ticketId => 
 ({
     type: C.SET_TICKET_ID,

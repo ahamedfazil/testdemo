@@ -1,9 +1,9 @@
-export class User {
-   public id:string;
-   public name:string;
-   public jobTitle: string;
-   public department: string;
-   public officeLocation: string;
-   public officeNumber: number;
-   public mobileNumber: number;
+export interface User {
+   id:string;
+   name:string;
+   jobTitle: string;
+   department: string;
+   officeLocation: string;
+   officeNumber: number;
+   mobileNumber: number;
 }

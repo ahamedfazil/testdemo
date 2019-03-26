@@ -1,8 +1,4 @@
 import C from '../constants';
-import { User } from '../models/User'
-import { DictionaryItem } from '../models/DictionaryItem';
-import { Comment } from '../models/Comment';
-import { UserService } from '../services/UserService'
 
 
 export const visibilityFilters = {
@@ -41,25 +37,6 @@ export const removeFile = (index:number) =>
 ({
     type: C.REMOVE_FILE,
     payload: index
-})
-
-export const addComment = (item:number) =>
-({
-    type: C.ADD_COMMENT,
-    payload: item
-})
-
-export const removeComment = (index:number) =>
-({
-    type:C.REMOVE_COMMENT,
-    payload:index
-})
-
-
-export const editComment = (item:number) =>
-({
-    type: C.EDIT_COMMENT,
-    payload: item
 })
 
 export const addError = (message:string) =>
