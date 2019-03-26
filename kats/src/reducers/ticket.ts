@@ -57,7 +57,7 @@ export const allTickets = (state= initialState.allTickets, action) => {
 
 
 export const addedEngagementTypeIds = (
-        state = initialState.allTickets[0].engagementType,
+        state = initialState.allTickets["engagementType"],
         action) =>
         {
    switch (action.type){
@@ -73,8 +73,8 @@ export const addedEngagementTypeIds = (
    }
 }
 
-// export const getAddedIds = state=initialState.allTickets[0] => 
-//         state.engagementType
+export const getAddedIds = (state=initialState.allTickets["engagementType"]) => 
+        state.engagementType
 
 
 
