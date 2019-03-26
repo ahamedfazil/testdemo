@@ -71,7 +71,6 @@ export class NewTicket extends React.Component<NewTicketProps,
 
 
   _id: number = this._id;
-  _requestId: Request = this._requestId;
   _submitter: IPersonaProps[] = this._submitter;
   _submitterId: number = this._submitterId;
   _auditTeamCc: [] = this._auditTeamCc;
@@ -79,27 +78,25 @@ export class NewTicket extends React.Component<NewTicketProps,
   _engagementName: string = this._engagementName;
   _engagementChargeCode: number = this._engagementChargeCode;
   _periodEnd: Date = this._periodEnd;
-  _engagementType: DictionaryItem = this._engagementType;
-  _auditStandards: DictionaryItem[] = this._auditStandards;
-  _accountFramework: DictionaryItem[] = this._accountFramework;
-  _category: DictionaryItem = this._category;
-  _topic: DictionaryItem[] = this._topic;
-  _ticketType: DictionaryItem[] = this._ticketType;
+  _engagementType: number[] = this._engagementType;
+  _auditStandards: number[] = this._auditStandards;
+  _accountFramework: number[] = this._accountFramework;
+  _category: number = this._category;
+  _topic: number[] = this._topic;
+  _ticketType: number[] = this._ticketType;
   _subject: string = this._subject;
   _detailedAnalysis: string = this._detailedAnalysis;
   _isUrgent: boolean = this._isUrgent;
   _reasonForUrgency: string = this._reasonForUrgency;
   _watcher: IPersonaProps[] = this._watcher;
-  _status: DictionaryItem = this._status;
-  _comments: Comment[] = this._comments;
-  _errors: any[] = this._errors;
-
-  _supportTeam: DictionaryItem = this._supportTeam;
+  _status: number = this._status;
+  _comments: number[] = this._comments;
+  _supportTeam: number = this._supportTeam;
   _training: boolean = this._training;
   _faq: boolean = this._faq;
   _assignee: IPersonaProps[] = this._assignee;
   _reviewer: IPersonaProps[] = this._reviewer;
-  _supportTeamComments: Comment[] = this._supportTeamComments;
+  _supportTeamComments: number[] = this._supportTeamComments;
   _finalConsultation: string = this._finalConsultation;
   _conclusion: string = this._conclusion;
   _addToKb: boolean = this._addToKb;

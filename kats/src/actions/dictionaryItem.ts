@@ -5,97 +5,99 @@ import { DictionaryService } from '../services/DictionaryService'
 
 let svc = new DictionaryService;
 
-export const selectEngagementType = item =>
-    ({
-        type: C.SELECT_ENGAGEMENT_TYPE,
-        payload: item
-    })
+// export const selectEngagementType = item =>
+//     ({
+//         type: C.SELECT_ENGAGEMENT_TYPE,
+//         payload: item
+//     })
 
-export const requestEngagmentType = () => ({
-    type: C.REQUEST_ENGAGEMENT_TYPES,
+// export const requestEngagmentType = () => ({
+//     type: C.REQUEST_ENGAGEMENT_TYPES,
 
-})
+// })
 
-export const _receiveEngagementTypes = items => ({
+export const receiveEngagementTypes = items => ({
     type: C.RECEIVE_ENGAGEMENT_TYPES,
     payload: items
 })
 
-export const _getEngagementTypes = () => dispatch => {
+export const getEngagementTypes = () => dispatch => {
     let value = svc.getAllEngagementTypes();
-    dispatch(_receiveEngagementTypes(value))
+    console.log(value);
+    
+    dispatch(receiveEngagementTypes(value))
 
 }
 
-export const _addToTicketFromState = itemId => ({
+export const addToTicketFromState = itemId => ({
     type: C.SELECT_ENGAGEMENT_TYPE,
     payload: itemId
 })
 
 export const _addToTicket = itemId => (dispatch, getState) => {
     if (getState().engagementType.byId > 0) {
-        dispatch(_addToTicketFromState(itemId))
+        dispatch(addToTicketFromState(itemId))
     }
 }
 
-export const receiveEngagementTypes = (info, json) => ({
-    type: C.RECEIVE_ENGAGEMENT_TYPES,
-    payload: info,
-    engagementType: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
-})
+// export const receiveEngagementTypes = (info, json) => ({
+//     type: C.RECEIVE_ENGAGEMENT_TYPES,
+//     payload: info,
+//     engagementType: json.data.children.map(child => child.data),
+//     receivedAt: Date.now()
+// })
 
-export const invalidateEngagamentType = (item) => ({
-    type: C.INVALIDATE_ENGAGEMENT_TYPES,
-    payload: item
-})
+// export const invalidateEngagamentType = (item) => ({
+//     type: C.INVALIDATE_ENGAGEMENT_TYPES,
+//     payload: item
+// })
 
-export const fetchEngagementTypes = () => {
-    return async function (dispatch) {
-        //dispatch(requestEngagmentType())
-        try {
-            let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
-                method: 'GET',
-                headers: {
-                    Authorization: "Bearer " + 'accessToken',
-                    accept: "application/json;odata=verbose",
-                    //'Content-Type': 'application/json'
-                }
-            });
-            // dispatch(receiveEngagementTypes(info, json))
-            console.log(value);
+// export const fetchEngagementTypes = () => {
+//     return async function (dispatch) {
+//         //dispatch(requestEngagmentType())
+//         try {
+//             let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
+//                 method: 'GET',
+//                 headers: {
+//                     Authorization: "Bearer " + 'accessToken',
+//                     accept: "application/json;odata=verbose",
+//                     //'Content-Type': 'application/json'
+//                 }
+//             });
+//             // dispatch(receiveEngagementTypes(info, json))
+//             console.log(value);
 
-        }
-        catch (error) {
-            console.log(error)
+//         }
+//         catch (error) {
+//             console.log(error)
 
 
 
-        }
+//         }
 
-    }
-}
+//     }
+// }
 
-export const shouldFetchEngagementTypes = (state, action) => {
-    const engagementTypes = state.engagementTypesByItem[action]
-    if (!engagementTypes) {
-        return true
-    } else if (engagementTypes.isFetching) {
-        return false
-    } else {
-        return engagementTypes.didInvalidate
-    }
-}
+// export const shouldFetchEngagementTypes = (state, action) => {
+//     const engagementTypes = state.engagementTypesByItem[action]
+//     if (!engagementTypes) {
+//         return true
+//     } else if (engagementTypes.isFetching) {
+//         return false
+//     } else {
+//         return engagementTypes.didInvalidate
+//     }
+// }
 
-export const fetchEngagementTypesIfNeeded = (action) => {
-    return (dispatch, getState) => {
-        if (shouldFetchEngagementTypes(getState(), action)) {
-            return dispatch(fetchEngagementTypes())
-        } else {
-            return Promise.resolve()
-        }
-    }
-}
+// export const fetchEngagementTypesIfNeeded = (action) => {
+//     return (dispatch, getState) => {
+//         if (shouldFetchEngagementTypes(getState(), action)) {
+//             return dispatch(fetchEngagementTypes())
+//         } else {
+//             return Promise.resolve()
+//         }
+//     }
+// }
 
 
 

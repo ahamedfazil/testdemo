@@ -29,8 +29,8 @@ constructor() {
     DictionaryServiceMock.engagementTypes.push(engagementType);
 }
 
-async getAllEngagementTypes(): Promise<DictionaryItem[]>{
-    return classToClass(DictionaryServiceMock.engagementTypes);
-}
+// async getAllEngagementTypes(): Promise<DictionaryItem[]>{
+//     return classToClass(DictionaryServiceMock.engagementTypes);
+// }
 
 }
