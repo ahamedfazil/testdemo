@@ -5,16 +5,17 @@ import { DictionaryService } from '../services/DictionaryService'
 
 let svc = new DictionaryService;
 
-// export const selectEngagementType = item =>
-//     ({
-//         type: C.SELECT_ENGAGEMENT_TYPE,
-//         payload: item
-//     })
+export const selectEngagementType = item =>
+    ({
+        type: C.SELECT_ENGAGEMENT_TYPE,
+        payload: item
+    })
 
-// export const requestEngagmentType = () => ({
-//     type: C.REQUEST_ENGAGEMENT_TYPES,
+export const requestEngagmentType = (info) => ({
+    type: C.REQUEST_ENGAGEMENT_TYPES,
+    payload: info
 
-// })
+})
 
 export const receiveEngagementTypes = items => ({
     type: C.RECEIVE_ENGAGEMENT_TYPES,
@@ -34,7 +35,7 @@ export const addToTicketFromState = itemId => ({
     payload: itemId
 })
 
-export const _addToTicket = itemId => (dispatch, getState) => {
+export const addToTicket = itemId => (dispatch, getState) => {
     if (getState().engagementType.byId > 0) {
         dispatch(addToTicketFromState(itemId))
     }
@@ -52,19 +53,21 @@ export const _addToTicket = itemId => (dispatch, getState) => {
 //     payload: item
 // })
 
-// export const fetchEngagementTypes = () => {
+// export const fetchEngagementTypes = (info) => {
 //     return async function (dispatch) {
-//         //dispatch(requestEngagmentType())
+//         dispatch(requestEngagmentType(info))
 //         try {
-//             let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
+//             let value = await fetch('https://xlitconsultinge.sharepoint.com/sites/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
 //                 method: 'GET',
 //                 headers: {
 //                     Authorization: "Bearer " + 'accessToken',
 //                     accept: "application/json;odata=verbose",
 //                     //'Content-Type': 'application/json'
 //                 }
-//             });
-//             // dispatch(receiveEngagementTypes(info, json))
+//             })
+//             .then(response => response.json())
+//             .then (json =>dispatch(receiveEngagementTypes(info, json)));
+            
 //             console.log(value);
 
 //         }
