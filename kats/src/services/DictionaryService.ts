@@ -1,20 +1,40 @@
 import {DictionaryItem} from '../models/DictionaryItem';
 
 
+export interface Idd{
+    d:LarryProperties[];
+}
+
+export interface LarryProperties{
+        Title:string;
+        Id:number;
+}
+
+
 export class DictionaryService  {
     public async getAllEngagementTypes() {
         try {
-            let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
+
+            let value = await fetch(`https://xlitconsultinge.sharepoint.com/sites/katsdev/_api/web/lists/GetByTitle('Engagement%20Type')/Items`, {
                 method: 'GET',
                 headers: {
-                    Authorization: "Bearer " + 'accessToken',
-                    accept: "application/json;odata=verbose",
-                    //'Content-Type': 'application/json'
+                    accept: "application/json;odata=verbose"
+                    // ,
+                    // 'Content-Type': 'application/json'
                 }
             });
-            // dispatch(receiveEngagementTypes(info, json))
-            let val = await value.json();
-            console.log(val);
+           //let val = await value.json.data.children.map(child => child.data)
+
+           let val1 = await value.json();
+            console.log(val1);
+
+
+           
+            let val = (await value.json()) as Idd;
+        val.d.forEach((item)=>{
+            alert(item.Title);
+        });
+            console.log(`Items are `, val.d);
 
         }
 
