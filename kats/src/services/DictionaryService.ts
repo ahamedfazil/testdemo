@@ -13,9 +13,21 @@ export class DictionaryService  {
                 }
             });
             // dispatch(receiveEngagementTypes(info, json))
-            console.log(value);
+            let val = await value.json();
+            console.log(val);
 
         }
+
+
+        catch (error) {
+            console.log(error);
+            throw new Error;            
+        }
+    
+    }
+
+
+
         // try {
         // const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
         // const listName = 'Engagement Type';
@@ -36,13 +48,6 @@ export class DictionaryService  {
         // return d.promise();
             
         // } 
-
-        catch (error) {
-            console.log(error);
-            throw new Error;            
-        }
-    
-    }
 
 //     export const fetchEngagementTypes = () => {
 //     return async function (dispatch) {
