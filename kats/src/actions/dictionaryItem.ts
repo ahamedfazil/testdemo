@@ -1,9 +1,6 @@
 import C from '../constants';
-import { DictionaryItem } from '../models/DictionaryItem';
-import { DictionaryService } from '../services/DictionaryService'
-//import fetch from 'cross-fetch'
+import caller from './api/caller'
 
-let svc = new DictionaryService;
 
 export const selectEngagementType = item =>
     ({
@@ -11,23 +8,26 @@ export const selectEngagementType = item =>
         payload: item
     })
 
-export const requestEngagmentType = (info) => ({
-    type: C.REQUEST_ENGAGEMENT_TYPES,
-    payload: info
+// export const requestEngagmentType = (info) => ({
+//     type: C.REQUEST_ENGAGEMENT_TYPES,
+//     payload: info
 
-})
+// })
 
-export const receiveEngagementTypes = items => ({
+export const receiveEngagementTypes = (items:any[]) => ({
     type: C.RECEIVE_ENGAGEMENT_TYPES,
     payload: items
 })
 
 export const getEngagementTypes = () => dispatch => {
-    let value = svc.getAllEngagementTypes();
-    console.log(value);
+    caller.getDictionary(svc => {
+        dispatch(receiveEngagementTypes(svc.value))  
+      })
     
-    dispatch(receiveEngagementTypes(value))
-
+    
+    // svc.getAllEngagementTypes(items => {
+    //   dispatch(receiveEngagementTypes(items))  
+    // })
 }
 
 export const addToTicketFromState = itemId => ({
@@ -41,12 +41,12 @@ export const addToTicket = itemId => (dispatch, getState) => {
     }
 }
 
-// export const receiveEngagementTypes = (info, json) => ({
-//     type: C.RECEIVE_ENGAGEMENT_TYPES,
-//     payload: info,
-//     engagementType: json.data.children.map(child => child.data),
-//     receivedAt: Date.now()
-// })
+export const _receiveEngagementTypes = (info, json) => ({
+    type: C.RECEIVE_ENGAGEMENT_TYPES,
+    payload: info,
+    engagementType: json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+})
 
 // export const invalidateEngagamentType = (item) => ({
 //     type: C.INVALIDATE_ENGAGEMENT_TYPES,

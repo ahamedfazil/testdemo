@@ -1,116 +1,82 @@
-import {DictionaryItem} from '../models/DictionaryItem';
+import { DictionaryItem } from '../models/DictionaryItem';
+import { fetch } from 'cross-fetch'
+import 'whatwg-fetch'
 
 
-export interface Idd{
-    d:LarryProperties[];
+export interface Idd {
+    results: DictionaryProperties[];
 }
 
-export interface LarryProperties{
-        Title:string;
-        Id:number;
+export interface DictionaryProperties {
+    Title: string;
+    Id: number;
 }
 
 
-export class DictionaryService  {
+export class DictionaryService {
     public async getAllEngagementTypes() {
         try {
 
-            let value = await fetch(`https://xlitconsultinge.sharepoint.com/sites/katsdev/_api/web/lists/GetByTitle('Engagement%20Type')/Items`, {
+            let value = await fetch(`https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle('Engagement%20Type')/Items?$select=Id,Title`, {
                 method: 'GET',
                 headers: {
-                    accept: "application/json;odata=verbose"
-                    // ,
-                    // 'Content-Type': 'application/json'
-                }
-            });
-           //let val = await value.json.data.children.map(child => child.data)
+                    accept: "application/json;odata=verbose",
+                },
+            })
+                .then(res => res.json())
+                // .then(function (response) {
+                //     if (response.ok) {
+                //         return response.blob();
+                //     }
+                //     throw new Error('Network issues detected');
+                // })
+                .then(response => console.log('Success:', JSON.stringify(response)));
 
-           let val1 = await value.json();
-            console.log(val1);
+            console.log(JSON.stringify(value));
 
-
-           
-            let val = (await value.json()) as Idd;
-        val.d.forEach((item)=>{
-            alert(item.Title);
-        });
-            console.log(`Items are `, val.d);
+            // let val = await value as Idd;
+            // val.results.forEach((item) => {
+            //     alert(item.Title);
+            // });
+            // console.log(`Items are `, val.results);
 
         }
-
-
         catch (error) {
             console.log(error);
-            throw new Error;            
+            throw new Error;
         }
-    
+
     }
 
 
 
-        // try {
-        // const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
-        // const listName = 'Engagement Type';
-        // var d = $.Deferred();
+    // try {
+    // const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
+    // const listName = 'Engagement Type';
+    // var d = $.Deferred();
 
-        // var url = siteurl + "/_api/web/lists/getbytitle('" + listName + "')/items";
-        // $.ajax({
-        //     url: url,
-        //     method: "GET",
-        //     headers: { "Accept": "application/json; odata=verbose" },
-        //     success: function (data) {
-        //         d.resolve(data.d.results);
-        //     },
-        //     error: function (data) {
-        //        d.reject(data);
-        //     }
-        // });
-        // return d.promise();
-            
-        // } 
+    // var url = siteurl + "/_api/web/lists/getbytitle('" + listName + "')/items";
+    // $.ajax({
+    //     url: url,
+    //     method: "GET",
+    //     headers: { "Accept": "application/json; odata=verbose" },
+    //     success: function (data) {
+    //         d.resolve(data.d.results);
+    //     },
+    //     error: function (data) {
+    //        d.reject(data);
+    //     }
+    // });
+    // return d.promise();
 
-//     export const fetchEngagementTypes = () => {
-//     return async function (dispatch) {
-//         //dispatch(requestEngagmentType())
-//         try {
-//             let value = await fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle(\'Engagement%20Type\')/Items', {
-//                 method: 'GET',
-//                 headers: {
-//                     Authorization: "Bearer " + 'accessToken',
-//                     accept: "application/json;odata=verbose",
-//                     //'Content-Type': 'application/json'
-//                 }
-//             });
-//             // dispatch(receiveEngagementTypes(info, json))
-//             console.log(value);
-
-//         }
-//         catch (error) {
-//             console.log(error)
+    // } 
 
 
+    async getAllAuditingStandards(): Promise<DictionaryItem[]> {
 
-//         }
 
-//     }
-// }
-
-        
-    // async getAllAuditingStandards(): Promise<DictionaryItem[]> {
-    //     const siteurl = 'https://sites.kpmg.co.uk/apps/katsdev/';
-    //     const listName = 'EngagementType';
-    //     const response = await fetch(siteurl +'/apps/katsdev/_api/web/lists/GetByTitle'${listName}'/items',)
-    //     .then(    
-    //         method: 'GET',
-    //         headers:{
-    //         Authorization: "Bearer " + accessToken,
-    //         accept: "application/json;odata=verbose",
-
-    //     )});
-    //     return await response.json();
-
-    //     throw new Error;
-    // }
+        throw new Error;
+    }
 
     async getAllAccountingFramework(): Promise<DictionaryItem[]> {
         throw new Error;

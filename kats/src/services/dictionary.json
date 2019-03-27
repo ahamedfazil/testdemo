@@ -1,0 +1,72 @@
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(1)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(1)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 1,
+                "ID": 1,
+                "Title": "Listed"
+            },
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(2)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(2)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 2,
+                "ID": 2,
+                "Title": "EU PIE"
+            },
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(3)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(3)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 3,
+                "ID": 3,
+                "Title": "AQR"
+            },
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(4)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(4)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 4,
+                "ID": 4,
+                "Title": "SEC"
+            },
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(5)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(5)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 5,
+                "ID": 5,
+                "Title": "Significant Other Entities"
+            },
+            {
+                "__metadata": {
+                    "id": "Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(6)",
+                    "uri": "https://sites.kpmg.co.uk/apps/katsdev/_api/Web/Lists(guid'2c1f2f12-478d-48b4-8d50-dbe77ff22dbf')/Items(6)",
+                    "etag": "\"1\"",
+                    "type": "SP.Data.Engagement_x0020_TypeListItem"
+                },
+                "Id": 6,
+                "ID": 6,
+                "Title": "Other"
+            }
+        ]
+    }
+}

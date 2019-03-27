@@ -14,14 +14,14 @@ export const engagementTypes = (state, action) =>{
 
 const byId = (
     state = initialState.engagementTypes.items,
-    action
+    action = undefined
 ) => {
     switch (action.type) {
         case C.RECEIVE_ENGAGEMENT_TYPES:
             return {
                 ...state,
                 ...action.payload.reduce((obj, engagementType) => {
-                    obj[engagementType.id] = engagementType
+                    obj[engagementType.Id] = engagementType
                     return obj
                 },{})
             }
@@ -40,7 +40,7 @@ const byId = (
 const visibleIds = (state:any[]=[], action) => {
     switch(action.type){
         case C.RECEIVE_ENGAGEMENT_TYPES:
-            return action.payload.map(engagementType => engagementType.id)
+            return action.payload.map(engagementType => engagementType.Id)
         default:
             return state
     }
@@ -51,10 +51,23 @@ export default combineReducers({
     visibleIds
 })
 
-export const getEngagementType = (state,id) => state._byId[id]
+export const getEngagementType = (state,Id) => state._byId[Id]
 
 export const getVisibleEngagementTypes = state =>
-    state._visibleIds.map(id => getEngagementType(state,id))
+    state._visibleIds.map(Id => getEngagementType(state,Id))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export const selectedEngagementType = (state = initialState.engagementTypes.items[1], action) => {
 //     switch (action.type) {

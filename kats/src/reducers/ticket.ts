@@ -76,19 +76,19 @@ export const addedEngagementTypeIds = (
 export const getAddedIds = (state=initialState.allTickets["engagementType"]) => 
         state.engagementType
 
-export const ticketEngagementType = (
-                state=initialState.allTickets["engagementType"], 
-                action) => {
-    switch (action.type){
-        case C.REQUEST_ENGAGEMENT_TYPES:
-            return state
-        case C.FETCH_ENGAGEMENT_TYPES_FAILURE:
-            return action.payload
-        default:
-            return {
-                engagementType:addedEngagementTypeIds(state,action)
-            }
-    }
-}
+// export const ticketEngagementType = (
+//                 state=initialState.allTickets["engagementType"], 
+//                 action) => {
+//     switch (action.type){
+//         case C.REQUEST_ENGAGEMENT_TYPES:
+//             return state
+//         case C.FETCH_ENGAGEMENT_TYPES_FAILURE:
+//             return action.payload
+//         default:
+//             return {
+//                 engagementType:addedEngagementTypeIds(state,action)
+//             }
+//     }
+// }
 
-export default ticketEngagementType
+// export default ticketEngagementType

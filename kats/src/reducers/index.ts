@@ -4,19 +4,19 @@ import { setSubmitter } from './submitter';
 // import { selectedEngagementType, 
 //         engagementTypesByItem
 // } from './dictionary'
-import  allTickets, * as fromTicket from './ticket';
-
+import * as fromTicket from './ticket';
+import { allTickets } from './ticket';
 import { visibilityFilter } from './request';
 import { errors } from './system';
 import engagementTypes, * as fromDictionary from './dictionary';
-import ticketEngagementType from './ticket';
+// import ticketEngagementType from './ticket';
 
 
 
 export default combineReducers({
     allTickets,
     engagementTypes,
-    ticketEngagementType,
+    // ticketEngagementType,
     // selectedEngagementType,
     // engagementTypesByItem,
     errors,

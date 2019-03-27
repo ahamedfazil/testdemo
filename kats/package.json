@@ -37,7 +37,8 @@
     "redux-starter-kit": "^0.4.3",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
-    "spscript": "^4.2.0"
+    "spscript": "^4.2.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
