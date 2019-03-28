@@ -1,5 +1,6 @@
 import C from '../constants';
 import caller from './api/caller'
+import { resolve } from 'q';
 
 
 export const selectEngagementType = item =>
@@ -14,21 +15,36 @@ export const selectEngagementType = item =>
 
 // })
 
-export const receiveEngagementTypes = (items:any[]) => ({
+export interface Idd {
+    results: DictionaryProperties[];
+}
+
+export interface DictionaryProperties {
+    Title: string;
+    Id: number;
+}
+
+
+export const receiveEngagementTypes = (items) => ({
     type: C.RECEIVE_ENGAGEMENT_TYPES,
     payload: items
 })
 
 export const getEngagementTypes = () => dispatch => {
-    caller.getDictionary(svc => {
-        dispatch(receiveEngagementTypes(svc.value))  
-      })
-    
-    
-    // svc.getAllEngagementTypes(items => {
-    //   dispatch(receiveEngagementTypes(items))  
-    // })
+    // try{
+    let value = fetch(`https://sites.kpmg.co.uk/apps/katsdev/_api/web/lists/GetByTitle('Engagement%20Type')/Items?$select=Id,Title`, {
+        method: 'GET',
+        headers: {
+            accept: "application/json;odata=verbose",
+        },
+    })
+        .then(res => res.json());
+        
+        dispatch(receiveEngagementTypes(JSON.stringify(value)))
+        console.log(JSON.stringify(res));
+        
 }
+ 
 
 export const addToTicketFromState = itemId => ({
     type: C.SELECT_ENGAGEMENT_TYPE,

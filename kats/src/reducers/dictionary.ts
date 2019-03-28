@@ -14,7 +14,7 @@ export const engagementTypes = (state, action) =>{
 
 const byId = (
     state = initialState.engagementTypes.items,
-    action = undefined
+    action
 ) => {
     switch (action.type) {
         case C.RECEIVE_ENGAGEMENT_TYPES:

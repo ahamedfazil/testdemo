@@ -128,6 +128,8 @@ class App extends Component {
 
   componentWillMount(){
     store.dispatch<any>(getEngagementTypes());
+  
+    
   }
   
   render() {

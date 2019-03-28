@@ -1,7 +1,7 @@
 import { DictionaryService } from '../../services/DictionaryService'
 
 
-const svc = new DictionaryService().getAllEngagementTypes();
+let svc
 
 export default {
     getDictionary: (apiCall) => apiCall(svc)
