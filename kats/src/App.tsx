@@ -8,6 +8,7 @@ import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
 import { getEngagementTypes } from './actions/dictionaryItem';
 import NewTicket from './components/NewTicket';
+import NewForm from './components/SupportFields';
 
 
 
@@ -97,7 +98,7 @@ store.dispatch(
     addError("Please try again later")
   )
 
-//store.dispatch<any>(getEngagementTypes())
+store.dispatch<any>(getEngagementTypes())
 
 
  
@@ -112,7 +113,7 @@ class App extends Component {
       <Provider store={store}>
       <div className="App">
         <header className="App-header">
-        <NewTicket/> 
+        <NewTicket /> 
         </header>
        
      </div>
