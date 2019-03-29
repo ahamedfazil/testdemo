@@ -104,7 +104,7 @@ export class NewTicket extends React.Component<any,
   }
 
 
-  public render():JSX.Element {
+  public render():React.ReactElement<any> {
     const { selectedItem } = this.state;
 
    
@@ -116,7 +116,7 @@ export class NewTicket extends React.Component<any,
         <section id='ticket'>
           <div className="content-wrap">
 
-
+            <div className = 'ms-Grid-row'>
             <div className="col-one ms-TextField">
               <label className="ms-Label">Ticket ID</label>
               <input className="ms-TextField-field" type="text" placeholder="" />
@@ -146,17 +146,17 @@ export class NewTicket extends React.Component<any,
                 ]}
               />
             </div>
-
-
+            </div>
+            <div className = 'ms-Grid-row'>
             <div className="col-one ms-TextField">
               <label className="ms-Label">Engagement Name</label>
               <input className="ms-TextField-field" type="text" placeholder="" />
             </div>
 
             <div className="col-two ms-TextField">
-              {/* <Dropdown
+              <Dropdown
                 label="Priority:"
-                selectedKey={selectedItem ? selectedItem.key : this._ticket.isUrgent}
+                selectedKey={selectedItem ? selectedItem.key : undefined}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -166,7 +166,7 @@ export class NewTicket extends React.Component<any,
                   { key: 1, text: 'Urgent' },
 
                 ]}
-              /> */}
+              />
             </div >
             <div className="col-three ms-TextField">
               <label className="ms-Label">Submitter</label>
@@ -182,7 +182,8 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
-
+            </div>
+            <div className = 'ms-Grid-row'>
 
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
@@ -224,7 +225,9 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 placeholder="Select options"
@@ -265,7 +268,9 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 placeholder="Select options"
@@ -306,7 +311,9 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 label="Ticket Type:"
@@ -360,7 +367,9 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='col-one ms-TextField'>
               <label className="ms-Label">Subject</label>
               <input className="ms-TextField-field" type="text" placeholder="" />
@@ -400,7 +409,9 @@ export class NewTicket extends React.Component<any,
                 }}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='col-wide ms-TextField'>
               <TextField label="Detailed Analysis" multiline rows={10} />
             </div>
@@ -409,27 +420,13 @@ export class NewTicket extends React.Component<any,
               <label className="ms-Label">Topic Leads</label>
               <input className="ms-TextField-field" type="text" placeholder="" />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
             <div className='col-wide ms-TextField'>
               <TextField label="Conclusion" multiline rows={5} />
             </div>
-
-
-            <div className='col-three ms-TextField'>
-              <Checkbox label="Knowledge Base candidate" onChange={this._onCheckboxChange} />
-            </div>
-
-
-            <div className='col-three ms-TextField'>
-              <Checkbox label="Training flag" onChange={this._onCheckboxChange} />
-
-            </div>
-
-            <div className='col-three ms-TextField'>
-              <Checkbox label="FAQ flag" onChange={this._onCheckboxChange} />
-            </div>
-
-
+            
             <div className='col-three ms-TextField'>
               <ComboBox
                 multiSelect
@@ -443,7 +440,23 @@ export class NewTicket extends React.Component<any,
                 text={this.state.initialDisplayValueMulti}
               />
             </div>
+            </div>
 
+            <div className = 'ms-Grid-row'>
+
+            <div className='col-three ms-TextField'>
+              <Checkbox label="Knowledge Base candidate" onChange={this._onCheckboxChange} />
+            </div>
+          
+            <div className='col-three ms-TextField'>
+              <Checkbox label="Training flag" onChange={this._onCheckboxChange} />
+
+            </div>
+            <div className='col-three ms-TextField'>
+              <Checkbox label="FAQ flag" onChange={this._onCheckboxChange} />
+            </div>
+            </div>
+            
 
             <div className='col-three'>
               <DefaultButton>Save Ticket </DefaultButton>
