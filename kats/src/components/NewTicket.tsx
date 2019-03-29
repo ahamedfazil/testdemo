@@ -8,13 +8,13 @@ import {
   Checkbox,
   ComboBox,
   IComboBoxOption,
-  IComboBox
+  IComboBox,
+  BaseComponent
 } from 'office-ui-fabric-react';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Ticket } from '../../models/Ticket';
-import { DictionaryItem } from '../../models/DictionaryItem';
-import { User } from '../../models/User';
+import { Ticket } from '../models/Ticket';
+import { User } from '../models/User';
 
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -31,10 +31,10 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
 ];
 
 interface NewTicketProps {
-  users: User[];
-  ticket: Ticket;
-  fetchSubmitterInfo: () => Promise<User>;
-  selectedItem: undefined,
+      users: User[];
+      ticket: Ticket;
+      fetchSubmitterInfo: () => Promise<User>;
+      selectedItem: null,
       selectedItems: [],
       selectedOptionKeys: [],
       optionsMulti: [],
@@ -43,13 +43,22 @@ interface NewTicketProps {
 }
 
 
-export class NewTicket extends React.Component<NewTicketProps,
+export class NewTicket extends React.Component<any,
   {
-    selectedItem?: { key: string | number | undefined | any };
-    selectedItems: any[],
+    selectedItem?: { key: string | number | undefined};
+    selectedItems: string[],
     selectedOptionKeys?: string[];
     optionsMulti: IComboBoxOption[];
     initialDisplayValueMulti?: string;
+    
+  
+  //People Picker 
+  
+  delayResults?: boolean;
+  //peopleList: IPersonaProps[];
+  //mostRecentlyUsed: IPersonaProps[];
+  currentSelectedItems?: IPersonaProps[];
+  isPickerDisabled?: boolean;
   }>
 {
 
@@ -58,73 +67,51 @@ export class NewTicket extends React.Component<NewTicketProps,
     fetchSubmitterInfo: PropTypes.func.isRequired,
     users: PropTypes.arrayOf(
       PropTypes.instanceOf(User).isRequired,
-
-
-      // ticket:PropTypes.instanceOf(Ticket).isRequired
-    )
-
+       ),
+    // ticket: PropTypes.arrayOf(
+    //   PropTypes.instanceOf(Ticket).isRequired
+   // )  
   }
 
   public static defaultProps = {
     users: []
+   
+  }
+  _ticket: Ticket = this._ticket;
+ 
+  
+  private _basicDropdown = React.createRef<IDropdown>();
+  private _getTextFromItem(persona: IPersonaProps): string {
+        return persona.text as string;
+      }
+
+
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      selectedItem: undefined,
+      selectedItems: [],
+      selectedOptionKeys: [],
+      optionsMulti: [],
+      initialDisplayValueMulti: '',
+      //People Picker states
+      delayResults: false,
+      //peopleList: people,
+      // mostRecentlyUsed: mru,
+      currentSelectedItems: [],
+      isPickerDisabled: false
+    };
   }
 
 
-  _id: number = this._id;
-  _submitter: IPersonaProps[] = this._submitter;
-  _submitterId: number = this._submitterId;
-  _auditTeamCc: [] = this._auditTeamCc;
-  _respIndividual: IPersonaProps[] = this._respIndividual;
-  _engagementName: string = this._engagementName;
-  _engagementChargeCode: number = this._engagementChargeCode;
-  _periodEnd: Date = this._periodEnd;
-  _engagementType: number[] = this._engagementType;
-  _auditStandards: number[] = this._auditStandards;
-  _accountFramework: number[] = this._accountFramework;
-  _category: number = this._category;
-  _topic: number[] = this._topic;
-  _ticketType: number[] = this._ticketType;
-  _subject: string = this._subject;
-  _detailedAnalysis: string = this._detailedAnalysis;
-  _isUrgent: boolean = this._isUrgent;
-  _reasonForUrgency: string = this._reasonForUrgency;
-  _watcher: IPersonaProps[] = this._watcher;
-  _status: number = this._status;
-  _comments: number[] = this._comments;
-  _supportTeam: number = this._supportTeam;
-  _training: boolean = this._training;
-  _faq: boolean = this._faq;
-  _assignee: IPersonaProps[] = this._assignee;
-  _reviewer: IPersonaProps[] = this._reviewer;
-  _supportTeamComments: number[] = this._supportTeamComments;
-  _finalConsultation: string = this._finalConsultation;
-  _conclusion: string = this._conclusion;
-  _addToKb: boolean = this._addToKb;
-  _ticket: Ticket = this._ticket;
+  public render():JSX.Element {
+    const { selectedItem } = this.state;
 
-
-
-
-  private _basicDropdown = React.createRef<IDropdown>();
-
-  // constructor(props: {}) {
-  //   super(props);
-  //   this.state = {
-  //     selectedItem: undefined,
-  //     selectedItems: [],
-  //     selectedOptionKeys: [],
-  //     optionsMulti: [],
-  //     initialDisplayValueMulti: '',
-
-
-
-  //   };
-  // }
-
-
-  public render() {
-    const { selectedItem, selectedItems } = this.state;
+   
     return (
+
+     
+
       <form >
         <section id='ticket'>
           <div className="content-wrap">
@@ -154,7 +141,7 @@ export class NewTicket extends React.Component<NewTicketProps,
                   { key: 'pendinginput', text: 'Pending Audit Team Input' },
                   { key: 'completed', text: 'Completed' },
                   { key: 'cancelled', text: 'Cancelled' },
-                  { key: 'review', text: 'Under Review' },
+                  { key: 'review', text: 'Under Review' }
 
                 ]}
               />
@@ -167,9 +154,9 @@ export class NewTicket extends React.Component<NewTicketProps,
             </div>
 
             <div className="col-two ms-TextField">
-              <Dropdown
+              {/* <Dropdown
                 label="Priority:"
-                selectedKey={selectedItem ? selectedItem.key : 0}
+                selectedKey={selectedItem ? selectedItem.key : this._ticket.isUrgent}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -179,18 +166,16 @@ export class NewTicket extends React.Component<NewTicketProps,
                   { key: 1, text: 'Urgent' },
 
                 ]}
-              />
+              /> */}
             </div >
             <div className="col-three ms-TextField">
               <label className="ms-Label">Submitter</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
-                getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
+                getTextFromItem={this._getTextFromItem}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._submitter}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -203,7 +188,7 @@ export class NewTicket extends React.Component<NewTicketProps,
               <Dropdown
                 placeholder="Select options"
                 label="Engagement Type:"
-                selectedKeys={selectedItems}
+                selectedKeys={undefined}
                 onChange={this.onChangeMultiSelect}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -220,20 +205,19 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className='col-two ms-TextField'>
               <label className="ms-Label">Period End</label>
               <DatePicker isRequired={false} placeholder='Enter Date'
-                value={this._periodEnd}
+                value={undefined}
                 onSelectDate={this.onPeriodEndDateChange} />
             </div>
 
             <div className="col-three ms-TextField">
               <label className="ms-Label">Assignee</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
                 getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._assignee}
+                // selectedItems={this._ticket.assignee}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -245,7 +229,7 @@ export class NewTicket extends React.Component<NewTicketProps,
               <Dropdown
                 placeholder="Select options"
                 label="Accounting Frameworks:"
-                selectedKeys={selectedItems}
+                selectedKeys={undefined}
                 onChange={this.onChangeMultiSelect}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -269,13 +253,12 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className="col-three ms-TextField">
               <label className="ms-Label">Reviewer</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
                 getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._reviewer}
+                // selectedItems={this._ticket.reviewer}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -287,7 +270,7 @@ export class NewTicket extends React.Component<NewTicketProps,
               <Dropdown
                 placeholder="Select options"
                 label="Auditing Standards:"
-                selectedKeys={selectedItems}
+                selectedKeys={undefined}
                 onChange={this.onChangeMultiSelect}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -311,13 +294,12 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className="col-three ms-TextField">
               <label className="ms-Label">Audit Team</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
                 getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._auditTeamCc}
+               // selectedItems={this._ticket.auditTeam}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -328,7 +310,7 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 label="Ticket Type:"
-                selectedKey={selectedItem ? selectedItem.key : this._ticketType}
+                selectedKey={selectedItem ? selectedItem.key : undefined}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -347,7 +329,7 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className='ms-Dropdown-container root-47 col-two ms-TextField'>
               <Dropdown
                 label="Category:"
-                selectedKey={selectedItem ? selectedItem.key : this._category}
+                selectedKey={selectedItem ? selectedItem.key : undefined}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -366,13 +348,12 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className="col-three ms-TextField">
               <label className="ms-Label">Engagement RI</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
                 getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._respIndividual}
+                // selectedItems={this._ticket.respIndividual}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -388,7 +369,7 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className='ms-Dropdown-container root-47 col-two ms-TextField'>
               <Dropdown
                 label="Topics:"
-                selectedKey={selectedItem ? selectedItem.key : this._topic}
+                selectedKey={selectedItem ? selectedItem.key : undefined}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
@@ -407,13 +388,12 @@ export class NewTicket extends React.Component<NewTicketProps,
             <div className="col-three ms-TextField">
               <label className="ms-Label">Watchers</label>
               <NormalPeoplePicker
-                onChange={this.onMemberChange}
                 onResolveSuggestions={this.onFilterChanged}
                 getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                 className={'ms-PeoplePicker'}
                 key={'normal'}
                 itemLimit={1}
-                selectedItems={this._watcher}
+                // selectedItems={this._ticket.watcher}
                 pickerSuggestionsProps={{
                   noResultsFoundText: 'No results found',
                   loadingText: 'Loading...'
@@ -483,7 +463,7 @@ export class NewTicket extends React.Component<NewTicketProps,
     );
   }
   public componentDidMount() {
-    this.props.fetchSubmitterInfo();
+   // this.props.fetchSubmitterInfo();
   }
 
 
@@ -530,13 +510,10 @@ export class NewTicket extends React.Component<NewTicketProps,
     };
   }
   private onPeriodEndDateChange(date: Date): void {
-    this._periodEnd = date;
+    this._ticket.periodEnd = date;
   }
 
-  private onMemberChange(items: any[]): void {
-    this._submitterId = items[0] ? +items[0].key : undefined;
-    this._submitter = items;
-  }
+  
 
   private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
     return this.props.users

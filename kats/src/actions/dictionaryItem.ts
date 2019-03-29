@@ -43,16 +43,17 @@ export const getEngagementTypes = () => dispatch => {
     })
         .then(function (response) {
             return response.text()
+            
         }).then(function (text) {
             console.log('text is: ',text);
             let val = JSON.parse(text);
             let val1 = val.d as Idd;
-            console.log('val is: ',val1);
+            console.log('val is: ',val1.results);
             
             val1.results.forEach((item) => {
                 console.log(item.Title)
                 dispatch(receiveEngagementTypes(val1.results))
-                });
+            })
         })
 }
 

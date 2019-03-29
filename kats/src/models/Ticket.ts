@@ -1,12 +1,14 @@
+import { User } from "./User";
+
 export interface Ticket{
     id: number | null;
    // requestId: number;
-    submitter: number;
+    submitterId: number;
     auditTeam: number[];
     respIndividual: number;
     engagementName: string;
     engagementChargeCode:number;
-    periodEnd:string;
+    periodEnd:Date;
     engagementType:number[];
     auditingStandard:number[];
     accountingFramework: number[];
@@ -31,4 +33,5 @@ export interface Ticket{
     finalConsultation:string;
     conclusion:string;
     addToKb: boolean
+    
 }

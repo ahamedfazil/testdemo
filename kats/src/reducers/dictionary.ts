@@ -1,6 +1,7 @@
 import C from '../constants'
 import initialState  from '../initialState/index.json'
 import { combineReducers } from 'redux';
+import 'whatwg-fetch'
 
 export const engagementTypes = (state, action) =>{
     switch(action.type){
