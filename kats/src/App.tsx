@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
 import { getEngagementTypes } from './actions/dictionaryItem';
-
+import { GetUser } from './app/scripts/app'
 
 // import * as SPScript from "spscript";
 // require("isomorphic-fetch");
@@ -110,27 +110,16 @@ store.dispatch(addTicket({
 store.dispatch(
     addError("Please try again later")
   )
-  
-// store.dispatch(
-//     addToKB(true)
-//   )
-  
-// store.dispatch(setSubject("The Life of Pi"))
 
-// store.dispatch(selectEngagementType(1))
-// store.dispatch<any>(fetchEngagementTypes('engagaementType')).then(
-//   () => console.log(store.getState()))
+store.dispatch<any>(getEngagementTypes())
 
 
+ 
 
 
 class App extends Component {
 
-  componentWillMount(){
-    store.dispatch<any>(getEngagementTypes());
   
-    
-  }
   
   render() {
     return (

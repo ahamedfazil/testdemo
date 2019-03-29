@@ -4,7 +4,7 @@ import 'whatwg-fetch'
 
 
 export interface Idd {
-    results: DictionaryProperties[];
+    d: DictionaryProperties[];
 }
 
 export interface DictionaryProperties {
@@ -23,22 +23,30 @@ export class DictionaryService {
                     accept: "application/json;odata=verbose",
                 },
             })
-                .then(res => res.json())
+            let val = await value.json();
+            console.log(val);
+            
+                // .then(res => res.json())
                 // .then(function (response) {
                 //     if (response.ok) {
                 //         return response.blob();
                 //     }
                 //     throw new Error('Network issues detected');
                 // })
-                .then(response => console.log('Success:', JSON.stringify(response)));
-
-            console.log(JSON.stringify(value));
-
-            // let val = await value as Idd;
-            // val.results.forEach((item) => {
-            //     alert(item.Title);
+                // .then(response => console.log('Success:', JSON.stringify(response)));
+        //     const val = await value.json() as Idd
+        //     val.d.forEach((item) => {
+        //         alert(item.Title)
+        // });
+        //     console.log('Items are ', val.d);
+            
+            // let engagementTypesArray = listItems.map(val =>{
+            //     return <DictionaryProperties>
+            //     {
+            //         Title: val.Title,
+            //         Id: val.Id
+            //     };
             // });
-            // console.log(`Items are `, val.results);
 
         }
         catch (error) {
