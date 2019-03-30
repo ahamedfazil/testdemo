@@ -9,7 +9,7 @@ import { addTicket } from './actions/ticket';
 import { getEngagementTypes } from './actions/dictionaryItem';
 import NewTicket from './components/NewTicket';
 import NewForm from './components/SupportFields';
-
+import sampleData from './initialState/index.json'
 
 
 
@@ -17,21 +17,27 @@ initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/
 
 
 
-const initialState = (localStorage['redux-store']) 
-// ?
-//   JSON.parse(localStorage['redux-store']) :
-//   sampleData  
+const initialState = (localStorage['redux-store']) ?
+  JSON.parse(localStorage['redux-store']) :
+  sampleData  
 
-// const saveState = () => 
-//   localStorage['redux-store'] = JSON.stringify(store.getState())
+const saveState = () => 
+  localStorage['redux-store'] = JSON.stringify(store.getState())
+
+
+const store = storeFactory(initialState)
+store.subscribe(saveState)
+
+
+
 
 const handleError = error => {
   store.dispatch(addError(error.message))
 
 } 
 
-const store = storeFactory(initialState)
-// store.subscribe(saveState)
+
+
 
 
 
@@ -112,10 +118,9 @@ class App extends Component {
     return (
       <Provider store={store}>
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
+         </header> */}
         <NewTicket /> 
-        </header>
-       
      </div>
      </Provider>
     );

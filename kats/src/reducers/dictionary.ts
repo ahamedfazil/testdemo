@@ -14,7 +14,7 @@ export const engagementTypes = (state, action) =>{
 }
 
 const byId = (
-    state = initialState.engagementTypes.items,
+    state = initialState.engagementTypes,
     action
 ) => {
     switch (action.type) {
@@ -55,7 +55,7 @@ export default combineReducers({
 export const getEngagementType = (state,Id) => state._byId[Id]
 
 export const getVisibleEngagementTypes = state =>
-    state._visibleIds.map(Id => getEngagementType(state,Id))
+    state.visibleIds.map(Id => getEngagementType(state,Id))
 
 
 

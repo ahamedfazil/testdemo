@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export interface Ticket{
+export class Ticket{
     id: number | null;
    // requestId: number;
     submitterId: number;

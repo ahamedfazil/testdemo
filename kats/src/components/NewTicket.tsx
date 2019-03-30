@@ -15,6 +15,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Ticket } from '../models/Ticket';
 import { User } from '../models/User';
+import { } from '../actions/ticket';
+import { } from '../actions/dictionaryItem';
+
 
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -30,37 +33,59 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
   { key: 'J', text: 'Option J' }
 ];
 
-interface NewTicketProps {
-      users: User[];
-      ticket: Ticket;
-      fetchSubmitterInfo: () => Promise<User>;
-      selectedItem: null,
-      selectedItems: [],
-      selectedOptionKeys: [],
-      optionsMulti: [],
-      initialDisplayValueMulti: '',
+// interface NewTicketProps {
+//      // users: User[];
+//       //ticket: Ticket;
+//       //fetchSubmitterInfo: () => Promise<User>;
+//       readonly selectedItem: null;
+//       readonly selectedItems: [];
+//       readonly selectedOptionKeys: [];
+//       readonly optionsMulti: [];
+//       readonly initialDisplayValueMulti: '';
+//       addEngagementType: number;
+//       addTicket: Ticket;
+//       readonly users:User[];
+//       readonly ticket:Ticket;
+//       readonly fetchSubmitterInfo:() =>Promise<User>;
+      
+    
+// }
+ 
 
-}
+// const Ticket = ({ticket,filter, onNewTicket=f=>f})=>{
+//   const requestView = (!filter || !filter.match(/request|ticket/))?
+//     ticket: 
+//     ticket.filter()
+// }
 
 
-export class NewTicket extends React.Component<any,
+
+
+
+class NewTicket extends React.Component<any,
   {
-    selectedItem?: { key: string | number | undefined};
+    selectedItem?: { key: string | number | undefined };
     selectedItems: string[],
     selectedOptionKeys?: string[];
     optionsMulti: IComboBoxOption[];
     initialDisplayValueMulti?: string;
-    
-  
-  //People Picker 
-  
-  delayResults?: boolean;
-  //peopleList: IPersonaProps[];
-  //mostRecentlyUsed: IPersonaProps[];
-  currentSelectedItems?: IPersonaProps[];
-  isPickerDisabled?: boolean;
+    //People Picker 
+    delayResults?: boolean;
+    //peopleList: IPersonaProps[];
+    //mostRecentlyUsed: IPersonaProps[];
+    currentSelectedItems?: IPersonaProps[];
+    isPickerDisabled?: boolean;
   }>
 {
+
+
+
+componentDidMount(){
+  this.props.ticket;
+  this.props.users;
+  this.props.addEngagementType;
+
+}
 
 
   static propTypes = {
@@ -104,15 +129,18 @@ export class NewTicket extends React.Component<any,
   }
 
 
-  public render():React.ReactElement<any> {
-    const { selectedItem } = this.state;
 
+
+  public render() {
+    const { selectedItem } = this.state;
+   
+    
    
     return (
 
      
 
-      <form >
+     
         <section id='ticket'>
           <div className="content-wrap">
 
@@ -459,27 +487,20 @@ export class NewTicket extends React.Component<any,
             
 
             <div className='col-three'>
-              <DefaultButton>Save Ticket </DefaultButton>
+              <DefaultButton onClick = {this.onSubmit}>Save Ticket </DefaultButton>
 
             </div>
 
-
-
-
-
-
-
           </div>
         </section>
-      </form>
+      
 
     );
-  }
-  public componentDidMount() {
-   // this.props.fetchSubmitterInfo();
+    
   }
 
 
+  
 
   public changeState = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
     console.log('here are the things updating...' + item.key + ' ' + item.text + ' ' + item.selected);
@@ -532,12 +553,16 @@ export class NewTicket extends React.Component<any,
     return this.props.users
       .filter(x => x.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
-        return {
-          id: x.id.toString(),
-          primaryText: x.name,
-          secondaryText: x.id
-        } as IPersonaProps;
+        return this.newMethod(x);
       });
+  }
+
+  private newMethod(x: User): IPersonaProps {
+    return {
+      id: x.id.toString(),
+      primaryText: x.name,
+      secondaryText: x.id
+    } as unknown as IPersonaProps;
   }
 
   private onFilterChanged(filterText: string) {
@@ -550,6 +575,7 @@ export class NewTicket extends React.Component<any,
     }
     return [];
   }
+
 
   private _onCheckboxChange(ev: React.FormEvent<HTMLElement>, isChecked: boolean): void {
     console.log(`The option has been changed to ${isChecked}.`);
@@ -602,11 +628,29 @@ export class NewTicket extends React.Component<any,
     return selectedKeys;
   };
 
+  private onSubmit ():Promise<void> {
+    const _ticket = this._ticket? this._ticket : new Ticket();
+  return //this.addTicketForm({
+  //   onNewTicket()
+  // })
+
+        
+        
+  }
+
+  public addTicketForm = ({ onNewTicket=f => f }) => {
+    let _ticket: Ticket
+    const submit = e => {
+    e.preventDefault()
+    onNewTicket({
+    ticket: _ticket,
+    })
+    }
+    }
+
 }
 
-// NewTicket.propT = {
 
-// }
 
 
 export default NewTicket

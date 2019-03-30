@@ -113,10 +113,7 @@
             "owner": 6
         }
     ],
-    "engagementTypes": {
-        "isFetching": false,
-        "didInvalidate": false,
-        "items":[
+    "engagementTypes": [
         {
             "Id": 1,
             "Title": "EU PIE"
@@ -129,7 +126,7 @@
             "Id": 3,
             "Title": "Significant Other"
         }
-    ]},
+    ],
     "auditingStandards": [
         {
             "Id": 1,
