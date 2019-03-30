@@ -3,6 +3,8 @@ import initialState  from '../initialState/index.json'
 import { combineReducers } from 'redux';
 import 'whatwg-fetch'
 
+//Engagement Type reducers
+
 export const engagementTypes = (state, action) =>{
     switch(action.type){
     case C.SELECT_ENGAGEMENT_TYPE:
@@ -57,7 +59,7 @@ export const getEngagementType = (state,Id) => state._byId[Id]
 export const getVisibleEngagementTypes = state =>
     state.visibleIds.map(Id => getEngagementType(state,Id))
 
-
+//----------------------------------------------------------------------//
 
 
 

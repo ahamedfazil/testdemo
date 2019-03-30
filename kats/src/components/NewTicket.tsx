@@ -216,7 +216,7 @@ componentDidMount(){
             <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
               <Dropdown
                 placeholder="Select options"
-                label="Engagement Type:"
+                label="Engagement Types:"
                 selectedKeys={undefined}
                 onChange={this.onChangeMultiSelect}
                 onFocus={this._log('onFocus called')}
