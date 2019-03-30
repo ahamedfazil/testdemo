@@ -16,17 +16,11 @@ import sampleData from './initialState/index.json'
 initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
 
 
-
-const initialState = (localStorage['redux-store']) ?
-  JSON.parse(localStorage['redux-store']) :
-  sampleData  
-
-const saveState = () => 
-  localStorage['redux-store'] = JSON.stringify(store.getState())
+const initialState = {}
 
 
 const store = storeFactory(initialState)
-store.subscribe(saveState)
+
 
 
 
@@ -41,7 +35,7 @@ const handleError = error => {
 
 
 
-window.addEventListener("error", handleError)
+
 
 
 // store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
@@ -116,13 +110,13 @@ class App extends Component {
   
   render() {
     return (
-      <Provider store={store}>
+     
       <div className="App">
         {/* <header className="App-header">
          </header> */}
         <NewTicket /> 
      </div>
-     </Provider>
+   
     );
   }
 }

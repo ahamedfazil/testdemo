@@ -1,37 +1,41 @@
 import 'babel-polyfill'
 require("isomorphic-fetch");
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import { createStore, applyMiddleware } from 'redux'
-// import thunk from 'redux-thunk'
-// import { createLogger } from 'redux-logger'
-// import { Provider } from 'react-redux'
-// import appReducer from '../src/reducers'
+import storeFactory from './store'
+import sampleData from './initialState/index.json'
+import { addError } from './actions';
+import { Provider } from 'react-redux';
+
+const initialState = (localStorage['redux-store']) ?
+  JSON.parse(localStorage['redux-store']) :
+  sampleData  
+
+const saveState = () => 
+  localStorage['redux-store'] = JSON.stringify(store.getState())
 
 
-
-// const loggerMiddleware = createLogger()
-
-// const middleware = [ thunk ]
-// if (process.env.NODE_ENV !== 'production') {
-//     middleware.push(loggerMiddleware)
-// }
-
-// const store = createStore(
-//     appReducer,
-//     applyMiddleware(...middleware)
-// )
+const store = storeFactory(initialState)
+store.subscribe(saveState)
 
 
+const handleError = error => {
+    store.dispatch(addError(error.message))
+  
+  } 
 
 
-ReactDOM.render(
+  window.addEventListener("error", handleError)
+
+
+render(
     
-    <App />,
-    
+    <Provider store={store}>
+    <App />
+    </Provider>,
     document.getElementById('container')
     );
 
