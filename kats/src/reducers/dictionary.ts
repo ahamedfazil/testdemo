@@ -1,8 +1,7 @@
 import C from '../constants'
 import initialState  from '../initialState/index.json'
-import { combineReducers } from 'redux';
 import 'whatwg-fetch'
-import   { SELECT_ACCOUNTING_FRAMEWORK, RECEIVE_ACCOUNTING_FRAMEWORK } from '../actions/dictionaryItem';
+import   { SELECT_ACCOUNTING_FRAMEWORK, RECEIVE_ACCOUNTING_FRAMEWORK, SELECT_AUDITING_STANDARDS, RECEIVE_AUDITING_STANDARDS, SELECT_CATEGORY, RECEIVE_CATEGORY } from '../actions/dictionaryItem';
 import { DictionaryItem } from '../models/DictionaryItem';
 
 
@@ -29,7 +28,6 @@ export const byEngagementTypeId = (
 ) => {
     switch (action.type) {
         case C.RECEIVE_ENGAGEMENT_TYPES:
-            state = initialState.engagementTypes;
             return {
                 ...state,
                 ...action.payload.reduce((obj, engagementType) => {
@@ -37,8 +35,6 @@ export const byEngagementTypeId = (
                     return obj
                 }, {})
             }
-
-
         default:
             const { engagementTypeId } = action
             if (engagementTypeId) {
@@ -63,7 +59,7 @@ export const visibleEngagementTypeIds = (state: any[] = [], action) => {
 export const getEngagementType = (state, Id) => state._byId[Id]
 
 export const getVisibleEngagementTypes = state =>
-    state.visibleIds.map(Id => getEngagementType(state, Id))
+    state.visibleEngagementTypeIds.map(Id => getEngagementType(state, Id))
 
 //----------------------------------------------------------------------//
 
@@ -84,7 +80,6 @@ export const byAccountingFrameworkId = (
 ) => {
     switch (action.type) {
         case RECEIVE_ACCOUNTING_FRAMEWORK:
-
             return {
                 ...state,
                 ...action.payload.reduce((obj, accountingFramework) => {
@@ -92,8 +87,6 @@ export const byAccountingFrameworkId = (
                     return obj
                 }, {})
             }
-
-
         default:
             const { accountingFrameworkId } = action
             if (accountingFrameworkId) {
@@ -123,9 +116,110 @@ export const getVisibleAccountingFrameworks = state =>
 //----------------------------------------------------------------------//
 
 
+//Auditing Standards
+export const auditingStandards = (state, action) => {
+    switch (action.type) {
+        case SELECT_AUDITING_STANDARDS:
+            return {
+                ...state,
+                dictionary: state.dictionary - 1
+            }
+    }
+}
+
+export const byAuditingStandardId = (
+    state = initialState.auditingStandards,
+    action
+) => {
+    switch (action.type) {
+        case RECEIVE_AUDITING_STANDARDS:
+            return {
+                ...state,
+                ...action.payload.reduce((obj, auditingStandard) => {
+                    obj[auditingStandard.Id] = auditingStandard
+                    return obj
+                }, {})
+            }
+        default:
+            const { accountingFrameworkId } = action
+            if (accountingFrameworkId) {
+                return {
+                    ...state,
+                    [accountingFrameworkId]: auditingStandards(state[accountingFrameworkId], action)
+                }
+            }
+            return state
+    }
+}
+
+export const visibleAuditingStandardIds = (state: any[] = [], action) => {
+    switch (action.type) {
+        case RECEIVE_AUDITING_STANDARDS:
+            return action.payload.map(item => item.Id)
+        default:
+            return state
+    }
+}
+
+export const getAuditingStandard = (state, Id) => state._byId[Id]
+
+export const getVisibleAuditingStandards = state =>
+    state.visibleAuditingStandardIds.map(Id => getAuditingStandard(state, Id))
+
+//----------------------------------------------------------------------//
 
 
+//Category
+export const category = (state, action) => {
+    switch (action.type) {
+        case SELECT_CATEGORY:
+            return {
+                ...state,
+                dictionary: state.dictionary - 1
+            }
+    }
+}
 
+export const byCategoryId = (
+    state = initialState.category,
+    action
+) => {
+    switch (action.type) {
+        case RECEIVE_CATEGORY:
+            return {
+                ...state,
+                ...action.payload.reduce((obj, item) => {
+                    obj[item.Id] = item
+                    return obj
+                }, {})
+            }
+        default:
+            const { itemId } = action
+            if (itemId) {
+                return {
+                    ...state,
+                    [itemId]: category(state[itemId], action)
+                }
+            }
+            return state
+    }
+}
+
+export const visibleCategoryIds = (state: any[] = [], action) => {
+    switch (action.type) {
+        case RECEIVE_CATEGORY:
+            return action.payload.map(item => item.Id)
+        default:
+            return state
+    }
+}
+
+export const getCategory = (state, Id) => state._byId[Id]
+
+export const getVisibleCategorys = state =>
+    state.visibleCategoryIds.map(Id => getCategory(state, Id))
+
+//----------------------------------------------------------------------//
 
 
 

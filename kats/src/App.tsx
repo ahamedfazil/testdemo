@@ -5,7 +5,7 @@ import storeFactory from './store'
 import { addError } from './actions'
 import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
-import { getEngagementTypes } from './actions/dictionaryItem';
+import { getEngagementTypes, getAccountingFrameworks } from './actions/dictionaryItem';
 import NewTicket from './components/NewTicket';
 
 
@@ -81,9 +81,12 @@ store.dispatch(
   )
 
 store.dispatch<any>(getEngagementTypes())
+store.dispatch<any>(getAccountingFrameworks())
 
 
- 
+store.dispatch(
+  addError("Unable to process your request")
+)
 
 
 class App extends Component {

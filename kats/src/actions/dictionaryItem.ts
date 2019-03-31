@@ -1,7 +1,7 @@
 import C from '../constants';
 import 'whatwg-fetch'
-import { url } from './api/config';
 import { DictionaryItem } from '../models/DictionaryItem';
+import { fetchDictionary } from './fetchDictionary';
 
 export interface Dictionary {
     results: DictionaryItem[];
@@ -19,25 +19,14 @@ export const receiveEngagementTypes = (items) => ({
 })
 
 export const getEngagementTypes = () => dispatch => {
-    fetch(`${url}/_api/web/lists/GetByTitle('Engagement%20Type')/Items?$select=Id,Title`, {
-        method: 'GET',
-        headers: {
-            accept: "application/json;odata=verbose",
-        },
-    })
+    fetchDictionary('Engagement%20Type')
         .then(function (response) {
             return response.text()
             
         }).then(function (text) {
-            console.log('text is: ',text);
-            let val = JSON.parse(text);
-            let val1 = val.d as Dictionary;
-            console.log('val is: ',val1.results);
+            let dictiionaryItems = dictionaryParse(text);
+            dispatch(receiveEngagementTypes(dictiionaryItems.results))
             
-            val1.results.forEach((item) => {
-                console.log(item.Title)
-                dispatch(receiveEngagementTypes(val1.results))
-            })
         })
 }
 
@@ -69,6 +58,18 @@ export const receiveAccountingFrameworks = (items) => ({
     payload: items
 })
 
+export const getAccountingFrameworks = () => dispatch => {
+    fetchDictionary('Accounting%20Framework')
+        .then(function (response) {
+            return response.text()
+            
+        }).then(function (text) {
+            let dictiionaryItems = dictionaryParse(text);
+            dispatch(receiveAccountingFrameworks(dictiionaryItems.results))
+            
+        })
+}
+
 export const addAccFramwkFromState = itemId => ({
     type: SELECT_ACCOUNTING_FRAMEWORK,
     payload: itemId
@@ -98,6 +99,18 @@ export const receiveAuditingStandards = (items) => ({
     payload: items
 })
 
+export const getAuditingStandards = () => dispatch => {
+    fetchDictionary('Auditing%20Standard')
+        .then(function (response) {
+            return response.text()
+            
+        }).then(function (text) {
+            let dictiionaryItems = dictionaryParse(text);
+            dispatch(receiveAuditingStandards(dictiionaryItems.results))
+            
+        })
+}
+
 export const addAudStandFromState = itemId => ({
     type: SELECT_AUDITING_STANDARDS,
     payload: itemId
@@ -126,6 +139,18 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         payload: items
     })
     
+    export const getCategory = () => dispatch => {
+        fetchDictionary('Category')
+            .then(function (response) {
+                return response.text()
+                
+            }).then(function (text) {
+                let dictiionaryItems = dictionaryParse(text);
+                dispatch(receiveCategory(dictiionaryItems.results))
+                
+            })
+    }
+
     export const addCategoryFromState = itemId => ({
         type: SELECT_CATEGORY,
         payload: itemId
@@ -225,123 +250,12 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
     
  
 
-// export const fetchEngagementTypesIfNeeded = (action) => {
-//     return (dispatch, getState) => {
-//         if (shouldFetchEngagementTypes(getState(), action)) {
-//             return dispatch(fetchEngagementTypes())
-//         } else {
-//             return Promise.resolve()
-//         }
-//     }
-// }
 
 
+function dictionaryParse(text: string) {
+    console.log('text is: ', text);
+    let dictionaryText = JSON.parse(text);
+    let dictiionaryItems = dictionaryText.d as Dictionary;
+    return dictiionaryItems;
+}
 
-// export const shouldFetchEngagementTypes = (state, action) => {
-//     const engagementTypes = state.engagementTypesByItem[action]
-//     if (!engagementTypes) {
-//         return true
-//     } else if (engagementTypes.isFetching) {
-//         return false
-//     } else {
-//         return engagementTypes.didInvalidate
-//     }
-// }
-
-// export function fetchEngagementTypesIfNeeded(action) {
-//     return (dispatch, getState) => {
-//         if (shouldFetchEngagementTypes(getState(), action)) {
-//             return dispatch(fetchEngagementTypes(action))
-//         } else {
-//             return Promise.resolve()
-//         }
-//     }
-// }
-
-
-// export const setAuditStandard = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_AUDITING_STANDARDS,
-//     payload:item
-// })
-
-
-// export const addAccFramework = (item:DictionaryItem) =>
-// ({
-//     type: C.ADD_ACCOUNTING_FRAMEWORK,
-//     payload:item
-// })
-
-// export const removeAccFramework = (item:DictionaryItem) =>
-// ({
-//     type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-//     payload: item
-// })
-
-// export const setCategory = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_CATEGORY,
-//     payload: item
-// })
-
-// export const addTopic = (index:number) =>
-// ({
-//     type: C.ADD_TOPIC,
-//     payload: index
-// })
-
-// export const clearTopic = (index:number) =>
-// ({
-//     type: C.REMOVE_TOPIC,
-//     payload: index
-// })
-
-// export const setStatus = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_STATUS,
-//     payload:item
-// })
-
-
-// export const setAuditStandard = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_AUDITING_STANDARDS,
-//     payload:item
-// })
-
-
-// export const addAccFramework = (item:DictionaryItem) =>
-// ({
-//     type: C.ADD_ACCOUNTING_FRAMEWORK,
-//     payload:item
-// })
-
-// export const removeAccFramework = (item:DictionaryItem) =>
-// ({
-//     type: C.REMOVE_ACCOUNTING_FRAMEWORK,
-//     payload: item
-// })
-
-// export const setCategory = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_CATEGORY,
-//     payload: item
-// })
-
-// export const addTopic = (index:number) =>
-// ({
-//     type: C.ADD_TOPIC,
-//     payload: index
-// })
-
-// export const clearTopic = (index:number) =>
-// ({
-//     type: C.REMOVE_TOPIC,
-//     payload: index
-// })
-
-// export const setStatus = (item:DictionaryItem) =>
-// ({
-//     type: C.SET_STATUS,
-//     payload:item
-// })
