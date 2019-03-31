@@ -8,7 +8,6 @@ import { addTicket } from '../actions/ticket'
 
 const mapStateToProps = (state,props) => 
      ({
-        ticket: state.allTickets,
         filter: props.params.filter,
         engagementType: state.engagementTypes.byEngagementTypeId,
         accountingFramework: state.accountingFrameworks.byAccountingFrameworkId,
