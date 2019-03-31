@@ -64,8 +64,16 @@ export default combineReducers({
 
 
 
-const getAddedIds = state => fromTicket.getAddedIds(state.action)
-const getEngagementType = (state,id) =>fromDictionary.getEngagementType(state.engagementTypes, id)
+const getAddedIds = state => fromTicket.getAddedIds(state.action);
+const getEngagementType = (state,Id) =>fromDictionary.getEngagementType(state.engagementTypes, Id);
+const getAccountingFramework = (state,Id) =>fromDictionary.getAccountingFramework(state.accountingFrameworks, Id);
+const getAuditingStandard = (state,Id) => fromDictionary.getAuditingStandard(state.auditingStandards,Id);
+const getCategory = (state,Id) => fromDictionary.getCategory(state.category, Id);
+const getTopic = (state,Id) => fromDictionary.getTopic(state.topic, Id);
+const getTicketType = (state,Id) => fromDictionary.getTicketType(state.ticketType, Id);
+const getStatus = (state,Id) => fromDictionary.getStatus(state.status, Id);
+
+
 
 export const getTicketEngagementTypes = state =>
     getAddedIds(state).map(id => ({

@@ -30,7 +30,6 @@ export const getAllEngagementTypes = () => dispatch => {
         })
 }
 
-
 export const addEngTypeFromState = itemId => ({
     type: C.SELECT_ENGAGEMENT_TYPE,
     payload: itemId
@@ -283,11 +282,7 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         }
     }
 
-    
- 
-
-
-
+  
 function dictionaryParse(text: string) {
     console.log('text is: ', text);
     let dictionaryText = JSON.parse(text);

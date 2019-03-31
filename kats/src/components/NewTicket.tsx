@@ -75,8 +75,17 @@ class NewTicket extends React.Component<any,
     //mostRecentlyUsed: IPersonaProps[];
     currentSelectedItems?: IPersonaProps[];
     isPickerDisabled?: boolean;
+    engagementType:[],
+    accountingFramework: [],
+    auditingStandard: [],
+    category:[],
+    topic:[],
+    ticketType:[],
+    status:any[],
+    ticket:Ticket,
   }>
 {
+  status: string | number | string[] | number[];
 
 
 
@@ -93,9 +102,14 @@ componentDidMount(){
     users: PropTypes.arrayOf(
       PropTypes.instanceOf(User).isRequired,
        ),
-    // ticket: PropTypes.arrayOf(
-    //   PropTypes.instanceOf(Ticket).isRequired
-   // )  
+    onNewTicket:PropTypes.func,
+    engagementType:PropTypes.array,
+    accountingFramework:PropTypes.array,
+    auditingStandard:PropTypes.array,
+    category: PropTypes.array,
+    topic: PropTypes.array,
+    ticketType: PropTypes.array,
+    status: PropTypes.array
   }
 
   public static defaultProps = {
@@ -124,7 +138,15 @@ componentDidMount(){
       //peopleList: people,
       // mostRecentlyUsed: mru,
       currentSelectedItems: [],
-      isPickerDisabled: false
+      isPickerDisabled: false,
+      engagementType:[],
+      accountingFramework: [],
+      auditingStandard: [],
+      category:[],
+      topic:[],
+      ticketType:[],
+      status:[],
+      ticket: new Ticket,
     };
   }
 
@@ -158,20 +180,17 @@ componentDidMount(){
             <div className="col-three ms-TextField">
               <Dropdown
                 label="Status:"
-                selectedKey={selectedItem ? selectedItem.key : undefined}
+                selectedKey={this._ticket.status}
                 onChange={this.changeState}
                 onFocus={this._log('onFocus called')}
                 onBlur={this._log('onBlur called')}
                 placeholder="Select an Option"
-                options={[
-                  { key: 'unassigned', text: 'Unassigned' },
-                  { key: 'inprogress', text: 'In Progress' },
-                  { key: 'pendinginput', text: 'Pending Audit Team Input' },
-                  { key: 'completed', text: 'Completed' },
-                  { key: 'cancelled', text: 'Cancelled' },
-                  { key: 'review', text: 'Under Review' }
-
-                ]}
+                options={this.props.status.map(x =>{
+                  return{
+                    key:x.Id,
+                    text: x.Title,
+                  } as IDropdownOption;
+                }) }
               />
             </div>
             </div>
