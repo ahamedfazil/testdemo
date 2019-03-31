@@ -27,7 +27,6 @@ const handleError = error => {
   
   } 
 
-
   window.addEventListener("error", handleError)
 
 

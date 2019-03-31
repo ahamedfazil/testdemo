@@ -3,13 +3,11 @@ import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import { addError } from './actions'
-import { Provider } from 'react-redux';
 import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
 import { getEngagementTypes } from './actions/dictionaryItem';
 import NewTicket from './components/NewTicket';
-import NewForm from './components/SupportFields';
-import sampleData from './initialState/index.json'
+
 
 
 
@@ -20,22 +18,6 @@ const initialState = {}
 
 
 const store = storeFactory(initialState)
-
-
-
-
-
-const handleError = error => {
-  store.dispatch(addError(error.message))
-
-} 
-
-
-
-
-
-
-
 
 
 // store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))

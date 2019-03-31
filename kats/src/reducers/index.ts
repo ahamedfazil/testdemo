@@ -8,20 +8,34 @@ import * as fromTicket from './ticket';
 import { allTickets } from './ticket';
 import { visibilityFilter } from './request';
 import { errors } from './system';
-import engagementTypes, * as fromDictionary from './dictionary';
+import * as fromDictionary from './dictionary';
+import {
+    byEngagementTypeId, 
+    visibleEngagementTypeIds, 
+    byAccountingFrameworkId, 
+    visibleAccountingFrameworkIds,
+    
+}from './dictionary';
 // import ticketEngagementType from './ticket';
 
 
 
 export default combineReducers({
     allTickets,
-    engagementTypes,
     // ticketEngagementType,
     // selectedEngagementType,
     // engagementTypesByItem,
     errors,
     visibilityFilter,
     setSubmitter,
+    engagementTypes: combineReducers({
+        byEngagementTypeId,
+        visibleEngagementTypeIds,
+    }),
+    accountingFrameworks: combineReducers({
+        byAccountingFrameworkId,
+        visibleAccountingFrameworkIds
+    })
 })
 
 
