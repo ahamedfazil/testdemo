@@ -5,8 +5,13 @@ import storeFactory from './store'
 import { addError } from './actions'
 import { initializeIcons } from '@uifabric/icons';
 import { addTicket } from './actions/ticket';
-import { getEngagementTypes, getAccountingFrameworks } from './actions/dictionaryItem';
+import { 
+  getAllTicketTypes, getAllStatuses, getAllTopics, 
+  getAllCategories, getAllAuditingStandards, 
+  getAllAccountingFrameworks, getAllEngagementTypes 
+} from './actions/dictionaryItem';
 import NewTicket from './components/NewTicket';
+
 
 
 
@@ -80,8 +85,13 @@ store.dispatch(
     addError("Please try again later")
   )
 
-store.dispatch<any>(getEngagementTypes())
-store.dispatch<any>(getAccountingFrameworks())
+store.dispatch<any>(getAllEngagementTypes());
+store.dispatch<any>(getAllAccountingFrameworks());
+store.dispatch<any>(getAllAuditingStandards())
+store.dispatch<any>(getAllCategories());
+store.dispatch<any>(getAllTopics());
+store.dispatch<any>(getAllTicketTypes());
+store.dispatch<any>(getAllStatuses())
 
 
 store.dispatch(
