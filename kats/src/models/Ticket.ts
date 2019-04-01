@@ -17,21 +17,21 @@ export class Ticket{
     ticketType: number;
     subject:string;
     detailedAnalysis:string;
-    isUrgent: boolean;
+    priority: 'Normal' | 'Urgent';
     reasonForUrgency:string;
     watcher: number[];
     status:number;
     comments: number[];
     label:number[];
     supportTeam:number;
-    training:boolean;
-    faq: boolean;
+    training:'Yes' | 'No';
+    faq: 'Yes' | 'No';
     assignee:number;
     assignedTo:number;
     reviewer:number;
     supportTeamComments:number[];
     finalConsultation:string;
     conclusion:string;
-    addToKb: boolean
+    addToKb: 'Yes' | 'No'
     
 }

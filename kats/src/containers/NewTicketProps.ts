@@ -19,6 +19,7 @@ const mapStateToProps = (state,props) =>
 
     })
 
+   
 
 const mapDispatchToProps = dispatch =>
 ({
@@ -38,5 +39,20 @@ const mapDispatchToProps = dispatch =>
 
 const Container = connect(mapStateToProps,mapDispatchToProps)(NewTicket)
 
-export default withRouter (Container)
+export default Container as React.ComponentClass<{}>;
 
+
+// export default connect(
+//     (state) => {
+//         return{
+             
+//         // engagementType: state.engagementTypes.byEngagementTypeId,
+//         // accountingFramework: state.accountingFrameworks.byAccountingFrameworkId,
+//         // auditingStandard: state.auditingStandards.byAuditingStandardsId,
+//         // category: state.category.byCategoryId,
+//         // topic: state.topic.byTopicId,
+//         // ticketType: state.ticketType.byTicketTypeId,
+//         // status: state.status.byStatusId
+//         };
+//     },
+// )

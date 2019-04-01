@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 require("isomorphic-fetch");
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

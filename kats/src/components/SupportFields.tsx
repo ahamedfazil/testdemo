@@ -1,6 +1,5 @@
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react';
 import React from 'react';
-import ReactDOM from 'react-dom';
   
   class NewForm extends React.Component<any,
       {
