@@ -1,20 +1,18 @@
-import {
-  DefaultButton,
-  Dropdown, IDropdown, IDropdownOption,
-  TextField,
-  DatePicker,
-  NormalPeoplePicker,
-  IPersonaProps,
-  Checkbox,
-  ComboBox,
-  IComboBoxOption,
-  IComboBox,
-  BaseComponent
-} from 'office-ui-fabric-react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {
+  DefaultButton,
+  TextField,
+  DatePicker,
+  Checkbox,
+  NormalPeoplePicker,IPersonaProps,
+  Dropdown, IDropdown, IDropdownOption,
+  ComboBox,IComboBoxOption,IComboBox,
+} from 'office-ui-fabric-react';
+
 import { Ticket } from '../models/Ticket';
 import { User } from '../models/User';
+import { addTicket } from '../actions/ticket';
 
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -47,31 +45,47 @@ interface TicketState {
 }
 
 export interface TicketProps {
-  onNewTicket(): any,
+  onNewTicket:typeof Function,
   engagementType: any[],
   accountingFramework: any[],
   auditingStandard: any[],
   category: any[],
   topic: any[],
   ticketType: any[],
-  ticket: Ticket
   status: any[],
   users: User[]
 }
 
 
-
-export class NewTicket extends React.Component<any, TicketState>
+export class NewTicket extends React.Component<TicketProps, TicketState>
 {
-
-
-
-
-  public static defaultProps = {
-    users: []
-
+_ticket:Ticket = this._ticket;
+  componentDidMount() {
+    this.props.onNewTicket
   }
-  _ticket: Ticket = this._ticket;
+
+//  public static defaultProps = {
+//     users: [],
+//     accountingFramework:[],
+//     engagementType:[],
+//     auditingStandard:[],
+//     category:[],
+//     ticketType:[],
+//     status:[],
+//     topic:[],
+//     onNewTicket:typeof Function,
+//       };
+  
+
+
+constructor(props: TicketProps) {
+  super(props);
+  
+  }
+private submit = e => {
+  e.preventDefault()
+  this.props.onNewTicket
+}
 
 
   private _basicDropdown = React.createRef<IDropdown>();
@@ -80,25 +94,12 @@ export class NewTicket extends React.Component<any, TicketState>
   }
 
 
-  constructor(props: TicketProps) {
-    super(props);
-  }
-  private submit = e => {
-    e.preventDefault()
-    this.props.onNewTicket()
-
-  }
-
-  public render(): React.ReactElement<TicketProps> {
-    const { selectedItem } = this.state;
 
 
+  render() { // : React.ReactElement<TicketProps>
     return (
-
-
-
-      <form >
-        <section id='ticket'>
+    <form >
+        <section>
           <div className="content-wrap">
             <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
@@ -406,7 +407,7 @@ export class NewTicket extends React.Component<any, TicketState>
               </div>
             </div>
             <div className='col-three'>
-              <DefaultButton onClick={this.submit}>Save Ticket </DefaultButton>
+              <DefaultButton onClick={this.submit}>Save Ticket</DefaultButton>
             </div>
           </div>
 
@@ -415,10 +416,7 @@ export class NewTicket extends React.Component<any, TicketState>
 
     );
   }
-  public componentDidMount() {
-    // this.props.fetchSubmitterInfo();
-  }
-
+  
   public onStatusChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
     this._ticket.status = item ? +item.key : undefined;
   }
