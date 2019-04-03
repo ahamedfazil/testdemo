@@ -1,10 +1,11 @@
-import { withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import * as Actions from '../actions/UserActions'
 import IStore from '../store/IStore';
 import { IUserActions } from '../actions/IUserActions'
+import { IAppProps } from '../models/IAppProps';
+import App from '../App';
 
 function MapStateToProps(store: IStore) {
     return {
@@ -27,4 +28,9 @@ function MapDispatchToProps(dispatch: Dispatch<IUserActions>) {
             dispatch
         ),
     }
+    
 }
+export default connect<{},{}, IAppProps>(
+    MapStateToProps,
+    MapDispatchToProps
+)(App) as React.ComponentClass<{}>;
