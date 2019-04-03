@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import React from 'react';
 import {
   DefaultButton,
@@ -12,7 +12,7 @@ import {
 
 import { Ticket } from '../models/Ticket';
 import { User } from '../models/User';
-import { addTicket } from '../actions/ticket';
+import { DictionaryItem } from '../models/DictionaryItem';
 
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -45,7 +45,7 @@ interface TicketState {
 }
 
 export interface TicketProps {
-  onNewTicket:typeof Function,
+  onNewTicket,
   engagementType: any[],
   accountingFramework: any[],
   auditingStandard: any[],
@@ -56,34 +56,48 @@ export interface TicketProps {
   users: User[]
 }
 
+// export interface ITicketProps{
+//   getAllEngagementTypes:DictionaryItem[],
+//   getAllAccountingFrameworks:DictionaryItem[],
+//   getAllAuditingStandards:DictionaryItem[],
+//   getAllCategories:DictionaryItem[],
+//   getAllTopicss:DictionaryItem[],
+//   getAllTicketTypes:DictionaryItem[],
+//   getAllStatuses:DictionaryItem[],
+//   onNewTicket,
+
+// }
 
 export class NewTicket extends React.Component<TicketProps, TicketState>
 {
 _ticket:Ticket = this._ticket;
-  componentDidMount() {
-    this.props.onNewTicket
-  }
-
-//  public static defaultProps = {
-//     users: [],
-//     accountingFramework:[],
-//     engagementType:[],
-//     auditingStandard:[],
-//     category:[],
-//     ticketType:[],
-//     status:[],
-//     topic:[],
-//     onNewTicket:typeof Function,
-//       };
+ 
+ public static defaultProps = {
+    users: [],
+    accountingFramework:[],
+    engagementType:[],
+    auditingStandard:[],
+    category:[],
+    ticketType:[],
+    status:[],
+    topic:[],
+    onNewTicket:any,
+      };
   
 
 
-constructor(props: TicketProps) {
-  super(props);
+// constructor(props: TicketProps) {
+//   super(props);
   
-  }
+//   }
 private submit = e => {
   e.preventDefault()
+  this.props.onNewTicket({
+    ticket:this._ticket
+  })
+}
+
+componentDidMount() {
   this.props.onNewTicket
 }
 
@@ -92,8 +106,6 @@ private submit = e => {
   private _getTextFromItem(persona: IPersonaProps): string {
     return persona.text as string;
   }
-
-
 
 
   render() { // : React.ReactElement<TicketProps>
@@ -477,12 +489,12 @@ private submit = e => {
 
   private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
     return this.props.users
-      .filter(x => x.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
+      .filter(x => x.userState.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
         return {
-          id: x.id.toString(),
-          primaryText: x.name,
-          secondaryText: x.id
+          id: x.userState.id.toString(),
+          primaryText: x.userState.name,
+          secondaryText: x.userState.id
         } as unknown as IPersonaProps;
       });
   }

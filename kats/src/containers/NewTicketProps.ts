@@ -1,15 +1,16 @@
-import NewTicket from '../components/NewTicket';
 import { withRouter } from 'react-router';
-import { bindActionCreators, Dispatch } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+
+
+import NewTicket from '../components/NewTicket';
 import { Ticket } from '../models/Ticket';
 import { addTicket } from '../actions/ticket'
 
 
-const mapStateToProps = (state,props) => 
+const mapStateToProps = (state) => 
      ({
-        filter: props.params.filter,
-        engagementType: state.engagementTypes.byEngagementTypeId,
+        // engagementType: state.engagementTypes.byEngagementTypeId,
         accountingFramework: state.accountingFrameworks.byAccountingFrameworkId,
         auditingStandard: state.auditingStandards.byAuditingStandardsId,
         category: state.category.byCategoryId,
@@ -19,8 +20,6 @@ const mapStateToProps = (state,props) =>
         
 
     })
-
-   
 
 const mapDispatchToProps = dispatch =>
 ({

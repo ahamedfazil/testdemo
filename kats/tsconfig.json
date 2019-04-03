@@ -10,7 +10,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

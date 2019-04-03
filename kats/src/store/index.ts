@@ -18,7 +18,14 @@ const consoleMessages = store => next => action => {
     console.log(`
             
             Tickets: ${_state.allTickets.length}
-            errors: ${_state.errors.length}
+            Errors: ${_state.errors.length}
+            Engagement types: ${_state.engagementTypes.byEngagementTypeId.length}
+            Categories: ${_state.category.byCategoryId.length}
+            Ticket types: ${_state.ticketType.byTicketTypeId.length}
+            Accounting framework: ${_state.accountingFrameworks.byAccountingFrameworkId.length}
+            Auditing standards: ${_state.auditingStandards.byAuditingStandardId.length}
+            Topics: ${_state.topic.byTopicId.length}
+            Status: ${_state.status.byStatusId.length}
     `)
 
     console.groupEnd()
