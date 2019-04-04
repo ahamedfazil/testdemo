@@ -6,7 +6,7 @@ export class UserService {
 
     async get(_userId: string): Promise<User[]> {
 
-        const submitterInfo = new User;
+        let submitterInfo :User;
   
 
 
@@ -42,11 +42,11 @@ export class UserService {
                     d.resolve(userProfile);
                     console.log(`
                     
-                                LoginName: ${userProfile.id}
-                                Name: ${userProfile.name}
-                                Department: ${userProfile.department}
-                                Job Title: ${userProfile.jobTitle}
-                                Office: ${userProfile.officeLocation}                                
+                                LoginName: ${userProfile.userState.id}
+                                Name: ${userProfile.userState.name}
+                                Department: ${userProfile.userState.department}
+                                Job Title: ${userProfile.userState.title}
+                                Office: ${userProfile.userState.office}                                
                                 
                                 `);
                     
