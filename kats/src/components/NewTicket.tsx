@@ -10,7 +10,7 @@ import {
   ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize
 } from 'office-ui-fabric-react';
 
-import { Ticket } from '../models/Ticket';
+import { ITicket } from '../models/ITicket';
 import { IUserState } from '../models/User';
 import { IAppProps } from '../models/IAppProps';
 import pnp from '@pnp/pnpjs';
@@ -60,21 +60,17 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
     pnp.setup(pnpConfig);
     getCurrentUser(props)
 
-  // this.getCurrUser = this.props.getCurrentUser!;
-  // this.store = this.props.store!;
-  // this.getCurrSuccess = this.props.getCurrentUserSuccess!;
-  // this.getCurrError = this.props.getCurrentUserError!;
-  // this.getUserInfo = this.props.getUserInfo!;
-  // this.getUserInfoSuccess = this.props.getUserInfoSuccess!;
-  // this.getUserError = this.props.getUserInfoError!;
+    // this.getCurrUser = this.props.getCurrentUser!;
+    // this.store = this.props.store!;
+    // this.getCurrSuccess = this.props.getCurrentUserSuccess!;
+    // this.getCurrError = this.props.getCurrentUserError!;
+    // this.getUserInfo = this.props.getUserInfo!;
+    // this.getUserInfoSuccess = this.props.getUserInfoSuccess!;
+    // this.getUserError = this.props.getUserInfoError!;
 
   }
 
-  
-
-
-
-  _ticket: Ticket = this._ticket;
+  _ticket: ITicket = this._ticket;
 
   private submit = e => {
     e.preventDefault()
@@ -89,7 +85,6 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
   render(): JSX.Element {
     const userState: IUserState = this.props.store.users[0].userState;
-
 
     return (
       <form >

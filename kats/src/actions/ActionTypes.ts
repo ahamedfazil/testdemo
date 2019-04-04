@@ -6,6 +6,12 @@ import {
     IGetUserInfoActionSuccess,
     IGetUserInfoActionError
 } from './IUserActions'
+import { 
+    IAddTicketActionInProgress, 
+    IAddTicketActionSuccess,
+    IAddTicketActionError,
+    IUpdateTicketAction, 
+    IRemoveTicketAction } from './ITicketActions';
 
 type ActionTypes =
 | IGetCurrentUserAction
@@ -14,5 +20,11 @@ type ActionTypes =
 | IGetUserInfoAction
 | IGetUserInfoActionSuccess
 | IGetUserInfoActionError
+| IAddTicketActionInProgress
+| IAddTicketActionInProgress
+| IAddTicketActionSuccess
+| IAddTicketActionError
+| IRemoveTicketAction
+| IUpdateTicketAction
 
 export default ActionTypes

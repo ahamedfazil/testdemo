@@ -4,7 +4,7 @@ import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import { addError } from './actions'
 import { initializeIcons } from '@uifabric/icons';
-import { addTicket } from './actions/ticket';
+import { addTicketInProgress } from './actions/TicketActions';
 import {
   getAllTicketTypes, getAllStatuses, getAllTopics,
   getAllCategories, getAllAuditingStandards,
@@ -32,7 +32,7 @@ const store = storeFactory(initialState)
 
 
 
-store.dispatch(addTicket({
+store.dispatch(addTicketInProgress({
 
   "id": 1894435,
   "submitter": {

@@ -1,6 +1,6 @@
 import { User } from '../models/User'
 import { DictionaryItem } from '../models/DictionaryItem';
-import { Ticket } from '../models/Ticket';
+import { ITicket } from '../models/ITicket';
 
 export default interface IStore {
     users: User[];
@@ -11,7 +11,7 @@ export default interface IStore {
     topic: DictionaryItem[];
     ticketType: DictionaryItem[];
     status: DictionaryItem[];
-    ticket: Ticket
+    ticket: ITicket
 
 
     

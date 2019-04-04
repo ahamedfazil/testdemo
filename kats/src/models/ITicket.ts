@@ -1,6 +1,6 @@
 import { IUserState } from "./User";
 
-export interface Ticket{
+export interface ITicket{
     id: number | null;
     submitter: IUserState;
     auditTeam: number[];

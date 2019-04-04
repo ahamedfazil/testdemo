@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as UserActions from '../actions/UserActions';
 import * as DictionaryActions from '../actions/dictionaryItem';
-import { addTicket } from '../actions/ticket'
+import { addTicketInProgress } from '../actions/TicketActions'
 import IStore from '../store/IStore';
 import { IAppProps } from '../models/IAppProps';
 import ActionTypes from '../actions/ActionTypes';
@@ -59,7 +59,7 @@ function MapDispatchToProps(dispatch: Dispatch<ActionTypes>) {
             dispatch
         ),
         addTicket: bindActionCreators(
-            addTicket,
+            addTicketInProgress,
             dispatch
         )
     }
