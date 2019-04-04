@@ -1,8 +1,8 @@
 import pnp from '@pnp/pnpjs';
-import { IUserState } from '../../models/User';
-import { func } from 'prop-types';
-import { IAppProps } from '../../models/IAppProps';
 import update from 'immutability-helper';
+
+import { IUserState } from '../../models/User';
+import { IAppProps } from '../../models/IAppProps';
 
 export const getUserByID = (userID: any) => {
     return pnp.sp.web.siteUsers
@@ -69,34 +69,32 @@ export async function getCurrentUser(props: IAppProps) {
                             default:
                                 return prop;
                         }
-                    
+
                     }
                     let groupsResponse = response[1];
-                    for(let groupTitle of groupsResponse){
+                    for (let groupTitle of groupsResponse) {
                         userState.memberOf.push(groupTitle.Title);
-                      }
-                      userState.isSupportUser = userState.memberOf.includes('Support');
-                      userState.isUser = userState.memberOf.includes('SharePoint User');
+                    }
+                    userState.isSupportUser = userState.memberOf.includes('Support');
+                    userState.isUser = userState.memberOf.includes('SharePoint User');
 
-                      //Dispatch success ation
+                    //Dispatch success action
                     userState.isFetched = true;
                     props.getCurrentUserSuccess(userState);
                 })
-                .catch(error =>{
+                .catch(error => {
                     console.log(error);
                     //Dispatch error action
                     props.getCurrentUserError(error);
 
-                    });
-                
-        }catch(error){
-        console.log(error);
-        
-        props.getCurrentUserError(error);
+                });
 
+        } catch (error) {
+            console.log(error);
+
+            props.getCurrentUserError(error);
+
+        }
     }
-    }
-                
-    
 
 }

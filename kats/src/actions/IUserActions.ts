@@ -2,11 +2,6 @@ import { Action } from 'redux';
 import keys from '../constants/ActionTypeKey';
 import { IUserState } from '../models/User'
 
-// export default interface IUserActions{
-//     currentUser:IGetCurrentUserAction,
-//     currentUserSuccess:IGetCurrentUserActionSuccess,
-//     currentUserError:IGetCurrentUserActionError
-// } 
 
 export interface IGetCurrentUserAction extends Action {
     readonly type: keys.GET_CURRENT_USER;

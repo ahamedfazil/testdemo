@@ -1,9 +1,8 @@
-import { User } from "./User";
+import { IUserState } from "./User";
 
-export class Ticket{
+export interface Ticket{
     id: number | null;
-   // requestId: number;
-    submitterId: number;
+    submitter: IUserState;
     auditTeam: number[];
     respIndividual: number;
     engagementName: string;
@@ -22,7 +21,7 @@ export class Ticket{
     watcher: number[];
     status:number;
     comments: number[];
-    label:number[];
+    labels:number[];
     supportTeam:number;
     training:'Yes' | 'No';
     faq: 'Yes' | 'No';

@@ -1,5 +1,6 @@
 export interface User {
    isInitialised:boolean;
+   error?:any;
    userState: IUserState
 }
 
@@ -17,5 +18,5 @@ export interface IUserState{
    department:string;
    memberOf:string[];
    office:string;
-   officeNumber:null
+   officeNumber:number
 }
