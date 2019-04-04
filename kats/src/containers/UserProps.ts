@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import * as Actions from '../actions/UserActions'
 import IStore from '../store/IStore';
-import { IUserActions } from '../actions/IUserActions'
 import { IAppProps } from '../models/IAppProps';
 import App from '../App';
+import ActionTypes from '../actions/ActionTypes';
 
 function MapStateToProps(store: IStore) {
     return {
@@ -13,7 +13,7 @@ function MapStateToProps(store: IStore) {
     };
 }
 
-function MapDispatchToProps(dispatch: Dispatch<IUserActions>) {
+function MapDispatchToProps(dispatch: Dispatch<ActionTypes>) {
     return {
         getCurrentUser: bindActionCreators(
             Actions.getCurrentUser,

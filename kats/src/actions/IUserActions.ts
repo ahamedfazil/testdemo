@@ -3,9 +3,9 @@ import keys from '../constants/ActionTypeKey';
 import { IUserState } from '../models/User'
 
 // export default interface IUserActions{
-//     IGetCurrentUserAction: any,
-//     IGetCurrentUserActionSuccess:any,
-//     IGetCurrentUserActionError: any
+//     currentUser:IGetCurrentUserAction,
+//     currentUserSuccess:IGetCurrentUserActionSuccess,
+//     currentUserError:IGetCurrentUserActionError
 // } 
 
 export interface IGetCurrentUserAction extends Action {
