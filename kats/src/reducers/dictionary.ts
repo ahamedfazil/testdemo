@@ -1,6 +1,7 @@
-import C from '../constants'
-import initialState  from '../initialState/index.json'
-import 'whatwg-fetch'
+import 'whatwg-fetch';
+import C from '../constants';
+import initialState  from '../initialState/index.json';
+import appInitialState from '../store/appInitialState';
 import   { 
     SELECT_ACCOUNTING_FRAMEWORK, RECEIVE_ACCOUNTING_FRAMEWORK, 
     SELECT_AUDITING_STANDARDS, RECEIVE_AUDITING_STANDARDS, 
@@ -11,11 +12,6 @@ import   {
 } from '../actions/dictionaryItem';
 import { DictionaryItem } from '../models/DictionaryItem';
 
-
-// let dictionaryState : {
-//     "Id":number,
-//     "Title":string;
-// } = {};
 
 //Engagement Type
 
@@ -30,7 +26,7 @@ export const engagementTypes = (state, action) => {
 }
 
 export const byEngagementTypeId = (
-    state:DictionaryItem[] = [],
+    state:DictionaryItem[] = appInitialState.engagementType,
     action
 ) => {
     switch (action.type) {
@@ -38,7 +34,7 @@ export const byEngagementTypeId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -54,7 +50,7 @@ export const byEngagementTypeId = (
     }
 }
 
-export const visibleEngagementTypeIds = (state: any[] = [], action) => {
+export const visibleEngagementTypeIds = (state: number[] = [], action) => {
     switch (action.type) {
         case C.RECEIVE_ENGAGEMENT_TYPES:
             return action.payload.map(engagementType => engagementType.Id)
@@ -90,7 +86,7 @@ export const byAccountingFrameworkId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -109,7 +105,7 @@ export const byAccountingFrameworkId = (
 export const visibleAccountingFrameworkIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_ACCOUNTING_FRAMEWORK:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }
@@ -143,7 +139,7 @@ export const byAuditingStandardId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -162,7 +158,7 @@ export const byAuditingStandardId = (
 export const visibleAuditingStandardIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_AUDITING_STANDARDS:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }
@@ -194,7 +190,7 @@ export const byCategoryId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -213,7 +209,7 @@ export const byCategoryId = (
 export const visibleCategoryIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_CATEGORY:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }
@@ -246,7 +242,7 @@ export const byTopicId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -265,7 +261,7 @@ export const byTopicId = (
 export const visibleTopicIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_TOPIC:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }
@@ -296,7 +292,7 @@ export const byTicketTypeId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -315,7 +311,7 @@ export const byTicketTypeId = (
 export const visibleTicketTypeIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_TICKET_TYPE:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }
@@ -347,7 +343,7 @@ export const byStatusId = (
             return {
                 ...state,
                 ...action.payload.reduce((obj, item) => {
-                    obj[item.Id] = item
+                    obj[item.id] = item
                     return obj
                 }, {})
             }
@@ -366,7 +362,7 @@ export const byStatusId = (
 export const visibleStatusIds = (state: any[] = [], action) => {
     switch (action.type) {
         case RECEIVE_STATUS:
-            return action.payload.map(item => item.Id)
+            return action.payload.map(item => item.id)
         default:
             return state
     }

@@ -1,18 +1,25 @@
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import React from 'react';
 import {
   DefaultButton,
   TextField,
   DatePicker,
   Checkbox,
-  NormalPeoplePicker,IPersonaProps,
+  NormalPeoplePicker, IPersonaProps,
   Dropdown, IDropdown, IDropdownOption,
-  ComboBox,IComboBoxOption,IComboBox,
+  ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize
 } from 'office-ui-fabric-react';
 
-import { Ticket } from '../models/Ticket';
-import { User } from '../models/User';
-import { addTicket } from '../actions/ticket';
+import { ITicket } from '../models/ITicket';
+import { IUserState } from '../models/User';
+import { IAppProps } from '../models/IAppProps';
+import pnp from '@pnp/pnpjs';
+import { pnpConfig } from '../config/pnp.config';
+import { getCurrentUser } from '../actions/api/UserAPI';
+import IStore from '../store/IStore';
+import * as IActions from '../actions/IUserActions';
+import { getUserInfo } from '../actions/UserActions';
+
 
 
 const INITIAL_OPTIONS: IComboBoxOption[] = [
@@ -30,7 +37,7 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
 
 interface TicketState {
 
-  fetchSubmitterInfo: () => Promise<User>;
+  // fetchSubmitterInfo: () => Promise<User>;
   selectedItem?: { key: string | number | undefined };
   selectedItems: string[],
   selectedOptionKeys?: string[];
@@ -44,49 +51,31 @@ interface TicketState {
 
 }
 
-export interface TicketProps {
-  onNewTicket:typeof Function,
-  engagementType: any[],
-  accountingFramework: any[],
-  auditingStandard: any[],
-  category: any[],
-  topic: any[],
-  ticketType: any[],
-  status: any[],
-  users: User[]
-}
-
-
-export class NewTicket extends React.Component<TicketProps, TicketState>
+export class NewTicket extends React.Component<IAppProps, TicketState>
 {
-_ticket:Ticket = this._ticket;
-  componentDidMount() {
-    this.props.onNewTicket
+
+
+  constructor(props: IAppProps) {
+    super(props);
+    pnp.setup(pnpConfig);
+    getCurrentUser(props)
+
+    // this.getCurrUser = this.props.getCurrentUser!;
+    // this.store = this.props.store!;
+    // this.getCurrSuccess = this.props.getCurrentUserSuccess!;
+    // this.getCurrError = this.props.getCurrentUserError!;
+    // this.getUserInfo = this.props.getUserInfo!;
+    // this.getUserInfoSuccess = this.props.getUserInfoSuccess!;
+    // this.getUserError = this.props.getUserInfoError!;
+
   }
 
-//  public static defaultProps = {
-//     users: [],
-//     accountingFramework:[],
-//     engagementType:[],
-//     auditingStandard:[],
-//     category:[],
-//     ticketType:[],
-//     status:[],
-//     topic:[],
-//     onNewTicket:typeof Function,
-//       };
-  
+  _ticket: ITicket = this._ticket;
 
+  private submit = e => {
+    e.preventDefault()
 
-constructor(props: TicketProps) {
-  super(props);
-  
   }
-private submit = e => {
-  e.preventDefault()
-  this.props.onNewTicket
-}
-
 
   private _basicDropdown = React.createRef<IDropdown>();
   private _getTextFromItem(persona: IPersonaProps): string {
@@ -94,11 +83,11 @@ private submit = e => {
   }
 
 
+  render(): JSX.Element {
+    const userState: IUserState = this.props.store.users[0].userState;
 
-
-  render() { // : React.ReactElement<TicketProps>
     return (
-    <form >
+      <form >
         <section>
           <div className="content-wrap">
             <div className='ms-Grid-row'>
@@ -117,12 +106,12 @@ private submit = e => {
                 <Dropdown
                   label="Status:"
                   selectedKey={this._ticket.status}
-                  onChange={this.onStatusChange}
-                  placeholder="Select an Option"
-                  options={this.props.status.map(x => {
+                  onChanged={this.onStatusChange}
+                  placeholder="Select status"
+                  options={this.props.store.status.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -140,7 +129,7 @@ private submit = e => {
                 <Dropdown
                   label="Priority:"
                   selectedKey={this._ticket.priority}
-                  onChange={this.changeState}
+                  onChanged={this.onPriorityChange}
                   placeholder="Select an Option"
                   options={[
                     { key: 0, text: 'Normal' },
@@ -149,11 +138,24 @@ private submit = e => {
                 />
               </div >
               <div className="col-three ms-TextField">
+                {!userState.isFetched ? (
+                  <div>
+                    {this.props.store.users[0].error ? (
+                      <label>error = {'User Error ' + this.props.store.users[0].error}
+                      </label>
+
+                    ) : (
+                        <Spinner size={SpinnerSize.small} />
+
+                      )}
+                  </div>
+                ) : (this.props.store.users[0].userState.id
+                  )}
                 <label className="ms-Label">Submitter</label>
                 <NormalPeoplePicker
                   onResolveSuggestions={this.onFilterChanged}
                   className={'ms-PeoplePicker'}
-                  key={this._ticket.submitterId}
+                  key={this.props.store.users[0].userState.id}
                   itemLimit={1}
                   pickerSuggestionsProps={{
                     noResultsFoundText: 'No results found',
@@ -168,12 +170,12 @@ private submit = e => {
                   placeholder="Select options"
                   label="Engagement Types:"
                   selectedKeys={this._ticket.engagementType}
-                  onChange={this.onChangeMultiSelect}
+                  onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.engagementType.map(x => {
+                  options={this.props.store.engagementType.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -206,12 +208,12 @@ private submit = e => {
                   placeholder="Select options"
                   label="Accounting Frameworks:"
                   selectedKeys={this._ticket.accountingFramework}
-                  onChange={this.onChangeMultiSelect}
+                  onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.accountingFramework.map(x => {
+                  options={this.props.store.accountingFramework.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -244,12 +246,12 @@ private submit = e => {
                   placeholder="Select options"
                   label="Auditing Standards:"
                   selectedKeys={this._ticket.auditingStandard}
-                  onChange={this.onChangeMultiSelect}
+                  onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.auditingStandard.map(x => {
+                  options={this.props.store.auditingStandard.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -279,12 +281,12 @@ private submit = e => {
                 <Dropdown
                   label="Ticket Type:"
                   selectedKey={this._ticket.ticketType}
-                  onChange={this.onTicketTypeChange}
+                  onChanged={this.onTicketTypeChange}
                   placeholder="Select an Option"
-                  options={this.props.ticketType.map(x => {
+                  options={this.props.store.ticketType.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -293,12 +295,12 @@ private submit = e => {
                 <Dropdown
                   label="Category:"
                   selectedKey={this._ticket.category}
-                  onChange={this.onCategoryChange}
+                  onChanged={this.onCategoryChange}
                   placeholder="Select an Option"
-                  options={this.props.category.map(x => {
+                  options={this.props.store.category.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IDropdownOption;
                   })}
                 />
@@ -330,17 +332,17 @@ private submit = e => {
               <div className='ms-Dropdown-container root-47 col-two ms-TextField'>
                 <ComboBox
                   multiSelect
-                  selectedKey={this._ticket.label}
+                  selectedKey={this._ticket.labels}
                   label="Topics:"
                   allowFreeform={true}
                   autoComplete="on"
                   onChange={this._onChangeMulti}
                   onResolveOptions={this._getOptionsMulti}
                   text={this.state.initialDisplayValueMulti}
-                  options={this.props.topic.map(x => {
+                  options={this.props.store.topic.map(x => {
                     return {
-                      key: x.Id,
-                      text: x.Title,
+                      key: x.id,
+                      text: x.title,
                     } as IComboBoxOption;
                   })}
                 />
@@ -379,7 +381,7 @@ private submit = e => {
               <div className='col-three ms-TextField'>
                 <ComboBox
                   multiSelect
-                  selectedKey={this._ticket.label}
+                  selectedKey={this._ticket.labels}
                   label="Labels"
                   allowFreeform={true}
                   autoComplete="on"
@@ -416,24 +418,24 @@ private submit = e => {
 
     );
   }
-  
-  public onStatusChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+
+  public onStatusChange = (item: IDropdownOption): void => {
     this._ticket.status = item ? +item.key : undefined;
   }
-  public onTicketTypeChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+  public onTicketTypeChange = (item: IDropdownOption): void => {
     this._ticket.ticketType = item ? +item.key : undefined;
   }
-  public onCategoryChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+  public onCategoryChange = (item: IDropdownOption): void => {
     this._ticket.category = item ? +item.key : undefined;
   }
+  private onPriorityChange: (item: IDropdownOption, index?: number) => void;
 
-
-  public changeState = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+  public changeState = (item: IDropdownOption): void => {
     console.log('here are the things updating...' + item.key + ' ' + item.text + ' ' + item.selected);
     this.setState({ selectedItem: item });
   };
 
-  public onChangeMultiSelect = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+  public onChangeMultiSelect = (item: IDropdownOption): void => {
     const updatedSelectedItem = this.state.selectedItems ? this.copyArray(this.state.selectedItems) : [];
     if (item.selected) {
       // add the option if it's checked
@@ -476,13 +478,13 @@ private submit = e => {
 
 
   private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
-    return this.props.users
-      .filter(x => x.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
+    return this.props.store.users
+      .filter(x => x.userState.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
       .map(x => {
         return {
-          id: x.id.toString(),
-          primaryText: x.name,
-          secondaryText: x.id
+          id: x.userState.id.toString(),
+          primaryText: x.userState.name,
+          secondaryText: x.userState.id
         } as unknown as IPersonaProps;
       });
   }

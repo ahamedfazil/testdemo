@@ -17,7 +17,7 @@ import React from 'react';
           };
       }
   
-      public changeState = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+      public changeState = (item: IDropdownOption): void => {
           console.log('here are the things updating...' + item.key + ' ' + item.text + ' ' + item.selected);
           this.setState({ selectedItem: item });
       };
@@ -42,7 +42,7 @@ import React from 'react';
                   <Dropdown
                       label="Status:"
                       selectedKey={selectedItem ? selectedItem.key : undefined}
-                      onChange={this.changeState}
+                      onChanged={this.changeState}
                       onFocus={this._log('onFocus called')}
                       onBlur={this._log('onBlur called')}
                       placeholder="Select an Option"

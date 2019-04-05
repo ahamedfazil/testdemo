@@ -22,6 +22,7 @@
     "class-transformer": "^0.2.0",
     "cross-fetch": "^3.0.1",
     "es6-promise": "^4.2.6",
+    "immutability-helper": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "normalizr": "^3.3.0",
     "office-ui-fabric-react": "^6.157.0",

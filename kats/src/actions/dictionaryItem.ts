@@ -1,7 +1,7 @@
 import C from '../constants';
 import 'whatwg-fetch'
 import { DictionaryItem } from '../models/DictionaryItem';
-import { fetchDictionary } from './fetchDictionary';
+import { fetchDictionary } from './api/fetchDictionary';
 
 export interface Dictionary {
     results: DictionaryItem[];

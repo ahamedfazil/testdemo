@@ -1,93 +1,59 @@
 {
     "visibilityFilter": "SHOW_SUPPORT_FIELDS",
-    "users": {
-        "1": {
-            "Id": "i:05.t|kpmg staff federation|barbara.newman@kpmg.co.uk",
-            "name": "Laura Austin",
-            "jobTitle": "Audit Controller",
-            "department": "ITS Build",
-            "officeLocation": "Watford",
-            "officeNumber": 442076948910,
-            "mobileNumber": 7717719
-        },
-        "2": {
-            "id": "i:05.t|kpmg staff federation|laura.austin@kpmg.co.uk",
-            "name": "Laura Austin",
-            "jobTitle": "Manager",
-            "department": "NM Audit Manchester 2",
-            "officeLocation": "Manchester",
-            "officeNumber": 442076948910,
-            "mobileNumber": 7717719
-        },
-        "3": {
-            "id": "i:05.t|kpmg staff federation|neil.manning@kpmg.co.uk",
-            "name": "Neil Manning",
-            "jobTitle": "Manager",
-            "department": "NM Audit Manchester 2",
-            "officeLocation": "Manchester",
-            "officeNumber": 442076948910,
-            "mobileNumber": 7717719
+    "users": [
+        {
+            "isInitialised": false,
+            "userState": {
+                "isFetched": false,
+                "isSupportUser": false,
+                "isUser": false,
+                "id":null,
+                "name": "",
+                "email": "",
+                "firstName": "",
+                "lastName": "",
+                "title": "",
+                "loginName": "",
+                "department": "",
+                "office": "",
+                "officeNumber": null
+            }
         }
-    },
+    ],
     "allTickets": [
-      {
-        "id":12,
-        "submitter": 1,
-        "watcher": [
-            2,
-            3
-        ],
-        "respIndividual": 4,
-        "assignee": 5,
-        "reviewer": 6,
-        "assignedTo": 5,
-        "auditTeam": [
-            9,
-            10
-        ],
-        "engagementName": "Hartshead Square Developments Ltd ",
-        "engagementChargeCode": 2551346,
-        "periodEnd": "31/03/2019",
-        "engagementType": [1,2],
-        "auditingStandard": [
-            1,
-            2
-        ],
-        "accountingFramework": [
-            1
-        ],
-        "category": 1,
-        "topic": [
-            2,
-            3
-        ],
-        "ticketType": 2,
-        "subject": "Approval needed for Equinox Employee Benefit Trust Limited",
-        "detailedAnalysis": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
-        "priority": "Normal",
-        "reasonForUrgency": "I need it done ASAP",
-        "supportTeam": 1,
-        "status": 1,
-        "training": "Yes",
-        "faq": "No",
-        "labels": [
-            1,
-            35,
-            18
-        ],
-        "finalConsultation": "Lorem ipsum...",
-        "conclusion": "Lorem ipsum",
-        "addToKb": "Yes",
-        "comments": [
-            2,
-            15,
-            5,
-            8
-        ],
-        "supportTeamComments": [
-            1,
-            18
-        ]}
+        {
+            "id": null,
+            "submitter": null,
+            "watcher": [],
+            "respIndividual": null,
+            "assignee": null,
+            "reviewer": null,
+            "assignedTo": null,
+            "auditTeam": [],
+            "engagementName": "",
+            "engagementChargeCode": null,
+            "periodEnd": null,
+            "engagementType": [],
+            "auditingStandard": [],
+            "accountingFramework": [],
+            "category": null,
+            "topic": [],
+            "ticketType": null,
+            "subject": "",
+            "detailedAnalysis": "",
+            "priority": "Normal",
+            "reasonForUrgency": "",
+            "supportTeam": null,
+            "status": null,
+            "training": "",
+            "faq": "",
+            "labels": [],
+            "finalConsultation": "",
+            "conclusion": "",
+            "addToKb": "",
+            "comments": [],
+            "supportTeamComments": []
+        }
     ],
     "comments": {
         "2": {
@@ -102,7 +68,7 @@
         }
     },
     "supportTeamComments": [
-         {
+        {
             "Id": 1,
             "content": "This ticket should be shared out as a KB, could prove useful?",
             "owner": 5

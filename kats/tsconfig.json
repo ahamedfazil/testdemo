@@ -10,7 +10,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -27,7 +27,7 @@
       "./node_modules/@types",
       "./@types"
     ],
-    "strictNullChecks": false,
+    "strictNullChecks": false
   },
   "include": [
     "src"

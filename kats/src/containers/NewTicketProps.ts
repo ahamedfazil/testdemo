@@ -1,45 +1,71 @@
-import NewTicket from '../components/NewTicket';
-import { withRouter } from 'react-router';
-import { bindActionCreators, Dispatch } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Ticket } from '../models/Ticket';
-import { addTicket } from '../actions/ticket'
+
+import * as UserActions from '../actions/UserActions';
+import * as DictionaryActions from '../actions/dictionaryItem';
+import { addTicketInProgress } from '../actions/TicketActions'
+import IStore from '../store/IStore';
+import { IAppProps } from '../models/IAppProps';
+import ActionTypes from '../actions/ActionTypes';
+import NewTicket from '../components/NewTicket';
 
 
-const mapStateToProps = (state,props) => 
-     ({
-        filter: props.params.filter,
-        engagementType: state.engagementTypes.byEngagementTypeId,
-        accountingFramework: state.accountingFrameworks.byAccountingFrameworkId,
-        auditingStandard: state.auditingStandards.byAuditingStandardsId,
-        category: state.category.byCategoryId,
-        topic: state.topic.byTopicId,
-        ticketType: state.ticketType.byTicketTypeId,
-        status: state.status.byStatusId,
-        
+function MapStateToProps(store: IStore) {
+    return {
+        store: store
+    };
+}
 
-    })
-
-   
-
-const mapDispatchToProps = dispatch =>
-({
-    onNewTicket(ticket:Ticket) {
-        dispatch(
-            addTicket(ticket)
+function MapDispatchToProps(dispatch: Dispatch<ActionTypes>) {
+    return {
+        getCurrentUser: bindActionCreators(
+            UserActions.getCurrentUser,
+            dispatch
+        ),
+        getCurrentUserSuccess: bindActionCreators(
+            UserActions.getCurrentUserSuccess,
+            dispatch
+        ),
+        getCurrentUserError: bindActionCreators(
+            UserActions.getCurrentUserError,
+            dispatch
+        ),
+        getEngagementTypes: bindActionCreators(
+            DictionaryActions.getAllEngagementTypes,
+            dispatch
+        ),
+        getAccountingFrameworks: bindActionCreators(
+            DictionaryActions.getAllAccountingFrameworks,
+            dispatch
+        ),
+        getAuditingStandards: bindActionCreators(
+            DictionaryActions.getAllAuditingStandards,
+            dispatch
+        ),
+        getCategories: bindActionCreators(
+            DictionaryActions.getAllCategories,
+            dispatch
+        ),
+        getTopics: bindActionCreators(
+            DictionaryActions.getAllTopics,
+            dispatch
+        ),
+        getTicketTypes: bindActionCreators(
+            DictionaryActions.getAllTicketTypes,
+            dispatch
+        ),
+        getStatus: bindActionCreators(
+            DictionaryActions.getAllStatuses,
+            dispatch
+        ),
+        addTicket: bindActionCreators(
+            addTicketInProgress,
+            dispatch
         )
-    },
-    // onChange(value) {
-    //     if(value){
-    //         dispatch(
-    //             setTicketId(value)
-    //         )
-    //     }
-    // }
-})
+    }
 
-const Container = connect(mapStateToProps,mapDispatchToProps)(NewTicket)
-
-export default Container as React.ComponentClass<{}>;
-
-
+}
+export default connect<{}, {}, IAppProps>(
+    MapStateToProps,
+    MapDispatchToProps
+)(NewTicket) as React.ComponentClass<{}>;

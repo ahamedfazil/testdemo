@@ -1,9 +1,22 @@
-export class User {
+export interface User {
+   isInitialised:boolean;
+   error?:any;
+   userState: IUserState
+}
+
+export interface IUserState{
+   isFetched:boolean;
+   isSupportUser:boolean;
+   isUser:boolean;
    id:number;
    name:string;
-   jobTitle: string;
-   department: string;
-   officeLocation: string;
-   officeNumber: number;
-   mobileNumber: number;
+   email:string;
+   firstName:string;
+   lastName:string;
+   title:string;
+   loginName:string;
+   department:string;
+   memberOf:string[];
+   office:string;
+   officeNumber:number
 }

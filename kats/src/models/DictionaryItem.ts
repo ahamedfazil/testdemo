@@ -1,4 +1,6 @@
 export interface DictionaryItem {
-    Id:number;
-    Title: string;
+    id:number;
+    title: string;
 }
+
+
