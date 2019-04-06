@@ -1,4 +1,4 @@
-import { DictionaryItem } from '../models/DictionaryItem';
+import { DictionaryItem } from '../models/IDictionary';
 import { fetch } from 'cross-fetch'
 import 'whatwg-fetch'
 

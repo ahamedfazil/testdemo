@@ -1,7 +1,39 @@
+import keys from '../constants/ActionTypeKey';
+
 import C from '../constants';
 import 'whatwg-fetch'
-import { DictionaryItem } from '../models/DictionaryItem';
+import { IDictionaryState, DictionaryItem } from '../models/IDictionary';
 import { fetchDictionary } from './api/fetchDictionary';
+import * as IDictionaryActions from './IDictionaryActions';
+
+export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryInProgress{
+    return{
+        type:keys.GET_CURRENT_DICTIONARY_INPROGRESS,
+    
+    };
+}
+
+export function getDictionarySuccess(
+    newItem: DictionaryItem
+):IDictionaryActions.IGetDictionarySuccess{
+    return{
+        type:keys.GET_CURRENT_DICTIONARY_SUCCESS,
+        payload:{
+            newItem
+        }
+    };
+}
+
+export function getDictionaryError(
+    error:Error
+):IDictionaryActions.IGetDictionaryError{
+    return{
+        type:keys.GET_CURRENT_DICTIONARY_ERROR,
+        payload:{
+            error
+        }
+    };
+}
 
 export interface Dictionary {
     results: DictionaryItem[];
@@ -283,7 +315,7 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
     }
 
   
-function dictionaryParse(text: string) {
+export function dictionaryParse(text: string) {
     console.log('text is: ', text);
     let dictionaryText = JSON.parse(text);
     let dictiionaryItems = dictionaryText.d as Dictionary;

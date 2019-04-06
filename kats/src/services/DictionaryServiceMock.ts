@@ -1,4 +1,4 @@
-import { DictionaryItem } from '../models/DictionaryItem';
+import { DictionaryItem } from '../models/IDictionary';
 import { classToClass } from 'class-transformer';
 import { DictionaryService } from './DictionaryService';
 

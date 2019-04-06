@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
 import C from '../constants';
-import initialState  from '../initialState/index.json';
 import appInitialState from '../store/appInitialState';
 import   { 
     SELECT_ACCOUNTING_FRAMEWORK, RECEIVE_ACCOUNTING_FRAMEWORK, 
@@ -9,24 +8,26 @@ import   {
     SELECT_TOPIC, RECEIVE_TOPIC, 
     SELECT_TICKET_TYPE, RECEIVE_TICKET_TYPE, 
     SELECT_STATUS, RECEIVE_STATUS 
-} from '../actions/dictionaryItem';
-import { DictionaryItem } from '../models/DictionaryItem';
+} from '../actions/DictionaryActions';
+import { DictionaryItem } from '../models/IDictionary';
 
 
 //Engagement Type
 
-export const engagementTypes = (state, action) => {
+export const engagementTypes = (
+    state = appInitialState.engagementType, 
+    action) => {
     switch (action.type) {
         case C.SELECT_ENGAGEMENT_TYPE:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                engagementType: state.engagementType - 1
             }
     }
 }
 
 export const byEngagementTypeId = (
-    state:DictionaryItem[] = appInitialState.engagementType,
+    state:DictionaryItem[] = [],
     action
 ) => {
     switch (action.type) {
@@ -67,18 +68,20 @@ export const getVisibleEngagementTypes = state =>
 
 
 //Accounting  Frameworks
-export const accountingFrameworks = (state, action) => {
+export const accountingFrameworks = (
+    state = appInitialState.ticket, 
+    action) => {
     switch (action.type) {
         case SELECT_ACCOUNTING_FRAMEWORK:
             return {
-                ...state,
-                dictionary: state.dictionary - 1
+                ...state, 
+                accountingFramework: state.accountingFramework - 1
             }
     }
 }
 
 export const byAccountingFrameworkId = (
-    state = initialState.accountingFrameworks,
+    state:DictionaryItem[] = appInitialState.accountingFramework,
     action
 ) => {
     switch (action.type) {
@@ -102,7 +105,7 @@ export const byAccountingFrameworkId = (
     }
 }
 
-export const visibleAccountingFrameworkIds = (state: any[] = [], action) => {
+export const visibleAccountingFrameworkIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_ACCOUNTING_FRAMEWORK:
             return action.payload.map(item => item.id)
@@ -120,18 +123,20 @@ export const getVisibleAccountingFrameworks = state =>
 
 
 //Auditing Standards
-export const auditingStandards = (state, action) => {
+export const auditingStandards = (
+    state = appInitialState.ticket,
+    action) => {
     switch (action.type) {
         case SELECT_AUDITING_STANDARDS:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                auditingStandard: state.auditingStandard - 1
             }
     }
 }
 
 export const byAuditingStandardId = (
-    state = initialState.auditingStandards,
+    state:DictionaryItem[] = appInitialState.auditingStandard.items,
     action
 ) => {
     switch (action.type) {
@@ -155,7 +160,7 @@ export const byAuditingStandardId = (
     }
 }
 
-export const visibleAuditingStandardIds = (state: any[] = [], action) => {
+export const visibleAuditingStandardIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_AUDITING_STANDARDS:
             return action.payload.map(item => item.id)
@@ -171,18 +176,20 @@ export const getVisibleAuditingStandards = state =>
 
 
 //Category
-export const category = (state, action) => {
+export const category = (
+    state = appInitialState.ticket, 
+    action) => {
     switch (action.type) {
         case SELECT_CATEGORY:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                category: state.category - 1
             }
     }
 }
 
 export const byCategoryId = (
-    state = initialState.category,
+    state:DictionaryItem[] = appInitialState.category,
     action
 ) => {
     switch (action.type) {
@@ -206,7 +213,7 @@ export const byCategoryId = (
     }
 }
 
-export const visibleCategoryIds = (state: any[] = [], action) => {
+export const visibleCategoryIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_CATEGORY:
             return action.payload.map(item => item.id)
@@ -223,18 +230,19 @@ export const getVisibleCategory = state =>
 
 
 //Topic
-export const topic = (state, action) => {
+export const topic = (
+    state = appInitialState.ticket, action) => {
     switch (action.type) {
         case SELECT_TOPIC:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                topic: state.topic - 1
             }
     }
 }
 
 export const byTopicId = (
-    state = initialState.topic,
+    state:DictionaryItem[] = appInitialState.topic.items,
     action
 ) => {
     switch (action.type) {
@@ -258,7 +266,7 @@ export const byTopicId = (
     }
 }
 
-export const visibleTopicIds = (state: any[] = [], action) => {
+export const visibleTopicIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_TOPIC:
             return action.payload.map(item => item.id)
@@ -273,18 +281,20 @@ export const getVisibleTopics = state =>
     state.visibleTopicIds.map(Id => getTopic(state, Id))
 
 //Ticket Type
-export const ticketType = (state, action) => {
+export const ticketType = (
+    state = appInitialState.ticket,
+    action) => {
     switch (action.type) {
         case SELECT_TICKET_TYPE:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                ticketType: state.currentTicket.ticketType - 1
             }
     }
 }
 
 export const byTicketTypeId = (
-    state = initialState.ticketType,
+    state = appInitialState.ticketType,
     action
 ) => {
     switch (action.type) {
@@ -308,7 +318,7 @@ export const byTicketTypeId = (
     }
 }
 
-export const visibleTicketTypeIds = (state: any[] = [], action) => {
+export const visibleTicketTypeIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_TICKET_TYPE:
             return action.payload.map(item => item.id)
@@ -324,18 +334,20 @@ export const getVisibleticketTypes = state =>
 
 
 //Ticket status
-export const status = (state, action) => {
+export const status = (
+    state = appInitialState.ticket, 
+    action) => {
     switch (action.type) {
         case SELECT_STATUS:
             return {
                 ...state,
-                dictionary: state.dictionary - 1
+                status: state.currentTicket.status - 1
             }
     }
 }
 
 export const byStatusId = (
-    state = initialState.status,
+    state:DictionaryItem[] = appInitialState.status,
     action
 ) => {
     switch (action.type) {
@@ -359,7 +371,7 @@ export const byStatusId = (
     }
 }
 
-export const visibleStatusIds = (state: any[] = [], action) => {
+export const visibleStatusIds = (state: number[] = [], action) => {
     switch (action.type) {
         case RECEIVE_STATUS:
             return action.payload.map(item => item.id)

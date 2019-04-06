@@ -9,7 +9,7 @@ import {
   getAllTicketTypes, getAllStatuses, getAllTopics,
   getAllCategories, getAllAuditingStandards,
   getAllAccountingFrameworks, getAllEngagementTypes
-} from './actions/dictionaryItem';
+} from './actions/DictionaryActions';
 import NewTicket from './components/NewTicket';
 import NewForm from './components/SupportFields';
 
@@ -96,7 +96,7 @@ store.dispatch(addTicketInProgress({
     1,
     18
   ]
-}
+},'Tickets'
 ))
 
 store.dispatch(

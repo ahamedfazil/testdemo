@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import * as UserActions from '../actions/UserActions';
-import * as DictionaryActions from '../actions/dictionaryItem';
+import * as DictionaryActions from '../actions/DictionaryActions';
 import { addTicketInProgress } from '../actions/TicketActions'
 import IStore from '../store/IStore';
 import { IAppProps } from '../models/IAppProps';

@@ -10,7 +10,7 @@ import {
   ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize
 } from 'office-ui-fabric-react';
 
-import { ITicket } from '../models/ITicket';
+import { ICurrentTicketState } from '../models/ITicket';
 import { IUserState } from '../models/User';
 import { IAppProps } from '../models/IAppProps';
 import pnp from '@pnp/pnpjs';
@@ -70,7 +70,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
   }
 
-  _ticket: ITicket = this._ticket;
+  _ticket: ICurrentTicketState = this._ticket;
 
   private submit = e => {
     e.preventDefault()
@@ -85,7 +85,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
   render(): JSX.Element {
     const userState: IUserState = this.props.store.users[0].userState;
-
+    const store = this.props.store;
     return (
       <form >
         <section>
@@ -108,7 +108,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKey={this._ticket.status}
                   onChanged={this.onStatusChange}
                   placeholder="Select status"
-                  options={this.props.store.status.map(x => {
+                  options={store.status.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -172,7 +172,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKeys={this._ticket.engagementType}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.store.engagementType.map(x => {
+                  options={store.engagementType.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -210,7 +210,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKeys={this._ticket.accountingFramework}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.store.accountingFramework.map(x => {
+                  options={store.accountingFramework.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -248,7 +248,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKeys={this._ticket.auditingStandard}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={this.props.store.auditingStandard.map(x => {
+                  options={store.auditingStandard.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -283,7 +283,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKey={this._ticket.ticketType}
                   onChanged={this.onTicketTypeChange}
                   placeholder="Select an Option"
-                  options={this.props.store.ticketType.map(x => {
+                  options={store.ticketType.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -297,7 +297,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   selectedKey={this._ticket.category}
                   onChanged={this.onCategoryChange}
                   placeholder="Select an Option"
-                  options={this.props.store.category.map(x => {
+                  options={store.category.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -339,7 +339,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   onChange={this._onChangeMulti}
                   onResolveOptions={this._getOptionsMulti}
                   text={this.state.initialDisplayValueMulti}
-                  options={this.props.store.topic.map(x => {
+                  options={store.topic.items.map(x => {
                     return {
                       key: x.id,
                       text: x.title,

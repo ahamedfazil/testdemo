@@ -6,13 +6,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import storeFactory from './store'
-import sampleData from './initialState/index.json'
+import appInitialState from './store/appInitialState'
 import { addError } from './actions';
 import { Provider } from 'react-redux';
 
 const initialState = (localStorage['redux-store']) ?
   JSON.parse(localStorage['redux-store']) :
-  sampleData  
+  appInitialState  
 
 const saveState = () => 
   localStorage['redux-store'] = JSON.stringify(store.getState())

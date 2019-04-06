@@ -1,5 +1,5 @@
 import { User } from "./User";
-import { DictionaryItem } from "./DictionaryItem";
+import { DictionaryItem } from "./IDictionary";
 import { Comment } from "./Comment";
 
 
