@@ -24,75 +24,120 @@ export const appInitialState: IStore =
             }
         }
     ],
-    ticket:     {
+    ticket: {
+        isInitialised: false,
+        currentTicket: {
+            id: null,
+            submitter: null,
+            watcher: [],
+            respIndividual: null,
+            assignee: null,
+            reviewer: null,
+            assignedTo: null,
+            auditTeam: [],
+            engagementName: "",
+            engagementChargeCode: null,
+            periodEnd: null,
+            engagementType: [],
+            auditingStandard: [],
+            accountingFramework: [],
+            category: null,
+            topic: [],
+            ticketType: null,
+            subject: "",
+            detailedAnalysis: "",
+            priority: "Normal",
+            reasonForUrgency: "",
+            supportTeam: null,
+            status: 1,
+            training: "Yes",
+            faq: "No",
+            labels: [],
+            finalConsultation: "",
+            conclusion: "",
+            addToKb: "Yes",
+            comments: [],
+            supportTeamComments: []
+        }
+    },
+    engagementType: {
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
                 id: null,
-                submitter: null,
-                watcher: [],
-                respIndividual: null,
-                assignee: null,
-                reviewer: null,
-                assignedTo: null,
-                auditTeam: [],
-                engagementName: "",
-                engagementChargeCode: null,
-                periodEnd: null,
-                engagementType: [],
-                auditingStandard: [],
-                accountingFramework: [],
-                category: null,
-                topic: [],
-                ticketType: null,
-                subject: "",
-                detailedAnalysis: "",
-                priority: "Normal",
-                reasonForUrgency: "",
-                supportTeam: null,
-                status: 1,
-                training: "Yes",
-                faq: "No",
-                labels: [],
-                finalConsultation: "",
-                conclusion: "",
-                addToKb: "Yes",
-                comments: [],
-                supportTeamComments: []
-            },
-    engagementType: [
-        {
-            id: null,
-            title: ""
-        }],
-    accountingFramework: [
-        {
-            id: null,
-            title: ""
-        }],
-    auditingStandard: [
-        {
-            id: null,
-            title: ""
-        }],
-    category: [
-        {
-            id: null,
-            title: ""
-        }],
-    topic: [
-        {
-            id: null,
-            title: ""
-        }],
-    ticketType: [
-        {
-            id: null,
-            title: ""
-        }],
-    status: [
-        {
-            id: null,
-            title: ""
-        }],
+                title: ""
+            }
+        ]
+    },
+    accountingFramework: {
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
+    auditingStandard: {
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
+    category:{
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
+    topic:{
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
+    ticketType: {
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
+    status: {
+        isInitialised: false,
+        isFetched:false,
+        name: "",
+        items: [
+            {
+                id: null,
+                title: ""
+            }
+        ]
+    },
 
 }
-    
+
 export default appInitialState

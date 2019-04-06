@@ -1,6 +1,12 @@
 import { IUserState } from "./User";
 
-export interface ITicket{
+export interface ITicketState{
+    isInitialised:boolean;
+    error?:any;
+    currentTicket: ICurrentTicketState; 
+}
+
+export interface ICurrentTicketState{
     id: number | null;
     submitter: IUserState;
     auditTeam: number[];
@@ -31,6 +37,7 @@ export interface ITicket{
     supportTeamComments:number[];
     finalConsultation:string;
     conclusion:string;
-    addToKb: 'Yes' | 'No'
+    addToKb: 'Yes' | 'No';
+    _metadata?:{ 'type': 'SP.Data.TicketsListItem' }
     
 }

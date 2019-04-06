@@ -1,23 +1,26 @@
 import keys from '../constants/ActionTypeKey';
 import * as ITicketActions from './ITicketActions'
-import { ITicket } from '../models/ITicket';
+import { ICurrentTicketState } from '../models/ITicket';
 
 export function addTicketInProgress(
-    newTicket: ITicket
+    newTicket: ICurrentTicketState,
+    listName
 ): ITicketActions.IAddTicketActionInProgress {
     return {
-        type: keys.ADD_TICKET_INPROGRESS
+        type: keys.ADD_TICKET_INPROGRESS,
+        payload: {
+            newTicket,
+            listName
+        }
     }
 }
 
 export function addTicketSuccess(
-    newTicket: ITicket
+    newTicket: ICurrentTicketState
 ): ITicketActions.IAddTicketActionSuccess {
     return {
         type: keys.ADD_TICKET_SUCCESS,
-        payload: {
-            newTicket
-        }
+        
     }
 }
 

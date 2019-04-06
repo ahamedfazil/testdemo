@@ -1,16 +1,18 @@
 import { Action } from 'redux';
 import keys from '../constants/ActionTypeKey';
-import { ITicket  } from '../models/ITicket';
+import { ICurrentTicketState  } from '../models/ITicket';
 
 export interface IAddTicketActionInProgress extends Action {
     type: keys.ADD_TICKET_INPROGRESS;
+    payload:{
+        newTicket: ICurrentTicketState;
+        listName: string;
+    }
 }
 
 export interface IAddTicketActionSuccess extends Action{
     readonly type: keys.ADD_TICKET_SUCCESS;
-    payload:{
-        newTicket: ITicket;
-    }
+    
 }
 
 export interface IAddTicketActionError extends Action{

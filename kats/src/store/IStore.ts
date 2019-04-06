@@ -1,17 +1,17 @@
 import { User } from '../models/User'
-import { DictionaryItem } from '../models/DictionaryItem';
-import { ITicket } from '../models/ITicket';
+import { IDictionaryState } from '../models/IDictionary';
+import { ITicketState } from '../models/ITicket';
 
 export default interface IStore {
     users: User[];
-    engagementType: DictionaryItem[];
-    accountingFramework: DictionaryItem[];
-    auditingStandard: DictionaryItem[];
-    category: DictionaryItem[];
-    topic: DictionaryItem[];
-    ticketType: DictionaryItem[];
-    status: DictionaryItem[];
-    ticket: ITicket
+    engagementType:IDictionaryState;
+    accountingFramework:IDictionaryState;
+    auditingStandard:IDictionaryState;
+    category:IDictionaryState;
+    topic:IDictionaryState;
+    ticketType:IDictionaryState;
+    status:IDictionaryState;
+    ticket: ITicketState
 
 
     

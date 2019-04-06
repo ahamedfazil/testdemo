@@ -1,14 +1,17 @@
 import { combineReducers } from 'redux'
-import { setSubmitter } from './submitter';
+
 
 // import { selectedEngagementType, 
 //         engagementTypesByItem
 // } from './dictionary'
-import * as fromTicket from './ticket';
-import { allTickets } from './ticket';
+import * as fromTicket from './TicketReducer';
+import {
+    //allTickets, 
+    ticketReducer
+} from './TicketReducer';
 import { visibilityFilter } from './request';
 import { errors } from './system';
-import * as fromDictionary from './dictionary';
+import * as fromDictionary from './DictionaryReducer';
 import {
     byEngagementTypeId, visibleEngagementTypeIds,
     byAccountingFrameworkId, visibleAccountingFrameworkIds,
@@ -18,19 +21,22 @@ import {
     byTicketTypeId, visibleTicketTypeIds,
     byStatusId, visibleStatusIds
 
-} from './dictionary';
+} from './DictionaryReducer';
+import { userReducer } from './UserReducer';
 // import ticketEngagementType from './ticket';
 
 
 
 export default combineReducers({
-    allTickets,
+    //allTickets,
+    ticket: ticketReducer,
+    user: userReducer,
     // ticketEngagementType,
     // selectedEngagementType,
     // engagementTypesByItem,
     errors,
     visibilityFilter,
-    setSubmitter,
+
     engagementTypes: combineReducers({
         byEngagementTypeId,
         visibleEngagementTypeIds,
