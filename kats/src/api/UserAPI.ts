@@ -1,8 +1,8 @@
 import pnp from '@pnp/pnpjs';
 import update from 'immutability-helper';
 
-import { IUserState } from '../../models/User';
-import { IAppProps } from '../../models/IAppProps';
+import { IUserState } from '../models/User';
+import { IAppProps } from '../models/IAppProps';
 
 export const getUserByID = (userID: any) => {
     return pnp.sp.web.siteUsers

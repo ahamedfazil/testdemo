@@ -3,7 +3,7 @@ import keys from '../constants/ActionTypeKey';
 import C from '../constants';
 import 'whatwg-fetch'
 import { IDictionaryState, DictionaryItem } from '../models/IDictionary';
-import { fetchDictionary } from './api/fetchDictionary';
+import { fetchDictionary } from '../api/fetchDictionary';
 import * as IDictionaryActions from './IDictionaryActions';
 
 export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActionInProgress{

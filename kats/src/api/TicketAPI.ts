@@ -1,6 +1,6 @@
-import { ICurrentTicketState } from '../../models/ITicket';
-import { url } from '../../config/pnp.config';
-import { IAppProps } from '../../models/IAppProps';
+import { ICurrentTicketState } from '../models/ITicket';
+import { url } from '../config/pnp.config';
+import { IAppProps } from '../models/IAppProps';
 
 const listName: string = '';
 

@@ -6,7 +6,6 @@ import * as DictionaryActions from '../actions/DictionaryActions';
 import { addTicketInProgress } from '../actions/TicketActions'
 import IStore from '../store/IStore';
 import { IAppProps } from '../models/IAppProps';
-import ActionTypes from '../actions/ActionTypes';
 import NewTicket from '../components/NewTicket';
 
 
@@ -16,7 +15,7 @@ function MapStateToProps(store: IStore) {
     };
 }
 
-function MapDispatchToProps(dispatch: Dispatch<ActionTypes>) {
+function MapDispatchToProps(dispatch: Dispatch<IStore>) {
     return {
         getCurrentUser: bindActionCreators(
             UserActions.getCurrentUser,
@@ -58,7 +57,7 @@ function MapDispatchToProps(dispatch: Dispatch<ActionTypes>) {
             DictionaryActions.getAllStatuses,
             dispatch
         ),
-        addTicket: bindActionCreators(
+        addTicketInProgress: bindActionCreators(
             addTicketInProgress,
             dispatch
         )

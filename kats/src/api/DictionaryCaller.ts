@@ -1,4 +1,4 @@
-import { DictionaryService } from '../../services/DictionaryService'
+import { DictionaryService } from '../services/DictionaryService'
 
 
 let svc

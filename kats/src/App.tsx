@@ -10,9 +10,9 @@ import {
   getAllCategories, getAllAuditingStandards,
   getAllAccountingFrameworks, getAllEngagementTypes
 } from './actions/DictionaryActions';
-import NewTicket from './components/NewTicket';
+import NewTicket from './containers/NewTicket';
 import NewForm from './components/SupportFields';
-import { UserService } from './services/UserService';
+//import { UserService } from './services/UserService';
 import requestSubmitterInfo, { fetchSubmitterInfo } from './actions/submitter';
 
 
@@ -28,84 +28,84 @@ const initialState = {}
 const store = storeFactory(initialState)
 
 
-// store.dispatch(requestSubmitterInfo('larry@pulsecloudsolutions.com'));
+store.dispatch(requestSubmitterInfo('larry@pulsecloudsolutions.com'));
 // store.dispatch<any>(fetchSubmitterInfo('larry@pulsecloudsolutions.com'));
-// //.then(() => console.log(store.getState()))
+//.then(() => console.log(store.getState()))
 
 // const svc = new UserService();
 // svc.getUserProfile('larry@pulsecloudsolutions.com');
 
 
-// store.dispatch(addTicketInProgress({
+store.dispatch(addTicketInProgress({
 
-//   "id": 1894435,
-//   "submitter": {
-//     "isFetched": true,
-//     "isSupportUser": false,
-//     "isUser": true,
-//     "id": 25,
-//     "name": "Bradley Cooper",
-//     "email": "bradleycooper@kpmg.co.uk",
-//     "firstName": "Bradley",
-//     "lastName": "Cooper",
-//     "title": "Audit Manager",
-//     "loginName": "uktplakin\\bradcoop",
-//     "department": "Auditing - Financial Services",
-//     "memberOf": ["Support Administrators"],
-//     "office": "Watford",
-//     "officeNumber": 123,
+  "id": 1894435,
+  "submitter": {
+    "isFetched": true,
+    "isSupportUser": false,
+    "isUser": true,
+    "id": 25,
+    "name": "Bradley Cooper",
+    "email": "bradleycooper@kpmg.co.uk",
+    "firstName": "Bradley",
+    "lastName": "Cooper",
+    "title": "Audit Manager",
+    "loginName": "uktplakin\\bradcoop",
+    "department": "Auditing - Financial Services",
+    "memberOf": ["Support Administrators"],
+    "office": "Watford",
+    "officeNumber": 123,
 
-//   },
-//   "watcher": [
-//     2,
-//     3,
-//     19
-//   ],
-//   "respIndividual": 22,
-//   "assignee": 5,
-//   "reviewer": 6,
-//   "assignedTo": 5,
-//   "auditTeam": [
-//     9,
-//     10
-//   ],
-//   "engagementName": "Hartshead Square Developments Ltd ",
-//   "engagementChargeCode": 2551346,
-//   "periodEnd": new Date("2019-03-25"),
-//   "engagementType": [1, 3],
-//   "auditingStandard": [1, 2],
-//   "accountingFramework": [1],
-//   "category": 1,
-//   "topic": [2, 3],
-//   "ticketType": 2,
-//   "subject": "Approval needed for Equinox Employee Benefit Trust Limited",
-//   "detailedAnalysis": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
-//   "priority": "Urgent",
-//   "reasonForUrgency": "I need it done ASAP",
-//   "supportTeam": 1,
-//   "status": 1,
-//   "training": "Yes",
-//   "faq": "Yes",
-//   "labels": [1, 35, 18],
-//   "finalConsultation": "Lorem ipsum...",
-//   "conclusion": "Lorem ipsum",
-//   "addToKb": "No",
-//   "comments": [
-//     2,
-//     15,
-//     5,
-//     8
-//   ],
-//   "supportTeamComments": [
-//     1,
-//     18
-//   ]
-// },'Tickets'
-// ))
+  },
+  "watcher": [
+    2,
+    3,
+    19
+  ],
+  "respIndividual": 22,
+  "assignee": 5,
+  "reviewer": 6,
+  "assignedTo": 5,
+  "auditTeam": [
+    9,
+    10
+  ],
+  "engagementName": "Hartshead Square Developments Ltd ",
+  "engagementChargeCode": 2551346,
+  "periodEnd": new Date("2019-03-25"),
+  "engagementType": [1, 3],
+  "auditingStandard": [1, 2],
+  "accountingFramework": [1],
+  "category": 1,
+  "topic": [2, 3],
+  "ticketType": 2,
+  "subject": "Approval needed for Equinox Employee Benefit Trust Limited",
+  "detailedAnalysis": "I have a group reporting under UK GAAP (top company Hartshead Square Developments Ltd). There are no SEC requirements and the charge code is 2494423. They are involved in investment property so properties clearly need to be carried at market value.",
+  "priority": "Urgent",
+  "reasonForUrgency": "I need it done ASAP",
+  "supportTeam": 1,
+  "status": 1,
+  "training": "Yes",
+  "faq": "Yes",
+  "labels": [1, 35, 18],
+  "finalConsultation": "Lorem ipsum...",
+  "conclusion": "Lorem ipsum",
+  "addToKb": "No",
+  "comments": [
+    2,
+    15,
+    5,
+    8
+  ],
+  "supportTeamComments": [
+    1,
+    18
+  ]
+},'Tickets'
+))
 
-// store.dispatch(
-//   addError("Please try again later")
-// )
+store.dispatch(
+  addError("Please try again later")
+)
 
 // store.dispatch<any>(getAllEngagementTypes());
 // store.dispatch<any>(getAllAccountingFrameworks());

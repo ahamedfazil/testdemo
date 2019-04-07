@@ -1,9 +1,9 @@
 import update from 'immutability-helper';
 
-import { url } from '../../config/pnp.config';
-import { DictionaryItem, IDictionaryState } from '../../models/IDictionary';
-import { IAppProps } from '../../models/IAppProps';
-import { dictionaryParse } from '../DictionaryActions';
+import { url } from '../config/pnp.config';
+import { DictionaryItem, IDictionaryState } from '../models/IDictionary';
+import { IAppProps } from '../models/IAppProps';
+import { dictionaryParse } from '../actions/DictionaryActions';
 
 
 export function fetchDictionary(listName: string) {
