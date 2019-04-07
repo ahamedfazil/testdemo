@@ -3,7 +3,7 @@ import '../src/assets/styles/App.css';
 import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import { addError } from './actions'
-import { initializeIcons } from '@uifabric/icons';
+//import { initializeIcons } from '@uifabric/icons';
 import { addTicketInProgress } from './actions/TicketActions';
 import {
   getAllTicketTypes, getAllStatuses, getAllTopics,
@@ -12,12 +12,14 @@ import {
 } from './actions/DictionaryActions';
 import NewTicket from './components/NewTicket';
 import NewForm from './components/SupportFields';
+import { UserService } from './services/UserService';
+import requestSubmitterInfo, { fetchSubmitterInfo } from './actions/submitter';
 
 
 
 
 
-initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
+//initializeIcons('https://static2.sharepointonline.com/files/fabric/assets/icons/');
 
 
 const initialState = {}
@@ -26,10 +28,12 @@ const initialState = {}
 const store = storeFactory(initialState)
 
 
-// store.dispatch(requestSubmitterInfo("larry.akin@kpmg.co.uk"))
-//store.dispatch(fetchSubmitterInfo("larry.akin@kpmg.co.uk")).then(() => console.log(store.getState()))
+store.dispatch(requestSubmitterInfo('larry@pulsecloudsolutions.com'));
+store.dispatch<any>(fetchSubmitterInfo('larry@pulsecloudsolutions.com'));
+//.then(() => console.log(store.getState()))
 
-
+const svc = new UserService();
+svc.getUserProfile('larry@pulsecloudsolutions.com');
 
 
 store.dispatch(addTicketInProgress({

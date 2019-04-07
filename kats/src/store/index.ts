@@ -16,8 +16,7 @@ const consoleMessages = store => next => action => {
 
   console.log(`
             
-            Tickets: ${_state.allTickets.length}
-            Errors: ${_state.errors.length}
+            Tickets: ${_state.ticket.subject}
             Engagement types: ${_state.engagementTypes.byEngagementTypeId.length}
             Categories: ${_state.category.byCategoryId.length}
             Ticket types: ${_state.ticketType.byTicketTypeId.length}

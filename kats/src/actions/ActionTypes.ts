@@ -2,9 +2,9 @@ import {
     IGetCurrentUserAction,
     IGetCurrentUserActionSuccess,
     IGetCurrentUserActionError,
-    IGetUserInfoAction,
-    IGetUserInfoActionSuccess,
-    IGetUserInfoActionError
+    IGetUsersActionInProgress,
+    IGetUsersActionSuccess,
+    IGetUsersActionError
 } from './IUserActions'
 import { 
     IAddTicketActionInProgress, 
@@ -12,19 +12,23 @@ import {
     IAddTicketActionError,
     IUpdateTicketAction, 
     IRemoveTicketAction } from './ITicketActions';
+import { IGetDictionaryActionInProgress, IGetDictionaryActionSuccess, IGetDictionaryActionError } from './IDictionaryActions';
 
 type ActionTypes =
 | IGetCurrentUserAction
 | IGetCurrentUserActionSuccess
 | IGetCurrentUserActionError
-| IGetUserInfoAction
-| IGetUserInfoActionSuccess
-| IGetUserInfoActionError
+| IGetUsersActionInProgress
+| IGetUsersActionSuccess
+| IGetUsersActionError
 | IAddTicketActionInProgress
 | IAddTicketActionInProgress
 | IAddTicketActionSuccess
 | IAddTicketActionError
 | IRemoveTicketAction
 | IUpdateTicketAction
+| IGetDictionaryActionInProgress
+| IGetDictionaryActionSuccess
+| IGetDictionaryActionError
 
 export default ActionTypes

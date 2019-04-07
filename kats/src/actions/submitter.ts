@@ -1,5 +1,7 @@
 import fetch from 'cross-fetch'
 import C from '../constants'
+import { url } from '.././config/pnp.config';
+
 
 
 export const requestSubmitterInfo =(userId:string) =>({
@@ -19,18 +21,25 @@ export const invalidateSubmitterInfo = (userId) => ({
     payload:userId
 })
 
-export function fetchSubmitterInfo (userId:string) {
+export async function fetchSubmitterInfo (userId:string) {
     return function (dispatch){
         dispatch(requestSubmitterInfo(userId))
-        return fetch('https://sites.kpmg.co.uk/apps/katsdev/_api/sp.userprofiles.peoplemanager/getpropertiesfor(@v)?@v=${userId}.json')
+        return fetch(`${url}/_api/sp.userprofiles.peoplemanager/getpropertiesfor(@v)?@v=${userId}`,{
+        method: 'GET',
+        headers: {
+            accept: "application/json;odata=verbose",
+        },
+    })
         .then(
             response => response.json(),
             error => console.log('An error occurred.',error)
             )
-            .then(json =>
-
-                dispatch(receiveSubmitterInfo(userId,json))
-                )
+            .then(json =>dispatch(receiveSubmitterInfo(userId,json))
+                
+                
+                );
+              
+                
     }
 }
 

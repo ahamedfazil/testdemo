@@ -14,10 +14,10 @@ export const getUserByID = (userID: any) => {
 };
 
 export async function getCurrentUser(props: IAppProps) {
-    let userState: IUserState = update(props.store.users[0].userState, {
+    let userState: IUserState = update(props.store.user.userState, {
         memberOf: { $set: [] }
     });
-    if (!props.store.users[0].userState.isFetched) {
+    if (!props.store.user.userState.isFetched) {
         //Dispatch get current user action
         props.getCurrentUser();
         try {

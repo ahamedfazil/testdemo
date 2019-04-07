@@ -4,9 +4,9 @@ import {
     IGetCurrentUserAction,
     IGetCurrentUserActionSuccess,
     IGetCurrentUserActionError,
-    IGetUserInfoAction,
-    IGetUserInfoActionSuccess,
-    IGetUserInfoActionError
+    IGetUsersActionInProgress,
+    IGetUsersActionSuccess,
+    IGetUsersActionError
 } from '../actions/IUserActions';
 import { User } from '../models/User'
 import appInitialState from '../store/appInitialState'
@@ -14,7 +14,7 @@ import ActionTypes from '../actions/ActionTypes';
 
 
 export const userReducer: Reducer<User> = (
-    state:User = appInitialState.users[0],
+    state:User = appInitialState.user,
     action: ActionTypes
 ): User => {
     switch (action.type) {
@@ -24,11 +24,11 @@ export const userReducer: Reducer<User> = (
             return onGetCurrentUserDetails(state, action);
         case ActionTypeKeys.GET_CURRENT_USER_ERROR:
             return onGetCurrentUserDetailsError(state, action)
-        case ActionTypeKeys.GET_USER_INFO:
+        case ActionTypeKeys.GET_USERS_INPROGRESS:
             return onGetUserDetailsInProgress(state, action);
-        case ActionTypeKeys.GET_USER_INFO_SUCCESS:
-            return onGetUserDetails(state, action);
-        case ActionTypeKeys.GET_USER_INFO_ERROR:
+        case ActionTypeKeys.GET_USERS_SUCCESS:
+            return onGetUserDetailsSuccess(state, action);
+        case ActionTypeKeys.GET_USERS_ERROR:
             return onGetUserDetailsError(state, action)
         default:
             return state
@@ -69,7 +69,7 @@ function onGetCurrentUserDetailsError(
 
 function onGetUserDetailsInProgress(
     currentState: User,
-    action: IGetUserInfoAction
+    action: IGetUsersActionInProgress
 ) {
     return {
         ...currentState,
@@ -77,19 +77,19 @@ function onGetUserDetailsInProgress(
     };
 }
 
-function onGetUserDetails(
+function onGetUserDetailsSuccess(
     currentState: User,
-    action: IGetUserInfoActionSuccess) {
+    action: IGetUsersActionSuccess) {
     return {
         ...currentState,
         isInitialised: true,
-        currentUser: action.payload.ticketUser
+        currentUser: action.payload.users
     };
 }
 
 function onGetUserDetailsError(
     currentState: User,
-    action: IGetUserInfoActionError
+    action: IGetUsersActionError
 ) {
     return {
         ...currentState,

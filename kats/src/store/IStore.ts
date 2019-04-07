@@ -3,7 +3,8 @@ import { IDictionaryState } from '../models/IDictionary';
 import { ITicketState } from '../models/ITicket';
 
 export default interface IStore {
-    users: User[];
+    user: User;
+    users?:User[];
     engagementType:IDictionaryState;
     accountingFramework:IDictionaryState;
     auditingStandard:IDictionaryState;

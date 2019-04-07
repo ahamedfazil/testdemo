@@ -3,7 +3,7 @@ import IStore from './IStore'
 
 export const appInitialState: IStore =
 {
-    users: [
+    user: 
         {
             isInitialised: false,
             userState: {
@@ -22,13 +22,27 @@ export const appInitialState: IStore =
                 office: "",
                 officeNumber: null
             }
-        }
-    ],
+        },
     ticket: {
         isInitialised: false,
         currentTicket: {
             id: null,
-            submitter: null,
+            submitter: {
+                isFetched: false,
+                isSupportUser: false,
+                isUser: false,
+                id: null,
+                name: "",
+                email: "",
+                firstName: "",
+                lastName: "",
+                title: "",
+                loginName: "",
+                department: "",
+                memberOf: [],
+                office: "",
+                officeNumber: null
+            },
             watcher: [],
             respIndividual: null,
             assignee: null,

@@ -4,7 +4,7 @@ import { ICurrentTicketState } from '../models/ITicket';
 
 export function addTicketInProgress(
     newTicket: ICurrentTicketState,
-    listName
+    listName = 'Tickets'
 ): ITicketActions.IAddTicketActionInProgress {
     return {
         type: keys.ADD_TICKET_INPROGRESS,
@@ -15,9 +15,7 @@ export function addTicketInProgress(
     }
 }
 
-export function addTicketSuccess(
-    newTicket: ICurrentTicketState
-): ITicketActions.IAddTicketActionSuccess {
+export function addTicketSuccess(): ITicketActions.IAddTicketActionSuccess {
     return {
         type: keys.ADD_TICKET_SUCCESS,
         

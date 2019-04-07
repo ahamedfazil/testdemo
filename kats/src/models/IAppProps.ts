@@ -13,19 +13,19 @@ export interface IAppProps {
         userVal:IUserState) =>IActions.IGetCurrentUserActionSuccess;
     getCurrentUserError?: (
         error:Error ) => IActions.IGetCurrentUserActionError;
-    getUserInfo?: () =>IActions.IGetUserInfoAction;
-    getUserInfoSuccess?: (
-        userVal:IUserState) =>IActions.IGetUserInfoActionSuccess;
-    getUserInfoError?: (error:Error ) => IActions.IGetUserInfoActionError;
+    getUsersInProgress?: () =>IActions.IGetUsersActionInProgress;
+    getUsersSuccess?: (
+        userVal:IUserState) =>IActions.IGetUsersActionSuccess;
+    getUsersError?: (error:Error ) => IActions.IGetUsersActionError;
     addTicketInProgress?:(
         newTicket:ICurrentTicketState,
         listName:string
         ) => ITicketActions.IAddTicketActionInProgress;
     addTicketError?: (error:Error) => ITicketActions.IAddTicketActionError;
     addTicketSuccess?: () => ITicketActions.IAddTicketActionSuccess;
-    getDictionaryInProgress?:()=>IDictionaryActions.IGetDictionaryInProgress;
+    getDictionaryInProgress?:()=>IDictionaryActions.IGetDictionaryActionInProgress;
     getDictionarySuccess?:(
         newItem: DictionaryItem
-    ) =>IDictionaryActions.IGetDictionarySuccess;
-    getDictionaryError?:(error:Error) =>IDictionaryActions.IGetDictionaryError;
+    ) =>IDictionaryActions.IGetDictionaryActionSuccess;
+    getDictionaryError?:(error:Error) =>IDictionaryActions.IGetDictionaryActionError;
 }

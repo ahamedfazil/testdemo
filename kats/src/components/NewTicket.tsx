@@ -7,8 +7,9 @@ import {
   Checkbox,
   NormalPeoplePicker, IPersonaProps,
   Dropdown, IDropdown, IDropdownOption,
-  ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize
+  ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize, Fabric
 } from 'office-ui-fabric-react';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 
 import { ICurrentTicketState } from '../models/ITicket';
 import { IUserState } from '../models/User';
@@ -18,7 +19,9 @@ import { pnpConfig } from '../config/pnp.config';
 import { getCurrentUser } from '../actions/api/UserAPI';
 import IStore from '../store/IStore';
 import * as IActions from '../actions/IUserActions';
-import { getUserInfo } from '../actions/UserActions';
+import { getUsersInProgress } from '../actions/UserActions';
+import { getDictionaryInProgress } from '../actions/api/fetchDictionary';
+import { addTicket } from '../actions/api/TicketAPI';
 
 
 
@@ -58,20 +61,17 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
   constructor(props: IAppProps) {
     super(props);
     pnp.setup(pnpConfig);
-    getCurrentUser(props)
+    getCurrentUser(props);
+    getDictionaryInProgress(props);
+    addTicket(props)
 
-    // this.getCurrUser = this.props.getCurrentUser!;
-    // this.store = this.props.store!;
-    // this.getCurrSuccess = this.props.getCurrentUserSuccess!;
-    // this.getCurrError = this.props.getCurrentUserError!;
-    // this.getUserInfo = this.props.getUserInfo!;
-    // this.getUserInfoSuccess = this.props.getUserInfoSuccess!;
-    // this.getUserError = this.props.getUserInfoError!;
 
   }
 
-  _ticket: ICurrentTicketState = this._ticket;
-
+  componentWillMount() {
+    initializeIcons(undefined, { disableWarnings: true });
+  }
+  
   private submit = e => {
     e.preventDefault()
 
@@ -84,17 +84,17 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
 
   render(): JSX.Element {
-    const userState: IUserState = this.props.store.users[0].userState;
+    const userState: IUserState = this.props.store.user.userState;
     const store = this.props.store;
     return (
-      <form >
+      <Fabric >
         <section>
           <div className="content-wrap">
             <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
                 <input className="ms-TextField-field"
-                  value={this._ticket.id}
+                  value={store.ticket.currentTicket.id}
                   type="text"
                   placeholder="" />
               </div>
@@ -105,7 +105,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className="col-three ms-TextField">
                 <Dropdown
                   label="Status:"
-                  selectedKey={this._ticket.status}
+                  selectedKey={store.ticket.currentTicket.status}
                   onChanged={this.onStatusChange}
                   placeholder="Select status"
                   options={store.status.items.map(x => {
@@ -121,14 +121,14 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Engagement Name</label>
                 <input className="ms-TextField-field"
-                  value={this._ticket.engagementName}
+                  value={store.ticket.currentTicket.engagementName}
                   type="text"
                   placeholder="" />
               </div>
               <div className="col-two ms-TextField">
                 <Dropdown
                   label="Priority:"
-                  selectedKey={this._ticket.priority}
+                  selectedKey={store.ticket.currentTicket.priority}
                   onChanged={this.onPriorityChange}
                   placeholder="Select an Option"
                   options={[
@@ -140,8 +140,8 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className="col-three ms-TextField">
                 {!userState.isFetched ? (
                   <div>
-                    {this.props.store.users[0].error ? (
-                      <label>error = {'User Error ' + this.props.store.users[0].error}
+                    {store.user.error ? (
+                      <label>error = {'User Error ' + store.user.error}
                       </label>
 
                     ) : (
@@ -149,13 +149,13 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
                       )}
                   </div>
-                ) : (this.props.store.users[0].userState.id
+                ) : (this.props.store.user.userState.id
                   )}
                 <label className="ms-Label">Submitter</label>
                 <NormalPeoplePicker
                   onResolveSuggestions={this.onFilterChanged}
                   className={'ms-PeoplePicker'}
-                  key={this.props.store.users[0].userState.id}
+                  key={this.props.store.user.userState.id}
                   itemLimit={1}
                   pickerSuggestionsProps={{
                     noResultsFoundText: 'No results found',
@@ -169,7 +169,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                 <Dropdown
                   placeholder="Select options"
                   label="Engagement Types:"
-                  selectedKeys={this._ticket.engagementType}
+                  selectedKeys={store.ticket.currentTicket.engagementType}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
                   options={store.engagementType.items.map(x => {
@@ -183,7 +183,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='col-two ms-TextField'>
                 <label className="ms-Label">Period End</label>
                 <DatePicker isRequired={false} placeholder='Enter Date'
-                  value={this._ticket.periodEnd}
+                  value={store.ticket.currentTicket.periodEnd}
                   onSelectDate={this.onPeriodEndDateChange} />
               </div>
               <div className="col-three ms-TextField">
@@ -192,7 +192,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   onResolveSuggestions={this.onFilterChanged}
                   getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                   className={'ms-PeoplePicker'}
-                  key={this._ticket.assignee}
+                  key={store.ticket.currentTicket.assignee}
                   itemLimit={1}
                   // selectedItems={this._ticket.assignee}
                   pickerSuggestionsProps={{
@@ -207,7 +207,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                 <Dropdown
                   placeholder="Select options"
                   label="Accounting Frameworks:"
-                  selectedKeys={this._ticket.accountingFramework}
+                  selectedKeys={store.ticket.currentTicket.accountingFramework}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
                   options={store.accountingFramework.items.map(x => {
@@ -221,7 +221,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='col-two ms-TextField'>
                 <label className="ms-Label">Charge Code</label>
                 <input className="ms-TextField-field"
-                  value={this._ticket.engagementChargeCode}
+                  value={store.ticket.currentTicket.engagementChargeCode}
                   type="text" placeholder="" />
               </div>
               <div className="col-three ms-TextField">
@@ -230,7 +230,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   onResolveSuggestions={this.onFilterChanged}
                   getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                   className={'ms-PeoplePicker'}
-                  key={this._ticket.reviewer}
+                  key={store.ticket.currentTicket.reviewer}
                   itemLimit={1}
                   // selectedItems={this._ticket.reviewer}
                   pickerSuggestionsProps={{
@@ -245,7 +245,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                 <Dropdown
                   placeholder="Select options"
                   label="Auditing Standards:"
-                  selectedKeys={this._ticket.auditingStandard}
+                  selectedKeys={store.ticket.currentTicket.auditingStandard}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
                   options={store.auditingStandard.items.map(x => {
@@ -280,7 +280,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='ms-Dropdown-container root-47 col-one ms-TextField'>
                 <Dropdown
                   label="Ticket Type:"
-                  selectedKey={this._ticket.ticketType}
+                  selectedKey={store.ticket.currentTicket.ticketType}
                   onChanged={this.onTicketTypeChange}
                   placeholder="Select an Option"
                   options={store.ticketType.items.map(x => {
@@ -294,7 +294,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='ms-Dropdown-container root-47 col-two ms-TextField'>
                 <Dropdown
                   label="Category:"
-                  selectedKey={this._ticket.category}
+                  selectedKey={store.ticket.currentTicket.category}
                   onChanged={this.onCategoryChange}
                   placeholder="Select an Option"
                   options={store.category.items.map(x => {
@@ -311,7 +311,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                   onResolveSuggestions={this.onFilterChanged}
                   getTextFromItem={(persona: IPersonaProps) => persona.primaryText}
                   className={'ms-PeoplePicker'}
-                  key={this._ticket.respIndividual}
+                  key={store.ticket.currentTicket.respIndividual}
                   itemLimit={1}
                   // selectedItems={this._ticket.respIndividual}
                   pickerSuggestionsProps={{
@@ -325,14 +325,14 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='col-one ms-TextField'>
                 <label className="ms-Label">Subject</label>
                 <input className="ms-TextField-field"
-                  value={this._ticket.subject}
+                  value={store.ticket.currentTicket.subject}
                   type="text"
                   placeholder="" />
               </div>
               <div className='ms-Dropdown-container root-47 col-two ms-TextField'>
                 <ComboBox
                   multiSelect
-                  selectedKey={this._ticket.labels}
+                  selectedKey={store.ticket.currentTicket.labels}
                   label="Topics:"
                   allowFreeform={true}
                   autoComplete="on"
@@ -375,13 +375,13 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
             <div className='ms-Grid-row'>
               <div className='col-wide ms-TextField'>
                 <TextField label="Conclusion"
-                  value={this._ticket.conclusion}
+                  value={store.ticket.currentTicket.conclusion}
                   multiline rows={5} />
               </div>
               <div className='col-three ms-TextField'>
                 <ComboBox
                   multiSelect
-                  selectedKey={this._ticket.labels}
+                  selectedKey={store.ticket.currentTicket.labels}
                   label="Labels"
                   allowFreeform={true}
                   autoComplete="on"
@@ -395,17 +395,17 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
               <div className='col-three ms-TextField'>
                 <Checkbox label="Knowledge Base candidate"
                   onChange={this._onCheckboxChange}
-                  value={this._ticket.addToKb} />
+                  value={store.ticket.currentTicket.addToKb} />
               </div>
               <div className='col-three ms-TextField'>
                 <Checkbox label="Training flag"
                   onChange={this._onCheckboxChange}
-                  value={this._ticket.training} />
+                  value={store.ticket.currentTicket.training} />
               </div>
               <div className='col-three ms-TextField'>
                 <Checkbox label="FAQ flag"
                   onChange={this._onCheckboxChange}
-                  value={this._ticket.faq} />
+                  value={store.ticket.currentTicket.faq} />
               </div>
             </div>
             <div className='col-three'>
@@ -414,19 +414,19 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
           </div>
 
         </section>
-      </form>
+      </Fabric>
 
     );
   }
 
   public onStatusChange = (item: IDropdownOption): void => {
-    this._ticket.status = item ? +item.key : undefined;
+    this.props.store.ticket.currentTicket.status = item ? +item.key : undefined;
   }
   public onTicketTypeChange = (item: IDropdownOption): void => {
-    this._ticket.ticketType = item ? +item.key : undefined;
+    this.props.store.ticket.currentTicket.ticketType = item ? +item.key : undefined;
   }
   public onCategoryChange = (item: IDropdownOption): void => {
-    this._ticket.category = item ? +item.key : undefined;
+    this.props.store.ticket.currentTicket.category = item ? +item.key : undefined;
   }
   private onPriorityChange: (item: IDropdownOption, index?: number) => void;
 
@@ -472,7 +472,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
     };
   }
   private onPeriodEndDateChange(date: Date): void {
-    this._ticket.periodEnd = date;
+    this.props.store.ticket.currentTicket.periodEnd = date;
   }
 
 

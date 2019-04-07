@@ -1,16 +1,13 @@
 import { Submitter } from "../models/Submitter";
-import { User } from "../models/User";
+import { User, IUserState } from "../models/User";
 //import { sp } from '@pnp/sp'
 
 export class UserService {
 
-    async get(_userId: string): Promise<User[]> {
+    public async getUserProfile(_userId: string): Promise<IUserState[]> {
 
-        let submitterInfo :User;
+        let userProfile :IUserState;
   
-
-
-
         let d = $.Deferred();
 
         let url = _spPageContextInfo.webAbsoluteUrl + '/_vti_bin/userprofileservice.asmx';
@@ -34,7 +31,7 @@ export class UserService {
                 let results = $('GetUserProfileByNameResult PropertyData', xmlData);
 
                 if (results.length) {
-                    let userProfile = submitterInfo;
+                    // let userProfile = submitterInfo;
                     $.each(results, function (p, prop) {
                         userProfile[$(prop).find('name').text()] = $(prop).find('value').text();
                         
@@ -42,11 +39,11 @@ export class UserService {
                     d.resolve(userProfile);
                     console.log(`
                     
-                                LoginName: ${userProfile.userState.id}
-                                Name: ${userProfile.userState.name}
-                                Department: ${userProfile.userState.department}
-                                Job Title: ${userProfile.userState.title}
-                                Office: ${userProfile.userState.office}                                
+                                LoginName: ${userProfile.id}
+                                Name: ${userProfile.name}
+                                Department: ${userProfile.department}
+                                Job Title: ${userProfile.title}
+                                Office: ${userProfile.office}                                
                                 
                                 `);
                     

@@ -21,20 +21,20 @@ export interface IGetCurrentUserActionError extends Action{
     };
 }
 
-export interface IGetUserInfoAction extends Action {
-    readonly type: keys.GET_USER_INFO;
+export interface IGetUsersActionInProgress extends Action {
+    readonly type: keys.GET_USERS_INPROGRESS;
     
 }
 
-export interface IGetUserInfoActionSuccess extends Action{
-    readonly type: keys.GET_USER_INFO_SUCCESS;
+export interface IGetUsersActionSuccess extends Action{
+    readonly type: keys.GET_USERS_SUCCESS;
     payload: {
-        ticketUser: IUserState;
+        users: IUserState[];
     };
 }
 
-export interface IGetUserInfoActionError extends Action{
-    readonly type: keys.GET_USER_INFO_ERROR;
+export interface IGetUsersActionError extends Action{
+    readonly type: keys.GET_USERS_ERROR;
     payload: {
         error:Error;
     };

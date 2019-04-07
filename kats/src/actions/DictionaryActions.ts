@@ -6,7 +6,7 @@ import { IDictionaryState, DictionaryItem } from '../models/IDictionary';
 import { fetchDictionary } from './api/fetchDictionary';
 import * as IDictionaryActions from './IDictionaryActions';
 
-export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryInProgress{
+export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActionInProgress{
     return{
         type:keys.GET_CURRENT_DICTIONARY_INPROGRESS,
     
@@ -15,7 +15,7 @@ export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryInPro
 
 export function getDictionarySuccess(
     newItem: DictionaryItem
-):IDictionaryActions.IGetDictionarySuccess{
+):IDictionaryActions.IGetDictionaryActionSuccess{
     return{
         type:keys.GET_CURRENT_DICTIONARY_SUCCESS,
         payload:{
@@ -26,7 +26,7 @@ export function getDictionarySuccess(
 
 export function getDictionaryError(
     error:Error
-):IDictionaryActions.IGetDictionaryError{
+):IDictionaryActions.IGetDictionaryActionError{
     return{
         type:keys.GET_CURRENT_DICTIONARY_ERROR,
         payload:{
@@ -56,8 +56,8 @@ export const getAllEngagementTypes = () => dispatch => {
             return response.text()
             
         }).then(function (text) {
-            let dictiionaryItems = dictionaryParse(text);
-            dispatch(receiveEngagementTypes(dictiionaryItems.results))
+            let dictionaryItems = dictionaryParse(text);
+            dispatch(receiveEngagementTypes(dictionaryItems.results))
             
         })
 }
@@ -95,8 +95,8 @@ export const getAllAccountingFrameworks = () => dispatch => {
             return response.text()
             
         }).then(function (text) {
-            let dictiionaryItems = dictionaryParse(text);
-            dispatch(receiveAccountingFrameworks(dictiionaryItems.results))
+            let dictionaryItems = dictionaryParse(text);
+            dispatch(receiveAccountingFrameworks(dictionaryItems.results))
             
         })
 }
@@ -136,8 +136,8 @@ export const getAllAuditingStandards = () => dispatch => {
             return response.text()
             
         }).then(function (text) {
-            let dictiionaryItems = dictionaryParse(text);
-            dispatch(receiveAuditingStandards(dictiionaryItems.results))
+            let dictionaryItems = dictionaryParse(text);
+            dispatch(receiveAuditingStandards(dictionaryItems.results))
             
         })
 }
@@ -176,8 +176,8 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
                 return response.text()
                 
             }).then(function (text) {
-                let dictiionaryItems = dictionaryParse(text);
-                dispatch(receiveCategory(dictiionaryItems.results))
+                let dictionaryItems = dictionaryParse(text);
+                dispatch(receiveCategory(dictionaryItems.results))
                 
             })
     }
@@ -216,8 +216,8 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
                 return response.text()
                 
             }).then(function (text) {
-                let dictiionaryItems = dictionaryParse(text);
-                dispatch(receiveTopic(dictiionaryItems.results))
+                let dictionaryItems = dictionaryParse(text);
+                dispatch(receiveTopic(dictionaryItems.results))
                 
             })
     }
@@ -257,8 +257,8 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
                 return response.text()
                 
             }).then(function (text) {
-                let dictiionaryItems = dictionaryParse(text);
-                dispatch(receiveTicketType(dictiionaryItems.results))
+                let dictionaryItems = dictionaryParse(text);
+                dispatch(receiveTicketType(dictionaryItems.results))
                 
             })
     }
@@ -297,8 +297,8 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
                 return response.text()
                 
             }).then(function (text) {
-                let dictiionaryItems = dictionaryParse(text);
-                dispatch(receiveStatus(dictiionaryItems.results))
+                let dictionaryItems = dictionaryParse(text);
+                dispatch(receiveStatus(dictionaryItems.results))
                 
             })
     }
@@ -318,7 +318,7 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
 export function dictionaryParse(text: string) {
     console.log('text is: ', text);
     let dictionaryText = JSON.parse(text);
-    let dictiionaryItems = dictionaryText.d as Dictionary;
-    return dictiionaryItems;
+    let dictionaryItems = dictionaryText.d as Dictionary;
+    return dictionaryItems;
 }
 

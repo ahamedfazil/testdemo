@@ -28,29 +28,29 @@ export function getCurrentUserError (error:Error) :IUserActions.IGetCurrentUserA
     };
 }
 
-export function getUserInfo():IUserActions.IGetUserInfoAction {
+export function getUsersInProgress():IUserActions.IGetUsersActionInProgress {
     return{
-        type: keys.GET_USER_INFO,
+        type: keys.GET_USERS_INPROGRESS,
       
     };
 }
 
 export function getUserInfoSuccess(
-    ticketUser:IUserState
-    ): IUserActions.IGetUserInfoActionSuccess {
+    users:IUserState[]
+    ): IUserActions.IGetUsersActionSuccess {
         return{
-            type: keys.GET_USER_INFO_SUCCESS,
+            type: keys.GET_USERS_SUCCESS,
             payload:{
-                ticketUser
+                users
             }
         }
     }
 
 export function getUserInfoError(
     error:Error
-    ):IUserActions.IGetUserInfoActionError {
+    ):IUserActions.IGetUsersActionError {
         return {
-            type: keys.GET_USER_INFO_ERROR,
+            type: keys.GET_USERS_ERROR,
             payload:{
             error
         }
