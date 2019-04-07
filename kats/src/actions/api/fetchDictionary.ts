@@ -33,7 +33,7 @@ export async function getDictionaryInProgress(props: IAppProps) {
                         .then(response => response.text())
                         .then(function (text) {
                             let dictionaryText = JSON.parse(text);
-                            arrDictionaryItems = dictionaryText.d.results as DictionaryItem[];
+                            arrDictionaryItems = dictionaryText.d as DictionaryItem[];
                             return arrDictionaryItems;
                         }
                         )

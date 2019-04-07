@@ -71,7 +71,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
   componentWillMount() {
     initializeIcons(undefined, { disableWarnings: true });
   }
-  
+
   private submit = e => {
     e.preventDefault()
 
@@ -84,7 +84,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
 
   render(): JSX.Element {
-    const userState: IUserState = this.props.store.user.userState;
+    //const userState: IUserState = this.props.store.user.userState;
     const store = this.props.store;
     return (
       <Fabric >
@@ -138,7 +138,7 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
                 />
               </div >
               <div className="col-three ms-TextField">
-                {!userState.isFetched ? (
+                {/* {!userState.isFetched ? ( */}
                   <div>
                     {store.user.error ? (
                       <label>error = {'User Error ' + store.user.error}
@@ -149,8 +149,8 @@ export class NewTicket extends React.Component<IAppProps, TicketState>
 
                       )}
                   </div>
-                ) : (this.props.store.user.userState.id
-                  )}
+                // ) : (this.props.store.user.userState.id
+                //   )}
                 <label className="ms-Label">Submitter</label>
                 <NormalPeoplePicker
                   onResolveSuggestions={this.onFilterChanged}
