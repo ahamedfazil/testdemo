@@ -1,8 +1,8 @@
 import { ICurrentTicketState } from "../models/ITicket";
-import { DictionaryItem } from "../models/IDictionary";
+import { IDictionaryItem } from "../models/IDictionary";
 
 export interface IKatsService{
-    add(listItem:any):ICurrentTicketState |Comment |DictionaryItem;
+    add(listItem:any):ICurrentTicketState |Comment |IDictionaryItem;
     getAll():any[];
     getById(listItemId:number):any;
 

@@ -3,26 +3,26 @@ import IStore from './IStore'
 
 export const appInitialState: IStore =
 {
-    user: 
-        {
-            isInitialised: false,
-            userState: {
-                isFetched: false,
-                isSupportUser: false,
-                isUser: false,
-                id: null,
-                name: "",
-                email: "",
-                firstName: "",
-                lastName: "",
-                title: "",
-                loginName: "",
-                department: "",
-                memberOf: [],
-                office: "",
-                officeNumber: null
-            }
-        },
+    user:
+    {
+        isInitialised: false,
+        userState: {
+            isFetched: false,
+            isSupportUser: false,
+            isUser: false,
+            id: null,
+            name: "",
+            email: "",
+            firstName: "",
+            lastName: "",
+            title: "",
+            loginName: "",
+            department: "",
+            memberOf: [],
+            office: "",
+            officeNumber: null
+        }
+    },
     ticket: {
         isInitialised: false,
         currentTicket: {
@@ -76,80 +76,94 @@ export const appInitialState: IStore =
     },
     engagementType: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
     accountingFramework: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
     auditingStandard: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
-    category:{
+    category: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
-    topic:{
+    topic: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
     ticketType: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
     status: {
         isInitialised: false,
-        isFetched:false,
+        isFetched: false,
         name: "",
-        items: [
-            {
-                id: null,
-                title: ""
-            }
-        ]
+        items: {
+            results: [
+                {
+                    id: null,
+                    title: ""
+                }
+            ]
+        }
     },
 
 }

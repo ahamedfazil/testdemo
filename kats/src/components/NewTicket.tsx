@@ -12,7 +12,7 @@ import {
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 
 import { ICurrentTicketState } from '../models/ITicket';
-import { IUserState } from '../models/User';
+import { IUserState } from '../models/IUser';
 import { IAppProps } from '../models/IAppProps';
 import pnp from '@pnp/pnpjs';
 import { pnpConfig } from '../config/pnp.config';
@@ -20,7 +20,7 @@ import { getCurrentUser } from '../api/UserAPI';
 import IStore from '../store/IStore';
 import * as IActions from '../actions/IUserActions';
 import { getUsersInProgress } from '../actions/UserActions';
-import { getDictionaryInProgress } from '../api/fetchDictionary';
+//import { getDictionaryInProgress } from '../api/fetchDictionary';
 import { addTicket } from '../api/TicketAPI';
 
 
@@ -39,7 +39,7 @@ const INITIAL_OPTIONS: IComboBoxOption[] = [
 ];
 
 interface ITicketState {
-  // fetchSubmitterInfo: () => Promise<User>;
+  // fetchSubmitterInfo: () => Promise<IUser>;
   selectedItem?: { key: string | number | undefined };
   selectedItems?: string[];
   selectedOptionKeys?: string[];
@@ -109,7 +109,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.status}
                   onChanged={this.onStatusChange}
                   placeholder="Select status"
-                  options={store.status.items.map(x => {
+                  options={store.status.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -143,7 +143,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                 {!userState.isFetched ? (
                   <div>
                     {store.user.error ? (
-                      <label>error = {'User Error ' + store.user.error}
+                      <label>error = {'IUser Error ' + store.user.error}
                       </label>
 
                     ) : (
@@ -174,7 +174,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.engagementType}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.engagementType.items.map(x => {
+                  options={store.engagementType.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -212,7 +212,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.accountingFramework}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.accountingFramework.items.map(x => {
+                  options={store.accountingFramework.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -250,7 +250,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.auditingStandard}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.auditingStandard.items.map(x => {
+                  options={store.auditingStandard.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -285,7 +285,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.ticketType}
                   onChanged={this.onTicketTypeChange}
                   placeholder="Select an Option"
-                  options={store.ticketType.items.map(x => {
+                  options={store.ticketType.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -299,7 +299,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.category}
                   onChanged={this.onCategoryChange}
                   placeholder="Select an Option"
-                  options={store.category.items.map(x => {
+                  options={store.category.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -341,7 +341,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   onChange={this._onChangeMulti}
                   onResolveOptions={this._getOptionsMulti}
                   text={this.state.initialDisplayValueMulti}
-                  options={store.topic.items.map(x => {
+                  options={store.topic.items.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -528,12 +528,12 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
     console.log('_onChangeMulti() is called: option = ' + JSON.stringify(option));
     const currentSelectedKeys = this.state.selectedOptionKeys || [];
     if (option) {
-      // User selected/de-selected an existing option
+      // IUser selected/de-selected an existing option
       this.setState({
         selectedOptionKeys: this._updateSelectedOptionKeys(currentSelectedKeys, option)
       });
     } else if (value !== undefined) {
-      // User typed a freeform option
+      // IUser typed a freeform option
       const newOption: IComboBoxOption = { key: value, text: value };
       const updatedSelectedKeys: string[] = [...currentSelectedKeys, newOption.key as string];
       this.setState({

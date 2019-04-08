@@ -2,9 +2,10 @@ import keys from '../constants/ActionTypeKey';
 
 import C from '../constants';
 import 'whatwg-fetch'
-import { IDictionaryState, DictionaryItem } from '../models/IDictionary';
+import { IDictionaryState, IDictionaryItem, IDictionary } from '../models/IDictionary';
 import { fetchDictionary } from '../api/fetchDictionary';
 import * as IDictionaryActions from './IDictionaryActions';
+import { IAppProps } from '../models/IAppProps';
 
 export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActionInProgress{
     return{
@@ -14,12 +15,12 @@ export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActio
 }
 
 export function getDictionarySuccess(
-    newItem: DictionaryItem
+    newItems: IDictionary
 ):IDictionaryActions.IGetDictionaryActionSuccess{
     return{
         type:keys.GET_CURRENT_DICTIONARY_SUCCESS,
         payload:{
-            newItem
+            newItems
         }
     };
 }
@@ -35,9 +36,9 @@ export function getDictionaryError(
     };
 }
 
-export interface Dictionary {
-    results: DictionaryItem[];
-}
+// export interface IDictionary {
+//     results: IDictionary;
+// }
 
 export const selectEngagementType = item =>
     ({
@@ -50,14 +51,20 @@ export const receiveEngagementTypes = (items) => ({
     payload: items
 })
 
-export const getAllEngagementTypes = () => dispatch => {
+export const getAllEngagementTypes = (props:IAppProps) => {
+    //Dispatch IDictionary action
+    props.getDictionaryInProgress();
+
     fetchDictionary('Engagement%20Type')
         .then(function (response) {
             return response.text()
             
         }).then(function (text) {
-            let dictionaryItems = dictionaryParse(text);
-            dispatch(receiveEngagementTypes(dictionaryItems.results))
+            let dictionary = dictionaryParse(text);
+
+            //Dispatch success
+            props.getDictionarySuccess(dictionary)
+            // dispatch(receiveEngagementTypes(dictionaryItems.results))
             
         })
 }
@@ -318,7 +325,7 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
 export function dictionaryParse(text: string) {
     console.log('text is: ', text);
     let dictionaryText = JSON.parse(text);
-    let dictionaryItems = dictionaryText.d as Dictionary;
+    let dictionaryItems = dictionaryText.d as IDictionary;
     return dictionaryItems;
 }
 

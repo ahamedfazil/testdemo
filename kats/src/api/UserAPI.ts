@@ -1,7 +1,7 @@
 import pnp from '@pnp/pnpjs';
 import update from 'immutability-helper';
 
-import { IUserState } from '../models/User';
+import { IUserState } from '../models/IUser';
 import { IAppProps } from '../models/IAppProps';
 
 export const getUserByID = (userID: any) => {
@@ -76,7 +76,7 @@ export async function getCurrentUser(props: IAppProps) {
                         userState.memberOf.push(groupTitle.Title);
                     }
                     userState.isSupportUser = userState.memberOf.includes('Support');
-                    userState.isUser = userState.memberOf.includes('SharePoint User');
+                    userState.isUser = userState.memberOf.includes('SharePoint IUser');
 
                     //Dispatch success action
                     userState.isFetched = true;

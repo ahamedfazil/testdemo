@@ -1,4 +1,4 @@
-import { IUserState } from "./User";
+import { IUserState } from "./IUser";
 
 export interface ITicketState{
     isInitialised:boolean;

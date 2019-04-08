@@ -1,7 +1,7 @@
 export default undefined
 
 // import { Submitter } from "../models/Submitter";
-// import { User, IUserState } from "../models/User";
+// import { IUser, IUserState } from "../models/IUser";
 // //import { sp } from '@pnp/sp'
 
 // export class UserService {
@@ -50,7 +50,7 @@ export default undefined
 //                                 `);
                     
 //                 } else {
-//                     d.reject('getUserProfileAsmx: Could not get User Profile');
+//                     d.reject('getUserProfileAsmx: Could not get IUser Profile');
 //                 }
 
 
@@ -65,7 +65,7 @@ export default undefined
 //         return d.promise();
 //     };
 
-//     async getAll():Promise<User[]>{
+//     async getAll():Promise<IUser[]>{
 //         //get connection to user information list then SP user profile
 //         throw new Error();
 //     }

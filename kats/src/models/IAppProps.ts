@@ -1,10 +1,10 @@
 import IStore from '../store/IStore';
-import { IUserState } from '../models/User'
+import { IUserState } from '../models/IUser'
 import * as IActions from '../actions/IUserActions';
 import * as ITicketActions from '../actions/ITicketActions';
 import { ICurrentTicketState } from './ITicket';
 import * as IDictionaryActions from '../actions/IDictionaryActions';
-import { DictionaryItem } from './IDictionary';
+import { IDictionaryItem, IDictionary } from './IDictionary';
 
 export interface IAppProps {
     store?:IStore;
@@ -25,7 +25,7 @@ export interface IAppProps {
     addTicketSuccess?: () => ITicketActions.IAddTicketActionSuccess;
     getDictionaryInProgress?:()=>IDictionaryActions.IGetDictionaryActionInProgress;
     getDictionarySuccess?:(
-        newItem: DictionaryItem
+        newItems: IDictionary
     ) =>IDictionaryActions.IGetDictionaryActionSuccess;
     getDictionaryError?:(error:Error) =>IDictionaryActions.IGetDictionaryActionError;
 }

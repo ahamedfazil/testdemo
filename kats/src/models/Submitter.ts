@@ -1,7 +1,7 @@
-import { User } from "./User";
+import { IUser } from "./IUser";
 
 export class Submitter {
-    // user: User;
+    // user: IUser;
     // jobTitle: string;
     // segment:string;
     // department: string;

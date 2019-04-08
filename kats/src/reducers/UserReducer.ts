@@ -8,15 +8,15 @@ import {
     IGetUsersActionSuccess,
     IGetUsersActionError
 } from '../actions/IUserActions';
-import { User } from '../models/User'
+import { IUser } from '../models/IUser'
 import appInitialState from '../store/appInitialState'
 import ActionTypes from '../actions/ActionTypes';
 
 
-export const userReducer: Reducer<User> = (
-    state:User = appInitialState.user,
+export const userReducer: Reducer<IUser> = (
+    state:IUser = appInitialState.user,
     action: ActionTypes
-): User => {
+): IUser => {
     switch (action.type) {
         case ActionTypeKeys.GET_CURRENT_USER:
             return onGetCurrentUserDetailsInProgress(state, action);
@@ -38,7 +38,7 @@ export const userReducer: Reducer<User> = (
 }
 
 function onGetCurrentUserDetailsInProgress(
-    currentState: User,
+    currentState: IUser,
     action: IGetCurrentUserAction
 ) {
     return {
@@ -48,7 +48,7 @@ function onGetCurrentUserDetailsInProgress(
 }
 
 function onGetCurrentUserDetails(
-    currentState: User,
+    currentState: IUser,
     action: IGetCurrentUserActionSuccess) {
     return {
         ...currentState,
@@ -58,7 +58,7 @@ function onGetCurrentUserDetails(
 }
 
 function onGetCurrentUserDetailsError(
-    currentState: User,
+    currentState: IUser,
     action: IGetCurrentUserActionError
 ) {
     return {
@@ -68,7 +68,7 @@ function onGetCurrentUserDetailsError(
 }
 
 function onGetUserDetailsInProgress(
-    currentState: User,
+    currentState: IUser,
     action: IGetUsersActionInProgress
 ) {
     return {
@@ -78,7 +78,7 @@ function onGetUserDetailsInProgress(
 }
 
 function onGetUserDetailsSuccess(
-    currentState: User,
+    currentState: IUser,
     action: IGetUsersActionSuccess) {
     return {
         ...currentState,
@@ -88,7 +88,7 @@ function onGetUserDetailsSuccess(
 }
 
 function onGetUserDetailsError(
-    currentState: User,
+    currentState: IUser,
     action: IGetUsersActionError
 ) {
     return {

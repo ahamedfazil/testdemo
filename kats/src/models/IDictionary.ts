@@ -4,10 +4,14 @@ export interface IDictionaryState{
     isInitialised: boolean;
     name?:string;
     error?:any;
-    items:DictionaryItem[]
+    items:IDictionary
 }
 
-export interface DictionaryItem {
+export interface IDictionary {
+    results: IDictionaryItem[];
+}
+
+export interface IDictionaryItem {
     id:number;
     title: string;
 }

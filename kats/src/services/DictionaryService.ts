@@ -1,4 +1,4 @@
-import { DictionaryItem } from '../models/IDictionary';
+import { IDictionaryItem, IDictionary } from '../models/IDictionary';
 import { fetch } from 'cross-fetch'
 import 'whatwg-fetch'
 
@@ -80,33 +80,33 @@ export class DictionaryService {
     // } 
 
 
-    async getAllAuditingStandards(): Promise<DictionaryItem[]> {
+    async getAllAuditingStandards(): Promise<IDictionary> {
 
 
         throw new Error;
     }
 
-    async getAllAccountingFramework(): Promise<DictionaryItem[]> {
+    async getAllAccountingFramework(): Promise<IDictionary> {
         throw new Error;
     }
 
-    async getAllCategories(): Promise<DictionaryItem[]> {
+    async getAllCategories(): Promise<IDictionary> {
         throw new Error;
     }
 
-    async getAllTopics(): Promise<DictionaryItem[]> {
+    async getAllTopics(): Promise<IDictionary> {
         throw new Error;
     }
 
-    async getAllTicketTypes(): Promise<DictionaryItem[]> {
+    async getAllTicketTypes(): Promise<IDictionary> {
         throw new Error;
     }
 
-    async getAllWatchers(): Promise<DictionaryItem[]> {
+    async getAllWatchers(): Promise<IDictionary> {
         throw new Error;
     }
 
-    async getAllStatus(): Promise<DictionaryItem[]> {
+    async getAllStatus(): Promise<IDictionary> {
         throw new Error;
     }
 

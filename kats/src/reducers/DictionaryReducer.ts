@@ -9,7 +9,7 @@ import   {
     SELECT_TICKET_TYPE, RECEIVE_TICKET_TYPE, 
     SELECT_STATUS, RECEIVE_STATUS 
 } from '../actions/DictionaryActions';
-import { DictionaryItem } from '../models/IDictionary';
+import { IDictionaryItem, IDictionary } from '../models/IDictionary';
 import { ICurrentTicketState } from '../models/ITicket';
 
 
@@ -60,7 +60,7 @@ export const dictionaryReducer = (
 //Engagement Type
 
 export const byEngagementTypeId = (
-    state:DictionaryItem[] = appInitialState.engagementType.items,
+    state:IDictionary = appInitialState.engagementType.items,
     action
 ) => {
     switch (action.type) {
@@ -73,7 +73,7 @@ export const byEngagementTypeId = (
                 }, {})
             }
         default:
-                  //what happens when KATS is not fetching dictionary items from sharepoint? 
+                  //what happens when KATS is not fetching IDictionary items from sharepoint? 
             return state; //send to app default load values
     }
 }
@@ -97,7 +97,7 @@ export const getVisibleEngagementTypes = state =>
 //Accounting  Frameworks
 
 export const byAccountingFrameworkId = (
-    state:DictionaryItem[] = appInitialState.accountingFramework.items,
+    state:IDictionary = appInitialState.accountingFramework.items,
     action
 ) => {
     switch (action.type) {
@@ -134,7 +134,7 @@ export const getVisibleAccountingFrameworks = state =>
 //Auditing Standards
 
 export const byAuditingStandardId = (
-    state:DictionaryItem[] = appInitialState.auditingStandard.items,
+    state:IDictionary = appInitialState.auditingStandard.items,
     action
 ) => {
     switch (action.type) {
@@ -170,7 +170,7 @@ export const getVisibleAuditingStandards = state =>
 
 
 export const byCategoryId = (
-    state:DictionaryItem[] = appInitialState.category.items,
+    state:IDictionary = appInitialState.category.items,
     action
 ) => {
     switch (action.type) {
@@ -206,7 +206,7 @@ export const getVisibleCategory = state =>
 //Topic
 
 export const byTopicId = (
-    state:DictionaryItem[] = appInitialState.topic.items,
+    state:IDictionary = appInitialState.topic.items,
     action
 ) => {
     switch (action.type) {
@@ -275,7 +275,7 @@ export const getVisibleticketTypes = state =>
 //Ticket status
 
 export const byStatusId = (
-    state:DictionaryItem[] = appInitialState.status.items,
+    state:IDictionary = appInitialState.status.items,
     action
 ) => {
     switch (action.type) {

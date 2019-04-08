@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
    isInitialised:boolean;
    error?:any;
    userState: IUserState

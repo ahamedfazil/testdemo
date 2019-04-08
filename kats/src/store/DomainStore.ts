@@ -1,11 +1,11 @@
 import {ICurrentTicketState } from '../models/ITicket' 
-import { User } from '../models/User'
-import { DictionaryItem } from '../models/IDictionary'
+import { IUser } from '../models/IUser'
+import { IDictionary } from '../models/IDictionary'
 
 
 export class DomainStore{
     public tickets: ICurrentTicketState[];
-    public watchers: User[];
-    public auditTeam: User[];
-    public engagementTypes:DictionaryItem[];
+    public watchers: IUser[];
+    public auditTeam: IUser[];
+    public engagementTypes:IDictionary;
 }

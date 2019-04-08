@@ -1,4 +1,4 @@
-import { Comment } from '../models/Comment'
+import { IComment } from '../models/IComment'
 
 
 // export class CommentService {

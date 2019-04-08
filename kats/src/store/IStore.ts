@@ -1,10 +1,10 @@
-import { User } from '../models/User'
+import { IUser } from '../models/IUser'
 import { IDictionaryState } from '../models/IDictionary';
 import { ITicketState } from '../models/ITicket';
 
 export default interface IStore {
-    user: User;
-    users?:User[];
+    user: IUser;
+    users?:IUser[];
     engagementType:IDictionaryState;
     accountingFramework:IDictionaryState;
     auditingStandard:IDictionaryState;

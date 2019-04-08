@@ -1,5 +1,5 @@
 import keys from '../constants/ActionTypeKey';
-import { IUserState } from '../models/User';
+import { IUserState } from '../models/IUser';
 import * as IUserActions from './IUserActions';
 
 export function getCurrentUser(): IUserActions.IGetCurrentUserAction {

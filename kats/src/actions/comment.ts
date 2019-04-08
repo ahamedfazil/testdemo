@@ -1,4 +1,4 @@
-import { Comment } from '../models/Comment';
+import { IComment } from '../models/IComment';
 
 export const ADD_COMMENT = "ADD_COMMENT"
 export const REMOVE_COMMENT= "REMOVE_COMMENT"
