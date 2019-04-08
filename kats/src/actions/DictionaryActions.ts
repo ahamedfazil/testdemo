@@ -2,7 +2,7 @@ import keys from '../constants/ActionTypeKey';
 
 import C from '../constants';
 import 'whatwg-fetch'
-import { IDictionaryState, IDictionaryItem, IDictionary } from '../models/IDictionary';
+import { IDictionaryState, IDictionaryItem } from '../models/IDictionary';
 import { fetchDictionary } from '../api/fetchDictionary';
 import * as IDictionaryActions from './IDictionaryActions';
 import { IAppProps } from '../models/IAppProps';
@@ -15,12 +15,92 @@ export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActio
 }
 
 export function getDictionarySuccess(
-    newItems: IDictionary
+    results: IDictionaryState,
+    listName:string
 ):IDictionaryActions.IGetDictionaryActionSuccess{
     return{
         type:keys.GET_CURRENT_DICTIONARY_SUCCESS,
         payload:{
-            newItems
+            results,
+            listName
+        }
+    };
+}
+
+export function getEngagementTypeSuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetEngagementTypeSuccess{
+    return{
+        type:keys.GET_ENGAGEMENTTYPE_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
+export function getAccountingFramework(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetAccountingFrameworkSuccess{
+    return{
+        type:keys.GET_ACCOUNTINGFRAMEWORK_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
+export function getAuditingStandardSuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetAuditingStandardSuccess{
+    return{
+        type:keys.GET_AUDITINGSTANDARD_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
+export function getCategorySuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetCategorySuccess{
+    return{
+        type:keys.GET_CATEGORY_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
+export function getTopicSuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetTopicSuccess{
+    return{
+        type:keys.GET_TOPIC_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
+export function getStatusSuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetStatusSuccess{
+    return{
+        type:keys.GET_STATUS_SUCCESS,
+        payload:{
+            results,
+            listName
         }
     };
 }
@@ -37,7 +117,7 @@ export function getDictionaryError(
 }
 
 // export interface IDictionary {
-//     results: IDictionary;
+//     results: IDictionaryState;
 // }
 
 export const selectEngagementType = item =>
@@ -52,10 +132,11 @@ export const receiveEngagementTypes = (items) => ({
 })
 
 export const getAllEngagementTypes = (props:IAppProps) => {
-    //Dispatch IDictionary action
+    let listName = 'Engagement%20Type';
+    //Dispatch IDictionaryState action
     props.getDictionaryInProgress();
 
-    fetchDictionary('Engagement%20Type')
+    fetchDictionary(`${listName}`)
         .then(function (response) {
             return response.text()
             
@@ -63,7 +144,7 @@ export const getAllEngagementTypes = (props:IAppProps) => {
             let dictionary = dictionaryParse(text);
 
             //Dispatch success
-            props.getDictionarySuccess(dictionary)
+            props.getDictionarySuccess(dictionary,listName)
             // dispatch(receiveEngagementTypes(dictionaryItems.results))
             
         })
@@ -325,7 +406,7 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
 export function dictionaryParse(text: string) {
     console.log('text is: ', text);
     let dictionaryText = JSON.parse(text);
-    let dictionaryItems = dictionaryText.d as IDictionary;
+    let dictionaryItems = dictionaryText.d as IDictionaryState;
     return dictionaryItems;
 }
 

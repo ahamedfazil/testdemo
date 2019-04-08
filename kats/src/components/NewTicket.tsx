@@ -109,7 +109,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.status}
                   onChanged={this.onStatusChange}
                   placeholder="Select status"
-                  options={store.status.items.results.map(x => {
+                  options={store.status.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -174,7 +174,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.engagementType}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.engagementType.items.results.map(x => {
+                  options={store.engagementType.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -212,7 +212,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.accountingFramework}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.accountingFramework.items.results.map(x => {
+                  options={store.accountingFramework.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -250,7 +250,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKeys={ticket.auditingStandard}
                   onChanged={this.onChangeMultiSelect}
                   multiSelect
-                  options={store.auditingStandard.items.results.map(x => {
+                  options={store.auditingStandard.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -285,7 +285,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.ticketType}
                   onChanged={this.onTicketTypeChange}
                   placeholder="Select an Option"
-                  options={store.ticketType.items.results.map(x => {
+                  options={store.ticketType.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -299,7 +299,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   selectedKey={ticket.category}
                   onChanged={this.onCategoryChange}
                   placeholder="Select an Option"
-                  options={store.category.items.results.map(x => {
+                  options={store.category.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,
@@ -341,7 +341,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                   onChange={this._onChangeMulti}
                   onResolveOptions={this._getOptionsMulti}
                   text={this.state.initialDisplayValueMulti}
-                  options={store.topic.items.results.map(x => {
+                  options={store.topic.results.map(x => {
                     return {
                       key: x.id,
                       text: x.title,

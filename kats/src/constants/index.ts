@@ -27,7 +27,7 @@ const constants = {
     
 
     
-    //ASYNC IDictionary ACTIONS
+    //ASYNC IDictionaryState ACTIONS
     //------------------------//
     //engagement type      
     REQUEST_ENGAGEMENT_TYPES: "REQUEST_ENGAGEMENT_TYPES",

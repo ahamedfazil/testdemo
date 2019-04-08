@@ -12,7 +12,17 @@ import {
     IAddTicketActionError,
     IUpdateTicketAction, 
     IRemoveTicketAction } from './ITicketActions';
-import { IGetDictionaryActionInProgress, IGetDictionaryActionSuccess, IGetDictionaryActionError } from './IDictionaryActions';
+import { 
+    IGetDictionaryActionInProgress, 
+    IGetDictionaryActionSuccess,
+    IGetDictionaryActionError,
+    IGetEngagementTypeSuccess, 
+    IGetAccountingFrameworkSuccess, 
+    IGetAuditingStandardSuccess, 
+    IGetCategorySuccess, 
+    IGetTopicSuccess, 
+    IGetStatusSuccess, 
+    IGetTicketTypeSuccess} from './IDictionaryActions';
 
 type ActionTypes =
 | IGetCurrentUserAction
@@ -30,5 +40,13 @@ type ActionTypes =
 | IGetDictionaryActionInProgress
 | IGetDictionaryActionSuccess
 | IGetDictionaryActionError
+| IGetEngagementTypeSuccess
+| IGetAccountingFrameworkSuccess
+| IGetAuditingStandardSuccess
+| IGetCategorySuccess
+| IGetTicketTypeSuccess
+| IGetTopicSuccess
+| IGetStatusSuccess
+
 
 export default ActionTypes

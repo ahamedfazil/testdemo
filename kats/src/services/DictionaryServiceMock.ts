@@ -1,15 +1,15 @@
-import { IDictionaryItem, IDictionary } from '../models/IDictionary';
+import { IDictionaryItem, IDictionaryState } from '../models/IDictionary';
 import { classToClass } from 'class-transformer';
 import { DictionaryService } from './DictionaryService';
 
 export class DictionaryServiceMock extends DictionaryService {
-    // private static readonly engagementTypes: IDictionary = [];
-    // private static readonly accountingFramework: IDictionary = [];
-    // private static readonly categories: IDictionary = [];
-    // private static readonly topics: IDictionary = [];
-    // private static readonly ticketTypes: IDictionary = [];
-    // private static readonly watchers: IDictionary = [];
-    // private static readonly status: IDictionary = [];
+    // private static readonly engagementTypes: IDictionaryState = [];
+    // private static readonly accountingFramework: IDictionaryState = [];
+    // private static readonly categories: IDictionaryState = [];
+    // private static readonly topics: IDictionaryState = [];
+    // private static readonly ticketTypes: IDictionaryState = [];
+    // private static readonly watchers: IDictionaryState = [];
+    // private static readonly status: IDictionaryState = [];
 
 constructor() {
     super();
@@ -29,7 +29,7 @@ constructor() {
     // DictionaryServiceMock.engagementTypes.push(engagementType);
 }
 
-// async getAllEngagementTypes(): Promise<IDictionary>{
+// async getAllEngagementTypes(): Promise<IDictionaryState>{
 //     return classToClass(DictionaryServiceMock.engagementTypes);
 // }
 

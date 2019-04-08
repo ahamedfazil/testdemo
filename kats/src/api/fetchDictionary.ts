@@ -1,7 +1,7 @@
 import update from 'immutability-helper';
 
 import { url } from '../config/pnp.config';
-import { IDictionary, IDictionaryItem } from '../models/IDictionary';
+import { IDictionaryState, IDictionaryItem } from '../models/IDictionary';
 import { IAppProps } from '../models/IAppProps';
 import { dictionaryParse } from '../actions/DictionaryActions';
 
@@ -15,38 +15,243 @@ export function fetchDictionary(listName: string) {
     });
 }
 
-// export async function getDictionaryInProgress(props: IAppProps) {
-//     let dictionary: IDictionary;
-//     switch (props) {
-//         case props.store.accountingFramework:
-//             dictionary = update(props.store.accountingFramework.items, {
-//                 results: { $set: [] },
-//             });
+export async function getDictionaryInProgress(props: IAppProps) {
+    let dictionary: IDictionaryState;
+    
+    switch (props) {
+
+        case props.store.engagementType:
             
-//             if (!props.store.accountingFramework.isFetched) {
+            dictionary = update(props.store.engagementType, {
+                results: { $set: [] },
+            });
 
-//                 //Dispatch get IDictionary action
-//                 props.getDictionaryInProgress();
-//                 try {
-//                     const dictionaryDataResponse = await fetchDictionary(
-//                         props.store.accountingFramework.name)
-//                         .then(response => response.text())
-//                         .then(function (text) {
-//                             let dictionaryText = JSON.parse(text);
-//                             dictionary.results = dictionaryText.d as IDictionaryItem;
-//                             return dictionary;
-//                         }
-//                         )
-//                     }
-//                 catch (error) {
-//                     console.log(error);
-//                     //Dispatch error action
-//                     props.getDictionaryError(error);
+            if (!props.store.engagementType.isFetched) {
 
-//                 }
-        
-//             }
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Engagement%20Type';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
 
-//     }
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
 
-// }
+                            //Dispatch success
+                            props.getEngagementTypeSuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+            case props.store.accountingFramework:
+            
+            dictionary = update(props.store.accountingFramework, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.accountingFramework.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Accounting%20Framework';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getAccountingFramework(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+            case props.store.auditingStandard:
+            
+            dictionary = update(props.store.auditingStandard, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.auditingStandard.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Auditing%20Standard';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getAuditingStandardSuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+            case props.store.category:
+            
+            dictionary = update(props.store.category, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.category.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Category';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getCategorySuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+            case props.store.topic:
+            
+            dictionary = update(props.store.topic, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.topic.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Auditing%20Standard';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getTopicSuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+
+            case props.store.ticketType:
+            
+            dictionary = update(props.store.ticketType, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.ticketType.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Auditing%20Standard';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getTicketTypeSuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+            case props.store.status:
+            
+            dictionary = update(props.store.status, {
+                results: { $set: [] },
+            });
+
+            if (!props.store.status.isFetched) {
+
+                //Dispatch get IDictionaryState action
+                props.getDictionaryInProgress();
+                try {
+                    let listName = 'Auditing%20Standard';
+                    fetchDictionary(`${listName}`)
+                        .then(function (response) {
+                            return response.text()
+
+                        }).then(function (text) {
+                            let dictionary = dictionaryParse(text);
+
+                            //Dispatch success
+                            props.getStatusSuccess(dictionary, listName)
+                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+                        })
+                }
+                catch (error) {
+                    console.log(error);
+                    //Dispatch error action
+                    props.getDictionaryError(error);
+
+                }
+
+            }
+    }
+
+}

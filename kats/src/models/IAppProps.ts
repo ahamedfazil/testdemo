@@ -4,7 +4,7 @@ import * as IActions from '../actions/IUserActions';
 import * as ITicketActions from '../actions/ITicketActions';
 import { ICurrentTicketState } from './ITicket';
 import * as IDictionaryActions from '../actions/IDictionaryActions';
-import { IDictionaryItem, IDictionary } from './IDictionary';
+import { IDictionaryItem, IDictionaryState } from './IDictionary';
 
 export interface IAppProps {
     store?:IStore;
@@ -25,7 +25,39 @@ export interface IAppProps {
     addTicketSuccess?: () => ITicketActions.IAddTicketActionSuccess;
     getDictionaryInProgress?:()=>IDictionaryActions.IGetDictionaryActionInProgress;
     getDictionarySuccess?:(
-        newItems: IDictionary
+        newItems: IDictionaryState,
+        listName:string
     ) =>IDictionaryActions.IGetDictionaryActionSuccess;
+    getEngagementTypeSuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetEngagementTypeSuccess;
+    getAccountingFramework?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetAccountingFrameworkSuccess;
+    getAuditingStandardSuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetAuditingStandardSuccess;
+    getCategorySuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetCategorySuccess;
+    getTopicSuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetTopicSuccess;
+    getTicketTypeSuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetTicketTypeSuccess;
+    getStatusSuccess?:(
+        newItems: IDictionaryState,
+        listName:string
+    ) =>IDictionaryActions.IGetStatusSuccess;
+    
+    
     getDictionaryError?:(error:Error) =>IDictionaryActions.IGetDictionaryActionError;
+
 }

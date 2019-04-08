@@ -78,93 +78,79 @@ export const appInitialState: IStore =
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     accountingFramework: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     auditingStandard: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     category: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     topic: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     ticketType: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
     status: {
         isInitialised: false,
         isFetched: false,
         name: "",
-        items: {
-            results: [
+        results: [
                 {
                     id: null,
                     title: ""
                 }
             ]
-        }
-    },
+            },
 
 }
 

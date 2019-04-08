@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 
 // import { selectedEngagementType, 
 //         engagementTypesByItem
-// } from './IDictionary'
+// } from './IDictionaryState'
 import * as fromTicket from './TicketReducer';
 import {
     //allTickets, 
@@ -13,13 +13,9 @@ import { visibilityFilter } from './request';
 import { errors } from './system';
 import * as fromDictionary from './DictionaryReducer';
 import {
-    byEngagementTypeId, visibleEngagementTypeIds,
-    byAccountingFrameworkId, visibleAccountingFrameworkIds,
-    byAuditingStandardId, visibleAuditingStandardIds,
-    byCategoryId, visibleCategoryIds,
-    byTopicId, visibleTopicIds,
-    byTicketTypeId, visibleTicketTypeIds,
-    byStatusId, visibleStatusIds
+    engagementTypes,accountingFrameworks,
+    auditingStandards,categories,ticketTypes,
+    topics,status
 
 } from './DictionaryReducer';
 import { userReducer } from './UserReducer';
@@ -28,43 +24,18 @@ import { userReducer } from './UserReducer';
 
 
 export default combineReducers({
-    //allTickets,
     ticket: ticketReducer,
     user: userReducer,
-    // ticketEngagementType,
-    // selectedEngagementType,
-    // engagementTypesByItem,
     errors,
     visibilityFilter,
 
-    engagementTypes: combineReducers({
-        byEngagementTypeId,
-        visibleEngagementTypeIds,
-    }),
-    accountingFrameworks: combineReducers({
-        byAccountingFrameworkId,
-        visibleAccountingFrameworkIds
-    }),
-    auditingStandards: combineReducers({
-        byAuditingStandardId,
-        visibleAuditingStandardIds,
-    }),
-    category: combineReducers({
-        byCategoryId,
-        visibleCategoryIds,
-    }),
-    topic: combineReducers({
-        byTopicId,
-        visibleTopicIds,
-    }),
-    ticketType: combineReducers({
-        byTicketTypeId,
-        visibleTicketTypeIds,
-    }),
-    status: combineReducers({
-        byStatusId,
-        visibleStatusIds
-    })
+    engagementTypes,
+    accountingFrameworks,
+    auditingStandards,
+    categories,
+    topics,
+    ticketTypes,
+    status
 })
 
 
