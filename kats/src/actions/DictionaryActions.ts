@@ -105,7 +105,6 @@ export function getTopicSuccess(
 
 export function getStatusSuccess(
     results: IDictionaryItem[],
-    listName:string
 ):IDictionaryActions.IGetStatusSuccess{
     return{
         type:keys.GET_STATUS_SUCCESS,

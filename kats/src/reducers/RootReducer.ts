@@ -13,11 +13,12 @@ import {
 
 } from './DictionaryReducer';
 import { userReducer } from './UserReducer';
+import IStore from '../store/IStore';
 // import ticketEngagementType from './ticket';
 
 
 
-export default combineReducers({
+export default combineReducers<IStore>({
     ticket: ticketReducer,
     user: userReducer,
     errors,

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import appReducer from '../reducers'
+import appReducer from '../reducers/RootReducer'
 import * as Raven from 'raven-js';
 
 const consoleMessages = store => next => action => {

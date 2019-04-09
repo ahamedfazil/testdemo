@@ -13,6 +13,42 @@ export const getUserByID = (userID: any) => {
         });
 };
 
+
+export const getUserProfileByName = (userName:string) =>{
+    let userProfile:IUserState;
+    const url = _spPageContextInfo.webAbsoluteUrl + '/_vti_bin/userprofileservice.asmx';
+    const soap = '<?xml version="1.0" encoding="utf-8"?>' +
+                '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
+                '<soap:Body>' +
+                '<GetUserProfileByName xmlns="http://microsoft.com/webservices/SharePointPortalServer/UserProfileService">' +
+                '<AccountName>' + userName + '</AccountName>' +
+                '</GetUserProfileByName>' +
+                '</soap:Body>' +
+                '</soap:Envelope>';
+    
+    try{
+         
+        return fetch(`${url}`, {
+            method: 'POST',
+            headers: {
+            accept: "application/json;odata=verbose",
+        },
+        body:soap,
+        })
+        .then(function (response) {
+            return response.text()
+        })
+        .then(function(text){
+            
+        })
+
+    }catch(error){
+        console.log(error);
+        
+    }
+   
+}
+
 export async function getCurrentUser(props: IAppProps) {
     let userState: IUserState = update(props.store.user.userState, {
         memberOf: { $set: [] }

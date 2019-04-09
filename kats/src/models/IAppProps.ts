@@ -4,7 +4,7 @@ import * as IActions from '../actions/IUserActions';
 import * as ITicketActions from '../actions/ITicketActions';
 import { ICurrentTicketState } from './ITicket';
 import * as IDictionaryActions from '../actions/IDictionaryActions';
-import { IDictionaryItem, IDictionaryState } from './IDictionary';
+import { IDictionaryState, IDictionaryItem } from './IDictionary';
 
 export interface IAppProps {
     store?:IStore;
@@ -53,7 +53,7 @@ export interface IAppProps {
         listName:string
     ) =>IDictionaryActions.IGetTicketTypeSuccess;
     getStatusSuccess?:(
-        newItems: IDictionaryState,
+        newItems: IDictionaryItem[],
     ) =>IDictionaryActions.IGetStatusSuccess;
     
     

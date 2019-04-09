@@ -28,9 +28,10 @@ export async function getDictionary(props: IAppProps) {
             });
 
             if (!props.store.status.isFetched) {
-
+ 
                 //Dispatch get IDictionaryState action
-                props.getDictionaryInProgress();
+               props.getDictionaryInProgress();
+               
                 try {
                     let listName = 'Status';
                     fetchDictionary(`${listName}`)
@@ -39,10 +40,10 @@ export async function getDictionary(props: IAppProps) {
 
                         }).then(function (text) {
                             dictionary = dictionaryParse(text);
-                            console.log(dictionary);
+                            console.log(dictionary.results);
                             
                             //Dispatch success
-                            props.getStatusSuccess(dictionary)
+                            props.getStatusSuccess(dictionary.results)
                             // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
                         })

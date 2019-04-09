@@ -4,7 +4,7 @@ import {
   DefaultButton,
   TextField,
   DatePicker,
-  Checkbox,
+  Checkbox, 
   NormalPeoplePicker, IPersonaProps,
   Dropdown, IDropdown, IDropdownOption,
   ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize, Fabric
@@ -21,6 +21,7 @@ import * as IActions from '../actions/IUserActions';
 import { addTicket } from '../api/TicketAPI';
 import { getDictionary } from '../api/DictionaryAPI';
 import { IDictionaryState } from '../models/IDictionary';
+import SupportFields from './SupportFields';
 
 
 
@@ -60,7 +61,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
     pnp.setup(pnpConfig);
     // getCurrentUser(props);
     getDictionary(props);
-    // addTicket(props)
+    addTicket(props)
 
 
   }
@@ -115,9 +116,19 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                 <label className="ms-Label">Created</label>
                 <input className="ms-TextField-field" type="text" placeholder="" />
               </div>
+
+              {!dictionaryStatus.isFetched ?
+              store.status.error ? (
+                    <label>error = {'Status list Error ' + store.status.error}
+                    </label>
+                    
+                    ):(
+                      <Spinner size={SpinnerSize.small} />
+                      ):
+                      
+
               <div className="col-three ms-TextField">
-              {!dictionaryStatus.isFetched ?( 
-                <Dropdown
+              <Dropdown
                   label="Status:"
                   selectedKey={ticket.status}
                   onChanged={this.onStatusChange}
@@ -128,14 +139,14 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                       text: x.title,
                     } as IDropdownOption;
                   })}
-                /> ):(
-                  <Spinner size={SpinnerSize.small} />
-
-                )}
-              </div>
-             
+                /> 
+             </div>
+             }
             </div>
-           
+            <div className='ms-Grid-row'>
+            <SupportFields/>
+
+           </div>
             {/* <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Engagement Name</label>

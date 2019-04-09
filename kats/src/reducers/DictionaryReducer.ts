@@ -211,7 +211,7 @@ export function topics(
 }
 
 export function status(
-    state: IDictionaryItem[] = appInitialState.status.results,
+    state: IDictionaryState = appInitialState.status,
     action: IGetStatusSuccess
 ) {
     switch (action.type) {

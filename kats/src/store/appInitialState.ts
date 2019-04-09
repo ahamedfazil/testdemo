@@ -125,11 +125,7 @@ export const appInitialState: IStore =
         results: [
                 {
                     id: 1,
-                    title: "Unassigned"
-                },
-                {
-                    id: 2,
-                    title: "Awaiting Input"
+                    title: "Topic"
                 }
             ]
             },
@@ -149,10 +145,14 @@ export const appInitialState: IStore =
         isFetched: false,
         name: "",
         results: [
-                {
-                    id: null,
-                    title: ""
-                }
+            {
+                id: 1,
+                title: "Unassigned"
+            },
+            {
+                id: 2,
+                title: "Awaiting Input"
+            }
             ]
             },
 
