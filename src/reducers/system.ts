@@ -1,6 +1,5 @@
 import * as A from '../actions';
 import C from '../constants';
-import initialState from '../initialState/index.json'
 
 
 

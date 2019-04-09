@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../src/assets/styles/App.css';
-import '../src/assets/styles/NewTicket.css';
+import '../src/assets/styles/App.scss';
+import '../src/assets/styles/NewTicket.scss';
 import storeFactory from './store'
 import { addError } from './actions'
 //import { initializeIcons } from '@uifabric/icons';

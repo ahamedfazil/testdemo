@@ -70,6 +70,10 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
     initializeIcons(undefined, { disableWarnings: true });
   }
 
+  componentDidMount(){
+    // api calls
+  }
+
   private submit = e => {
     e.preventDefault()
 

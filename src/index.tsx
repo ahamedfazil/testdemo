@@ -1,44 +1,42 @@
-import 'babel-polyfill'
-require("isomorphic-fetch");
-import React from 'react';
-import { render } from 'react-dom';
-import './index.css';
+import React from "react";
+import * as ReactDOM from "react-dom";
+import './index.scss';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import storeFactory from './store'
-import appInitialState from './store/appInitialState'
-import { addError } from './actions';
+// import storeFactory from './store'
+// import appInitialState from './store/appInitialState'
+// import { addError } from './actions';
 import { Provider } from 'react-redux';
 
-const initialState = (localStorage['redux-store']) ?
-  JSON.parse(localStorage['redux-store']) :
-  appInitialState  
+// const initialState = (localStorage['redux-store']) ?
+//   JSON.parse(localStorage['redux-store']) :
+//   appInitialState
 
-const saveState = () => 
-  localStorage['redux-store'] = JSON.stringify(store.getState())
-
-
-const store = storeFactory(initialState)
-store.subscribe(saveState)
+// const saveState = () =>
+//   localStorage['redux-store'] = JSON.stringify(store.getState())
 
 
-const handleError = error => {
-    store.dispatch(addError(error.message))
-  
-  } 
+// const store = storeFactory(initialState)
+// store.subscribe(saveState)
 
-  window.addEventListener("error", handleError)
+const rootElement = document.getElementById("root") as HTMLElement;
+ReactDOM.render(
+  <Provider store={null}>
+      <div>
+        <App />
+      </div>
+  </Provider>,
+  rootElement
+);
 
+// render(
 
-render(
-    
-    <Provider store={store}>
-    <App />
-    </Provider>,
-    document.getElementById('container')
-    );
+//   <Provider store={store}>
+//     <App />
+//   </Provider>,
+//   document.getElementById('container')
+// );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// // If you want your app to work offline and load faster, you can change
+// // unregister() to register() below. Note this comes with some pitfalls.
+// // Learn more about service workers: http://bit.ly/CRA-PWA
+// serviceWorker.unregister();

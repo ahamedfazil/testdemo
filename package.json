@@ -11,13 +11,6 @@
     "@pnp/pnpjs": "^1.3.0",
     "@pnp/polyfill-ie11": "^1.0.1",
     "@pnp/sp": "^1.3.0",
-    "@types/jest": "^24.0.9",
-    "@types/jquery": "^3.3.29",
-    "@types/node": "^11.10.4",
-    "@types/raven-for-redux": "^1.1.1",
-    "@types/react": "^16.0.40",
-    "@types/react-dom": "^16.8.2",
-    "@types/react-redux": "^5.0.21",
     "babel-polyfill": "^6.26.0",
     "class-transformer": "^0.2.0",
     "cross-fetch": "^3.0.1",
@@ -26,7 +19,7 @@
     "isomorphic-fetch": "^2.2.1",
     "normalizr": "^3.3.0",
     "office-ui-fabric-react": "^6.157.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.5.2",
     "raven-for-redux": "^1.4.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
@@ -42,38 +35,79 @@
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --inline --open --progress --colors --config=webpack/webpack.develop.js --hot",
+    "build": "webpack --config=webpack/webpack.dist.js",
+    "build:test": "webpack --config=webpack/webpack.dist.js --env.ENV=test",
+    "build:qa": "webpack --config=webpack/webpack.dist.js --env.ENV=qa",
+    "build:prod": "webpack --config=webpack/webpack.dist.js --env.ENV=production",
+    "deploy": "gulp --gulpfile gulpfile.js",
+    "deploy:test": "gulp --env=test",
+    "deploy:qa": "gulp --env=qa",
+    "deploy:prod": "gulp --env=production",
+    "fulldeploy": "npm run build && npm run deploy",
+    "fulldeploy:test": "npm run build:test && npm run deploy:test",
+    "fulldeploy:qa": "npm run build:qa && npm run deploy:qa",
+    "fulldeploy:prod": "npm run build:prod && npm run deploy:prod"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
-    "@babel/plugin-transform-runtime": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/preset-react": "^7.0.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.5",
-    "babel-preset-latest": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "@types/jest": "^24.0.9",
+    "@types/jquery": "^3.3.29",
+    "@types/node": "^11.10.4",
+    "@types/raven-for-redux": "^1.1.1",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^5.0.21",
+    "@types/redux-logger": "^3.0.5",
+    "awesome-typescript-loader": "^4.0.1",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^2.1.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-prompt": "^1.1.0",
+    "gulp-spsync": "^1.5.6",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
+    "node-sp-auth": "^2.5.2",
+    "pre-commit": "^1.2.2",
+    "react-hot-loader": "^4.1.2",
     "sass-loader": "^7.1.0",
+    "source-map-loader": "^0.2.3",
+    "string-replace-loader": "^2.1.1",
+    "style-loader": "^0.20.3",
+    "tslint": "^5.9.1",
+    "tslint-loader": "3.5.3",
+    "tslint-react": "^3.6.0",
     "ts-loader": "^5.3.3",
-    "typescript": "^3.3.3333"
-  }
+    "typescript": "^2.7.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.11.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^2.3.0",
+    "webpack-merge": "^4.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "\\.test\\.tsx$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ]
+  },
+  "pre-commit": {
+    "colors": true,
+    "silent": false,
+    "run": [
+      "test"
+    ]
+  },
+  "author": "Kats Team",
+  "license": "dev"
 }

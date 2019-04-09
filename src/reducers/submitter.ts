@@ -1,6 +1,5 @@
 import C from '../constants'
 // import initialState from '../initialState/requestState.json'
-import initialState from '../initialState/index.json'
 
 // export const setSubmitter = (state:string="",action)=> {
 //     switch (action.type) {
