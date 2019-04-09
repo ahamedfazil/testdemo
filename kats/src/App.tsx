@@ -4,16 +4,11 @@ import '../src/assets/styles/NewTicket.css';
 import storeFactory from './store'
 import { addError } from './actions'
 //import { initializeIcons } from '@uifabric/icons';
-import { addTicketInProgress } from './actions/TicketActions';
-import {
-  getAllTicketTypes, getAllStatuses, getAllTopics,
-  getAllCategories, getAllAuditingStandards,
-  getAllAccountingFrameworks, getAllEngagementTypes
-} from './actions/DictionaryActions';
 import NewTicket from './containers/NewTicket';
 import NewForm from './components/SupportFields';
 //import { UserService } from './services/UserService';
 import requestSubmitterInfo, { fetchSubmitterInfo } from './actions/submitter';
+import { addTicketInProgress } from './actions/TicketActions';
 
 
 

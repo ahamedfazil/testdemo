@@ -30,31 +30,31 @@ function MapDispatchToProps(dispatch: Dispatch<IStore>) {
             dispatch
         ),
         getEngagementTypes: bindActionCreators(
-            DictionaryActions.getAllEngagementTypes,
+            DictionaryActions.getEngagementTypeSuccess,
             dispatch
         ),
         getAccountingFrameworks: bindActionCreators(
-            DictionaryActions.getAllAccountingFrameworks,
+            DictionaryActions.getAccountingFrameworkSuccess,
             dispatch
         ),
         getAuditingStandards: bindActionCreators(
-            DictionaryActions.getAllAuditingStandards,
+            DictionaryActions.getAuditingStandardSuccess,
             dispatch
         ),
         getCategories: bindActionCreators(
-            DictionaryActions.getAllCategories,
+            DictionaryActions.getCategorySuccess,
             dispatch
         ),
         getTopics: bindActionCreators(
-            DictionaryActions.getAllTopics,
+            DictionaryActions.getTopicSuccess,
             dispatch
         ),
         getTicketTypes: bindActionCreators(
-            DictionaryActions.getAllTicketTypes,
+            DictionaryActions.getTicketTypeSuccess,
             dispatch
         ),
         getStatus: bindActionCreators(
-            DictionaryActions.getAllStatuses,
+            DictionaryActions.getStatusSuccess,
             dispatch
         ),
         addTicketInProgress: bindActionCreators(

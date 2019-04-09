@@ -119,17 +119,23 @@ export function engagementTypes(
     };
 }
 
-export function accountingFrameworks(
-    state: IDictionaryState = appInitialState.accountingFramework,
-    action: ActionTypes
-) {
+export const accountingFrameworks = (
+    state: IDictionaryItem[] = appInitialState.accountingFramework.results,
+    action: IGetAccountingFrameworkSuccess
+)=>{
     switch (action.type) {
         case ActionTypeKeys.GET_ACCOUNTINGFRAMEWORK_SUCCESS:
-            return onGetDictionarySuccess(state, action)
-        case ActionTypeKeys.GET_CURRENT_DICTIONARY_INPROGRESS:
-            return onGetDictionaryInProgress(state, action)
-        case ActionTypeKeys.GET_CURRENT_DICTIONARY_ERROR:
-            return onGetDictionaryError(state, action)
+            return {
+                ...state,
+                ...action.payload.results.reduce((obj, item) => {
+                    obj[item.id] = item
+                    return obj
+                }, {})
+            }
+        // case ActionTypeKeys.GET_CURRENT_DICTIONARY_INPROGRESS:
+        //     return onGetDictionaryInProgress(state, action)
+        // case ActionTypeKeys.GET_CURRENT_DICTIONARY_ERROR:
+        //     return onGetDictionaryError(state, action)
         default:
             return state;
 
@@ -205,16 +211,25 @@ export function topics(
 }
 
 export function status(
-    state: IDictionaryState = appInitialState.status,
-    action: ActionTypes
+    state: IDictionaryItem[] = appInitialState.status.results,
+    action: IGetStatusSuccess
 ) {
     switch (action.type) {
         case ActionTypeKeys.GET_STATUS_SUCCESS:
-            return onGetDictionarySuccess(state, action)
-        case ActionTypeKeys.GET_CURRENT_DICTIONARY_INPROGRESS:
-            return onGetDictionaryInProgress(state, action)
-        case ActionTypeKeys.GET_CURRENT_DICTIONARY_ERROR:
-            return onGetDictionaryError(state, action)
+        return {
+            ...state,
+            ...action.payload.results.reduce((obj, item) => {
+                obj[item.id] = item
+                return obj
+            }, {})
+        } 
+      
+      
+      
+            // case ActionTypeKeys.GET_CURRENT_DICTIONARY_INPROGRESS:
+        //     return onGetDictionaryInProgress(state, action)
+        // case ActionTypeKeys.GET_CURRENT_DICTIONARY_ERROR:
+        //     return onGetDictionaryError(state, action)
         default:
             return state;
 

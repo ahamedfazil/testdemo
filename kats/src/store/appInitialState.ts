@@ -26,7 +26,7 @@ export const appInitialState: IStore =
     ticket: {
         isInitialised: false,
         currentTicket: {
-            id: null,
+            id: undefined,
             submitter: {
                 isFetched: false,
                 isSupportUser: false,
@@ -124,8 +124,12 @@ export const appInitialState: IStore =
         name: "",
         results: [
                 {
-                    id: null,
-                    title: ""
+                    id: 1,
+                    title: "Unassigned"
+                },
+                {
+                    id: 2,
+                    title: "Awaiting Input"
                 }
             ]
             },

@@ -54,7 +54,6 @@ export interface IAppProps {
     ) =>IDictionaryActions.IGetTicketTypeSuccess;
     getStatusSuccess?:(
         newItems: IDictionaryState,
-        listName:string
     ) =>IDictionaryActions.IGetStatusSuccess;
     
     

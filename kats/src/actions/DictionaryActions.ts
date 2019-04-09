@@ -1,11 +1,9 @@
 import keys from '../constants/ActionTypeKey';
-
 import C from '../constants';
 import 'whatwg-fetch'
 import { IDictionaryState, IDictionaryItem } from '../models/IDictionary';
-import { fetchDictionary } from '../api/fetchDictionary';
 import * as IDictionaryActions from './IDictionaryActions';
-import { IAppProps } from '../models/IAppProps';
+
 
 export function getDictionaryInProgress():IDictionaryActions.IGetDictionaryActionInProgress{
     return{
@@ -40,15 +38,15 @@ export function getEngagementTypeSuccess(
     };
 }
 
-export function getAccountingFramework(
-    results: IDictionaryState,
-    listName:string
+export function getAccountingFrameworkSuccess(
+    results: IDictionaryItem[],
+    
 ):IDictionaryActions.IGetAccountingFrameworkSuccess{
     return{
         type:keys.GET_ACCOUNTINGFRAMEWORK_SUCCESS,
         payload:{
             results,
-            listName
+            
         }
     };
 }
@@ -79,6 +77,19 @@ export function getCategorySuccess(
     };
 }
 
+export function getTicketTypeSuccess(
+    results: IDictionaryState,
+    listName:string
+):IDictionaryActions.IGetTicketTypeSuccess{
+    return{
+        type:keys.GET_TICKETTYPE_SUCCESS,
+        payload:{
+            results,
+            listName
+        }
+    };
+}
+
 export function getTopicSuccess(
     results: IDictionaryState,
     listName:string
@@ -93,14 +104,13 @@ export function getTopicSuccess(
 }
 
 export function getStatusSuccess(
-    results: IDictionaryState,
+    results: IDictionaryItem[],
     listName:string
 ):IDictionaryActions.IGetStatusSuccess{
     return{
         type:keys.GET_STATUS_SUCCESS,
         payload:{
             results,
-            listName
         }
     };
 }
@@ -131,24 +141,24 @@ export const receiveEngagementTypes = (items) => ({
     payload: items
 })
 
-export const getAllEngagementTypes = (props:IAppProps) => {
-    let listName = 'Engagement%20Type';
-    //Dispatch IDictionaryState action
-    props.getDictionaryInProgress();
+// export const getAllEngagementTypes = (props:IAppProps) => {
+//     let listName = 'Engagement%20Type';
+//     //Dispatch IDictionaryState action
+//     props.getDictionaryInProgress();
 
-    fetchDictionary(`${listName}`)
-        .then(function (response) {
-            return response.text()
+//     fetchDictionary(`${listName}`)
+//         .then(function (response) {
+//             return response.text()
             
-        }).then(function (text) {
-            let dictionary = dictionaryParse(text);
+//         }).then(function (text) {
+//             let dictionary = dictionaryParse(text);
 
-            //Dispatch success
-            props.getDictionarySuccess(dictionary,listName)
-            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//             //Dispatch success
+//             props.getDictionarySuccess(dictionary,listName)
+//             // dispatch(receiveEngagementTypes(dictionaryItems.results))
             
-        })
-}
+//         })
+// }
 
 export const addEngTypeFromState = itemId => ({
     type: C.SELECT_ENGAGEMENT_TYPE,
@@ -177,17 +187,17 @@ export const receiveAccountingFrameworks = (items) => ({
     payload: items
 })
 
-export const getAllAccountingFrameworks = () => dispatch => {
-    fetchDictionary('Accounting%20Framework')
-        .then(function (response) {
-            return response.text()
+// export const getAllAccountingFrameworks = () => dispatch => {
+//     fetchDictionary('Accounting%20Framework')
+//         .then(function (response) {
+//             return response.text()
             
-        }).then(function (text) {
-            let dictionaryItems = dictionaryParse(text);
-            dispatch(receiveAccountingFrameworks(dictionaryItems.results))
+//         }).then(function (text) {
+//             let dictionaryItems = dictionaryParse(text);
+//             dispatch(receiveAccountingFrameworks(dictionaryItems.results))
             
-        })
-}
+//         })
+// }
 
 export const addAccFramwkFromState = itemId => ({
     type: SELECT_ACCOUNTING_FRAMEWORK,
@@ -218,17 +228,17 @@ export const receiveAuditingStandards = (items) => ({
     payload: items
 })
 
-export const getAllAuditingStandards = () => dispatch => {
-    fetchDictionary('Auditing%20Standard')
-        .then(function (response) {
-            return response.text()
+// export const getAllAuditingStandards = () => dispatch => {
+//     fetchDictionary('Auditing%20Standard')
+//         .then(function (response) {
+//             return response.text()
             
-        }).then(function (text) {
-            let dictionaryItems = dictionaryParse(text);
-            dispatch(receiveAuditingStandards(dictionaryItems.results))
+//         }).then(function (text) {
+//             let dictionaryItems = dictionaryParse(text);
+//             dispatch(receiveAuditingStandards(dictionaryItems.results))
             
-        })
-}
+//         })
+// }
 
 export const addAudStandFromState = itemId => ({
     type: SELECT_AUDITING_STANDARDS,
@@ -258,17 +268,17 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         payload: items
     })
     
-    export const getAllCategories = () => dispatch => {
-        fetchDictionary('Category')
-            .then(function (response) {
-                return response.text()
+    // export const getAllCategories = () => dispatch => {
+    //     fetchDictionary('Category')
+    //         .then(function (response) {
+    //             return response.text()
                 
-            }).then(function (text) {
-                let dictionaryItems = dictionaryParse(text);
-                dispatch(receiveCategory(dictionaryItems.results))
+    //         }).then(function (text) {
+    //             let dictionaryItems = dictionaryParse(text);
+    //             dispatch(receiveCategory(dictionaryItems.results))
                 
-            })
-    }
+    //         })
+    // }
 
     export const addCategoryFromState = itemId => ({
         type: SELECT_CATEGORY,
@@ -298,17 +308,17 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         payload: items
     })
 
-    export const getAllTopics = () => dispatch => {
-        fetchDictionary('Topic')
-            .then(function (response) {
-                return response.text()
+    // export const getAllTopics = () => dispatch => {
+    //     fetchDictionary('Topic')
+    //         .then(function (response) {
+    //             return response.text()
                 
-            }).then(function (text) {
-                let dictionaryItems = dictionaryParse(text);
-                dispatch(receiveTopic(dictionaryItems.results))
+    //         }).then(function (text) {
+    //             let dictionaryItems = dictionaryParse(text);
+    //             dispatch(receiveTopic(dictionaryItems.results))
                 
-            })
-    }
+    //         })
+    // }
     
     export const addTopicFromState = itemId => ({
         type: SELECT_TOPIC,
@@ -339,17 +349,17 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         payload: items
     })
 
-    export const getAllTicketTypes = () => dispatch => {
-        fetchDictionary('Ticket%20Type')
-            .then(function (response) {
-                return response.text()
+    // export const getAllTicketTypes = () => dispatch => {
+    //     fetchDictionary('Ticket%20Type')
+    //         .then(function (response) {
+    //             return response.text()
                 
-            }).then(function (text) {
-                let dictionaryItems = dictionaryParse(text);
-                dispatch(receiveTicketType(dictionaryItems.results))
+    //         }).then(function (text) {
+    //             let dictionaryItems = dictionaryParse(text);
+    //             dispatch(receiveTicketType(dictionaryItems.results))
                 
-            })
-    }
+    //         })
+    // }
     
     export const addTicketTypeFromState = itemId => ({
         type: SELECT_TICKET_TYPE,
@@ -379,17 +389,17 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
         payload: items
     })
 
-    export const getAllStatuses = () => dispatch => {
-        fetchDictionary('Status')
-            .then(function (response) {
-                return response.text()
+    // export const getAllStatuses = () => dispatch => {
+    //     fetchDictionary('Status')
+    //         .then(function (response) {
+    //             return response.text()
                 
-            }).then(function (text) {
-                let dictionaryItems = dictionaryParse(text);
-                dispatch(receiveStatus(dictionaryItems.results))
+    //         }).then(function (text) {
+    //             let dictionaryItems = dictionaryParse(text);
+    //             dispatch(receiveStatus(dictionaryItems.results))
                 
-            })
-    }
+    //         })
+    // }
     
     export const addStatusToTicketFromState = itemId => ({
         type: SELECT_STATUS,
@@ -403,10 +413,5 @@ export const addAudStandToTicket = itemId => (dispatch, getState) => {
     }
 
   
-export function dictionaryParse(text: string) {
-    console.log('text is: ', text);
-    let dictionaryText = JSON.parse(text);
-    let dictionaryItems = dictionaryText.d as IDictionaryState;
-    return dictionaryItems;
-}
+
 

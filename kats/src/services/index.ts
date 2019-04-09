@@ -1,5 +1,5 @@
 import { ICurrentTicketState } from "../models/ITicket";
-import { IDictionaryItem } from "../models/IDictionaryState";
+import { IDictionaryItem } from "../models/IDictionary";
 
 export interface IKatsService{
     add(listItem:any):ICurrentTicketState |Comment |IDictionaryItem;

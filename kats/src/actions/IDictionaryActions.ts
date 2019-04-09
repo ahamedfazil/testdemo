@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import keys from '../constants/ActionTypeKey';
-import { IDictionaryState } from '../models/IDictionary';
+import { IDictionaryState, IDictionaryItem } from '../models/IDictionary';
 
 export interface IGetDictionaryActionInProgress extends Action {
     readonly type: keys.GET_CURRENT_DICTIONARY_INPROGRESS;
@@ -34,8 +34,8 @@ export interface IGetAccountingFrameworkSuccess extends Action
 {
     type: keys.GET_ACCOUNTINGFRAMEWORK_SUCCESS;
     payload:{
-        results: IDictionaryState
-        listName:string;
+        results: IDictionaryItem[];
+        
     }
 }
 
@@ -78,7 +78,7 @@ export interface IGetStatusSuccess extends Action
 {
     type: keys.GET_STATUS_SUCCESS;
     payload:{
-        results: IDictionaryState
-        listName:string;
+        results: IDictionaryItem[]
+        
     }
 }

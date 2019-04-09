@@ -10,7 +10,6 @@ import {
   ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize, Fabric
 } from 'office-ui-fabric-react';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-
 import { ICurrentTicketState } from '../models/ITicket';
 import { IUserState } from '../models/IUser';
 import { IAppProps } from '../models/IAppProps';
@@ -19,9 +18,9 @@ import { pnpConfig } from '../config/pnp.config';
 import { getCurrentUser } from '../api/UserAPI';
 import IStore from '../store/IStore';
 import * as IActions from '../actions/IUserActions';
-import { getUsersInProgress } from '../actions/UserActions';
-//import { getDictionaryInProgress } from '../api/fetchDictionary';
 import { addTicket } from '../api/TicketAPI';
+import { getDictionary } from '../api/DictionaryAPI';
+import { IDictionaryState } from '../models/IDictionary';
 
 
 
@@ -60,7 +59,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
     super(props);
     pnp.setup(pnpConfig);
     // getCurrentUser(props);
-    // getDictionaryInProgress(props);
+    getDictionary(props);
     // addTicket(props)
 
 
@@ -84,13 +83,26 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
   render(): JSX.Element {
     const userState: IUserState = this.props.store.user.userState;
     const store = this.props.store;
+    const dictionaryStatus:IDictionaryState = this.props.store.status
     let ticket = this.props.store.ticket.currentTicket;
     return (
       <Fabric >
         <section>
           
           <div className="content-wrap">
-           
+          {!userState.isFetched ? (
+                  <div>
+                    {store.user.error ? (
+                      <label>error = {'IUser Error ' + store.user.error}
+                      </label>
+
+                    ) : (
+                        <Spinner size={SpinnerSize.small} />
+
+                      )}
+                  </div>
+                 ) : (this.props.store.user.userState.id
+                   )}
             <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
@@ -104,6 +116,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                 <input className="ms-TextField-field" type="text" placeholder="" />
               </div>
               <div className="col-three ms-TextField">
+              {!dictionaryStatus.isFetched ?( 
                 <Dropdown
                   label="Status:"
                   selectedKey={ticket.status}
@@ -115,11 +128,15 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
                       text: x.title,
                     } as IDropdownOption;
                   })}
-                />
+                /> ):(
+                  <Spinner size={SpinnerSize.small} />
+
+                )}
               </div>
+             
             </div>
            
-            <div className='ms-Grid-row'>
+            {/* <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Engagement Name</label>
                 <input className="ms-TextField-field"
@@ -412,7 +429,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
             </div>
             <div className='col-three'>
               <DefaultButton onClick={this.submit}>Save Ticket</DefaultButton>
-            </div>
+            </div> */}
           </div>
 
         </section>
