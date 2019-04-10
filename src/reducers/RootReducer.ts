@@ -1,8 +1,9 @@
-import { combineReducers } from "redux";
-import { userReducer } from "./UserReducer";
-import IStore from "../store/IStore";
-// import ticketEngagementType from './ticket';
+import { combineReducers } from 'redux';
+import IStore from '../store/IStore'
+import { userReducer } from './UserReducer';
 
-export default combineReducers<IStore>({
-  user: userReducer
+const rootReducer = combineReducers<IStore>({
+    user: userReducer,
 });
+
+export default rootReducer;

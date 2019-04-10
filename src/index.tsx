@@ -1,41 +1,20 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import "./index.scss";
-import App from "./components/App";
-// import storeFactory from './store'
-// import appInitialState from './store/appInitialState'
-// import { addError } from './actions';
-import { Provider } from "react-redux";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 
-// const initialState = (localStorage['redux-store']) ?
-//   JSON.parse(localStorage['redux-store']) :
-//   appInitialState
+import App from './containers/App';
+import './styles/app.scss';
+import configureStore from './store/configureStore';
 
-// const saveState = () =>
-//   localStorage['redux-store'] = JSON.stringify(store.getState())
+const storeObj = configureStore();
 
-// const store = storeFactory(initialState)
-// store.subscribe(saveState)
-
-const rootElement = document.getElementById("root") as HTMLElement;
 ReactDOM.render(
-  <Provider store={null}>
-    <div>
+   <Fabric>
+    <Provider store={storeObj}>
       <App />
-    </div>
-  </Provider>,
-  rootElement
-);
-
-// render(
-
-//   <Provider store={store}>
-//     <App />
-//   </Provider>,
-//   document.getElementById('container')
-// );
-
-// // If you want your app to work offline and load faster, you can change
-// // unregister() to register() below. Note this comes with some pitfalls.
-// // Learn more about service workers: http://bit.ly/CRA-PWA
-// serviceWorker.unregister();
+    </Provider>
+  </Fabric>
+  ,
+  document.getElementById('root') as HTMLElement
+); 

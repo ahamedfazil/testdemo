@@ -1,19 +1,24 @@
 import { Reducer } from "redux";
 import ActionTypeKeys from "../actions/ActionTypeKey";
-import { IUser, IUserState } from "../models/IUser";
 import ActionTypes from "../actions/ActionTypes";
-import InitialState from "../store/InitialState";
+import {
+  IGetUserActionSuccess,
+  IGetUserActionError,
+  IGetUserActionInProgress
+} from "../actions/IActions";
+import {IUserState} from "../models/IUserState";
+import initialState from "../store/initialState";
 
-export const userReducer: Reducer<IUser> = (
-  state: IUser = InitialState.users,
+export const userReducer: Reducer<IUserState> = (
+  state: IUserState = initialState.user,
   action: ActionTypes
-): IUser => {
+): IUserState => {
   switch (action.type) {
-    case ActionTypeKeys.GET_USERS_INPROGRESS:
+    case ActionTypeKeys.GET_CURRENT_USER_INPROGRESS:
       return onGetUserDetailsInProgress(state, action);
     case ActionTypeKeys.GET_CURRENT_USER_SUCCESS:
       return onGetUserDetails(state, action);
-    case ActionTypeKeys.GET_USERS_ERROR:
+    case ActionTypeKeys.GET_CURRENT_USER_ERROR:
       return onGetUserDetailsError(state, action);
     default:
       return state;

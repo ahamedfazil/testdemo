@@ -1,29 +1,378 @@
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
+@import "~office-ui-fabric-react/dist/sass/References";
+@import "./variables";
 
-.App-header {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  font-size: calc(10px + 2vmin);
+// #root {
+//   margin-top: -50px;
+// }
+.block {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.header {
+  background-color: grey;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.hidden {
+  display: none !important;
+}
+
+.headerColumn {
+  font-size: 1.0625rem;
+  font-weight: bold;
+  color: #0078d7;
+}
+
+.button-approve {
+  background-color: green;
+  margin-right: 20px;
+  color: black;
+}
+
+.button-reject {
+  background-color: red;
+  margin-right: 20px;
+  color: black;
+}
+
+.button-on-hold {
+  background-color: rgb(255, 255, 102);
+  color: black;
+}
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 24px;
+  border: 1px solid transparent;
+  background-color: #464957;
+  border-color: #373a45;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.26);
+  color: #fff;
+}
+
+.navbar-brand {
+  float: left;
+  padding: 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+}
+
+.navbar .navbar-text {
+  font-size: 18px;
+  margin: 22px 15px 21px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+/*@media all and (min-width:768px)*/
+.navbar-right {
+  float: right !important;
+  margin-right: 15px;
+  line-height: 1.4285;
+}
+
+.navbar-left {
+  float: right !important;
+  margin-left: 15px;
+  line-height: 1.4285;
+}
+
+.link {
+  color: #fff;
+}
+
+footer {
+  margin: 0 auto;
+  position: fixed;
+  font-weight: 500;
+  bottom: 0;
+  width: 100%;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 26px 0 17px;
+  z-index: 10;
+}
+
+footer p {
+  margin: 0 50px 10px;
+}
+
+.required {
+  color: #bf0000;
+  font-size: 12px;
+}
+
+.pad-top {
+  padding-top: 16px;
+}
+
+.pad-bottom {
+  padding-bottom: 50px;
+}
+
+.pad-left {
+  padding-left: 16px;
+}
+
+.pad-right {
+  padding-right: 16px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.scroll-box {
+  height: 150px;
+  overflow-y: scroll;
+}
+
+.right-aligned {
+  float: right;
+  padding: 4px;
+  margin: 4px;
+}
+
+.admin-settings-link {
+  color: #fff;
+}
+
+.admin-settings-link:hover {
+  cursor: pointer;
+}
+
+/* MODAL DIALOGS CLASSES */
+.modal-container {
+  width: 600px;
+  height: 400px;
+  padding: 20px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.not-visible {
+  display: none !important;
+}
+
+/* FORM VIEWS */
+.row-delimited {
+  border-bottom: rgb(244, 244, 244) solid 1px;
+}
+
+/* Labels columns to have different color */
+.themed {
+  background-color: #eaeaea;
+}
+
+/* Command bar to behave like a pivot */
+.volvo-pivotLike-Container {
+  background-color: white !important;
+  color: rgb(51, 51, 51);
+}
+
+.volvo-pivotLike-Container div div {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.volvo-pivotLike-Item {
+  cursor: pointer;
+}
+
+.volvo-pivotLike-Item button {
+  font-size: 17px;
+}
+
+.volvo-pivotLike-Item button:hover {
+  background-color: white !important;
+}
+
+.small-container {
+  width: 500px;
+}
+
+.ms-Dialog-main-content {
+  // max-width: 425px;
+  flex-grow: 1;
+  *[class*="content-"] {
+    flex-grow: 1;
+    width: 300px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+.display-Label {
+  background-color: #f4f4f4;
+  padding-left: 13px !important;
+}
+.display-people-picker {
+  .ms-BasePicker-input,
+  .ms-PickerItem-removeButton {
+    display: none;
+  }
+  .ms-BasePicker-text {
+    border: none;
+  }
+}
+.ms-GroupedList {
+  font-size: 14px !important;
+}
+// Kendo Combo box
+.k-combobox {
+  width: 100% !important;
+}
+
+.sc-Project {
+  border: 1px solid #a6a6a6;
+  padding: 0px 10px 0px 10px;
+}
+
+.custom-group-header {
+  padding-bottom: 10px;
+}
+.custom-group-item {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.customFullRow {
+  // padding-left: 7px;
+}
+/* Sourcing Case Styling */
+.sc-Main-Header {
+  background-color: #f1ecc1;
+}
+.sc-Main {
+  background-color: #f1ecc1;
+
+  .sc-Data {
+    .sc-Header {
+      // background-color: black;
+    }
+    padding-left: 10px;
+  }
+}
+
+.kendo-combo-disable {
+  pointer-events: none;
+}
+
+/*Styling print*/
+@media print {
+  /*Setting for print page*/
+  @page {
+    size: auto;
+    margin: 5mm 5mm 5mm 5mm; // 0 0;
+  }
+
+  // Hide top bar in print page
+  #suiteBar,
+  #s4-titlerow {
+    display: none !important;
+  }
+
+  .display-Label {
+    background-color: #f4f4f4;
+    padding-left: 13px !important;
+  }
+
+  .display-people-picker {
+    pointer-events: none;
+    .ms-BasePicker-input,
+    .ms-PickerItem-removeButton {
+      display: none;
+    }
+    .ms-BasePicker-text {
+      border: none;
+    }
+  }
+
+  body {
+    margin: 10px 10px 10px 10px !important;
+  }
+
+  /*Hide navigation, menu, footer and buttons*/
+  nav,
+  div.volvo-pivotLike-Container,
+  .ms-Button,
+  footer {
+    display: none !important;
+  }
+
+  // /* remove first occurence of line */
+  // .row-delimited:first-of-type {
+  //   display: none;
+  // }
+
+  /* top header */
+  h2.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+
+  h3.headerColumn {
+    margin: 0;
+    font-size: 0.8rem;
+  }
+  /* labels */
+  .headerColumn {
+    padding: 0;
+  }
+
+  .ms-Label {
+    font-size: 0.7rem;
+    padding: 2px !important;
+  }
+
+  .ms-formlabel {
+    font-size: 0.7rem;
+  }
+
+  .ms-Link {
+    font-size: 0.7rem;
+  }
+
+  /* To style on Grid */
+  .ms-Grid {
+    position: relative;
+  }
+
+  .ms-Grid-row {
+    padding-top: 10px !important;
+  }
+  .ms-Grid-col {
+    font-size: 0.7rem;
+  }
+  .ms-Checkbox {
+    padding: 2px 0 0 0;
+  }
+  /* command bar */
+  .row-commands {
+    display: none;
+  }
+  /*Overwrite office-ui-fabric on @media styling To avoid break line in Portrait mode*/
+  .ms-lg3 {
+    width: 25%;
+  }
+  .ms-lg9 {
+    width: 75%;
+  }
+
+  /* remove paddings to squeeze content */
+  .pad-top {
+    padding: 0;
+  }
+  /* add some space in tables */
+  .table-approval-tasks .pad-top {
+    padding-top: 5px;
+  }
+
+  .table-approvers .pad-top {
+    padding-top: 5px;
   }
 }

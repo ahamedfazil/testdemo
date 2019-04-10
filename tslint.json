@@ -2,7 +2,7 @@
   "rules": {
   "no-reference": true,
   "only-arrow-functions": [
-  true,
+  false,
   "allow-declarations"
   ],
   "no-namespace": [
