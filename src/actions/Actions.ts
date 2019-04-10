@@ -31,3 +31,6 @@ export function getCurrentUserInProgress(): IActions.IGetUserActionInProgress {
   }
   //#endregion
   
+  //#region site actions
+
+  //#endregion

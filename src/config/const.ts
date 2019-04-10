@@ -23,9 +23,9 @@ export const CONST = {
     //GTT_WBW_URL: "http://segotn13423/dev/ispt/",
     VBC_WBW_URL: "https://vbc-purchasinggov.sp.srv.volvo.com/WBW/",
     Title: "Intermediate Sourcing Plan Tool",
-    AdminGroup: "ISPT Administrator",
-    UserGroup: "ISPT Users",
-    FooterValue: "Copyright © AB Volvo 2018"
+    AdminGroup: "Support Users",
+    UserGroup: "Users",
+    FooterValue: "footer",
   },
 };
 
