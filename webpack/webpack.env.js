@@ -11,6 +11,8 @@ const URL = {
   },
   test: {
     siteUrl: "https://xlitconsultinge.sharepoint.com/sites/katsdev"
+    // https://xlitconsultinge.sharepoint.com/sites/katsdev
+    // http://segotn13423/dev/ispt/
   }
 };
 
@@ -25,8 +27,8 @@ const credentials = {
     ClientSecret: ""
   },
   test: {
-    ClientId: "032f4487-989c-47da-a3c2-e203ea69e6ef",
-    ClientSecret: "3rm7YGoPA5vhTrbAcv/Na2EDKzN/JFvXbl5PjK7zFwA="
+    ClientId: "",
+    ClientSecret: ""
   },
   dev: {
     username: "cs-ws-s-sph-svc-test",

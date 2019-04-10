@@ -1,11 +1,11 @@
-import React from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import './index.scss';
-import App from './App';
+import "./index.scss";
+import App from "./components/App";
 // import storeFactory from './store'
 // import appInitialState from './store/appInitialState'
 // import { addError } from './actions';
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 
 // const initialState = (localStorage['redux-store']) ?
 //   JSON.parse(localStorage['redux-store']) :
@@ -14,16 +14,15 @@ import { Provider } from 'react-redux';
 // const saveState = () =>
 //   localStorage['redux-store'] = JSON.stringify(store.getState())
 
-
 // const store = storeFactory(initialState)
 // store.subscribe(saveState)
 
 const rootElement = document.getElementById("root") as HTMLElement;
 ReactDOM.render(
   <Provider store={null}>
-      <div>
-        <App />
-      </div>
+    <div>
+      <App />
+    </div>
   </Provider>,
   rootElement
 );

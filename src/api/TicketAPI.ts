@@ -1,32 +1,32 @@
-import { ICurrentTicketState } from '../models/ITicket';
-import { url } from '../config/pnp.config';
-import { IAppProps } from '../models/IAppProps';
+import { ICurrentTicketState } from "../models/ITicket";
+import { IAppProps } from "../models/IAppProps";
 
-const listName: string = '';
+const listName: string = "";
 
-export async function getTicketById(ticketId: number, listName ='Tickets') {
-    return fetch(`${url}/_api/web/lists/GetByTitle('${listName}')/Items(${ticketId})`, {
-        method: 'GET',
-        headers: {
-            accept: "application/json;odata=verbose",
-        },
-    })
-        .then((response: any) => {
-            return response;
-        })
+export async function getTicketById(ticketId: number, listName = "Tickets") {
+  return fetch(
+    `${null}/_api/web/lists/GetByTitle('${listName}')/Items(${ticketId})`,
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json;odata=verbose"
+      }
+    }
+  ).then((response: any) => {
+    return response;
+  });
 }
 
 export async function addTicket(props: IAppProps) {
-
-    let ticket: ICurrentTicketState = props.store.ticket.currentTicket;
-    let listName = 'Tickets';
-    let data = JSON.stringify({
-    __metadata: { "type": `"SP.Data. + ${listName} + ListItem"` },
+  let ticket: ICurrentTicketState = props.store.ticket.currentTicket;
+  let listName = "Tickets";
+  let data = JSON.stringify({
+    __metadata: { type: `"SP.Data. + ${listName} + ListItem"` },
     Title: ticket.subject,
     Submitted_x0020_ById: ticket.submitter.id,
     Office: ticket.submitter.office,
     JobTitle: ticket.submitter.title,
-    Department:ticket.submitter.department,
+    Department: ticket.submitter.department,
     Office_x0020_Number: ticket.submitter.officeNumber,
     Audit_x0020_Team_x0020_CCId: ticket.auditTeam,
     Responsible_x0020_IndividualId: ticket.respIndividual,
@@ -52,37 +52,28 @@ export async function addTicket(props: IAppProps) {
     Conclusion: ticket.conclusion,
     Add_x0020_to_x0020_KB: ticket.addToKb,
     TicketId: ticket.id,
-    Engagement_x0020_Type: ticket.engagementType,
+    Engagement_x0020_Type: ticket.engagementType
+  });
+
+  //Dispatch ticket upload action
+  props.addTicketInProgress(ticket, listName);
+
+  try {
+    return fetch(`${null}/_api/web/lists/GetByTitle('${listName}')/Items`, {
+      method: "POST",
+      headers: {
+        accept: "application/json;odata=verbose"
+      },
+      body: data
+    }).then(response => {
+      if (response.ok) {
+        //Dispatch success action
+        props.addTicketSuccess();
+      }
     });
-
-    //Dispatch ticket upload action
-    props.addTicketInProgress(ticket, listName)
-
-
-    try {
-        return fetch(`${url}/_api/web/lists/GetByTitle('${listName}')/Items`, {
-            method: 'POST',
-            headers: {
-                accept: "application/json;odata=verbose",
-            },
-            body: data
-        }).then(response => {
-            if (response.ok) {
-                //Dispatch success action
-                props.addTicketSuccess();
-            }
-        })
-
-
-
-    } catch (error) {
-        console.log(error);
-        //Dispatch error action
-        props.addTicketError(error)
-
-    }
-
+  } catch (error) {
+    console.log(error);
+    //Dispatch error action
+    props.addTicketError(error);
+  }
 }
-
-
-

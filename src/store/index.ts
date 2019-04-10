@@ -1,48 +1,44 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import appReducer from '../reducers/RootReducer'
-import * as Raven from 'raven-js';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import appReducer from "../reducers/RootReducer";
 
-const consoleMessages = store => next => action => {
+// const consoleMessages = store => next => action => {
+//   let result;
 
-  let result
+//   console.groupCollapsed(`dispatching action => ${action.type}`);
+//   console.log("Ticket state", store.getState());
+//   result = next(action);
 
-  console.groupCollapsed(`dispatching action => ${action.type}`)
-  console.log('Ticket state', store.getState());
-  result = next(action)
+//   let _state = store.getState();
 
+//   console.log(`
+//             Tickets: ${_state.ticket.subject}
+//     `);
 
-  let _state = store.getState()
+//   console.groupEnd();
 
-  console.log(`
-            
-            Tickets: ${_state.ticket.subject}
-            
-            
-    `)
+//   return result;
+// };
 
-  console.groupEnd()
+// const crashReporter = store => next => action => {
+//   try {
+//     return next(action);
+//   } catch (err) {
+//     console.error("Caught an exception!", err);
+//     Raven.captureException(err, {
+//       extra: {
+//         action,
+//         state: store.getState()
+//       }
+//     });
+//     throw err;
+//   }
+// };
 
-  return result
-}
-
-const crashReporter = store => next => action => {
-  try {
-    return next(action)
-  } catch (err) {
-    console.error('Caught an exception!', err)
-    Raven.captureException(err, {
-      extra: {
-        action,
-        state: store.getState()
-      }
-    })
-    throw err
-  }
-}
-
-export default (intialState = {}) => {
-  return createStore(appReducer,
-    intialState,
-    compose(applyMiddleware(thunk, consoleMessages, crashReporter)))
-}
+// export default (intialState = {}) => {
+//   return createStore(
+//     appReducer,
+//     intialState,
+//     compose(applyMiddleware(thunk, consoleMessages, crashReporter))
+//   );
+// };

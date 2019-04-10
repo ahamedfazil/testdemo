@@ -1,42 +1,23 @@
-import PropTypes, { any } from 'prop-types';
-import React from 'react';
+import * as React from "react";
 import {
-  DefaultButton,
-  TextField,
-  DatePicker,
-  Checkbox, 
-  NormalPeoplePicker, IPersonaProps,
-  Dropdown, IDropdown, IDropdownOption,
-  ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize, Fabric
-} from 'office-ui-fabric-react';
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import { ICurrentTicketState } from '../models/ITicket';
-import { IUserState } from '../models/IUser';
-import { IAppProps } from '../models/IAppProps';
-import pnp from '@pnp/pnpjs';
-import { pnpConfig } from '../config/pnp.config';
-import { getCurrentUser } from '../api/UserAPI';
-import IStore from '../store/IStore';
-import * as IActions from '../actions/IUserActions';
-import { addTicket } from '../api/TicketAPI';
-import { getDictionary } from '../api/DictionaryAPI';
-import { IDictionaryState } from '../models/IDictionary';
-import SupportFields from './SupportFields';
-
-
-
-const INITIAL_OPTIONS: IComboBoxOption[] = [
-  { key: 'A', text: 'Option A' },
-  { key: 'B', text: 'Option B' },
-  { key: 'C', text: 'Option C' },
-  { key: 'D', text: 'Option D' },
-  { key: 'E', text: 'Option E' },
-  { key: 'F', text: 'Option F' },
-  { key: 'G', text: 'Option G' },
-  { key: 'H', text: 'Option H' },
-  { key: 'I', text: 'Option I' },
-  { key: 'J', text: 'Option J' }
-];
+  IPersonaProps,
+  Dropdown,
+  IDropdownOption,
+  IComboBoxOption,
+  IComboBox,
+  Spinner,
+  SpinnerSize,
+  Fabric
+} from "office-ui-fabric-react";
+import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
+import { IUserState } from "../../models/IUser";
+import { IAppProps } from "../../models/IAppProps";
+import pnp from "@pnp/pnpjs";
+import { pnpConfig } from "../../config/pnp.config";
+import { addTicket } from "../../api/TicketAPI";
+import { getDictionary } from "../../api/DictionaryAPI";
+import { IDictionaryState } from "../../models/IDictionary";
+import SupportFields from "../forms/SupportFields";
 
 interface ITicketState {
   // fetchSubmitterInfo: () => Promise<IUser>;
@@ -52,105 +33,90 @@ interface ITicketState {
   isPickerDisabled?: boolean;
 }
 
-export class NewTicket extends React.Component<IAppProps, ITicketState>
-{
-
-
+export class NewTicket extends React.Component<IAppProps, ITicketState> {
   constructor(props: IAppProps) {
     super(props);
     pnp.setup(pnpConfig);
     // getCurrentUser(props);
     getDictionary(props);
-    addTicket(props)
-
-
+    addTicket(props);
   }
 
   componentWillMount() {
     initializeIcons(undefined, { disableWarnings: true });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // api calls
   }
-
-  private submit = e => {
-    e.preventDefault()
-
-  }
-
-  // private _basicDropdown = React.createRef<IDropdown>();
-  private _getTextFromItem(persona: IPersonaProps): string {
-    return persona.text as string;
-  }
-
 
   render(): JSX.Element {
     const userState: IUserState = this.props.store.user.userState;
     const store = this.props.store;
-    const dictionaryStatus:IDictionaryState = this.props.store.status
+    const dictionaryStatus: IDictionaryState = this.props.store.status;
     let ticket = this.props.store.ticket.currentTicket;
     return (
-      <Fabric >
+      <Fabric>
         <section>
-          
           <div className="content-wrap">
-          {!userState.isFetched ? (
-                  <div>
-                    {store.user.error ? (
-                      <label>error = {'IUser Error ' + store.user.error}
-                      </label>
-
-                    ) : (
-                        <Spinner size={SpinnerSize.small} />
-
-                      )}
-                  </div>
-                 ) : (this.props.store.user.userState.id
-                   )}
-            <div className='ms-Grid-row'>
+            {!userState.isFetched ? (
+              <div>
+                {store.user.error ? (
+                  <label>error = {"IUser Error " + store.user.error}</label>
+                ) : (
+                  <Spinner size={SpinnerSize.small} />
+                )}
+              </div>
+            ) : (
+              this.props.store.user.userState.id
+            )}
+            <div className="ms-Grid-row">
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
-                <input className="ms-TextField-field"
+                <input
+                  className="ms-TextField-field"
                   value={ticket.id}
                   type="text"
-                  placeholder="" />
+                  placeholder=""
+                />
               </div>
               <div className="col-two ms-TextField">
                 <label className="ms-Label">Created</label>
-                <input className="ms-TextField-field" type="text" placeholder="" />
+                <input
+                  className="ms-TextField-field"
+                  type="text"
+                  placeholder=""
+                />
               </div>
 
-              {!dictionaryStatus.isFetched ?
-              store.status.error ? (
-                    <label>error = {'Status list Error ' + store.status.error}
-                    </label>
-                    
-                    ):(
-                      <Spinner size={SpinnerSize.small} />
-                      ):
-                      
-
-              <div className="col-three ms-TextField">
-              <Dropdown
-                  label="Status:"
-                  selectedKey={ticket.status}
-                  onChanged={this.onStatusChange}
-                  placeholder="Select status"
-                  options={store.status.results.map(x => {
-                    return {
-                      key: x.id,
-                      text: x.title,
-                    } as IDropdownOption;
-                  })}
-                /> 
-             </div>
-             }
+              {!dictionaryStatus.isFetched ? (
+                store.status.error ? (
+                  <label>
+                    error = {"Status list Error " + store.status.error}
+                  </label>
+                ) : (
+                  <Spinner size={SpinnerSize.small} />
+                )
+              ) : (
+                <div className="col-three ms-TextField">
+                  <Dropdown
+                    label="Status:"
+                    selectedKey={ticket.status}
+                    onChanged={this.onStatusChange}
+                    placeholder="Select status"
+                    options={store.status.results.map(x => {
+                      return {
+                        key: x.id,
+                        text: x.title
+                      } as IDropdownOption;
+                    })}
+                  />
+                </div>
+              )}
             </div>
-            <div className='ms-Grid-row'>
-            <SupportFields/>
-
-           </div>
+            <div className="ms-Grid-row">
+              <SupportFields />
+            </div>
             {/* <div className='ms-Grid-row'>
               <div className="col-one ms-TextField">
                 <label className="ms-Label">Engagement Name</label>
@@ -446,31 +412,41 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
               <DefaultButton onClick={this.submit}>Save Ticket</DefaultButton>
             </div> */}
           </div>
-
         </section>
       </Fabric>
-
     );
   }
 
   public onStatusChange = (item: IDropdownOption): void => {
     this.props.store.ticket.currentTicket.status = item ? +item.key : undefined;
-  }
+  };
   public onTicketTypeChange = (item: IDropdownOption): void => {
-    this.props.store.ticket.currentTicket.ticketType = item ? +item.key : undefined;
-  }
+    this.props.store.ticket.currentTicket.ticketType = item
+      ? +item.key
+      : undefined;
+  };
   public onCategoryChange = (item: IDropdownOption): void => {
-    this.props.store.ticket.currentTicket.category = item ? +item.key : undefined;
-  }
-  private onPriorityChange: (item: IDropdownOption, index?: number) => void;
+    this.props.store.ticket.currentTicket.category = item
+      ? +item.key
+      : undefined;
+  };
 
   public changeState = (item: IDropdownOption): void => {
-    console.log('here are the things updating...' + item.key + ' ' + item.text + ' ' + item.selected);
+    console.log(
+      "here are the things updating..." +
+        item.key +
+        " " +
+        item.text +
+        " " +
+        item.selected
+    );
     this.setState({ selectedItem: item });
   };
 
   public onChangeMultiSelect = (item: IDropdownOption): void => {
-    const updatedSelectedItem = this.state.selectedItems ? this.copyArray(this.state.selectedItems) : [];
+    const updatedSelectedItem = this.state.selectedItems
+      ? this.copyArray(this.state.selectedItems)
+      : [];
     if (item.selected) {
       // add the option if it's checked
       updatedSelectedItem.push(item.key);
@@ -494,103 +470,40 @@ export class NewTicket extends React.Component<IAppProps, ITicketState>
     return newArray;
   };
 
-  // private _onSetFocusButtonClicked = (): void => {
-  //   if (this._basicDropdown.current) {
-  //     this._basicDropdown.current.focus(true);
+  // private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
+  //   return this.props.store.users
+  //     .filter(
+  //       x =>
+  //         x.userState.name
+  //           .toLocaleLowerCase()
+  //           .indexOf(terms.toLocaleLowerCase()) > -1
+  //     )
+  //     .map(x => {
+  //       return ({
+  //         id: x.userState.id.toString(),
+  //         primaryText: x.userState.name,
+  //         secondaryText: x.userState.id
+  //       } as unknown) as IPersonaProps;
+  //     });
+  // }
+
+  // private _updateSelectedOptionKeys = (
+  //   selectedKeys: string[],
+  //   option: IComboBoxOption
+  // ): string[] => {
+  //   selectedKeys = [...selectedKeys]; // modify a copy
+  //   const index = selectedKeys.indexOf(option.key as string);
+  //   if (option.selected && index < 0) {
+  //     selectedKeys.push(option.key as string);
+  //   } else {
+  //     selectedKeys.splice(index, 1);
   //   }
+  //   return selectedKeys;
   // };
-
-  private _log(str: string): () => void {
-    return (): void => {
-      console.log(str);
-    };
-  }
-  private onPeriodEndDateChange(date: Date): void {
-    this.props.store.ticket.currentTicket.periodEnd = date;
-  }
-
-
-
-  private searchPeople(terms): IPersonaProps[] | Promise<IPersonaProps[]> {
-    return this.props.store.users
-      .filter(x => x.userState.name.toLocaleLowerCase().indexOf(terms.toLocaleLowerCase()) > -1)
-      .map(x => {
-        return {
-          id: x.userState.id.toString(),
-          primaryText: x.userState.name,
-          secondaryText: x.userState.id
-        } as unknown as IPersonaProps;
-      });
-  }
-
-  private onFilterChanged(filterText: string) {
-    if (filterText) {
-      if (filterText.length > 2) {
-        return this.searchPeople(filterText);
-      }
-    } else {
-      return [];
-    }
-    return [];
-  }
-
-  private _onCheckboxChange(ev: React.FormEvent<HTMLElement>, isChecked: boolean): void {
-    console.log(`The option has been changed to ${isChecked}.`);
-  }
-
-  private _getOptionsMulti = (currentOptions: IComboBoxOption[]): IComboBoxOption[] => {
-    if (this.state.optionsMulti.length > 0) {
-      return this.state.optionsMulti;
-    }
-
-    const options = [...INITIAL_OPTIONS];
-
-    this.setState({
-      optionsMulti: options,
-      selectedOptionKeys: ['C', 'D'],
-      initialDisplayValueMulti: undefined
-    });
-
-    return options;
-  };
-
-
-
-  private _onChangeMulti = (event: React.FormEvent<IComboBox>, option?: IComboBoxOption, index?: number, value?: string) => {
-    console.log('_onChangeMulti() is called: option = ' + JSON.stringify(option));
-    const currentSelectedKeys = this.state.selectedOptionKeys || [];
-    if (option) {
-      // IUser selected/de-selected an existing option
-      this.setState({
-        selectedOptionKeys: this._updateSelectedOptionKeys(currentSelectedKeys, option)
-      });
-    } else if (value !== undefined) {
-      // IUser typed a freeform option
-      const newOption: IComboBoxOption = { key: value, text: value };
-      const updatedSelectedKeys: string[] = [...currentSelectedKeys, newOption.key as string];
-      this.setState({
-        optionsMulti: [...this.state.optionsMulti, newOption],
-        selectedOptionKeys: updatedSelectedKeys
-      });
-    }
-  };
-
-  private _updateSelectedOptionKeys = (selectedKeys: string[], option: IComboBoxOption): string[] => {
-    selectedKeys = [...selectedKeys]; // modify a copy
-    const index = selectedKeys.indexOf(option.key as string);
-    if (option.selected && index < 0) {
-      selectedKeys.push(option.key as string);
-    } else {
-      selectedKeys.splice(index, 1);
-    }
-    return selectedKeys;
-  };
-
 }
 
 // NewTicket.propT = {
 
 // }
 
-
-export default NewTicket
+export default NewTicket;

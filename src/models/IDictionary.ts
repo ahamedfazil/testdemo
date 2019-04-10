@@ -1,10 +1,9 @@
-
-export interface IDictionaryState{
-    isFetched: boolean;
-    isInitialised: boolean;
-    name?:string;
-    error?:any;
-    results:IDictionaryItem[]
+export interface IDictionaryState {
+  isFetched: boolean;
+  isInitialised: boolean;
+  name?: string;
+  error?: any;
+  results: IDictionaryItem[];
 }
 
 // export interface IDictionaryState {
@@ -12,7 +11,6 @@ export interface IDictionaryState{
 // }
 
 export interface IDictionaryItem {
-    id:number;
-    title: string;
+  id: number;
+  title: string;
 }
-

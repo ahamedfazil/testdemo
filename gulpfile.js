@@ -2,19 +2,17 @@
 https://github.com/wictorwilen/gulp-spsync
 */
 const gulp = require("gulp");
-const sp = require('gulp-spsync');
+var spsave = require('gulp-spsave');
 const prompt = require("gulp-prompt");
 const argv = require("minimist")(process.argv.slice(2));
-const { URL, credentials } = require("./webpack/webpack.env");
+const { URL } = require("./webpack/webpack.env");
 
 const environment = argv.env || "test";
 
-const coreOptions = {
-  "client_id": credentials[environment].ClientId,
-  "client_secret": credentials[environment].ClientSecret,
-  "realm" : "",
-  "site" : URL[environment].siteUrl,
-  "verbose": "true"
+var coreOptions = {  
+  siteUrl: URL[environment].siteUrl,
+  notification: true,
+  flatten: false
 };
 
 gulp.task("default", () => {
@@ -33,28 +31,18 @@ gulp.task("default", () => {
         }
       ],
       function(res) {
-        const proxy_URL =
-          "";
-        process.env.https_proxy = proxy_URL;
-        process.env.http_proxy = proxy_URL;
+        // const proxy_URL =
+        //   "";
+        // process.env.https_proxy = proxy_URL;
+        // process.env.http_proxy = proxy_URL;
         gulp
           .src("webpack/dist/**")
-          .pipe(sp(coreOptions))
+          .pipe(spsave(coreOptions, {
+            username: res.userid,
+            password: res.pwd,
+          }))
           .pipe(gulp.dest("build"));
       }
     )
   );
 });
-
-// // Setup Proxy for Online deployment
-// const proxy_URL =
-//   "http:pxgot4.srv.volvo.com:8080";
-// // const proxy_URL = URL["proxyURL"];  
-// process.env.https_proxy = proxy_URL;
-// process.env.http_proxy = proxy_URL;
-
-// gulp.task("default", () => {
-//   gulp.src('webpack/dist/**').
-//     pipe(sp(coreOptions)).		
-//     pipe(gulp.dest('build'))
-// });

@@ -1,35 +1,29 @@
-import { Request } from "../models/Request";
-import { number } from "prop-types";
+// export class RequestService {
+//   async getAll(userId?: string): Promise<Request[]> {
+//     return new Request["userId"]();
+//   }
 
-export class RequestService {
+//   async get(_id: number): Promise<Request> {
+//     return new Request();
+//   }
 
-    async getAll(userId?:string): Promise<Request[]> {
-        return new Request["userId"];
-    }
+//   // async add(_request:Request): Promise<number>{
 
-    async get(_id: number): Promise<Request> {
-        return new Request;
-    }
+//   //     return new Request;
+//   // }
 
+//   async update(_request: Request): Promise<void> {
+//     throw new Error();
+//   }
 
-    // async add(_request:Request): Promise<number>{
+//   async delete(request: Request): Promise<void> {
+//     throw new Error();
+//   }
+// }
 
-    //     return new Request;
-    // }
-
-    async update (_request:Request): Promise<void> {
-        throw new Error();
-    }
-
-    async delete(request:Request): Promise<void> {
-        throw new Error();
-    }
-
-}
-
-export interface IRequestService{
-    add(request:Request):Request;
-    getAll():Request[];
-    getById(requestID:number):Request;
-    toggle(requestID:number):void;
-}
+// export interface IRequestService {
+//   add(request: Request): Request;
+//   getAll(): Request[];
+//   getById(requestID: number): Request;
+//   toggle(requestID: number): void;
+// }

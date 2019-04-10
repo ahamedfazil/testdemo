@@ -1,263 +1,257 @@
-import update from 'immutability-helper';
-
-import { url } from '../config/pnp.config';
-import { IDictionaryState, IDictionaryItem } from '../models/IDictionary';
-import { IAppProps } from '../models/IAppProps';
-
+import update from "immutability-helper";
+import { IDictionaryState } from "../models/IDictionary";
+import { IAppProps } from "../models/IAppProps";
 
 export function fetchDictionary(listName: string) {
-    return fetch(`${url}/_api/web/lists/GetByTitle('${listName}')/Items?$select=Id,Title`, {
-        method: 'GET',
-        headers: {
-            accept: "application/json;odata=verbose",
-        },
-    });
+  return fetch(
+    `${null}/_api/web/lists/GetByTitle('${listName}')/Items?$select=Id,Title`,
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json;odata=verbose"
+      }
+    }
+  );
 }
 
 export function dictionaryParse(text: string) {
-    console.log('text is: ', text);
-    let dictionaryText = JSON.parse(text);
-    let dictionaryItems = dictionaryText.d as IDictionaryState;
-    return dictionaryItems;
+  console.log("text is: ", text);
+  let dictionaryText = JSON.parse(text);
+  let dictionaryItems = dictionaryText.d as IDictionaryState;
+  return dictionaryItems;
 }
 
 export async function getDictionary(props: IAppProps) {
-      
-    let dictionary: IDictionaryState = update(props.store.status, {
-                results: { $set: [] },
-            });
+//   let dictionary: IDictionaryState = update(props.store.status, {
+//     results: { $set: [] }
+//   });
 
-            if (!props.store.status.isFetched) {
- 
-                //Dispatch get IDictionaryState action
-               props.getDictionaryInProgress();
-               
-                try {
-                    let listName = 'Status';
-                    fetchDictionary(`${listName}`)
-                        .then(function (response) {
-                            return response.text()
+  if (!props.store.status.isFetched) {
+    //Dispatch get IDictionaryState action
+    props.getDictionaryInProgress();
 
-                        }).then(function (text) {
-                            dictionary = dictionaryParse(text);
-                            console.log(dictionary.results);
-                            
-                            //Dispatch success
-                            props.getStatusSuccess(dictionary.results)
-                            // dispatch(receiveEngagementTypes(dictionaryItems.results))
+    try {
+      let listName = "Status";
+      fetchDictionary(`${listName}`)
+        .then((response) => {
+          return response.text();
+        })
+        .then((text) => {
+        //   dictionary = dictionaryParse(text);
+        //   console.log(dictionary.results);
 
-                        })
-                }
-                catch (error) {
-                    console.log(error);
-                    //Dispatch error action
-                    props.getDictionaryError(error);
+        //   //Dispatch success
+        //   props.getStatusSuccess(dictionary.results);
+          // dispatch(receiveEngagementTypes(dictionaryItems.results))
+        });
+    } catch (error) {
+      console.log(error);
+      //Dispatch error action
+      props.getDictionaryError(error);
+    }
+  }
+}
 
-                }
+// switch (props) {
 
-            }}
+//     case props.store.engagementType:
 
-    // switch (props) {
+//         dictionary = update(props.store.engagementType, {
+//             results: { $set: [] },
+//         });
 
-    //     case props.store.engagementType:
-            
-    //         dictionary = update(props.store.engagementType, {
-    //             results: { $set: [] },
-    //         });
+//         if (!props.store.engagementType.isFetched) {
 
-    //         if (!props.store.engagementType.isFetched) {
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Engagement%20Type';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Engagement%20Type';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//                         //Dispatch success
+//                         props.getEngagementTypeSuccess(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
-    //                         //Dispatch success
-    //                         props.getEngagementTypeSuccess(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//             }
 
-    //             }
+//         }
+//         case props.store.accountingFramework:
 
-    //         }
-    //         case props.store.accountingFramework:
-            
-    //         dictionary = update(props.store.accountingFramework, {
-    //             results: { $set: [] },
-    //         });
+//         dictionary = update(props.store.accountingFramework, {
+//             results: { $set: [] },
+//         });
 
-    //         if (!props.store.accountingFramework.isFetched) {
+//         if (!props.store.accountingFramework.isFetched) {
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Accounting%20Framework';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Accounting%20Framework';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
-    //                         //Dispatch success
-    //                         props.getAccountingFramework(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//                         //Dispatch success
+//                         props.getAccountingFramework(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
 
-    //             }
+//             }
 
-    //         }
-    //         case props.store.auditingStandard:
-            
-    //         dictionary = update(props.store.auditingStandard, {
-    //             results: { $set: [] },
-    //         });
+//         }
+//         case props.store.auditingStandard:
 
-    //         if (!props.store.auditingStandard.isFetched) {
+//         dictionary = update(props.store.auditingStandard, {
+//             results: { $set: [] },
+//         });
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Auditing%20Standard';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//         if (!props.store.auditingStandard.isFetched) {
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Auditing%20Standard';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //                         //Dispatch success
-    //                         props.getAuditingStandardSuccess(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//                         //Dispatch success
+//                         props.getAuditingStandardSuccess(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
-    //             }
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
 
-    //         }
-    //         case props.store.category:
-            
-    //         dictionary = update(props.store.category, {
-    //             results: { $set: [] },
-    //         });
+//             }
 
-    //         if (!props.store.category.isFetched) {
+//         }
+//         case props.store.category:
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Category';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//         dictionary = update(props.store.category, {
+//             results: { $set: [] },
+//         });
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//         if (!props.store.category.isFetched) {
 
-    //                         //Dispatch success
-    //                         props.getCategorySuccess(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Category';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
-    //             }
+//                         //Dispatch success
+//                         props.getCategorySuccess(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
-    //         }
-    //         case props.store.topic:
-            
-    //         dictionary = update(props.store.topic, {
-    //             results: { $set: [] },
-    //         });
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
 
-    //         if (!props.store.topic.isFetched) {
+//             }
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Topic';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//         }
+//         case props.store.topic:
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//         dictionary = update(props.store.topic, {
+//             results: { $set: [] },
+//         });
 
-    //                         //Dispatch success
-    //                         props.getTopicSuccess(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//         if (!props.store.topic.isFetched) {
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Topic';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //             }
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
-    //         }
+//                         //Dispatch success
+//                         props.getTopicSuccess(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
 
-    //         case props.store.ticketType:
-            
-    //         dictionary = update(props.store.ticketType, {
-    //             results: { $set: [] },
-    //         });
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
 
-    //         if (!props.store.ticketType.isFetched) {
+//             }
 
-    //             //Dispatch get IDictionaryState action
-    //             props.getDictionaryInProgress();
-    //             try {
-    //                 let listName = 'Ticket%20Type';
-    //                 fetchDictionary(`${listName}`)
-    //                     .then(function (response) {
-    //                         return response.text()
+//         }
 
-    //                     }).then(function (text) {
-    //                         let dictionary = dictionaryParse(text);
+//         case props.store.ticketType:
 
-    //                         //Dispatch success
-    //                         props.getTicketTypeSuccess(dictionary, listName)
-    //                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+//         dictionary = update(props.store.ticketType, {
+//             results: { $set: [] },
+//         });
 
-    //                     })
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-    //                 //Dispatch error action
-    //                 props.getDictionaryError(error);
+//         if (!props.store.ticketType.isFetched) {
 
-    //             }
+//             //Dispatch get IDictionaryState action
+//             props.getDictionaryInProgress();
+//             try {
+//                 let listName = 'Ticket%20Type';
+//                 fetchDictionary(`${listName}`)
+//                     .then(function (response) {
+//                         return response.text()
 
-    //         }
-            
-    // }
+//                     }).then(function (text) {
+//                         let dictionary = dictionaryParse(text);
 
+//                         //Dispatch success
+//                         props.getTicketTypeSuccess(dictionary, listName)
+//                         // dispatch(receiveEngagementTypes(dictionaryItems.results))
+
+//                     })
+//             }
+//             catch (error) {
+//                 console.log(error);
+//                 //Dispatch error action
+//                 props.getDictionaryError(error);
+
+//             }
+
+//         }
+
+// }
