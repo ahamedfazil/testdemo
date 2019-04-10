@@ -51,7 +51,7 @@ export class NewTicket extends React.Component<IAppProps, ITicketState> {
   }
 
   render(): JSX.Element {
-    const userState: IUserState = this.props.store.user.userState;
+    const userState: IUserState = this.props.store.users.userState;
     const store = this.props.store;
     const dictionaryStatus: IDictionaryState = this.props.store.status;
     let ticket = this.props.store.ticket.currentTicket;
@@ -61,14 +61,14 @@ export class NewTicket extends React.Component<IAppProps, ITicketState> {
           <div className="content-wrap">
             {!userState.isFetched ? (
               <div>
-                {store.user.error ? (
-                  <label>error = {"IUser Error " + store.user.error}</label>
+                {store.users.error ? (
+                  <label>error = {"IUser Error " + store.users.error}</label>
                 ) : (
                   <Spinner size={SpinnerSize.small} />
                 )}
               </div>
             ) : (
-              this.props.store.user.userState.id
+              this.props.store.users.userState.id
             )}
             <div className="ms-Grid-row">
               <div className="col-one ms-TextField">

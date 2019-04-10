@@ -1,11 +1,12 @@
 export interface IUser {
   isInitialised: boolean;
-  error?: any;
-  userState: IUserState;
+  isFetched: boolean;
+  isError: boolean;
+  currentUser: IUserState;
+  otherUsers: IUserState[];
 }
 
 export interface IUserState {
-  isFetched: boolean;
   isSupportUser: boolean;
   isUser: boolean;
   id: number;

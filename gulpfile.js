@@ -1,6 +1,3 @@
-/*
-https://github.com/wictorwilen/gulp-spsync
-*/
 const gulp = require("gulp");
 var spsave = require('gulp-spsave');
 const prompt = require("gulp-prompt");

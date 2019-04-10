@@ -1,32 +1,18 @@
 import { Reducer } from "redux";
 import ActionTypeKeys from "../actions/ActionTypeKey";
-import {
-  IGetCurrentUserAction,
-  IGetCurrentUserActionSuccess,
-  IGetCurrentUserActionError,
-  IGetUsersActionInProgress,
-  IGetUsersActionSuccess,
-  IGetUsersActionError
-} from "../actions/IUserActions";
-import { IUser } from "../models/IUser";
-import appInitialState from "../store/appInitialState";
+import { IUser, IUserState } from "../models/IUser";
 import ActionTypes from "../actions/ActionTypes";
+import InitialState from "../store/InitialState";
 
 export const userReducer: Reducer<IUser> = (
-  state: IUser = appInitialState.user,
+  state: IUser = InitialState.users,
   action: ActionTypes
 ): IUser => {
   switch (action.type) {
-    case ActionTypeKeys.GET_CURRENT_USER:
-      return onGetCurrentUserDetailsInProgress(state, action);
-    case ActionTypeKeys.GET_CURRENT_USER_SUCCESS:
-      return onGetCurrentUserDetails(state, action);
-    case ActionTypeKeys.GET_CURRENT_USER_ERROR:
-      return onGetCurrentUserDetailsError(state, action);
     case ActionTypeKeys.GET_USERS_INPROGRESS:
       return onGetUserDetailsInProgress(state, action);
-    case ActionTypeKeys.GET_USERS_SUCCESS:
-      return onGetUserDetailsSuccess(state, action);
+    case ActionTypeKeys.GET_CURRENT_USER_SUCCESS:
+      return onGetUserDetails(state, action);
     case ActionTypeKeys.GET_USERS_ERROR:
       return onGetUserDetailsError(state, action);
     default:
@@ -34,61 +20,27 @@ export const userReducer: Reducer<IUser> = (
   }
 };
 
-function onGetCurrentUserDetailsInProgress(
-  currentState: IUser,
-  action: IGetCurrentUserAction
+function onGetUserDetailsInProgress(
+  currentState: IUserState,
+  action: IGetUserActionInProgress
 ) {
   return {
     ...currentState,
-    isInitialised: true
+    isInitialized: true,
   };
 }
 
-function onGetCurrentUserDetails(
-  currentState: IUser,
-  action: IGetCurrentUserActionSuccess
-) {
+function onGetUserDetails(currentState: IUserState, action: IGetUserActionSuccess) {
   return {
     ...currentState,
-    isInitialised: true,
+    isInitialized: true,
     currentUser: action.payload.currentUser
   };
 }
 
-function onGetCurrentUserDetailsError(
-  currentState: IUser,
-  action: IGetCurrentUserActionError
-) {
-  return {
-    ...currentState,
-    error: action.payload.error.message
-  };
-}
-
-function onGetUserDetailsInProgress(
-  currentState: IUser,
-  action: IGetUsersActionInProgress
-) {
-  return {
-    ...currentState,
-    isInitialised: true
-  };
-}
-
-function onGetUserDetailsSuccess(
-  currentState: IUser,
-  action: IGetUsersActionSuccess
-) {
-  return {
-    ...currentState,
-    isInitialised: true,
-    currentUser: action.payload.users
-  };
-}
-
 function onGetUserDetailsError(
-  currentState: IUser,
-  action: IGetUsersActionError
+  currentState: IUserState,
+  action: IGetUserActionError
 ) {
   return {
     ...currentState,

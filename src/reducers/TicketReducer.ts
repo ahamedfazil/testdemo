@@ -6,7 +6,7 @@ import {
   IAddTicketActionError
 } from "../actions/ITicketActions";
 import { ITicketState } from "../models/ITicket";
-import appInitialState from "../store/appInitialState";
+import appInitialState from "../store/InitialState";
 import ActionTypes from "../actions/ActionTypes";
 import ActionTypeKeys from "../actions/ActionTypeKey";
 

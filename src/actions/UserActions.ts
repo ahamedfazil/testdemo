@@ -1,43 +1,16 @@
 import keys from "./ActionTypeKey";
-import { IUserState } from "../models/IUser";
 import * as IUserActions from "./IUserActions";
+import { IUser } from "../models/IUser";
 
-export function getCurrentUser(): IUserActions.IGetCurrentUserAction {
-  return {
-    type: keys.GET_CURRENT_USER
-  };
-}
-
-export function getCurrentUserSuccess(
-  currentUser: IUserState
-): IUserActions.IGetCurrentUserActionSuccess {
-  return {
-    type: keys.GET_CURRENT_USER_SUCCESS,
-    payload: {
-      currentUser
-    }
-  };
-}
-
-export function getCurrentUserError(
-  error: Error
-): IUserActions.IGetCurrentUserActionError {
-  return {
-    type: keys.GET_CURRENT_USER_ERROR,
-    payload: {
-      error
-    }
-  };
-}
-
-export function getUsersInProgress(): IUserActions.IGetUsersActionInProgress {
+//#region User Actions
+export function getCurrentUserInProgress(): IUserActions.IGetUsersActionInProgress {
   return {
     type: keys.GET_USERS_INPROGRESS
   };
 }
 
-export function getUserInfoSuccess(
-  users: IUserState[]
+export function getCurrentUserSuccess(
+  users: IUser
 ): IUserActions.IGetUsersActionSuccess {
   return {
     type: keys.GET_USERS_SUCCESS,
@@ -47,9 +20,9 @@ export function getUserInfoSuccess(
   };
 }
 
-export function getUserInfoError(
+export function getCurrentUserError(
   error: Error
-): IUserActions.IGetUsersActionError {
+): IUserActions.IGetUserActionError {
   return {
     type: keys.GET_USERS_ERROR,
     payload: {
@@ -57,3 +30,4 @@ export function getUserInfoError(
     }
   };
 }
+//#endregion
