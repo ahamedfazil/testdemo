@@ -1,11 +1,15 @@
 import * as React from "react";
 import { ITicketProps } from "../../models/ITicketProps";
 import { debounce } from "throttle-debounce";
-import { ITicketLocalState } from "../../models/ITicketState";
+import {
+  ITicketLocalState,
+  ITicketDictionary
+} from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
 import { PeoplePicker } from "../support/PeoplePicker";
-import update from "immutability-helper";
+import { Dropdown } from "office-ui-fabric-react/lib/Dropdown";
+import { dropdownOptions } from "../../utils/Utilities";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -29,14 +33,15 @@ export class NewTicket extends React.Component<
   }
 
   public render(): JSX.Element {
+    const ticketDictionary: ITicketDictionary = this.props.store.ticket
+      .ticketDictionary;
     return (
       <div className="ms-Grid pad-left">
         Hii from new ticket
         <PeoplePicker
           getUserNames={person => {
-            console.log(person);
-            update(this.state, {
-              Submitted_x0020_ById:{$push: person}
+            this.setState({
+              Submitted_x0020_ById: person
             });
           }}
           allowMulti={true}
@@ -44,21 +49,16 @@ export class NewTicket extends React.Component<
           disabled={false}
         />
         {/* Dropdown */}
-        {/* <Dropdown
-                placeHolder={
-                  "Select"
-                }
-                options={
-                  projectState.projectData.organization === "GTP/GTA"
-                    ? dropdownOptions(projectState.projectFields.GTPbrand)
-                    : dropdownOptions(projectState.projectFields.BUSbrand)
-                }
-                selectedKey={projectState.projectData.brand}
-                onChanged={(option: any) => {
-                  this.props.updateProjectData(option.key, "brand");
-                }}
-                disabled={cannotEdit}
-              /> */}
+        <Dropdown
+          placeholder={"Select"}
+          options={dropdownOptions(ticketDictionary.accountingFramework)}
+          selectedKey={this.state.Accounting_x0020_Framework}
+          onChange={(option: any, event: any) => {
+            this.setState({
+              Accounting_x0020_Framework: event.key
+            });
+          }}
+        />
       </div>
     );
   }

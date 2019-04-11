@@ -42,9 +42,10 @@ export function getTicketDictionary(props: ITicketProps) {
     const category = getFieldValuesFromList(CONST.Lists.Category.ListName, [
       CONST.Lists.Category.Columns.Title.Internal_Name
     ]);
-    const sentinelGisId = getFieldValuesFromList(CONST.Lists.SentinelGisId.ListName, [
-      CONST.Lists.Category.Columns.Title.Internal_Name
-    ]);
+    const sentinelGisId = getFieldValuesFromList(
+      CONST.Lists.SentinelGisId.ListName,
+      [CONST.Lists.Category.Columns.Title.Internal_Name]
+    );
     const labels = getFieldValuesFromList(CONST.Lists.Labels.ListName, [
       CONST.Lists.Category.Columns.Title.Internal_Name
     ]);
@@ -98,10 +99,12 @@ export function getTicketDictionary(props: ITicketProps) {
                 case CONST.Lists.Category.ListName +
                   CONST.Lists.Category.Columns.Title.Internal_Name:
                   dictionaryState.category = UniqueValInArray(value.options);
-                  case CONST.Lists.SentinelGisId.ListName +
+                case CONST.Lists.SentinelGisId.ListName +
                   CONST.Lists.SentinelGisId.Columns.Title.Internal_Name:
-                  dictionaryState.sentinelGisId = UniqueValInArray(value.options);
-                  case CONST.Lists.Labels.ListName +
+                  dictionaryState.sentinelGisId = UniqueValInArray(
+                    value.options
+                  );
+                case CONST.Lists.Labels.ListName +
                   CONST.Lists.Labels.Columns.Title.Internal_Name:
                   dictionaryState.labels = UniqueValInArray(value.options);
                   break;
@@ -128,23 +131,21 @@ const getFieldValuesFromList = (listName: string, fieldNames: string[]) => {
       .getByTitle(listName)
       .items.get()
       .then(fieldData => {
-        if (fieldData.length > 0) {
-          let fieldWithOptions: any[] = [];
-          fieldNames.map((field: any) => {
-            fieldWithOptions.push({
-              listField: listName + field,
-              options: fieldData
-                .filter((data: any) => {
-                  if (data[field] === null) {
-                    return false;
-                  }
-                  return true;
-                })
-                .map((data: any) => data[field])
-            });
+        let fieldWithOptions: any[] = [];
+        fieldNames.map((field: any) => {
+          fieldWithOptions.push({
+            listField: listName + field,
+            options: fieldData
+              .filter((data: any) => {
+                if (data[field] === null) {
+                  return false;
+                }
+                return true;
+              })
+              .map((data: any) => data[field])
           });
-          resolve(fieldWithOptions);
-        }
+        });
+        resolve(fieldWithOptions);
       })
       .catch(error => {
         reject(error);

@@ -74,7 +74,7 @@ export const CONST = {
       }
     },
     SentinelGisId: {
-      ListName: "Category",
+      ListName: "Sentinel GIS ID",
       Columns: {
         Title: {
           Internal_Name: "Title"
