@@ -1,8 +1,7 @@
 import pnp from "@pnp/pnpjs";
-import { CONST } from "../config/const";
+import { CONST } from "../utils/const";
 import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
-import update from "immutability-helper";
 
 export const getUserByID = (userID: any) => {
   return pnp.sp.web.siteUsers
@@ -15,11 +14,6 @@ export const getUserByID = (userID: any) => {
 
 export async function getCurrentUser(props: IAppProps) {
   let userState: ICurrentUserState = Object.assign({}, props.store.user.currentUser);
-  // current user has nested array inside its object, please use update from immutable-helper to avoid nested object reference issue
-  // let userState: ICurrentUserState = update(props.store.user.currentUser, {
-  //   memberOf: { $set: [] }
-  // });
-  console.log("TCL: getCurrentUser -> userState", userState);
   if (!props.store.user.currentUser.isFetched) {
     // Dispatch an Action for getCurrentUser in Progress
     props.getCurrentUserInProgress();
@@ -52,7 +46,7 @@ export async function getCurrentUser(props: IAppProps) {
       Promise.all([userPropertiesPromise, userGroupsPromise])
         .then(function(response) {
           let propertyResponse = response[0];
-          userState.directReports = propertyResponse.DirectReports.results;
+          // userState.office = propertyResponse.office.results;
           let resultProps = propertyResponse.UserProfileProperties.results;
           for (let prop of resultProps) {
             if (prop.Key === "AccountName") {
@@ -61,8 +55,8 @@ export async function getCurrentUser(props: IAppProps) {
               userState.firstName = prop.Value;
             } else if (prop.Key === "LastName") {
               userState.lastName = prop.Value;
-            } else if (prop.Key === "costCenter") {
-              userState.costCenter = prop.Value;
+            } else if (prop.Key === "officeNumber") {
+              userState.officeNumber = prop.Value;
             } else if (prop.Key === "DepartmentTitle") {
               userState.department = prop.Value;
             } else if (prop.Key === "Manager") {
@@ -73,10 +67,10 @@ export async function getCurrentUser(props: IAppProps) {
           for (let groupTitle of groupsResponse) {
             userState.memberOf.push(groupTitle.Title);
           }
-          userState.isAdmin = userState.memberOf.includes(
-            CONST.site.AdminGroup
+          userState.isSupportUser = userState.memberOf.includes(
+            CONST.Site.SupportGroup
           );
-          userState.isUser = userState.memberOf.includes(CONST.site.UserGroup);
+          userState.isUser = userState.memberOf.includes(CONST.Site.UserGroup);
 
           //Dispatch an Action for Success in getCurrentUser
           userState.isFetched = true;

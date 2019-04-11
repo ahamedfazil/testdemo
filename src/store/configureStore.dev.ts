@@ -6,8 +6,7 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "../reducers/RootReducer";
 import IStore from "./IStore";
-import initialState from "./initialState";
-
+import { initialState } from "./initialState";
 
 export default function configureStore(
   initialStateValue: IStore = initialState
@@ -15,12 +14,6 @@ export default function configureStore(
   return createStore(
     rootReducer,
     initialStateValue!,
-    composeWithDevTools(
-      applyMiddleware(
-        promise(),
-        thunkMiddleware,
-        logger
-      )
-    )
+    composeWithDevTools(applyMiddleware(promise(), thunkMiddleware, logger))
   );
 }

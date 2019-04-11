@@ -6,8 +6,8 @@ import {
   IGetUserActionError,
   IGetUserActionInProgress
 } from "../actions/IActions";
-import {IUserState} from "../models/IUserState";
-import initialState from "../store/initialState";
+import { IUserState } from "../models/IUserState";
+import { initialState } from "../store/initialState";
 
 export const userReducer: Reducer<IUserState> = (
   state: IUserState = initialState.user,
@@ -31,14 +31,17 @@ function onGetUserDetailsInProgress(
 ) {
   return {
     ...currentState,
-    isInitialized: true,
+    isinitialised: true
   };
 }
 
-function onGetUserDetails(currentState: IUserState, action: IGetUserActionSuccess) {
+function onGetUserDetails(
+  currentState: IUserState,
+  action: IGetUserActionSuccess
+) {
   return {
     ...currentState,
-    isInitialized: true,
+    isinitialised: true,
     currentUser: action.payload.currentUser
   };
 }

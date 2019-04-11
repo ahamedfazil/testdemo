@@ -1,8 +1,5 @@
 
 const URL = {
-  dev: {
-    siteUrl: "http://localhost:3000"
-  },
   production: {
     siteUrl: ""
   },
@@ -29,10 +26,6 @@ const credentials = {
   test: {
     ClientId: "",
     ClientSecret: ""
-  },
-  dev: {
-    username: "cs-ws-s-sph-svc-test",
-    password: "&&KM7IH-7a97%b&",
   }
 };
 

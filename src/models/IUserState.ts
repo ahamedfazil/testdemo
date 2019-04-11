@@ -1,12 +1,12 @@
 export interface IUserState {
-  isInitialized: boolean;
+  isinitialised: boolean;
   error?: any;
   currentUser: ICurrentUserState;
 }
 
 export interface ICurrentUserState {
   isFetched: boolean;
-  isAdmin: boolean;
+  isSupportUser: boolean;
   isUser: boolean;
   id: number;
   name: string;
@@ -16,9 +16,9 @@ export interface ICurrentUserState {
   title: string;
   loginName: string;
   accountName: string;
-  costCenter: string;
   department: string;
   managerId: string;
   memberOf: string[];
-  directReports: any;
+  office: string;
+  officeNumber: number
 }

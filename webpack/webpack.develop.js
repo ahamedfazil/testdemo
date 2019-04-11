@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const webpackMerge = require("webpack-merge");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = webpackMerge(config(), {
   output: {
@@ -18,7 +18,9 @@ module.exports = webpackMerge(config(), {
     inline: true
   },
   plugins: [
-    new ExtractTextPlugin("[name].css"),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'dev',
       DEBUG: true

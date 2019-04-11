@@ -4,7 +4,7 @@ const webpackMerge = require("webpack-merge");
 const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const { URL, targetPath } = require("./webpack.env.js");
 // How to use environment variables:
@@ -39,7 +39,7 @@ module.exports = env => {
     },
     plugins: [
       new CleanWebpackPlugin(["dist"]),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: "[name].[hash].bundle.css"
       }),
       new UglifyJSPlugin({

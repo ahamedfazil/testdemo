@@ -2,23 +2,22 @@ import * as React from "react";
 import pnp from "@pnp/pnpjs";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { initializeIcons } from "@uifabric/icons";
-import { pnpConfig } from "../config/pnp.config";
+import { pnpConfig } from "../utils/pnp.config";
 
-import { getCurrentUser } from "../api/UserAPI";
+import { getCurrentUser } from "../services/UserAPI";
 import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
-
+import NewTicket from "../containers/ticket/NewTicket";
 
 export class App extends React.Component<IAppProps, {}> {
   constructor(props: IAppProps) {
     super(props);
     pnp.setup(pnpConfig);
     initializeIcons(undefined, { disableWarnings: true });
-    getCurrentUser(this.props);
   }
 
   componentDidMount() {
-    // getCurrentUser(this.props);
+    getCurrentUser(this.props);
   }
 
   public render(): JSX.Element {
@@ -32,7 +31,10 @@ export class App extends React.Component<IAppProps, {}> {
           </div>
         ) : (
           this.props.store.user.currentUser.isFetched && (
-            <div>Current User is: {userState.firstName}</div>
+            <div>
+              Current User is: {userState.firstName}
+              <NewTicket />
+            </div>
           )
         )}
       </Fabric>
