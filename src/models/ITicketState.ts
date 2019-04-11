@@ -23,7 +23,7 @@ export interface ITicketLocalState {
   Title: string;
   OData__ModerationComments: string;
   File_x0020_Type: string;
-  Submitted_x0020_ById: number;
+  Submitted_x0020_ById: any[];
   JobTitle: string;
   Office: string;
   ol_Department: string;
