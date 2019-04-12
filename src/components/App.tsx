@@ -2,6 +2,8 @@ import * as React from "react";
 import pnp from "@pnp/pnpjs";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { initializeIcons } from "@uifabric/icons";
+import "@progress/kendo-ui";
+import "@progress/kendo-theme-default/dist/all.css";
 import { pnpConfig } from "../utils/pnp.config";
 
 import { getCurrentUser } from "../services/UserAPI";
@@ -33,6 +35,7 @@ export class App extends React.Component<IAppProps, {}> {
           this.props.store.user.currentUser.isFetched && (
             <div>
               Current User is: {userState.firstName}
+              <br/>
               <NewTicket />
             </div>
           )
