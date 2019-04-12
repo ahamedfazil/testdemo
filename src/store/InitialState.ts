@@ -65,7 +65,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     Ticket_x0020_Type: "",
     Training: false,
     FAQ: false,
-    Label: "",
+    Label: [],
     Detailed_x0020_Analysis: "",
     IsUrgent: false,
     Reason_x0020_for_x0020_Urgency: "",
@@ -80,7 +80,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     Sentinel_x0020_GIS_x0020_ID: null,
     Required_x0020_Consultation: false,
     Priority: "",
-    Topics: "",
+    Topics: [],
     Submitted_x0020_ById: [
       {
         key: store.user.currentUser.accountName,

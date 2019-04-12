@@ -13,3 +13,27 @@ export const dropdownOptions = (optionArray: any[]): IDropdownOption[] => {
   });
   return dropdownOptionVal;
 };
+
+export const getSpecificArrayFromJSONArray = (
+  jsonArray: any[],
+  fieldToPick: string
+): any[] => {
+  let dummyArray: any[] = [];
+  jsonArray.map(singleJson => {
+    dummyArray.push(singleJson[fieldToPick]);
+  });
+  return UniqueValInArray(dummyArray);
+};
+
+export const tagPickerOptionGenerator = (options: any[]): any[] => {
+  let tagOptions: any[] = [];
+  options.map(option => {
+    if (option) {
+      tagOptions.push({
+        name: option,
+        key: option
+      });
+    }
+  });
+  return tagOptions;
+};

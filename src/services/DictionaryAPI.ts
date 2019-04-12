@@ -184,10 +184,10 @@ const getCategoryList = async (
     .getByTitle(listName)
     .items.select(
       ...fieldNames,
-      "Support_x0020_Team/Id",
-      "Support_x0020_Team/Title",
-      "Support_x0020_Team/Name",
-      "Support_x0020_Team/EMail"
+      CONST.Lists.Category.Columns.SupportTeam.Internal_Name + "/Id",
+      CONST.Lists.Category.Columns.SupportTeam.Internal_Name + "/Title",
+      CONST.Lists.Category.Columns.SupportTeam.Internal_Name + "/Name",
+      CONST.Lists.Category.Columns.SupportTeam.Internal_Name + "/EMail"
     )
     .expand(...expandFields)
     .top(5000)
@@ -195,9 +195,9 @@ const getCategoryList = async (
     .then((fieldData: any[]) => {
       fieldData.map(data => {
         localCategory.push({
-          topic: data.Topic,
-          title: data.Title,
-          supportGroup: data.Support_x0020_Team
+          Topic: data[CONST.Lists.Category.Columns.Topic.Internal_Name],
+          Title: data[CONST.Lists.Category.Columns.Title.Internal_Name],
+          Support_x0020_Team: data[CONST.Lists.Category.Columns.SupportTeam.Internal_Name]
         });
       });
       return localCategory;

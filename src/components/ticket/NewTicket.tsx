@@ -15,10 +15,15 @@ import {
   TextField,
   Checkbox
 } from "office-ui-fabric-react";
-import { dropdownOptions } from "../../utils/Utilities";
+import {
+  dropdownOptions,
+  getSpecificArrayFromJSONArray,
+  tagPickerOptionGenerator
+} from "../../utils/Utilities";
 import update from "immutability-helper";
 import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
+import { KatsTagPicker } from "../support/KatsTagPicker";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -38,6 +43,19 @@ export class NewTicket extends React.Component<
   public render(): JSX.Element {
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
       .ticketDictionary;
+    let categoryTitleOptions: any[] = [];
+    let categoryTopicsOptions: any[] = [];
+    if (ticketDictionary.isFetched) {
+      categoryTitleOptions = getSpecificArrayFromJSONArray(
+        ticketDictionary.category,
+        CONST.Lists.Category.Columns.Title.Internal_Name
+      );
+      categoryTopicsOptions = getSpecificArrayFromJSONArray(
+        ticketDictionary.category,
+        CONST.Lists.Category.Columns.Topic.Internal_Name
+      );
+    }
+
     return (
       <div>
         People Picker
@@ -70,7 +88,7 @@ export class NewTicket extends React.Component<
           onChange={this._onTextChange}
           disabled={false}
         />
-        Label ComboBox
+        {/* Label ComboBox
         <KendoCombo
           textValue={this.state.Label}
           getLabelValue={value => {
@@ -87,13 +105,57 @@ export class NewTicket extends React.Component<
           }}
           fetchList={CONST.Lists.Topic.ListName}
           fetchColumn={CONST.Lists.Topic.Columns.Title.Internal_Name}
-        />
+        /> */}
         Checkbox
         <Checkbox
           name={"Training"}
           label={"Training"}
           defaultChecked={this.state.Training}
           onChange={this._onCheckboxChange}
+        />
+        Tag picker - Label
+        <KatsTagPicker
+          getValues={val => {
+            this.setState({
+              Label: val
+            });
+          }}
+          headerText="Suggested Labels"
+          noResultText="No Labels Found"
+          getOnBlur={() => {
+            // if (this.state.fields.length === 0) {
+            //   this.setState({
+            //     formErrors: {
+            //       ...this.state.formErrors,
+            //       label: true
+            //     }
+            //   });
+            // }
+          }}
+          defaultValue={this.state.Label}
+          options={tagPickerOptionGenerator(categoryTitleOptions)}
+        />
+        Tag picker - Topic
+        <KatsTagPicker
+          getValues={val => {
+            this.setState({
+              Topics: val
+            });
+          }}
+          headerText="Suggested Topics"
+          noResultText="No Topics Found"
+          getOnBlur={() => {
+            // if (this.state.fields.length === 0) {
+            //   this.setState({
+            //     formErrors: {
+            //       ...this.state.formErrors,
+            //       label: true
+            //     }
+            //   });
+            // }
+          }}
+          defaultValue={this.state.Topics}
+          options={tagPickerOptionGenerator(categoryTopicsOptions)}
         />
         {/*  DatePicker
         <DatePicker
@@ -123,7 +185,6 @@ export class NewTicket extends React.Component<
   }
 
   private _onCheckboxChange = (event: any, isChecked: boolean) => {
-    console.log("TCL: private_onCheckboxChange -> event", event);
     this.changedValue(event.target.name, isChecked);
   };
 

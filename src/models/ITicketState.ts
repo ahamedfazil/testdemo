@@ -20,9 +20,9 @@ export interface ITicketDictionary {
 }
 
 export interface ITicketCategory {
-  title: string;
-  topic: string;
-  supportGroup: any[];
+  Title: string;
+  Topic: string;
+  Support_x0020_Team: any[];
 }
 
 export interface ITicketLocalState {
@@ -47,7 +47,7 @@ export interface ITicketLocalState {
   Ticket_x0020_Type: string;
   Training: boolean;
   FAQ: boolean;
-  Label: string;
+  Label: string[];
   Detailed_x0020_Analysis: string;
   IsUrgent: boolean;
   Reason_x0020_for_x0020_Urgency: string;
@@ -62,5 +62,5 @@ export interface ITicketLocalState {
   Sentinel_x0020_GIS_x0020_ID: number;
   Required_x0020_Consultation: boolean;
   Priority: string;
-  Topics: string;
+  Topics: string[];
 }
