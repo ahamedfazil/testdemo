@@ -10,6 +10,7 @@ import { getTicketDictionary } from "../../services/DictionaryAPI";
 import { PeoplePicker } from "../support/PeoplePicker";
 import {
   DatePicker,
+  PrimaryButton,
   Dropdown,
   TextField,
   Checkbox
@@ -94,8 +95,8 @@ export class NewTicket extends React.Component<
           defaultChecked={this.state.Training}
           onChange={this._onCheckboxChange}
         />
-        DatePicker
-        {/* <DatePicker
+        {/*  DatePicker
+        <DatePicker
           value={this.state.toDate}
           minDate={this.state.fromDate && this.state.fromDate}
           placeholder={"DD-MM-YYYY"}
@@ -105,6 +106,14 @@ export class NewTicket extends React.Component<
           }}
           formatDate={_onFormatDate}
         /> */}
+        Button
+        <PrimaryButton
+          primary={true}
+          disabled={false}
+          onClick={() => this._onButtonClick}
+        >
+          Save Ticket
+        </PrimaryButton>
       </div>
     );
   }
@@ -123,5 +132,11 @@ export class NewTicket extends React.Component<
       [key]: { $set: value }
     });
     this.setState(newState);
+  }
+
+  private _onButtonClick(event: any) {
+    event.preventDefault();
+    // check for form validation, go ahead only if form is valid
+    console.log(this.state);
   }
 }

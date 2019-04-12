@@ -62,6 +62,13 @@ export const CONST = {
       Columns: {
         Title: {
           Internal_Name: "Title"
+        },
+        SupportTeam: {
+          Internal_Name: "Support_x0020_Team",
+          Internal_Name_Id: "Support_x0020_TeamId"
+        },
+        Topic: {
+          Internal_Name: "Topic"
         }
       }
     },

@@ -11,12 +11,18 @@ export interface ITicketDictionary {
   engagementType: any[];
   accountingFramework: any[];
   auditingStandard: any[];
-  category: any[];
+  category: ITicketCategory[];
   topic: any[];
   ticketType: any[];
   status: any[];
   sentinelGisId: any[];
   labels: any[];
+}
+
+export interface ITicketCategory {
+  title: string;
+  topic: string;
+  supportGroup: any[];
 }
 
 export interface ITicketLocalState {

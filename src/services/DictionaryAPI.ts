@@ -2,7 +2,7 @@ import { ITicketProps } from "../models/ITicketProps";
 import pnp from "@pnp/pnpjs";
 import { CONST } from "../utils/const";
 import { UniqueValInArray } from "../utils/Utilities";
-import { ITicketDictionary } from "../models/ITicketState";
+import { ITicketDictionary, ITicketCategory } from "../models/ITicketState";
 
 export function getTicketDictionary(props: ITicketProps) {
   //#region Get Fields from Lists
@@ -40,14 +40,16 @@ export function getTicketDictionary(props: ITicketProps) {
     ]);
 
     const category = getFieldValuesFromList(CONST.Lists.Category.ListName, [
-      CONST.Lists.Category.Columns.Title.Internal_Name
+      CONST.Lists.Category.Columns.Title.Internal_Name,
+      CONST.Lists.Category.Columns.Topic.Internal_Name
+      // CONST.Lists.Category.Columns.Title.Internal_Name
     ]);
     const sentinelGisId = getFieldValuesFromList(
       CONST.Lists.SentinelGisId.ListName,
-      [CONST.Lists.Category.Columns.Title.Internal_Name]
+      [CONST.Lists.SentinelGisId.Columns.Title.Internal_Name]
     );
     const labels = getFieldValuesFromList(CONST.Lists.Labels.ListName, [
-      CONST.Lists.Category.Columns.Title.Internal_Name
+      CONST.Lists.Labels.Columns.Title.Internal_Name
     ]);
 
     //#endregion
@@ -57,12 +59,12 @@ export function getTicketDictionary(props: ITicketProps) {
       auditingStandard,
       status,
       ticketType,
-      topic,
-      category,
+      // topic,
+      // category,
       sentinelGisId,
       labels
     ])
-      .then(function(optionResponse) {
+      .then(async function(optionResponse) {
         function optionFilter(values: any) {
           if (values !== undefined) {
             values.map((value: any) => {
@@ -92,13 +94,16 @@ export function getTicketDictionary(props: ITicketProps) {
                   CONST.Lists.TicketType.Columns.Title.Internal_Name:
                   dictionaryState.ticketType = UniqueValInArray(value.options);
                   break;
-                case CONST.Lists.Topic.ListName +
-                  CONST.Lists.Topic.Columns.Title.Internal_Name:
-                  dictionaryState.topic = UniqueValInArray(value.options);
-                  break;
-                case CONST.Lists.Category.ListName +
-                  CONST.Lists.Category.Columns.Title.Internal_Name:
-                  dictionaryState.category = UniqueValInArray(value.options);
+                // case CONST.Lists.Topic.ListName +
+                //   CONST.Lists.Topic.Columns.Title.Internal_Name:
+                //   dictionaryState.topic = UniqueValInArray(value.options);
+                //   break;
+                // case CONST.Lists.Category.ListName +
+                //   CONST.Lists.Category.Columns.Title.Internal_Name:
+                //   dictionaryState.category = UniqueValInArray(value.options);
+                // case CONST.Lists.Category.ListName +
+                //   CONST.Lists.Category.Columns.Topic.Internal_Name:
+                //   dictionaryState.topic = UniqueValInArray(value.options);
                 case CONST.Lists.SentinelGisId.ListName +
                   CONST.Lists.SentinelGisId.Columns.Title.Internal_Name:
                   dictionaryState.sentinelGisId = UniqueValInArray(
@@ -115,12 +120,27 @@ export function getTicketDictionary(props: ITicketProps) {
           }
         }
         optionResponse.filter(optionFilter);
-        dictionaryState.isFetched = true;
-        props.getTicketDictionarySuccess(dictionaryState);
+        await getCategoryList(
+          CONST.Lists.Category.ListName,
+          [
+            CONST.Lists.Category.Columns.Title.Internal_Name,
+            CONST.Lists.Category.Columns.Topic.Internal_Name,
+            CONST.Lists.Category.Columns.SupportTeam.Internal_Name
+          ],
+          [CONST.Lists.Category.Columns.SupportTeam.Internal_Name]
+        )
+          .then(catResponse => {
+            dictionaryState.category = catResponse;
+            dictionaryState.isFetched = true;
+            props.getTicketDictionarySuccess(dictionaryState);
+          })
+          .catch(categoryError => {
+            props.getTicketDictionaryError(categoryError);
+          });
       })
-      .catch(error => {
+      .catch(promiseAllError => {
         // Dispatch an Action for Error in Project Field Error
-        props.getTicketDictionaryError(error);
+        props.getTicketDictionaryError(promiseAllError);
       });
   }
 }
@@ -129,7 +149,8 @@ const getFieldValuesFromList = (listName: string, fieldNames: string[]) => {
   return new Promise((resolve, reject) => {
     pnp.sp.web.lists
       .getByTitle(listName)
-      .items.get()
+      .items.top(5000)
+      .get()
       .then(fieldData => {
         let fieldWithOptions: any[] = [];
         fieldNames.map((field: any) => {
@@ -151,4 +172,36 @@ const getFieldValuesFromList = (listName: string, fieldNames: string[]) => {
         reject(error);
       });
   });
+};
+
+const getCategoryList = async (
+  listName: string,
+  fieldNames: string[],
+  expandFields: string[]
+) => {
+  let localCategory: ITicketCategory[] = [];
+  localCategory = await pnp.sp.web.lists
+    .getByTitle(listName)
+    .items.select(
+      ...fieldNames,
+      "Support_x0020_Team/Id",
+      "Support_x0020_Team/Title",
+      "Support_x0020_Team/Name",
+      "Support_x0020_Team/EMail"
+    )
+    .expand(...expandFields)
+    .top(5000)
+    .get()
+    .then((fieldData: any[]) => {
+      fieldData.map(data => {
+        localCategory.push({
+          topic: data.Topic,
+          title: data.Title,
+          supportGroup: data.Support_x0020_Team
+        });
+      });
+      return localCategory;
+    })
+    .catch(() => null);
+  return localCategory;
 };
