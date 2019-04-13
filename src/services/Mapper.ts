@@ -1,14 +1,15 @@
 import { ITicketLocalState } from "../models/ITicketState";
+import { CONST } from "../utils/const";
 
-// export const Ticket_Mapper = (value: ITicketLocalState) => ({
-//     [CONST.COLUMNS.PROJECT_TITLE.INTERNAL_NAME]: value.Title,
-//     [CONST.COLUMNS.PROJ_MANG.INTERNAL_NAME_ID]: value.Support_x0020_Team.map(
-//       (user: any) => {
-//         return user.Id;
-//       }
-//     )[0],
-//     [CONST.COLUMNS.SCC.INTERNAL_NAME_ID]: value.fields.SCC.map((user: any) => {
-//       return user.Id;
-//     })[0],
-//     [CONST.COLUMNS.ROOT_SITE.INTERNAL_NAME]: value.rootSite
-//   });
+export const Ticket_Mapper = (value: ITicketLocalState) => {
+  const ticket_Mapper: any = {
+    [CONST.Lists.Tickets.Columns.Title.Internal_Name]: value.Title,
+    [CONST.Lists.Tickets.Columns.Submitted_x0020_ById
+      .Internal_Name]: value.Submitted_x0020_ById && value.Submitted_x0020_ById.map(
+        (user: any) => {
+          return user.Id;
+        }
+      )[0]
+  };
+  return ticket_Mapper;
+};

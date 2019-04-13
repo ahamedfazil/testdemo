@@ -12,6 +12,24 @@ export const getUserByID = (userID: any) => {
     });
 };
 
+export async function getUserIDFromPP(pplValue: any[]) {
+  let userID: number = null;
+  if (pplValue.length > 0) {
+    if (pplValue[0].secondaryText !== "") {
+      await pnp.sp.web
+        .ensureUser(pplValue[0].secondaryText)
+        .then((results: any) => {
+          userID = results.data.Id;
+        });
+    } else {
+      await pnp.sp.web.ensureUser(pplValue[0].key).then((results: any) => {
+        userID = results.data.Id;
+      });
+    }
+  }
+  return userID;
+}
+
 export async function getCurrentUser(props: IAppProps) {
   let userState: ICurrentUserState = Object.assign({}, props.store.user.currentUser);
   if (!props.store.user.currentUser.isFetched) {

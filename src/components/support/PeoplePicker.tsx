@@ -8,6 +8,7 @@ import {
 } from "office-ui-fabric-react/lib/Pickers";
 import pnp, { PrincipalType, PrincipalSource, PrincipalInfo } from "@pnp/pnpjs";
 import { IBaseProps } from "@uifabric/utilities";
+import { getUserIDFromPP } from "../../services/UserAPI";
 
 interface IPeoplePickerProps extends IBaseProps {
   defaultPeople?: any[];
@@ -64,7 +65,14 @@ export class PeoplePicker extends BaseComponent<IPeoplePickerProps, {}> {
   }
 
   private _onItemsChange = (items: any[]): void => {
-    this.props.getUserNames(items);
+    if (items.length > 0) {
+      items.map(async user => {
+        user.Id = await getUserIDFromPP([user]);
+        this.props.getUserNames([user]);
+      });
+    } else {
+      this.props.getUserNames(items);
+    }
   };
 
   private _onFilterChanged = (

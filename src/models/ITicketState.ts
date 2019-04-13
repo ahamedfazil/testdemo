@@ -22,7 +22,7 @@ export interface ITicketDictionary {
 export interface ITicketCategory {
   Title: string;
   Topic: string;
-  Support_x0020_Team: any[];
+  Support_x0020_Team: any;
 }
 
 export interface ITicketLocalState {
@@ -42,7 +42,7 @@ export interface ITicketLocalState {
   Accounting_x0020_Period_x0020_En: string;
   Auditing_x0020_Standards: string;
   Accounting_x0020_Framework: string;
-  OData__Category: string;
+  _Category: string;
   Support_x0020_Team: string;
   Ticket_x0020_Type: string;
   Training: boolean;

@@ -60,7 +60,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     Accounting_x0020_Period_x0020_En: "",
     Auditing_x0020_Standards: "",
     Accounting_x0020_Framework: "",
-    OData__Category: "",
+    _Category: "",
     Support_x0020_Team: "",
     Ticket_x0020_Type: "",
     Training: false,
@@ -85,7 +85,8 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       {
         key: store.user.currentUser.accountName,
         primaryText: store.user.currentUser.name,
-        secondaryText: store.user.currentUser.email
+        secondaryText: store.user.currentUser.email,
+        Id: store.user.currentUser.id
       }
     ]
   };

@@ -32,6 +32,7 @@ export class KatsTagPicker extends React.Component<IKatsTagPickerProps, {}> {
             this._onEmptyInputFocus("", tagList, this.props.options)
           }
           onBlur={() => this.props.getOnBlur()}
+          disabled={this.props.disabled}
         />
       </div>
     );

@@ -9,21 +9,23 @@ import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
 import { PeoplePicker } from "../support/PeoplePicker";
 import {
-  DatePicker,
   PrimaryButton,
   Dropdown,
   TextField,
-  Checkbox
+  Checkbox,
+  Label
 } from "office-ui-fabric-react";
 import {
   dropdownOptions,
   getSpecificArrayFromJSONArray,
-  tagPickerOptionGenerator
+  tagPickerOptionGenerator,
+  kendoComboOptionGenerator
 } from "../../utils/Utilities";
 import update from "immutability-helper";
 import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
+import { createTicket } from "../../services/TicketAPI";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -83,29 +85,30 @@ export class NewTicket extends React.Component<
         Textbox
         <TextField
           value={this.state.Title}
-          name={"Title"} // provide here state name -> ex: this.state."Title"
+          name={CONST.Lists.Tickets.Columns.Title.Internal_Name} // provide here state name -> ex: this.state."Title"
           placeholder={"Enter Title"}
           onChange={this._onTextChange}
           disabled={false}
         />
-        {/* Label ComboBox
+        Category ComboBox
         <KendoCombo
-          textValue={this.state.Label}
+          textValue={this.state._Category}
           getLabelValue={value => {
-            this.setState({ Label: value });
+            this.setState({ _Category: value });
+            //Setting support group
+            this.settingSupportGroup(value);
           }}
-          fetchList={CONST.Lists.Labels.ListName}
-          fetchColumn={CONST.Lists.Labels.Columns.Title.Internal_Name}
+          isRemote={false}
+          fullValues={kendoComboOptionGenerator(categoryTitleOptions)}
         />
-        Topic ComboBox
-        <KendoCombo
-          textValue={this.state.Topics}
-          getLabelValue={value => {
-            this.setState({ Topics: value });
-          }}
-          fetchList={CONST.Lists.Topic.ListName}
-          fetchColumn={CONST.Lists.Topic.Columns.Title.Internal_Name}
-        /> */}
+        Suppot Group
+        <br />
+        <i
+          className="ms-Icon ms-Icon--Group"
+          style={{ fontSize: "25px" }}
+          aria-hidden="true"
+        />
+        <Label>{this.state.Support_x0020_Team}</Label>
         Checkbox
         <Checkbox
           name={"Training"}
@@ -133,7 +136,7 @@ export class NewTicket extends React.Component<
             // }
           }}
           defaultValue={this.state.Label}
-          options={tagPickerOptionGenerator(categoryTitleOptions)}
+          options={tagPickerOptionGenerator(ticketDictionary.labels)}
         />
         Tag picker - Topic
         <KatsTagPicker
@@ -172,7 +175,9 @@ export class NewTicket extends React.Component<
         <PrimaryButton
           primary={true}
           disabled={false}
-          onClick={() => this._onButtonClick}
+          onClick={e => {
+            this._onButtonClick(e);
+          }}
         >
           Save Ticket
         </PrimaryButton>
@@ -195,9 +200,22 @@ export class NewTicket extends React.Component<
     this.setState(newState);
   }
 
+  private settingSupportGroup(category: string) {
+    const supportTeam = this.props.store.ticket.ticketDictionary.category.filter(
+      cat => cat.Title === category
+    )[0];
+    if (supportTeam) {
+      this.setState({
+        Support_x0020_Team: supportTeam.Support_x0020_Team
+          ? supportTeam.Support_x0020_Team.Name
+          : ""
+      });
+    }
+  }
+
   private _onButtonClick(event: any) {
     event.preventDefault();
     // check for form validation, go ahead only if form is valid
-    console.log(this.state);
+    createTicket(this.state);
   }
 }

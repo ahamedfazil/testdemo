@@ -37,3 +37,16 @@ export const tagPickerOptionGenerator = (options: any[]): any[] => {
   });
   return tagOptions;
 };
+
+export const kendoComboOptionGenerator = (options: any[]): any[] => {
+  let tagOptions: any[] = [];
+  options.map(option => {
+    if (option) {
+      tagOptions.push({
+        text: option,
+        key: option
+      });
+    }
+  });
+  return tagOptions;
+};
