@@ -1,6 +1,7 @@
 import IStore from "../store/IStore";
 import * as IActions from "../actions/IActions";
 import { ITicketDictionary } from "./ITicketState";
+import { ICurrentUserState } from "./IUserState";
 
 export interface ITicketProps {
   readonly store?: IStore;
@@ -11,4 +12,7 @@ export interface ITicketProps {
   getTicketDictionaryError?: (
     error: Error
   ) => IActions.IGetTicketDictionaryActionError;
+  getCurrentUserSuccess: (
+    userVal: ICurrentUserState
+  ) => IActions.IGetUserActionSuccess;
 }

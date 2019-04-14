@@ -25,6 +25,10 @@ function mapDispatchToProps(dispatch: Dispatch<IStore>) {
       Actions.getTicketDictionaryError,
       dispatch
     ),
+    getCurrentUserSuccess: bindActionCreators(
+      Actions.getCurrentUserSuccess,
+      dispatch
+    )
   };
 }
 

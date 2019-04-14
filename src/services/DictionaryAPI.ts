@@ -1,8 +1,12 @@
 import { ITicketProps } from "../models/ITicketProps";
 import pnp from "@pnp/pnpjs";
 import { CONST } from "../utils/const";
-import { UniqueValInArray } from "../utils/Utilities";
+import {
+  UniqueValInArray,
+  getSpecificArrayFromJSONArray
+} from "../utils/Utilities";
 import { ITicketDictionary, ITicketCategory } from "../models/ITicketState";
+import { ICurrentUserState } from "../models/IUserState";
 
 export function getTicketDictionary(props: ITicketProps) {
   //#region Get Fields from Lists
@@ -35,15 +39,6 @@ export function getTicketDictionary(props: ITicketProps) {
       CONST.Lists.TicketType.Columns.Title.Internal_Name
     ]);
 
-    const topic = getFieldValuesFromList(CONST.Lists.Topic.ListName, [
-      CONST.Lists.Topic.Columns.Title.Internal_Name
-    ]);
-
-    const category = getFieldValuesFromList(CONST.Lists.Category.ListName, [
-      CONST.Lists.Category.Columns.Title.Internal_Name,
-      CONST.Lists.Category.Columns.Topic.Internal_Name
-      // CONST.Lists.Category.Columns.Title.Internal_Name
-    ]);
     const sentinelGisId = getFieldValuesFromList(
       CONST.Lists.SentinelGisId.ListName,
       [CONST.Lists.SentinelGisId.Columns.Title.Internal_Name]
@@ -59,8 +54,6 @@ export function getTicketDictionary(props: ITicketProps) {
       auditingStandard,
       status,
       ticketType,
-      // topic,
-      // category,
       sentinelGisId,
       labels
     ])
@@ -94,16 +87,6 @@ export function getTicketDictionary(props: ITicketProps) {
                   CONST.Lists.TicketType.Columns.Title.Internal_Name:
                   dictionaryState.ticketType = UniqueValInArray(value.options);
                   break;
-                // case CONST.Lists.Topic.ListName +
-                //   CONST.Lists.Topic.Columns.Title.Internal_Name:
-                //   dictionaryState.topic = UniqueValInArray(value.options);
-                //   break;
-                // case CONST.Lists.Category.ListName +
-                //   CONST.Lists.Category.Columns.Title.Internal_Name:
-                //   dictionaryState.category = UniqueValInArray(value.options);
-                // case CONST.Lists.Category.ListName +
-                //   CONST.Lists.Category.Columns.Topic.Internal_Name:
-                //   dictionaryState.topic = UniqueValInArray(value.options);
                 case CONST.Lists.SentinelGisId.ListName +
                   CONST.Lists.SentinelGisId.Columns.Title.Internal_Name:
                   dictionaryState.sentinelGisId = UniqueValInArray(
@@ -131,6 +114,7 @@ export function getTicketDictionary(props: ITicketProps) {
         )
           .then(catResponse => {
             dictionaryState.category = catResponse;
+            setIsSupportUser(props, catResponse);
             dictionaryState.isFetched = true;
             props.getTicketDictionarySuccess(dictionaryState);
           })
@@ -144,6 +128,24 @@ export function getTicketDictionary(props: ITicketProps) {
       });
   }
 }
+
+const setIsSupportUser = (props: ITicketProps, categoryList: any[]) => {
+  let supportGroup: any[] = getSpecificArrayFromJSONArray(
+    categoryList,
+    CONST.Lists.Category.Columns.SupportTeam.Internal_Name
+  );
+  supportGroup = getSpecificArrayFromJSONArray(supportGroup, "Title");
+  const userMemberOf: any[] = props.store.user.currentUser.memberOf;
+  const isSupportUser = supportGroup.filter(group =>
+    userMemberOf.includes(group)
+  );
+  let currentUser: ICurrentUserState = Object.assign(
+    {},
+    props.store.user.currentUser
+  );
+  currentUser.isSupportUser = isSupportUser.length > 0 ? true : false;
+  props.getCurrentUserSuccess(currentUser);
+};
 
 const getFieldValuesFromList = (listName: string, fieldNames: string[]) => {
   return new Promise((resolve, reject) => {
@@ -197,7 +199,8 @@ const getCategoryList = async (
         localCategory.push({
           Topic: data[CONST.Lists.Category.Columns.Topic.Internal_Name],
           Title: data[CONST.Lists.Category.Columns.Title.Internal_Name],
-          Support_x0020_Team: data[CONST.Lists.Category.Columns.SupportTeam.Internal_Name]
+          Support_x0020_Team:
+            data[CONST.Lists.Category.Columns.SupportTeam.Internal_Name]
         });
       });
       return localCategory;
