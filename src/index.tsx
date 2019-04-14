@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 
 import App from "./containers/App";
-import "./styles/app.scss";
+import "./styles/index.scss";
 import configureStore from "./store/configureStore";
 
 const storeObj = configureStore();

@@ -44,7 +44,6 @@ export class App extends React.Component<IAppProps, {}> {
           )
         ) : (
           <div>
-            <br />
             <NewTicket />
           </div>
         )}
