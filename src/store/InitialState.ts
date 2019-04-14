@@ -1,5 +1,6 @@
 import IStore from "./IStore";
 import { ITicketLocalState } from "../models/ITicketState";
+import { onFormatDate } from "../utils/Utilities";
 
 export const initialState: IStore = {
   user: {
@@ -47,6 +48,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
   const initialState: ITicketLocalState = {
     Title: "",
     OData__ModerationComments: "",
+    Created: onFormatDate(new Date()),
     File_x0020_Type: "",
     JobTitle: "",
     Office: "",

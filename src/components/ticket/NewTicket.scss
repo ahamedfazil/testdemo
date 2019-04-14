@@ -1,4 +1,19 @@
+@import "../../styles/variables";
+
+.new-ticket {
+  .header {
+    background-color: $ticket-header-bg-color;
+  }
+  .cell {
+    padding: 8px;
+  }
+
+  .ticket-btn {
+    margin-top: 20px;
+  }
+}
+
 // To avoid date picker ui issue
 .ms-DatePicker button {
-    min-width: 0px !important;
-  }
+  min-width: 0px !important;
+}

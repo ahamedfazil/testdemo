@@ -10,6 +10,8 @@ import { getCurrentUser } from "../services/UserAPI";
 import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
 import NewTicket from "../containers/ticket/NewTicket";
+import { ErrorMessage } from "./support/ErrorMessage";
+import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 
 export class App extends React.Component<IAppProps, {}> {
   constructor(props: IAppProps) {
@@ -26,19 +28,25 @@ export class App extends React.Component<IAppProps, {}> {
     const userState: ICurrentUserState = this.props.store.user.currentUser;
     return (
       <Fabric>
-        {this.props.store.user.error ? (
-          <div>
-            Error while fetching current user from SharePoint.
-            {this.props.store.user.error}
-          </div>
-        ) : (
-          this.props.store.user.currentUser.isFetched && (
-            <div>
-              Current User is: {userState.firstName}
-              <br/>
-              <NewTicket />
-            </div>
+        {!this.props.store.user.currentUser.isFetched ? (
+          this.props.store.user.error ? (
+            <ErrorMessage
+              error={`Error while getting user - ${
+                this.props.store.user.error
+              }`}
+            />
+          ) : (
+            <Spinner
+              size={SpinnerSize.large}
+              style={{ margin: "200px" }}
+              label={"Getting current user info..."}
+            />
           )
+        ) : (
+          <div>
+            <br />
+            <NewTicket />
+          </div>
         )}
       </Fabric>
     );

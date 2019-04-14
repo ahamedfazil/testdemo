@@ -13,8 +13,9 @@ import {
   Dropdown,
   TextField,
   Checkbox,
-  Label,
-  DatePicker
+  DatePicker,
+  Spinner,
+  SpinnerSize
 } from "office-ui-fabric-react";
 import {
   dropdownOptions,
@@ -30,6 +31,7 @@ import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
 import { createTicket } from "../../services/TicketAPI";
 import "./NewTicket.scss";
+import { ErrorMessage } from "../support/ErrorMessage";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -63,344 +65,349 @@ export class NewTicket extends React.Component<
     }
 
     return (
-      <div className="ms-Grid">
+      <div className="ms-Grid new-ticket">
         <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Status</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={dropdownOptions(ticketDictionary.status)}
-              selectedKey={this.state.OData__Status}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  OData__Status: event.key
-                });
-              }}
-            />
+          <div className="cell header ms-font-xxl ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+            Create New Ticket
           </div>
         </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Ticket ID</label>
-            <TextField
-              value={this.state.TicketId}
-              name={CONST.Lists.Tickets.Columns.TicketId.Internal_Name}
-              placeholder={"KATS-00001"}
-              onChange={this._onTextChange}
-              disabled={true}
-            />
+
+        {!ticketDictionary.isFetched ? (
+          this.props.store.ticket.error ? (
+            <ErrorMessage error={"Something went wrong."} />
+          ) : (
+            <Spinner style={{margin: "200px"}} size={SpinnerSize.large} label="Getting field values..." />
+          )
+        ) : (
+          <div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Status</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={dropdownOptions(ticketDictionary.status)}
+                  selectedKey={this.state.OData__Status}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      OData__Status: event.key
+                    });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Ticket ID</label>
+                <TextField
+                  value={this.state.TicketId}
+                  name={CONST.Lists.Tickets.Columns.TicketId.Internal_Name}
+                  placeholder={"KATS-00001"}
+                  onChange={this._onTextChange}
+                  disabled={true}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Created</label>
+                <TextField
+                  value={this.state.Created}
+                  name={
+                    CONST.Lists.Tickets.Columns.Created_x0020_Date.Internal_Name
+                  }
+                  disabled={true}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Submitter</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      Submitted_x0020_ById: person
+                    });
+                  }}
+                  allowMulti={false}
+                  defaultPeople={this.state.Submitted_x0020_ById}
+                  disabled={false}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Sentinel GIS ID</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={dropdownOptions(ticketDictionary.sentinelGisId)}
+                  selectedKey={this.state.Sentinel_x0020_GIS_x0020_ID}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      Sentinel_x0020_GIS_x0020_ID: event.key
+                    });
+                  }}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Priority</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={[
+                    { key: 0, text: "Normal" },
+                    { key: 1, text: "Urgent" }
+                  ]}
+                  selectedKey={this.state.IsUrgent}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      IsUrgent: event.key
+                    });
+                  }}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Assignee</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      AssigneeId: person
+                    });
+                  }}
+                  allowMulti={false}
+                  disabled={true}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Engagement Name</label>
+                <TextField
+                  value={this.state.Title}
+                  name={
+                    CONST.Lists.Tickets.Columns.Engagement_x0020_Name
+                      .Internal_Name
+                  }
+                  placeholder={"Enter Engagement name"}
+                  onChange={this._onTextChange}
+                  disabled={false}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Period End</label>
+                <DatePicker
+                  value={getDateFromString(
+                    this.state.Accounting_x0020_Period_x0020_En
+                  )}
+                  placeholder={"DD/MM/YYYY"}
+                  allowTextInput={true}
+                  onSelectDate={val => {
+                    this.setState({
+                      Accounting_x0020_Period_x0020_En: onFormatDate(val)
+                    });
+                  }}
+                  formatDate={onFormatDate}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Audit Team</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      Submitted_x0020_ById: person
+                    });
+                  }}
+                  allowMulti={true}
+                  defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
+                  disabled={false}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Engagement Type</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={dropdownOptions(ticketDictionary.engagementType)}
+                  selectedKey={this.state.Engagement_x0020_Type}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      Engagement_x0020_Type: event.key
+                    });
+                  }}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Charge code</label>
+                <TextField
+                  value={this.state.Engagement_x0020_Charge_x0020_Co}
+                  name={
+                    CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
+                      .Internal_Name
+                  }
+                  placeholder={"Enter Charge code"}
+                  onChange={this._onTextChange}
+                  disabled={false}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Engagement RI</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      Responsible_x0020_IndividualId: person
+                    });
+                  }}
+                  allowMulti={false}
+                  defaultPeople={this.state.Responsible_x0020_IndividualId}
+                  disabled={false}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row" style={{ paddingTop: "2px" }}>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Accounting Frameworks</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={dropdownOptions(
+                    ticketDictionary.accountingFramework
+                  )}
+                  selectedKey={this.state.Accounting_x0020_Framework}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      Accounting_x0020_Framework: event.key
+                    });
+                  }}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <br />
+                <Checkbox
+                  name={"Required Consultation"}
+                  label={"Required Consultation"}
+                  defaultChecked={this.state.Required_x0020_Consultation}
+                  onChange={this._onCheckboxChange}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Watchers</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      WatcherId: person
+                    });
+                  }}
+                  allowMulti={true}
+                  defaultPeople={this.state.WatcherId}
+                  disabled={false}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Auditing Standards</label>
+                <Dropdown
+                  placeholder={"Select"}
+                  options={dropdownOptions(ticketDictionary.auditingStandard)}
+                  selectedKey={this.state.Auditing_x0020_Standards}
+                  onChange={(option: any, event: any) => {
+                    this.setState({
+                      Auditing_x0020_Standards: event.key
+                    });
+                  }}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Category</label>
+                <KendoCombo
+                  textValue={this.state._Category}
+                  getLabelValue={value => {
+                    this.setState({ _Category: value });
+                    //Setting support group
+                    this.settingSupportGroup(value);
+                  }}
+                  isRemote={false}
+                  fullValues={kendoComboOptionGenerator(categoryTitleOptions)}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Support Team</label>
+                <i
+                  className="ms-Icon ms-Icon--Group"
+                  style={{ fontSize: "18px" }}
+                  aria-hidden="true"
+                />
+                <TextField
+                  value={this.state.Support_x0020_Team}
+                  disabled={true}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Subject</label>
+                <TextField
+                  value={this.state.Title}
+                  name={CONST.Lists.Tickets.Columns.Title.Internal_Name} // provide here state name -> ex: this.state."Title"
+                  placeholder={"Enter Title"}
+                  onChange={this._onTextChange}
+                  disabled={false}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Topics</label>
+                <KatsTagPicker
+                  getValues={val => {
+                    this.setState({
+                      Topics: val
+                    });
+                  }}
+                  headerText="Suggested Topics"
+                  noResultText="No Topics Found"
+                  getOnBlur={() => {
+                    // if (this.state.fields.length === 0) {
+                    //   this.setState({
+                    //     formErrors: {
+                    //       ...this.state.formErrors,
+                    //       label: true
+                    //     }
+                    //   });
+                    // }
+                  }}
+                  defaultValue={this.state.Topics}
+                  options={tagPickerOptionGenerator(categoryTopicsOptions)}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg8 ms-TextField">
+                <label className="ms-Label">Detailed Analysis</label>
+                <TextField
+                  value={this.state.Detailed_x0020_Analysis}
+                  name={
+                    CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis
+                      .Internal_Name
+                  }
+                  placeholder={"Add description"}
+                  onChange={this._onTextChange}
+                  multiline
+                  rows={10}
+                  disabled={false}
+                />
+              </div>
+            </div>
+            <div className="ms-Grid-row">
+              <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+                <PrimaryButton
+                  className="ticket-btn"
+                  primary={true}
+                  disabled={false}
+                  onClick={e => {
+                    this._onButtonClick(e);
+                  }}
+                >
+                  Create Ticket
+                </PrimaryButton>
+              </div>
+            </div>
           </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Created</label>
-            <TextField
-              value="17/04/2017"
-              name={
-                CONST.Lists.Tickets.Columns.Created_x0020_Date.Internal_Name
-              } // provide here state name -> ex: this.state."Title"
-              placeholder={"17/04/2017"}
-              onChange={this._onTextChange}
-              disabled={true}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Submitter</label>
-            <PeoplePicker
-              getUserNames={person => {
-                this.setState({
-                  Submitted_x0020_ById: person
-                });
-              }}
-              allowMulti={false}
-              defaultPeople={this.state.Submitted_x0020_ById}
-              disabled={false}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Sentinel GIS ID</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={dropdownOptions(ticketDictionary.sentinelGisId)}
-              selectedKey={this.state.Sentinel_x0020_GIS_x0020_ID}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  Sentinel_x0020_GIS_x0020_ID: event.key
-                });
-              }}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Priority</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={[{ key: 0, text: "Normal" }, { key: 1, text: "Urgent" }]}
-              selectedKey={this.state.IsUrgent}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  IsUrgent: event.key
-                });
-              }}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Assignee</label>
-            <PeoplePicker
-              getUserNames={person => {
-                this.setState({
-                  AssigneeId: person
-                });
-              }}
-              allowMulti={false}
-              disabled={true}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Engagement Name</label>
-            <TextField
-              value={this.state.Title}
-              name={
-                CONST.Lists.Tickets.Columns.Engagement_x0020_Name.Internal_Name
-              }
-              placeholder={"Enter Engagement name"}
-              onChange={this._onTextChange}
-              disabled={false}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Period End</label>
-            <DatePicker
-              value={getDateFromString(
-                this.state.Accounting_x0020_Period_x0020_En
-              )}
-              placeholder={"DD-MM-YYYY"}
-              allowTextInput={true}
-              onSelectDate={val => {
-                this.setState({
-                  Accounting_x0020_Period_x0020_En: onFormatDate(val)
-                });
-              }}
-              formatDate={onFormatDate}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Audit Team</label>
-            <PeoplePicker
-              getUserNames={person => {
-                this.setState({
-                  Submitted_x0020_ById: person
-                });
-              }}
-              allowMulti={true}
-              defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
-              disabled={false}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Engagement Type</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={dropdownOptions(ticketDictionary.engagementType)}
-              selectedKey={this.state.Engagement_x0020_Type}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  Engagement_x0020_Type: event.key
-                });
-              }}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Charge code</label>
-            <TextField
-              value={this.state.Engagement_x0020_Charge_x0020_Co}
-              name={
-                CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
-                  .Internal_Name
-              }
-              placeholder={"Enter Charge code"}
-              onChange={this._onTextChange}
-              disabled={false}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Engagement RI</label>
-            <PeoplePicker
-              getUserNames={person => {
-                this.setState({
-                  Responsible_x0020_IndividualId: person
-                });
-              }}
-              allowMulti={false}
-              defaultPeople={this.state.Responsible_x0020_IndividualId}
-              disabled={false}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Accounting Frameworks</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={dropdownOptions(ticketDictionary.accountingFramework)}
-              selectedKey={this.state.Accounting_x0020_Framework}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  Accounting_x0020_Framework: event.key
-                });
-              }}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <br />
-            <Checkbox
-              name={"Required Consultation"}
-              label={"Required Consultation"}
-              defaultChecked={this.state.Required_x0020_Consultation}
-              onChange={this._onCheckboxChange}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Watchers</label>
-            <PeoplePicker
-              getUserNames={person => {
-                this.setState({
-                  WatcherId: person
-                });
-              }}
-              allowMulti={true}
-              defaultPeople={this.state.WatcherId}
-              disabled={false}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Auditing Standards</label>
-            <Dropdown
-              placeholder={"Select"}
-              options={dropdownOptions(ticketDictionary.auditingStandard)}
-              selectedKey={this.state.Auditing_x0020_Standards}
-              onChange={(option: any, event: any) => {
-                this.setState({
-                  Auditing_x0020_Standards: event.key
-                });
-              }}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Category</label>
-            <KendoCombo
-              textValue={this.state._Category}
-              getLabelValue={value => {
-                this.setState({ _Category: value });
-                //Setting support group
-                this.settingSupportGroup(value);
-              }}
-              isRemote={false}
-              fullValues={kendoComboOptionGenerator(categoryTitleOptions)}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Support Team</label>
-            <i
-              className="ms-Icon ms-Icon--Group"
-              style={{ fontSize: "25px" }}
-              aria-hidden="true"
-            />
-            <Label>{this.state.Support_x0020_Team}</Label>
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Subject</label>
-            <TextField
-              value={this.state.Title}
-              name={CONST.Lists.Tickets.Columns.Title.Internal_Name} // provide here state name -> ex: this.state."Title"
-              placeholder={"Enter Title"}
-              onChange={this._onTextChange}
-              disabled={false}
-            />
-          </div>
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-            <label className="ms-Label">Topics</label>
-            <KatsTagPicker
-              getValues={val => {
-                this.setState({
-                  Topics: val
-                });
-              }}
-              headerText="Suggested Topics"
-              noResultText="No Topics Found"
-              getOnBlur={() => {
-                // if (this.state.fields.length === 0) {
-                //   this.setState({
-                //     formErrors: {
-                //       ...this.state.formErrors,
-                //       label: true
-                //     }
-                //   });
-                // }
-              }}
-              defaultValue={this.state.Topics}
-              options={tagPickerOptionGenerator(categoryTopicsOptions)}
-            />
-          </div>
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg8 ms-TextField">
-            <label className="ms-Label">Detailed Analysis</label>
-            <TextField
-              value={this.state.Detailed_x0020_Analysis}
-              name={
-                CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis
-                  .Internal_Name
-              } // provide here state name -> ex: this.state."Title"
-              placeholder={"Add description"}
-              onChange={this._onTextChange}
-              multiline
-              rows={10}
-              disabled={false}
-            />
-          </div>
-        </div>
-        Tag picker - Label
-        <KatsTagPicker
-          getValues={val => {
-            this.setState({
-              Label: val
-            });
-          }}
-          headerText="Suggested Labels"
-          noResultText="No Labels Found"
-          getOnBlur={() => {
-            // if (this.state.fields.length === 0) {
-            //   this.setState({
-            //     formErrors: {
-            //       ...this.state.formErrors,
-            //       label: true
-            //     }
-            //   });
-            // }
-          }}
-          defaultValue={this.state.Label}
-          options={tagPickerOptionGenerator(ticketDictionary.labels)}
-        />
-        Button
-        <PrimaryButton
-          primary={true}
-          disabled={false}
-          onClick={e => {
-            this._onButtonClick(e);
-          }}
-        >
-          Save Ticket
-        </PrimaryButton>
+        )}
       </div>
     );
   }
