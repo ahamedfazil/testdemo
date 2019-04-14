@@ -346,7 +346,7 @@ export class NewTicket extends React.Component<
                 />
                 <TextField
                   value={this.state.Support_x0020_Team}
-                  disabled={true}
+                  readOnly={true}
                 />
               </div>
             </div>

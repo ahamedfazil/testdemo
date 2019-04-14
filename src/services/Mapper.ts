@@ -14,6 +14,8 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
       value.Accounting_x0020_Framework,
     [CONST.Lists.Tickets.Columns.Auditing_x0020_Standards.Internal_Name]:
       value.Auditing_x0020_Standards,
+    [CONST.Lists.Tickets.Columns.Support_x0020_Team.Internal_Name]:
+      value.Support_x0020_Team,
 
     [CONST.Lists.Tickets.Columns.Accounting_x0020_Period_x0020_En
       .Internal_Name]: value.Accounting_x0020_Period_x0020_En,
