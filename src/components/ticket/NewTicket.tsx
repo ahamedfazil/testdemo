@@ -178,6 +178,7 @@ export class NewTicket extends React.Component<
                       AssigneeId: person
                     });
                   }}
+                  defaultPeople={this.state.AssigneeId}
                   allowMulti={false}
                   disabled={true}
                 />

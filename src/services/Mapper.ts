@@ -4,6 +4,7 @@ import { CONST } from "../utils/const";
 export const Ticket_Mapper = (value: ITicketLocalState) => {
   const ticket_Mapper: any = {
     [CONST.Lists.Tickets.Columns.Title.Internal_Name]: value.Title,
+    [CONST.Lists.Tickets.Columns.TicketId.Internal_Name]: value.TicketId,
     [CONST.Lists.Tickets.Columns.Sentinel_x0020_GIS_x0020_ID.Internal_Name]:
       value.Sentinel_x0020_GIS_x0020_ID,
     [CONST.Lists.Tickets.Columns.Engagement_x0020_Name.Internal_Name]:
@@ -23,7 +24,6 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
       .Internal_Name]: value.Engagement_x0020_Charge_x0020_Co,
 
     [CONST.Lists.Tickets.Columns._Category.Internal_Name]: value._Category,
-
     [CONST.Lists.Tickets.Columns.Topics.Internal_Name]: value.Topics.join(
       ";&;"
     ),
@@ -52,6 +52,12 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
           return user.Id;
         })
     },
+
+    [CONST.Lists.Tickets.Columns.AssigneeId.Internal_Name]:
+      value.AssigneeId &&
+      value.AssigneeId.map((user: any) => {
+        return user.Id;
+      })[0],
 
     [CONST.Lists.Tickets.Columns.Responsible_x0020_IndividualId.Internal_Name]:
       value.Responsible_x0020_IndividualId &&
