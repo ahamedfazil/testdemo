@@ -3,7 +3,8 @@ import { ITicketProps } from "../../models/ITicketProps";
 import { debounce } from "throttle-debounce";
 import {
   ITicketLocalState,
-  ITicketDictionary
+  ITicketDictionary,
+  IDialogBlocking
 } from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
@@ -33,6 +34,7 @@ import { KatsTagPicker } from "../support/KatsTagPicker";
 import { createTicket } from "../../services/TicketAPI";
 import "./NewTicket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
+import { DialogBlocking } from "../support/DialogBlocking";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -52,6 +54,7 @@ export class NewTicket extends React.Component<
   public render(): JSX.Element {
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
       .ticketDictionary;
+    const dialogBlocking: IDialogBlocking = this.state.dialogBlocking;
     let categoryTitleOptions: any[] = [];
     let categoryTopicsOptions: any[] = [];
     if (ticketDictionary.isFetched) {
@@ -407,7 +410,7 @@ export class NewTicket extends React.Component<
                   text={"Cancel"}
                   onClick={e => {
                     e.preventDefault();
-                    window.history.back();
+                    window.location.href = "../";
                   }}
                 />
                 <PrimaryButton
@@ -424,10 +427,31 @@ export class NewTicket extends React.Component<
             </div>
           </div>
         )}
+        <DialogBlocking
+          showConfirmDialog={dialogBlocking.showConfirmDialog}
+          showProgress={dialogBlocking.showProgress}
+          showProgressDialog={dialogBlocking.showProgressDialog}
+          dialogTitle={dialogBlocking.dialogTitle}
+          progressDialogText={dialogBlocking.progressDialogText}
+          error={dialogBlocking.error}
+          getDialogResponse={(res: boolean) => {
+            if (res) {
+              window.location.href = "../";
+            } else {
+              this.setState({
+                dialogBlocking: update(this.state.dialogBlocking, {
+                  showConfirmDialog: { $set: false },
+                  showProgressDialog: { $set: false }
+                })
+              });
+            }
+          }}
+        />
       </div>
     );
   }
 
+  //#region helper functions
   private _onTextChange(event: any, value: any) {
     this.changedValue(event.target.name, value);
   }
@@ -459,16 +483,62 @@ export class NewTicket extends React.Component<
       });
     }
   }
+  //#endregion
 
   private _onButtonClick(event: any) {
     event.preventDefault();
     // check for form validation, go ahead only if form is valid
-    createTicket(this.state);
-  }
 
-  private onDateChange(event: any) {
-    event.preventDefault();
+    const newDialogState = update(this.state.dialogBlocking, {
+      showConfirmDialog: { $set: false },
+      showProgressDialog: { $set: true },
+      showProgress: { $set: true },
+      progressDialogText: { $set: "saving your ticket..." },
+      dialogTitle: { $set: "Creating New Ticket" },
+      error: { $set: null }
+    });
+    this.setState({
+      dialogBlocking: newDialogState
+    });
+    createTicket(this.state).then((res: any) => {
+      console.log("TCL: private_onButtonClick -> res", res);
+      if (res) {
+        this.setState({
+          dialogBlocking: update(this.state.dialogBlocking, {
+            showConfirmDialog: { $set: false },
+            showProgressDialog: { $set: true },
+            showProgress: { $set: false },
+            progressDialogText: { $set: "" },
+            dialogTitle: { $set: "Ticket Created Successfully" },
+            error: { $set: null }
+          })
+        });
+      } else {
+        this.setState({
+          dialogBlocking: update(this.state.dialogBlocking, {
+            showConfirmDialog: { $set: false },
+            showProgressDialog: { $set: true },
+            showProgress: { $set: false },
+            progressDialogText: { $set: "" },
+            dialogTitle: { $set: "Something went wrong" },
+            error: { $set: "Something went wrong" }
+          })
+        });
+      }
+    });
+    // setTimeout(() => {
+    //   // using immutable helper
+    //   const newDialogState = update(this.state.dialogBlocking, {
+    //     showConfirmDialog: { $set: false },
+    //     showProgressDialog: { $set: true },
+    //     showProgress: { $set: true },
+    //     progressDialogText: { $set: "saving your ticket..." },
+    //     dialogTitle: { $set: "Creating New Ticket" },
+    //     error: { $set: null }
+    //   });
+    //   this.setState({
+    //     dialogBlocking: newDialogState
+    //   });
+    // }, 3000);
   }
-
-  private _onFormatDate() {}
 }

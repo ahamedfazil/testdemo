@@ -25,7 +25,18 @@ export interface ITicketCategory {
   Support_x0020_Team: any;
 }
 
+export interface IDialogBlocking {
+  showConfirmDialog: boolean;
+  showProgressDialog: boolean;
+  showProgress: boolean;
+  progressDialogText: string;
+  dialogTitle: string;
+  error: any;
+  getDialogResponse?: (response: boolean) => void;
+}
+
 export interface ITicketLocalState {
+  dialogBlocking: IDialogBlocking;
   Title: string;
   OData__ModerationComments: string;
   File_x0020_Type: string;
