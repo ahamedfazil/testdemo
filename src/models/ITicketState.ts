@@ -39,7 +39,7 @@ export interface ITicketLocalState {
   Responsible_x0020_IndividualId: any[];
   Engagement_x0020_Name: string;
   Engagement_x0020_Charge_x0020_Co: string;
-  Accounting_x0020_Period_x0020_En: Date;
+  Accounting_x0020_Period_x0020_En: string;
   Auditing_x0020_Standards: string;
   Accounting_x0020_Framework: string;
   _Category: string;

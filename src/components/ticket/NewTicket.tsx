@@ -173,15 +173,19 @@ export class NewTicket extends React.Component<
           </div>
           <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
             <label className="ms-Label">Period End</label>
-            {/* <DatePicker
-          value={this.state.Accounting_x0020_Period_x0020_En}
-          placeholder={"DD-MM-YYYY"}
-          allowTextInput={true}
-          onSelectDate={val => {
-            this.onDateChange(val, false);
-          }}
-          formatDate={this._onFormatDate}
-        /> */}
+            <DatePicker
+              value={getDateFromString(
+                this.state.Accounting_x0020_Period_x0020_En
+              )}
+              placeholder={"DD-MM-YYYY"}
+              allowTextInput={true}
+              onSelectDate={val => {
+                this.setState({
+                  Accounting_x0020_Period_x0020_En: onFormatDate(val)
+                });
+              }}
+              formatDate={onFormatDate}
+            />
           </div>
           <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
             <label className="ms-Label">Audit Team</label>
@@ -218,7 +222,7 @@ export class NewTicket extends React.Component<
               name={
                 CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
                   .Internal_Name
-              } // provide here state name -> ex: this.state."Title"
+              }
               placeholder={"Enter Charge code"}
               onChange={this._onTextChange}
               disabled={false}
@@ -386,41 +390,6 @@ export class NewTicket extends React.Component<
           }}
           defaultValue={this.state.Label}
           options={tagPickerOptionGenerator(ticketDictionary.labels)}
-        />
-        {/*  DatePicker
-        Tag picker - Topic
-        <KatsTagPicker
-          getValues={val => {
-            this.setState({
-              Topics: val
-            });
-          }}
-          headerText="Suggested Topics"
-          noResultText="No Topics Found"
-          getOnBlur={() => {
-            // if (this.state.fields.length === 0) {
-            //   this.setState({
-            //     formErrors: {
-            //       ...this.state.formErrors,
-            //       label: true
-            //     }
-            //   });
-            // }
-          }}
-          defaultValue={this.state.Topics}
-          options={tagPickerOptionGenerator(categoryTopicsOptions)}
-        />
-        DatePicker
-        <DatePicker
-          value={getDateFromString(this.state.Accounting_x0020_Period_x0020_En)}
-          placeholder={"DD-MM-YYYY"}
-          allowTextInput={true}
-          onSelectDate={val => {
-            this.setState({
-              Accounting_x0020_Period_x0020_En: onFormatDate(val)
-            });
-          }}
-          formatDate={onFormatDate}
         />
         Button
         <PrimaryButton
