@@ -42,7 +42,7 @@ export const CONST = {
         Accounting_x0020_Framework: {
           Internal_Name: "Accounting_x0020_Framework"
         },
-        OData__Category: { Internal_Name: "OData__Category" },
+        _Category: { Internal_Name: "OData__Category" },
         Support_x0020_Team: { Internal_Name: "Support_x0020_Team" },
         o3595bc4afbb45abadeb9b37ccf9a23b: {
           Internal_Name: "o3595bc4afbb45abadeb9b37ccf9a23b"

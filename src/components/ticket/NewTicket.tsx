@@ -15,7 +15,8 @@ import {
   Checkbox,
   DatePicker,
   Spinner,
-  SpinnerSize
+  SpinnerSize,
+  DefaultButton
 } from "office-ui-fabric-react";
 import {
   dropdownOptions,
@@ -76,7 +77,11 @@ export class NewTicket extends React.Component<
           this.props.store.ticket.error ? (
             <ErrorMessage error={"Something went wrong."} />
           ) : (
-            <Spinner style={{margin: "200px"}} size={SpinnerSize.large} label="Getting field values..." />
+            <Spinner
+              style={{ margin: "200px" }}
+              size={SpinnerSize.large}
+              label="Getting field values..."
+            />
           )
         ) : (
           <div>
@@ -179,7 +184,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Engagement Name</label>
                 <TextField
-                  value={this.state.Title}
+                  value={this.state.Engagement_x0020_Name}
                   name={
                     CONST.Lists.Tickets.Columns.Engagement_x0020_Name
                       .Internal_Name
@@ -210,7 +215,7 @@ export class NewTicket extends React.Component<
                 <PeoplePicker
                   getUserNames={person => {
                     this.setState({
-                      Submitted_x0020_ById: person
+                      Audit_x0020_Team_x0020_CCId: person
                     });
                   }}
                   allowMulti={true}
@@ -279,7 +284,10 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <br />
                 <Checkbox
-                  name={"Required Consultation"}
+                  name={
+                    CONST.Lists.Tickets.Columns.Required_x0020_Consultation
+                      .Internal_Name
+                  }
                   label={"Required Consultation"}
                   defaultChecked={this.state.Required_x0020_Consultation}
                   onChange={this._onCheckboxChange}
@@ -344,7 +352,7 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Subject</label>
                 <TextField
                   value={this.state.Title}
-                  name={CONST.Lists.Tickets.Columns.Title.Internal_Name} // provide here state name -> ex: this.state."Title"
+                  name={CONST.Lists.Tickets.Columns.Title.Internal_Name}
                   placeholder={"Enter Title"}
                   onChange={this._onTextChange}
                   disabled={false}
@@ -376,7 +384,7 @@ export class NewTicket extends React.Component<
               </div>
             </div>
             <div className="ms-Grid-row">
-              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg8 ms-TextField">
+              <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12 ms-TextField">
                 <label className="ms-Label">Detailed Analysis</label>
                 <TextField
                   value={this.state.Detailed_x0020_Analysis}
@@ -387,13 +395,21 @@ export class NewTicket extends React.Component<
                   placeholder={"Add description"}
                   onChange={this._onTextChange}
                   multiline
-                  rows={10}
+                  rows={6}
                   disabled={false}
                 />
               </div>
             </div>
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+                <DefaultButton
+                  className="ticket-btn"
+                  text={"Cancel"}
+                  onClick={e => {
+                    e.preventDefault();
+                    window.history.back();
+                  }}
+                />
                 <PrimaryButton
                   className="ticket-btn"
                   primary={true}
