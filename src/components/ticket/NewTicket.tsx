@@ -13,19 +13,23 @@ import {
   Dropdown,
   TextField,
   Checkbox,
-  Label
+  Label,
+  DatePicker
 } from "office-ui-fabric-react";
 import {
   dropdownOptions,
   getSpecificArrayFromJSONArray,
   tagPickerOptionGenerator,
-  kendoComboOptionGenerator
+  kendoComboOptionGenerator,
+  onFormatDate,
+  getDateFromString
 } from "../../utils/Utilities";
 import update from "immutability-helper";
 import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
 import { createTicket } from "../../services/TicketAPI";
+import "./NewTicket.scss";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -160,17 +164,18 @@ export class NewTicket extends React.Component<
           defaultValue={this.state.Topics}
           options={tagPickerOptionGenerator(categoryTopicsOptions)}
         />
-        {/*  DatePicker
+        DatePicker
         <DatePicker
-          value={this.state.toDate}
-          minDate={this.state.fromDate && this.state.fromDate}
+          value={getDateFromString(this.state.Accounting_x0020_Period_x0020_En)}
           placeholder={"DD-MM-YYYY"}
           allowTextInput={true}
           onSelectDate={val => {
-            this.onDateChange(val, false);
+            this.setState({
+              Accounting_x0020_Period_x0020_En: onFormatDate(val)
+            });
           }}
-          formatDate={_onFormatDate}
-        /> */}
+          formatDate={onFormatDate}
+        />
         Button
         <PrimaryButton
           primary={true}
@@ -209,6 +214,10 @@ export class NewTicket extends React.Component<
         Support_x0020_Team: supportTeam.Support_x0020_Team
           ? supportTeam.Support_x0020_Team.Name
           : ""
+      });
+    } else {
+      this.setState({
+        Support_x0020_Team: ""
       });
     }
   }

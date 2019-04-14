@@ -1,0 +1,4 @@
+// To avoid date picker ui issue
+.ms-DatePicker button {
+    min-width: 0px !important;
+  }

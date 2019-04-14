@@ -50,3 +50,32 @@ export const kendoComboOptionGenerator = (options: any[]): any[] => {
   });
   return tagOptions;
 };
+
+export const getDateFromString = (stringDate: string): Date => {
+  if (stringDate) {
+    // stringDate in DD-MM-YYYY format
+    const YYYY = stringDate.split("-")[2];
+    const MM = stringDate.split("-")[1];
+    const DD = stringDate.split("-")[0];
+    return new Date(`${YYYY}-${MM}-${DD}`);
+  } else {
+    return null;
+  }
+};
+
+export const onFormatDate = (value: Date): any => {
+  if (value) {
+    let dateVal = value.getDate().toString();
+    let monthVal = (value.getMonth() + 1).toString();
+    if (dateVal && dateVal.length < 2) {
+      dateVal = "0" + dateVal;
+    }
+    if (monthVal && monthVal.length < 2) {
+      monthVal = "0" + monthVal;
+    }
+    const fullDateVal = dateVal + "-" + monthVal + "-" + value.getFullYear();
+    return fullDateVal;
+  } else {
+    return null;
+  }
+};
