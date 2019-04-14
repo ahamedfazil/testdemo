@@ -54,10 +54,10 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     CellPhone: "",
     Office_x0020_Number: "",
     Audit_x0020_Team_x0020_CCId: [],
-    Responsible_x0020_IndividualId: null,
+    Responsible_x0020_IndividualId: [],
     Engagement_x0020_Name: "",
     Engagement_x0020_Charge_x0020_Co: "",
-    Accounting_x0020_Period_x0020_En: "",
+    Accounting_x0020_Period_x0020_En: null,
     Auditing_x0020_Standards: "",
     Accounting_x0020_Framework: "",
     _Category: "",
@@ -67,9 +67,16 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     FAQ: false,
     Label: [],
     Detailed_x0020_Analysis: "",
-    IsUrgent: false,
+    IsUrgent: "",
     Reason_x0020_for_x0020_Urgency: "",
-    AssigneeId: null,
+    AssigneeId: [
+      {
+        key: store.user.currentUser.accountName,
+        primaryText: store.user.currentUser.name,
+        secondaryText: store.user.currentUser.email,
+        Id: store.user.currentUser.id
+      }
+    ],
     ReviewerId: null,
     WatcherId: [],
     OData__Status: "",
