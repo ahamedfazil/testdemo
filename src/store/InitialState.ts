@@ -6,7 +6,7 @@ export const initialState: IStore = {
   user: {
     isinitialised: false,
     currentUser: {
-      isFetched: false,
+      isFetched: true,
       isSupportUser: false,
       isUser: false,
       id: null,
