@@ -51,8 +51,8 @@ export interface ITicketLocalState {
   Engagement_x0020_Name: string;
   Engagement_x0020_Charge_x0020_Co: string;
   Accounting_x0020_Period_x0020_En: string;
-  Auditing_x0020_Standards: string;
-  Accounting_x0020_Framework: string;
+  Auditing_x0020_Standards: string[];
+  Accounting_x0020_Framework: string[];
   Created: string;
   _Category: string;
   Support_x0020_Team: string;
@@ -70,7 +70,7 @@ export interface ITicketLocalState {
   Conclusion: string;
   Add_x0020_to_x0020_KB: boolean;
   TicketId: string;
-  Engagement_x0020_Type: string;
+  Engagement_x0020_Type: string[];
   Sentinel_x0020_GIS_x0020_ID: number;
   Required_x0020_Consultation: boolean;
   Priority: string;

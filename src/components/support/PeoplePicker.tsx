@@ -15,6 +15,7 @@ interface IPeoplePickerProps extends IBaseProps {
   getUserNames?: (userVal: any[]) => void;
   allowMulti: boolean;
   disabled?: boolean;
+  placeholder?: string;
 }
 
 const suggestionProps: IBasePickerSuggestionsProps = {
@@ -42,7 +43,8 @@ export class PeoplePicker extends BaseComponent<IPeoplePickerProps, {}> {
         onChange={this._onItemsChange}
         removeButtonAriaLabel={"Remove"}
         inputProps={{
-          "aria-label": "People Picker"
+          "aria-label": "People Picker",
+          placeholder: this.props.placeholder
         }}
         onInputChange={this._onInputChange}
         defaultSelectedItems={this.props.defaultPeople}

@@ -10,11 +10,11 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
     [CONST.Lists.Tickets.Columns.Engagement_x0020_Name.Internal_Name]:
       value.Engagement_x0020_Name,
     [CONST.Lists.Tickets.Columns.Engagement_x0020_Type.Internal_Name]:
-      value.Engagement_x0020_Type,
+      value.Engagement_x0020_Type.toString(),
     [CONST.Lists.Tickets.Columns.Accounting_x0020_Framework.Internal_Name]:
-      value.Accounting_x0020_Framework,
+      value.Accounting_x0020_Framework.toString(),
     [CONST.Lists.Tickets.Columns.Auditing_x0020_Standards.Internal_Name]:
-      value.Auditing_x0020_Standards,
+      value.Auditing_x0020_Standards.toString(),
     [CONST.Lists.Tickets.Columns.Support_x0020_Team.Internal_Name]:
       value.Support_x0020_Team,
 
@@ -24,9 +24,7 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
       .Internal_Name]: value.Engagement_x0020_Charge_x0020_Co,
 
     [CONST.Lists.Tickets.Columns._Category.Internal_Name]: value._Category,
-    [CONST.Lists.Tickets.Columns.Topics.Internal_Name]: value.Topics.join(
-      ";&;"
-    ),
+    [CONST.Lists.Tickets.Columns.Topics.Internal_Name]: value.Topics.toString(),
     [CONST.Lists.Tickets.Columns.OData__Status.Internal_Name]:
       value.OData__Status,
     // Multiple line of text Mapper

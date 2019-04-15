@@ -11,6 +11,7 @@ interface IKendoComboProps {
   textValue: string;
   fetchList?: string;
   fetchColumn?: string;
+  placeholder?: string;
 }
 
 interface IKendoComboState {
@@ -66,6 +67,7 @@ export class KendoCombo extends React.Component<
           value={this.state.keyValue}
           {...options}
           change={this._onItemsChange}
+          placeholder={this.props.placeholder}
         />
       </div>
     );

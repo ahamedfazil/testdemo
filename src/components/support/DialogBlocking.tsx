@@ -76,17 +76,9 @@ export class DialogBlocking extends React.Component<IDialogBlocking, {}> {
     } else {
       this.props.getDialogResponse(true);
     }
-
-    // this.props.store.site.dialogInfo.showProgressDialog = false;
-    // this.props.updateDialog(this.props.store.site.dialogInfo);
-    // if (!this.props.error) {
-    // window.location = "../";
-    // }
   };
 
   private _OKorCancel = (isOK: boolean): void => {
-    console.log("_OKorCancel");
     this.props.getDialogResponse(isOK);
-    // window.location = "../";
   };
 }

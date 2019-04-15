@@ -10,6 +10,7 @@ interface IKatsTagPickerProps {
   name?: string;
   headerText?: string;
   noResultText?: string;
+  placeholder?: string;
 }
 
 export class KatsTagPicker extends React.Component<IKatsTagPickerProps, {}> {
@@ -27,6 +28,9 @@ export class KatsTagPicker extends React.Component<IKatsTagPickerProps, {}> {
           pickerSuggestionsProps={{
             suggestionsHeaderText: this.props.headerText,
             noResultsFoundText: this.props.noResultText
+          }}
+          inputProps={{
+            placeholder: this.props.placeholder
           }}
           onEmptyInputFocus={tagList =>
             this._onEmptyInputFocus("", tagList, this.props.options)

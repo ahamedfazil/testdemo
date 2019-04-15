@@ -31,7 +31,10 @@ export async function getUserIDFromPP(pplValue: any[]) {
 }
 
 export async function getCurrentUser(props: IAppProps) {
-  let userState: ICurrentUserState = Object.assign({}, props.store.user.currentUser);
+  let userState: ICurrentUserState = Object.assign(
+    {},
+    props.store.user.currentUser
+  );
   if (!props.store.user.currentUser.isFetched) {
     // Dispatch an Action for getCurrentUser in Progress
     props.getCurrentUserInProgress();

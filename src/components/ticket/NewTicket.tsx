@@ -94,12 +94,12 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Status</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Status"}
                   options={dropdownOptions(ticketDictionary.status)}
                   selectedKey={this.state.OData__Status}
-                  onChange={(option: any, event: any) => {
+                  onChange={(event: any, option: any) => {
                     this.setState({
-                      OData__Status: event.key
+                      OData__Status: option.key
                     });
                   }}
                 />
@@ -137,6 +137,7 @@ export class NewTicket extends React.Component<
                   allowMulti={false}
                   defaultPeople={this.state.Submitted_x0020_ById}
                   disabled={false}
+                  placeholder={"Provide Submitter"}
                 />
               </div>
             </div>
@@ -144,12 +145,12 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Sentinel GIS ID</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Sentinel GIS ID"}
                   options={dropdownOptions(ticketDictionary.sentinelGisId)}
                   selectedKey={this.state.Sentinel_x0020_GIS_x0020_ID}
-                  onChange={(option: any, event: any) => {
+                  onChange={(event: any, option: any) => {
                     this.setState({
-                      Sentinel_x0020_GIS_x0020_ID: event.key
+                      Sentinel_x0020_GIS_x0020_ID: option.key
                     });
                   }}
                 />
@@ -157,15 +158,15 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Priority</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Priority"}
                   options={[
                     { key: 0, text: "Normal" },
                     { key: 1, text: "Urgent" }
                   ]}
                   selectedKey={this.state.IsUrgent}
-                  onChange={(option: any, event: any) => {
+                  onChange={(event: any, option: any) => {
                     this.setState({
-                      IsUrgent: event.key
+                      IsUrgent: option.key
                     });
                   }}
                 />
@@ -181,6 +182,7 @@ export class NewTicket extends React.Component<
                   defaultPeople={this.state.AssigneeId}
                   allowMulti={false}
                   disabled={true}
+                  placeholder={"Provide Assignee"}
                 />
               </div>
             </div>
@@ -225,6 +227,7 @@ export class NewTicket extends React.Component<
                   allowMulti={true}
                   defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
                   disabled={false}
+                  placeholder={"Provide Audit Team"}
                 />
               </div>
             </div>
@@ -232,25 +235,36 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Engagement Type</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Engagement Type"}
                   options={dropdownOptions(ticketDictionary.engagementType)}
+                  title={
+                    CONST.Lists.Tickets.Columns.Engagement_x0020_Type
+                      .Internal_Name
+                  }
                   selectedKey={this.state.Engagement_x0020_Type}
-                  onChange={(option: any, event: any) => {
-                    this.setState({
-                      Engagement_x0020_Type: event.key
-                    });
+                  multiSelect
+                  onChange={(event: any, option: any) => {
+                    const index = this.state.Engagement_x0020_Type.indexOf(
+                      option.key
+                    );
+                    this._onMultiSelectDropdown(
+                      CONST.Lists.Tickets.Columns.Engagement_x0020_Type
+                        .Internal_Name,
+                      option,
+                      index
+                    );
                   }}
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Charge code</label>
+                <label className="ms-Label">Charge Code</label>
                 <TextField
                   value={this.state.Engagement_x0020_Charge_x0020_Co}
                   name={
                     CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
                       .Internal_Name
                   }
-                  placeholder={"Enter Charge code"}
+                  placeholder={"Enter Charge Code"}
                   onChange={this._onTextChange}
                   disabled={false}
                 />
@@ -266,6 +280,7 @@ export class NewTicket extends React.Component<
                   allowMulti={false}
                   defaultPeople={this.state.Responsible_x0020_IndividualId}
                   disabled={false}
+                  placeholder={"Provide Engagement RI"}
                 />
               </div>
             </div>
@@ -273,15 +288,22 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Accounting Frameworks</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Accounting Frameworks"}
                   options={dropdownOptions(
                     ticketDictionary.accountingFramework
                   )}
                   selectedKey={this.state.Accounting_x0020_Framework}
-                  onChange={(option: any, event: any) => {
-                    this.setState({
-                      Accounting_x0020_Framework: event.key
-                    });
+                  multiSelect
+                  onChange={(event: any, option: any) => {
+                    const index = this.state.Accounting_x0020_Framework.indexOf(
+                      option.key
+                    );
+                    this._onMultiSelectDropdown(
+                      CONST.Lists.Tickets.Columns.Accounting_x0020_Framework
+                        .Internal_Name,
+                      option,
+                      index
+                    );
                   }}
                 />
               </div>
@@ -308,6 +330,7 @@ export class NewTicket extends React.Component<
                   allowMulti={true}
                   defaultPeople={this.state.WatcherId}
                   disabled={false}
+                  placeholder={"Provide Watchers"}
                 />
               </div>
             </div>
@@ -315,13 +338,20 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Auditing Standards</label>
                 <Dropdown
-                  placeholder={"Select"}
+                  placeholder={"Select Auditing Standards"}
                   options={dropdownOptions(ticketDictionary.auditingStandard)}
                   selectedKey={this.state.Auditing_x0020_Standards}
-                  onChange={(option: any, event: any) => {
-                    this.setState({
-                      Auditing_x0020_Standards: event.key
-                    });
+                  multiSelect
+                  onChange={(event: any, option: any) => {
+                    const index = this.state.Auditing_x0020_Standards.indexOf(
+                      option.key
+                    );
+                    this._onMultiSelectDropdown(
+                      CONST.Lists.Tickets.Columns.Auditing_x0020_Standards
+                        .Internal_Name,
+                      option,
+                      index
+                    );
                   }}
                 />
               </div>
@@ -334,13 +364,14 @@ export class NewTicket extends React.Component<
                     //Setting support group
                     this.settingSupportGroup(value);
                   }}
+                  placeholder={"Enter Category"}
                   isRemote={false}
                   fullValues={kendoComboOptionGenerator(categoryTitleOptions)}
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Support Team</label>
-                <i
+                &nbsp;<i
                   className="ms-Icon ms-Icon--Group"
                   style={{ fontSize: "18px" }}
                   aria-hidden="true"
@@ -348,6 +379,7 @@ export class NewTicket extends React.Component<
                 <TextField
                   value={this.state.Support_x0020_Team}
                   readOnly={true}
+                  placeholder={"Set Based On Category"}
                 />
               </div>
             </div>
@@ -382,6 +414,7 @@ export class NewTicket extends React.Component<
                     //   });
                     // }
                   }}
+                  placeholder={"Enter Topics"}
                   defaultValue={this.state.Topics}
                   options={tagPickerOptionGenerator(categoryTopicsOptions)}
                 />
@@ -396,10 +429,10 @@ export class NewTicket extends React.Component<
                     CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis
                       .Internal_Name
                   }
-                  placeholder={"Add description"}
+                  placeholder={"Add Description"}
                   onChange={this._onTextChange}
                   multiline
-                  rows={6}
+                  rows={5}
                   disabled={false}
                 />
               </div>
@@ -461,6 +494,24 @@ export class NewTicket extends React.Component<
     this.changedValue(event.target.name, isChecked);
   };
 
+  private _onMultiSelectDropdown = (
+    propertyName: string,
+    option: any,
+    index?: number
+  ) => {
+    if (option.selected) {
+      const newState = update(this.state, {
+        [propertyName]: { $push: [option.key] }
+      });
+      this.setState(newState);
+    } else {
+      const newState = update(this.state, {
+        [propertyName]: { $splice: [[index, 1]] }
+      });
+      this.setState(newState);
+    }
+  };
+
   private changedValue(key: string, value: any) {
     const newState = update(this.state, {
       [key]: { $set: value }
@@ -502,7 +553,6 @@ export class NewTicket extends React.Component<
       dialogBlocking: newDialogState
     });
     createTicket(this.state).then((res: any) => {
-      console.log("TCL: private_onButtonClick -> res", res);
       if (res) {
         this.setState({
           dialogBlocking: update(this.state.dialogBlocking, {
