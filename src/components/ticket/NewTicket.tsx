@@ -85,91 +85,11 @@ export class NewTicket extends React.Component<
             <Spinner
               style={{ margin: "200px" }}
               size={SpinnerSize.large}
-              label="Getting field values..."
+              label="Retrieving field values..."
             />
           )
         ) : (
           <div>
-            {userState.currentUser.isSupportUser && (
-              <div>
-                <div className="ms-Grid-row">
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <label className="ms-Label">Ticket Type</label>
-                    <TextField
-                      value={this.state.Ticket_x0020_Type}
-                      name={
-                        CONST.Lists.Tickets.Columns.Ticket_x0020_Type
-                          .Internal_Name
-                      }
-                      placeholder={"Enter Ticket Type"}
-                      onChange={this._onTextChange}
-                    />
-                  </div>
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <br />
-                    <Checkbox
-                      name={CONST.Lists.Tickets.Columns.Training.Internal_Name}
-                      label={"Training"}
-                      defaultChecked={this.state.Training}
-                      onChange={this._onCheckboxChange}
-                    />
-                  </div>
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <br />
-                    <Checkbox
-                      name={CONST.Lists.Tickets.Columns.FAQ.Internal_Name}
-                      label={"FAQ"}
-                      defaultChecked={this.state.FAQ}
-                      onChange={this._onCheckboxChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="ms-Grid-row">
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <label className="ms-Label">Conclusion</label>
-                    <TextField
-                      value={this.state.Conclusion}
-                      name={
-                        CONST.Lists.Tickets.Columns.Conclusion.Internal_Name
-                      }
-                      placeholder={"Enter Conclusion"}
-                      onChange={this._onTextChange}
-                    />
-                  </div>
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <br />
-                    <Checkbox
-                      name={
-                        CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB
-                          .Internal_Name
-                      }
-                      label={"Add To KB"}
-                      defaultChecked={this.state.Add_x0020_to_x0020_KB}
-                      onChange={this._onCheckboxChange}
-                    />
-                  </div>
-                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                    <label className="ms-Label">Label</label>
-                    <KatsTagPicker
-                      getValues={val => {
-                        this.setState({
-                          Label: val
-                        });
-                      }}
-                      getOnBlur={() => {}}
-                      headerText="Suggested Labels"
-                      noResultText="No Label Found"
-                      placeholder={"Enter Label"}
-                      defaultValue={this.state.Label}
-                      options={tagPickerOptionGenerator(
-                        ticketDictionary.labels
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
@@ -508,7 +428,7 @@ export class NewTicket extends React.Component<
                     CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis
                       .Internal_Name
                   }
-                  placeholder={"Add Description"}
+                  placeholder={"Provide Description"}
                   onChange={this._onTextChange}
                   multiline
                   rows={5}
@@ -516,6 +436,90 @@ export class NewTicket extends React.Component<
                 />
               </div>
             </div>
+            {userState.currentUser.isSupportUser && (
+              <div>
+                <div className="ms-Grid-row">
+                  <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12 ms-TextField">
+                    <label className="ms-Label">Conclusion</label>
+                    <TextField
+                      value={this.state.Conclusion}
+                      name={
+                        CONST.Lists.Tickets.Columns.Conclusion.Internal_Name
+                      }
+                      placeholder={"Enter Conclusion"}
+                      onChange={this._onTextChange}
+                      multiline
+                      rows={5}
+                    />
+                  </div>
+                </div>
+                <div className="ms-Grid-row">
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <label className="ms-Label">Ticket Type</label>
+                    <Dropdown
+                      placeholder={"Select Ticket Type"}
+                      options={dropdownOptions(ticketDictionary.ticketType)}
+                      selectedKey={this.state.Ticket_x0020_Type}
+                      onChange={(event: any, option: any) => {
+                        this.setState({
+                          OData__Status: option.key
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={CONST.Lists.Tickets.Columns.Training.Internal_Name}
+                      label={"Training candidate"}
+                      defaultChecked={this.state.Training}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={CONST.Lists.Tickets.Columns.FAQ.Internal_Name}
+                      label={"FAQ candidate"}
+                      defaultChecked={this.state.FAQ}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                </div>
+                <div className="ms-Grid-row">
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <label className="ms-Label">Labels</label>
+                    <KatsTagPicker
+                      getValues={val => {
+                        this.setState({
+                          Label: val
+                        });
+                      }}
+                      getOnBlur={() => {}}
+                      headerText="Suggested Labels"
+                      noResultText="No Label Found"
+                      placeholder={"Enter Label"}
+                      defaultValue={this.state.Label}
+                      options={tagPickerOptionGenerator(
+                        ticketDictionary.labels
+                      )}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={
+                        CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB
+                          .Internal_Name
+                      }
+                      label={"Knowledge Base candidate"}
+                      defaultChecked={this.state.Add_x0020_to_x0020_KB}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12">
                 <DefaultButton
