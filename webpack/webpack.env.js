@@ -8,7 +8,7 @@ const URL = {
   },
   test: {
     siteUrl: "https://sites.kpmg.co.uk/apps/katsdev"
-    // https://xlitconsultinge.sharepoint.com/sites/katsdev
+    // siteUrl:"https://xlitconsultinge.sharepoint.com/sites/katsdev"
     // http://segotn13423/dev/ispt/
   }
 };

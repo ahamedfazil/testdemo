@@ -35,6 +35,7 @@ import { createTicket } from "../../services/TicketAPI";
 import "./NewTicket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
+import { IUserState } from "../../models/IUserState";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -52,6 +53,7 @@ export class NewTicket extends React.Component<
   }
 
   public render(): JSX.Element {
+    const userState: IUserState = this.props.store.user;
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
       .ticketDictionary;
     const dialogBlocking: IDialogBlocking = this.state.dialogBlocking;
@@ -88,23 +90,86 @@ export class NewTicket extends React.Component<
           )
         ) : (
           <div>
-            <div className="ms-Grid-row">
-              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
-              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField" />
-              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Status</label>
-                <Dropdown
-                  placeholder={"Select Status"}
-                  options={dropdownOptions(ticketDictionary.status)}
-                  selectedKey={this.state.OData__Status}
-                  onChange={(event: any, option: any) => {
-                    this.setState({
-                      OData__Status: option.key
-                    });
-                  }}
-                />
+            {userState.currentUser.isSupportUser && (
+              <div>
+                <div className="ms-Grid-row">
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <label className="ms-Label">Ticket Type</label>
+                    <TextField
+                      value={this.state.Ticket_x0020_Type}
+                      name={
+                        CONST.Lists.Tickets.Columns.Ticket_x0020_Type
+                          .Internal_Name
+                      }
+                      placeholder={"Enter Ticket Type"}
+                      onChange={this._onTextChange}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={CONST.Lists.Tickets.Columns.Training.Internal_Name}
+                      label={"Training"}
+                      defaultChecked={this.state.Training}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={CONST.Lists.Tickets.Columns.FAQ.Internal_Name}
+                      label={"FAQ"}
+                      defaultChecked={this.state.FAQ}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="ms-Grid-row">
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <label className="ms-Label">Conclusion</label>
+                    <TextField
+                      value={this.state.Conclusion}
+                      name={
+                        CONST.Lists.Tickets.Columns.Conclusion.Internal_Name
+                      }
+                      placeholder={"Enter Conclusion"}
+                      onChange={this._onTextChange}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <br />
+                    <Checkbox
+                      name={
+                        CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB
+                          .Internal_Name
+                      }
+                      label={"Add To KB"}
+                      defaultChecked={this.state.Add_x0020_to_x0020_KB}
+                      onChange={this._onCheckboxChange}
+                    />
+                  </div>
+                  <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                    <label className="ms-Label">Label</label>
+                    <KatsTagPicker
+                      getValues={val => {
+                        this.setState({
+                          Label: val
+                        });
+                      }}
+                      getOnBlur={() => {}}
+                      headerText="Suggested Labels"
+                      noResultText="No Label Found"
+                      placeholder={"Enter Label"}
+                      defaultValue={this.state.Label}
+                      options={tagPickerOptionGenerator(
+                        ticketDictionary.labels
+                      )}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
@@ -127,17 +192,16 @@ export class NewTicket extends React.Component<
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Submitter</label>
-                <PeoplePicker
-                  getUserNames={person => {
+                <label className="ms-Label">Status</label>
+                <Dropdown
+                  placeholder={"Select Status"}
+                  options={dropdownOptions(ticketDictionary.status)}
+                  selectedKey={this.state.OData__Status}
+                  onChange={(event: any, option: any) => {
                     this.setState({
-                      Submitted_x0020_ById: person
+                      OData__Status: option.key
                     });
                   }}
-                  allowMulti={false}
-                  defaultPeople={this.state.Submitted_x0020_ById}
-                  disabled={false}
-                  placeholder={"Provide Submitter"}
                 />
               </div>
             </div>
@@ -172,17 +236,17 @@ export class NewTicket extends React.Component<
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Assignee</label>
+                <label className="ms-Label">Submitter</label>
                 <PeoplePicker
                   getUserNames={person => {
                     this.setState({
-                      AssigneeId: person
+                      Submitted_x0020_ById: person
                     });
                   }}
-                  defaultPeople={this.state.AssigneeId}
                   allowMulti={false}
-                  disabled={true}
-                  placeholder={"Provide Assignee"}
+                  defaultPeople={this.state.Submitted_x0020_ById}
+                  disabled={false}
+                  placeholder={"Provide Submitter"}
                 />
               </div>
             </div>
@@ -217,21 +281,21 @@ export class NewTicket extends React.Component<
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Audit Team</label>
+                <label className="ms-Label">Assignee</label>
                 <PeoplePicker
                   getUserNames={person => {
                     this.setState({
-                      Audit_x0020_Team_x0020_CCId: person
+                      AssigneeId: person
                     });
                   }}
-                  allowMulti={true}
-                  defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
-                  disabled={false}
-                  placeholder={"Provide Audit Team"}
+                  defaultPeople={this.state.AssigneeId}
+                  allowMulti={false}
+                  disabled={true}
+                  placeholder={"Provide Assignee"}
                 />
               </div>
             </div>
-            <div className="ms-Grid-row">
+            <div className="ms-Grid-row" style={{ paddingTop: "3px" }}>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Engagement Type</label>
                 <Dropdown
@@ -270,17 +334,17 @@ export class NewTicket extends React.Component<
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Engagement RI</label>
+                <label className="ms-Label">Audit Team</label>
                 <PeoplePicker
                   getUserNames={person => {
                     this.setState({
-                      Responsible_x0020_IndividualId: person
+                      Audit_x0020_Team_x0020_CCId: person
                     });
                   }}
-                  allowMulti={false}
-                  defaultPeople={this.state.Responsible_x0020_IndividualId}
+                  allowMulti={true}
+                  defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
                   disabled={false}
-                  placeholder={"Provide Engagement RI"}
+                  placeholder={"Provide Audit Team"}
                 />
               </div>
             </div>
@@ -320,17 +384,17 @@ export class NewTicket extends React.Component<
                 />
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
-                <label className="ms-Label">Watchers</label>
+                <label className="ms-Label">Engagement RI</label>
                 <PeoplePicker
                   getUserNames={person => {
                     this.setState({
-                      WatcherId: person
+                      Responsible_x0020_IndividualId: person
                     });
                   }}
-                  allowMulti={true}
-                  defaultPeople={this.state.WatcherId}
+                  allowMulti={false}
+                  defaultPeople={this.state.Responsible_x0020_IndividualId}
                   disabled={false}
-                  placeholder={"Provide Watchers"}
+                  placeholder={"Provide Engagement RI"}
                 />
               </div>
             </div>
@@ -371,7 +435,8 @@ export class NewTicket extends React.Component<
               </div>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Support Team</label>
-                &nbsp;<i
+                &nbsp;
+                <i
                   className="ms-Icon ms-Icon--Group"
                   style={{ fontSize: "18px" }}
                   aria-hidden="true"
@@ -383,7 +448,7 @@ export class NewTicket extends React.Component<
                 />
               </div>
             </div>
-            <div className="ms-Grid-row">
+            <div className="ms-Grid-row" style={{ paddingTop: "2px" }}>
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Subject</label>
                 <TextField
@@ -417,6 +482,20 @@ export class NewTicket extends React.Component<
                   placeholder={"Enter Topics"}
                   defaultValue={this.state.Topics}
                   options={tagPickerOptionGenerator(categoryTopicsOptions)}
+                />
+              </div>
+              <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
+                <label className="ms-Label">Watchers</label>
+                <PeoplePicker
+                  getUserNames={person => {
+                    this.setState({
+                      WatcherId: person
+                    });
+                  }}
+                  allowMulti={true}
+                  defaultPeople={this.state.WatcherId}
+                  disabled={false}
+                  placeholder={"Provide Watchers"}
                 />
               </div>
             </div>
