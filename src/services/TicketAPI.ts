@@ -1,7 +1,7 @@
 import { ITicketLocalState } from "../models/ITicketState";
 import pnp from "@pnp/pnpjs";
 import { CONST } from "../utils/const";
-import { Ticket_Mapper } from "./Mapper";
+import { Ticket_Mapper, Ticket_Assigner } from "./Mapper";
 
 export const createTicket = async (ticketState: ITicketLocalState) => {
   return await pnp.sp.web.lists
@@ -15,4 +15,18 @@ export const createTicket = async (ticketState: ITicketLocalState) => {
       console.log("Error while saving Tiket " + e.message);
       return false;
     });
+};
+
+export const getTicketByID = async (
+  itemID: number
+): Promise<ITicketLocalState> => {
+  const ticketResponse: ITicketLocalState = null;
+  // make an API call
+  // const ticketResponse = await ().then(res => {
+  // 	console.log("TCL: getTicketByID -> res", res);
+  //   Ticket_Assigner(res);
+
+  // }).catch(e => return null);
+  // return ticketResponse;
+  return ticketResponse;
 };

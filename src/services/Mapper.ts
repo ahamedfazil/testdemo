@@ -1,5 +1,6 @@
 import { ITicketLocalState } from "../models/ITicketState";
 import { CONST } from "../utils/const";
+import { getUserByID } from "./UserAPI";
 
 export const Ticket_Mapper = (value: ITicketLocalState) => {
   const ticket_Mapper: any = {
@@ -82,4 +83,29 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
     }
   };
   return ticket_Mapper;
+};
+
+export const Ticket_Assigner = async (
+  ticketResponse: any
+): Promise<ITicketLocalState> => {
+  let localState: ITicketLocalState;
+  let assignerUser: any[] = [];
+  localState.Accounting_x0020_Framework =
+    ticketResponse[
+      CONST.Lists.Tickets.Columns.Accounting_x0020_Framework.Internal_Name
+    ] || "";
+  localState.TicketId =
+    ticketResponse[CONST.Lists.Tickets.Columns.TicketId.Internal_Name] || "";
+  const assigner = getUserByID(
+    ticketResponse[CONST.Lists.Tickets.Columns.AssigneeId.Internal_Name]
+  );
+  await assigner.then(userRes => {
+    assignerUser.push({
+      key: userRes.LoginName,
+      primaryText: userRes.Title,
+      secondaryText: userRes.Email
+    });
+  });
+  console.log("TCL: localState", localState);
+  return localState;
 };

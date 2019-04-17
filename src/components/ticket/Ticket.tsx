@@ -51,6 +51,14 @@ export class NewTicket extends React.Component<
 
   async componentDidMount() {
     await getTicketDictionary(this.props);
+    if (this.props.store.site.siteInfo.isEditForm) {
+      // get value from sharepoint using ID this.props.store.site.siteInfo.itemID
+      // await function(). then( value => this.setState({
+      //   TicketId: "dd",
+      //   Ticket_x0020_Type: "dd"
+      // }))// -> create function in services/TicketAPI.ts file
+      // map the value to the state ITicketLocalState
+    }
   }
 
   public render(): JSX.Element {
@@ -77,9 +85,7 @@ export class NewTicket extends React.Component<
       <div className="ms-Grid new-ticket">
         <div className="ms-Grid-row">
           <div className="cell header ms-font-xxl ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-            {isEdit
-              ? "Edit Ticket"
-              : "Create New Ticket"}
+            {isEdit ? "Edit Ticket" : "Create New Ticket"}
           </div>
         </div>
 
