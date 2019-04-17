@@ -1,5 +1,4 @@
 const path = require("path");
-// const SPSaveWebpackPlugin = require("spsave-webpack-plugin");
 const webpackMerge = require("webpack-merge");
 const webpack = require("webpack");
 const config = require("./webpack.config.js");
@@ -27,7 +26,7 @@ module.exports = env => {
               options: {
                 multiple: [
                   {
-                    search: "https://sites.kpmg.co.uk/apps/katsdev",
+                    search: "http://localhost:8080",
                     replace: URL[environment].siteUrl
                   }
                 ]
@@ -44,15 +43,6 @@ module.exports = env => {
       }),
       new UglifyJSPlugin({
         sourceMap: true,
-        // mangle: {
-        //   screw_ie8: true,
-        //   keep_fnames: true
-        // },
-        // compress: {
-        //   screw_ie8: true,
-        //   warnings: false
-        // },
-        // comments: false
       }),
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -62,32 +52,11 @@ module.exports = env => {
         NODE_ENV: environment,
         DEBUG: false
       })
-      // new SPSaveWebpackPlugin({
-      //   coreOptions: {
-      //     checkin: false,
-      //     // checkinType: 1,
-      //     siteUrl: URL[environment].siteUrl
-      //   },
-      //   credentialOptions: {
-      //     username:  credentials[environment].username,
-      //     password:  credentials[environment].password,
-      //     domain:  credentials[environment].domain
-      //     /* See https://github.com/s-KaiNet/node-sp-auth#params for authentication options */
-      //   },
-      //   fileOptions: {
-      //     folder: "Style Assets/dist"
-      //   }
-      // })
     ],
     output: {
       filename: "[name].[hash].bundle.js",
       path: path.resolve(__dirname, "dist" + targetPath),
       publicPath: URL[environment].siteUrl + targetPath
     }
-    // output: {
-    //   path: path.resolve("dist"),
-    //   filename: "[name].min.[hash].js",
-    //   publicPath: "/"
-    // }
   });
 };

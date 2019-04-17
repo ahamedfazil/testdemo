@@ -79,14 +79,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     Detailed_x0020_Analysis: "",
     IsUrgent: "",
     Reason_x0020_for_x0020_Urgency: "",
-    AssigneeId: [
-      {
-        key: store.user.currentUser.accountName,
-        primaryText: store.user.currentUser.name,
-        secondaryText: store.user.currentUser.email,
-        Id: store.user.currentUser.id
-      }
-    ],
+    AssigneeId: [],
     ReviewerId: null,
     WatcherId: [],
     OData__Status: "",
@@ -95,7 +88,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     TicketId: "",
     Engagement_x0020_Type: [],
     Sentinel_x0020_GIS_x0020_ID: null,
-    Required_x0020_Consultation: true,
+    Required_x0020_Consultation: false,
     Priority: "",
     Topics: [],
     Submitted_x0020_ById: [

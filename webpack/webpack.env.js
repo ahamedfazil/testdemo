@@ -7,7 +7,7 @@ const URL = {
     siteUrl: ""
   },
   test: {
-    siteUrl: "https://sites.kpmg.co.uk/apps/katsdev"
+    siteUrl: "https://xlitconsultinge.sharepoint.com/sites/katsdev"
     // https://xlitconsultinge.sharepoint.com/sites/katsdev
     // http://segotn13423/dev/ispt/
   }
