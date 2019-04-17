@@ -4,13 +4,20 @@ import {
   IGetUserActionInProgress,
   IGetTicketDictionaryActionError,
   IGetTicketDictionaryActionInProgress,
-  IGetTicketDictionaryActionSuccess
+  IGetTicketDictionaryActionSuccess,
+  IGetSiteActionInProgress,
+  IGetSiteActionSuccess,
+  IGetSiteActionError
 } from "./IActions";
 
 type ActionTypes =
   | IGetUserActionInProgress
   | IGetUserActionSuccess
   | IGetUserActionError
+
+  | IGetSiteActionInProgress
+  | IGetSiteActionSuccess
+  | IGetSiteActionError
 
   | IGetTicketDictionaryActionInProgress
   | IGetTicketDictionaryActionSuccess

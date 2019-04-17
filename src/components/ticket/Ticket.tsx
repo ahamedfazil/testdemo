@@ -36,6 +36,7 @@ import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
 import { IUserState } from "../../models/IUserState";
+import { ISiteState } from "../../models/ISiteState";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -53,6 +54,8 @@ export class NewTicket extends React.Component<
   }
 
   public render(): JSX.Element {
+    const siteState: ISiteState = this.props.store.site;
+    const isEdit: boolean = siteState.siteInfo.isEditForm;
     const userState: IUserState = this.props.store.user;
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
       .ticketDictionary;
@@ -74,7 +77,9 @@ export class NewTicket extends React.Component<
       <div className="ms-Grid new-ticket">
         <div className="ms-Grid-row">
           <div className="cell header ms-font-xxl ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-            Create New Ticket
+            {isEdit
+              ? "Edit Ticket"
+              : "Create New Ticket"}
           </div>
         </div>
 

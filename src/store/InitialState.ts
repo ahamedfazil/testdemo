@@ -4,7 +4,7 @@ import { onFormatDate } from "../utils/Utilities";
 
 export const initialState: IStore = {
   user: {
-    isinitialised: false,
+    isInitialised: false,
     currentUser: {
       isFetched: false,
       isSupportUser: false,
@@ -22,6 +22,17 @@ export const initialState: IStore = {
       memberOf: [],
       office: "",
       officeNumber: null
+    }
+  },
+  site: {
+    error: null,
+    siteInfo: {
+      isFetched: false,
+      serverRelativeURL: "",
+      itemID: 5,
+      isNewForm: false,
+      isEditForm: true,
+      isViewForm: false
     }
   },
   ticket: {

@@ -2,6 +2,7 @@ import keys from "./ActionTypeKey";
 import * as IActions from "./IActions";
 import { ICurrentUserState } from "../models/IUserState";
 import { ITicketDictionary } from "../models/ITicketState";
+import { ISite } from "../models/ISiteState";
 //#region User Actions
 export function getCurrentUserInProgress(): IActions.IGetUserActionInProgress {
   return {
@@ -25,6 +26,36 @@ export function getCurrentUserError(
 ): IActions.IGetUserActionError {
   return {
     type: keys.GET_CURRENT_USER_ERROR,
+    payload: {
+      error
+    }
+  };
+}
+//#endregion
+
+//#region Site Actions
+export function getSiteInProgress(): IActions.IGetSiteActionInProgress {
+  return {
+    type: keys.GET_SITE_INPROGRESS
+  };
+}
+
+export function getSiteSuccess(
+  siteInfo: ISite
+): IActions.IGetSiteActionSuccess {
+  return {
+    type: keys.GET_SITE_SUCCESS,
+    payload: {
+      siteInfo
+    }
+  };
+}
+
+export function getSiteError(
+  error: Error
+): IActions.IGetSiteActionError {
+  return {
+    type: keys.GET_SITE_ERROR,
     payload: {
       error
     }

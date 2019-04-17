@@ -1,5 +1,5 @@
 export interface IUserState {
-  isinitialised: boolean;
+  isInitialised: boolean;
   error?: any;
   currentUser: ICurrentUserState;
 }
