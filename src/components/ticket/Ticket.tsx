@@ -32,7 +32,7 @@ import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
 import { createTicket } from "../../services/TicketAPI";
-import "./NewTicket.scss";
+import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
 import { IUserState } from "../../models/IUserState";

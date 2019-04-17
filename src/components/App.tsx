@@ -9,7 +9,7 @@ import { pnpConfig } from "../utils/pnp.config";
 import { getCurrentUser } from "../services/UserAPI";
 import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
-import NewTicket from "../containers/ticket/NewTicket";
+import NewTicket from "../containers/ticket/Ticket";
 import { ErrorMessage } from "./support/ErrorMessage";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 

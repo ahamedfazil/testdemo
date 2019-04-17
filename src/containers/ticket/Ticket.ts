@@ -3,7 +3,7 @@ import IStore from "../../store/IStore";
 import * as Actions from "../../actions/Actions";
 import { bindActionCreators } from "redux";
 import { ITicketProps } from "../../models/ITicketProps";
-import { NewTicket } from "../../components/ticket/NewTicket";
+import { NewTicket } from "../../components/ticket/Ticket";
 
 function mapStateToProps(store: IStore) {
   return {
