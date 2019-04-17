@@ -1,98 +1,57 @@
-import { Reducer } from 'redux';
-import ActionTypeKeys from '../constants/ActionTypeKey';
+import { Reducer } from "redux";
+import ActionTypeKeys from "../actions/ActionTypeKey";
+import ActionTypes from "../actions/ActionTypes";
 import {
-    IGetCurrentUserAction,
-    IGetCurrentUserActionSuccess,
-    IGetCurrentUserActionError,
-    IGetUsersActionInProgress,
-    IGetUsersActionSuccess,
-    IGetUsersActionError
-} from '../actions/IUserActions';
-import { IUser } from '../models/IUser'
-import appInitialState from '../store/appInitialState'
-import ActionTypes from '../actions/ActionTypes';
+  IGetUserActionSuccess,
+  IGetUserActionError,
+  IGetUserActionInProgress
+} from "../actions/IActions";
+import { IUserState } from "../models/IUserState";
+import { initialState } from "../store/initialState";
 
-
-export const userReducer: Reducer<IUser> = (
-    state:IUser = appInitialState.user,
-    action: ActionTypes
-): IUser => {
-    switch (action.type) {
-        case ActionTypeKeys.GET_CURRENT_USER:
-            return onGetCurrentUserDetailsInProgress(state, action);
-        case ActionTypeKeys.GET_CURRENT_USER_SUCCESS:
-            return onGetCurrentUserDetails(state, action);
-        case ActionTypeKeys.GET_CURRENT_USER_ERROR:
-            return onGetCurrentUserDetailsError(state, action)
-        case ActionTypeKeys.GET_USERS_INPROGRESS:
-            return onGetUserDetailsInProgress(state, action);
-        case ActionTypeKeys.GET_USERS_SUCCESS:
-            return onGetUserDetailsSuccess(state, action);
-        case ActionTypeKeys.GET_USERS_ERROR:
-            return onGetUserDetailsError(state, action)
-        default:
-            return state
-
-    }
-
-}
-
-function onGetCurrentUserDetailsInProgress(
-    currentState: IUser,
-    action: IGetCurrentUserAction
-) {
-    return {
-        ...currentState,
-        isInitialised: true,
-    };
-}
-
-function onGetCurrentUserDetails(
-    currentState: IUser,
-    action: IGetCurrentUserActionSuccess) {
-    return {
-        ...currentState,
-        isInitialised: true,
-        currentUser: action.payload.currentUser
-    };
-}
-
-function onGetCurrentUserDetailsError(
-    currentState: IUser,
-    action: IGetCurrentUserActionError
-) {
-    return {
-        ...currentState,
-        error: action.payload.error.message
-    };
-}
+export const userReducer: Reducer<IUserState> = (
+  state: IUserState = initialState.user,
+  action: ActionTypes
+): IUserState => {
+  switch (action.type) {
+    case ActionTypeKeys.GET_CURRENT_USER_INPROGRESS:
+      return onGetUserDetailsInProgress(state, action);
+    case ActionTypeKeys.GET_CURRENT_USER_SUCCESS:
+      return onGetUserDetails(state, action);
+    case ActionTypeKeys.GET_CURRENT_USER_ERROR:
+      return onGetUserDetailsError(state, action);
+    default:
+      return state;
+  }
+};
 
 function onGetUserDetailsInProgress(
-    currentState: IUser,
-    action: IGetUsersActionInProgress
+  currentState: IUserState,
+  action: IGetUserActionInProgress
 ) {
-    return {
-        ...currentState,
-        isInitialised: true,
-    };
+  return {
+    ...currentState,
+    isinitialised: true
+  };
 }
 
-function onGetUserDetailsSuccess(
-    currentState: IUser,
-    action: IGetUsersActionSuccess) {
-    return {
-        ...currentState,
-        isInitialised: true,
-        currentUser: action.payload.users
-    };
+function onGetUserDetails(
+  currentState: IUserState,
+  action: IGetUserActionSuccess
+) {
+  return {
+    ...currentState,
+    isinitialised: true,
+    currentUser: action.payload.currentUser
+  };
 }
 
 function onGetUserDetailsError(
-    currentState: IUser,
-    action: IGetUsersActionError
+  currentState: IUserState,
+  action: IGetUserActionError
 ) {
-    return {
-        ...currentState,
-        error: action.payload.error.message
-    };
+  return {
+    ...currentState,
+    error: action.payload.error.message
+  };
 }

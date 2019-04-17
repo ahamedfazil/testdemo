@@ -2,7 +2,7 @@
   "rules": {
   "no-reference": true,
   "only-arrow-functions": [
-  true,
+  false,
   "allow-declarations"
   ],
   "no-namespace": [
@@ -43,11 +43,11 @@
   ],
   "quotemark": [
   true,
-  "single"
+  "double"
   ],
   "radix": true,
   "semicolon": [
-  true,
+  false,
   "always",
   "ignore-interfaces"
   ],

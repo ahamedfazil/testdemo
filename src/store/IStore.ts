@@ -1,19 +1,7 @@
-import { IUser } from '../models/IUser'
-import { IDictionaryState } from '../models/IDictionary';
-import { ITicketState } from '../models/ITicket';
+import { IUserState } from "../models/IUserState";
+import { ITicketState } from "../models/ITicketState";
 
 export default interface IStore {
-    user: IUser;
-    users?:IUser[];
-    engagementType:IDictionaryState;
-    accountingFramework:IDictionaryState;
-    auditingStandard:IDictionaryState;
-    category:IDictionaryState;
-    topic:IDictionaryState;
-    ticketType:IDictionaryState;
-    status:IDictionaryState;
-    ticket: ITicketState
-
-
-    
+    user: IUserState;
+    ticket: ITicketState;
 }
