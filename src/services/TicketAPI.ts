@@ -1,5 +1,5 @@
 import { ITicketLocalState } from "../models/ITicketState";
-import pnp from "@pnp/pnpjs";
+import pnp, { sp } from "@pnp/pnpjs";
 import { CONST } from "../utils/const";
 import { Ticket_Mapper, Ticket_Assigner } from "./Mapper";
 
@@ -20,9 +20,17 @@ export const createTicket = async (ticketState: ITicketLocalState) => {
 export const getTicketByID = async (
   itemID: number
 ): Promise<ITicketLocalState> => {
-  const ticketResponse: ITicketLocalState = null;
+  let ticketResponse: ITicketLocalState = null;
   // make an API call
-  // const ticketResponse = await ().then(res => {
+  sp.web.lists
+    .getByTitle(CONST.Lists.Tickets.ListName)
+    .items.getById(itemID)
+    .get()
+    .then((item: any) => {
+      console.log(item);
+    });
+
+  // ticketResponse = await ().then(res => {
   // 	console.log("TCL: getTicketByID -> res", res);
   //   Ticket_Assigner(res);
 

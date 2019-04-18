@@ -13,7 +13,7 @@ module.exports = webpackMerge(config(), {
   devtool: "inline-source-map",
   devServer: {
     stats: "minimal",
-    port: 3000, // most common port
+    port: 3002, // most common port
     contentBase: "./build",
     inline: true
   },

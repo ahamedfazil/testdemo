@@ -31,7 +31,7 @@ import update from "immutability-helper";
 import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
-import { createTicket } from "../../services/TicketAPI";
+import { createTicket, getTicketByID } from "../../services/TicketAPI";
 import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
@@ -53,6 +53,13 @@ export class NewTicket extends React.Component<
     await getTicketDictionary(this.props);
     if (this.props.store.site.siteInfo.isEditForm) {
       // get value from sharepoint using ID this.props.store.site.siteInfo.itemID
+      let itemID = this.props.store.site.siteInfo.itemID;
+      await getTicketByID(itemID)
+      .then(item => this.setState({
+        // TicketId: item.TicketId,
+        Title: item.Title,
+        Engagement_x0020_Charge_x0020_Co: item.Engagement_x0020_Charge_x0020_Co
+      }))
       // await function(). then( value => this.setState({
       //   TicketId: "dd",
       //   Ticket_x0020_Type: "dd"
