@@ -55,11 +55,7 @@ export class NewTicket extends React.Component<
       // get value from sharepoint using ID this.props.store.site.siteInfo.itemID
       let itemID = this.props.store.site.siteInfo.itemID;
       await getTicketByID(itemID)
-      .then(item => this.setState({
-        // TicketId: item.TicketId,
-        Title: item.Title,
-        Engagement_x0020_Charge_x0020_Co: item.Engagement_x0020_Charge_x0020_Co
-      }))
+      .then(item => this.setState(item))
       // await function(). then( value => this.setState({
       //   TicketId: "dd",
       //   Ticket_x0020_Type: "dd"

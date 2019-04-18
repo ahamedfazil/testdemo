@@ -27,7 +27,7 @@ export const getTicketByID = async (
     .items.getById(itemID)
     .get()
     .then((item: any) => {
-      console.log(item);
+      Ticket_Assigner(item)
     });
 
   // ticketResponse = await ().then(res => {

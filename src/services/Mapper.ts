@@ -106,6 +106,14 @@ export const Ticket_Assigner = async (
       secondaryText: userRes.Email
     });
   });
+  localState.Detailed_x0020_Analysis =
+    ticketResponse[
+      CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis.Internal_Name
+    ] || "";
+    localState.Engagement_x0020_Charge_x0020_Co =
+    ticketResponse[
+      CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co.Internal_Name
+    ] || "";
   console.log("TCL: localState", localState);
   return localState;
 };
