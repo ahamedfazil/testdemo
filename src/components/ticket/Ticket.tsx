@@ -37,6 +37,9 @@ import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
 import { IUserState } from "../../models/IUserState";
 import { ISiteState } from "../../models/ISiteState";
+import CustomGroup from "../support/CustomGroup";
+import { TicketUsers } from "../support/TicketUsers";
+import { TicketHeader } from "../support/TicketHeader";
 
 export class NewTicket extends React.Component<
   ITicketProps,
@@ -54,8 +57,7 @@ export class NewTicket extends React.Component<
     if (this.props.store.site.siteInfo.isEditForm) {
       // get value from sharepoint using ID this.props.store.site.siteInfo.itemID
       let itemID = this.props.store.site.siteInfo.itemID;
-      await getTicketByID(itemID)
-      .then(item => this.setState(item))
+      await getTicketByID(itemID).then(item => this.setState(item));
       // await function(). then( value => this.setState({
       //   TicketId: "dd",
       //   Ticket_x0020_Type: "dd"
@@ -86,11 +88,7 @@ export class NewTicket extends React.Component<
 
     return (
       <div className="ms-Grid new-ticket">
-        <div className="ms-Grid-row">
-          <div className="cell header ms-font-xxl ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-            {isEdit ? "Edit Ticket" : "Create New Ticket"}
-          </div>
-        </div>
+        <TicketHeader isEdit={isEdit} className="header" />
 
         {!ticketDictionary.isFetched ? (
           this.props.store.ticket.error ? (
@@ -104,6 +102,21 @@ export class NewTicket extends React.Component<
           )
         ) : (
           <div>
+            <div className="ms-Grid-row">
+              <CustomGroup
+                groupCollapse={null}
+                item={
+                  <TicketUsers
+                    assigneeId={this.state.AssigneeId}
+                    getUserValue={(key, value) => {
+                      this.changedValue(key, value);
+                    }}
+                  />
+                }
+                isCollapsed={false}
+                title={"Users Details"}
+              />
+            </div>
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
