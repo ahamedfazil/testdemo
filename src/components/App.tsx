@@ -9,7 +9,7 @@ import { pnpConfig } from "../utils/pnp.config";
 import { getCurrentUser } from "../services/UserAPI";
 import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
-import NewTicket from "../containers/ticket/Ticket";
+import Ticket from "../containers/ticket/Ticket";
 import { ErrorMessage } from "./support/ErrorMessage";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 
@@ -44,7 +44,7 @@ export class App extends React.Component<IAppProps, {}> {
           )
         ) : (
           <div>
-            <NewTicket />
+            <Ticket />
           </div>
         )}
       </Fabric>

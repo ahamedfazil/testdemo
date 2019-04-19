@@ -40,11 +40,9 @@ import { ISiteState } from "../../models/ISiteState";
 import CustomGroup from "../support/CustomGroup";
 import { TicketUsers } from "../support/TicketUsers";
 import { TicketHeader } from "../support/TicketHeader";
+import { TicketInfo } from "../support/TicketInfo";
 
-export class NewTicket extends React.Component<
-  ITicketProps,
-  ITicketLocalState
-> {
+export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
     super(props);
     this._onTextChange = this._onTextChange.bind(this);
@@ -106,15 +104,43 @@ export class NewTicket extends React.Component<
               <CustomGroup
                 groupCollapse={null}
                 item={
+                  <TicketInfo
+                    ticketId={this.state.TicketId}
+                    status={this.state.OData__Status}
+                    category={this.state._Category}
+                    requiredConsultation={
+                      this.state.Required_x0020_Consultation
+                    }
+                    topics={this.state.Topics}
+                    accountingFrameworks={this.state.Accounting_x0020_Framework}
+                    auditingStandards={this.state.Auditing_x0020_Standards}
+                    getTicketInfoValue={(key, value) => {
+                      this._onTextChange(key, value);
+                    }}
+                    getTicketOptions={(key, option) => {
+                      this.changedValue(key, option);
+                    }}
+                  />
+                }
+              />
+            </div>
+            <div className="ms-Grid-row">
+              <CustomGroup
+                groupCollapse={null}
+                item={
                   <TicketUsers
                     assigneeId={this.state.AssigneeId}
+                    submitterId={this.state.Submitted_x0020_ById}
+                    engagementRiId={this.state.Responsible_x0020_IndividualId}
+                    auditTeam={this.state.Audit_x0020_Team_x0020_CCId}
+                    watchers={this.state.WatcherId}
                     getUserValue={(key, value) => {
                       this.changedValue(key, value);
                     }}
                   />
                 }
                 isCollapsed={false}
-                title={"Users Details"}
+                title={"People"}
               />
             </div>
             <div className="ms-Grid-row">
