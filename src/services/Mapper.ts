@@ -34,7 +34,7 @@ export const Ticket_Mapper = (value: ITicketLocalState) => {
     [CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
       .Internal_Name]: value.Engagement_x0020_Charge_x0020_Co,
 
-    [CONST.Lists.Tickets.Columns._Category.Internal_Name]: value._Category,
+    [CONST.Lists.Tickets.Columns._Category.Internal_Name]: value.OData__Category,
     [CONST.Lists.Tickets.Columns.Topics.Internal_Name]: value.Topics.toString(),
     [CONST.Lists.Tickets.Columns.OData__Status.Internal_Name]:
       value.OData__Status,

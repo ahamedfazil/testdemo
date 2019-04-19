@@ -81,7 +81,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
     Accounting_x0020_Period_x0020_En: null,
     Auditing_x0020_Standards: [],
     Accounting_x0020_Framework: [],
-    _Category: "",
+    OData__Category: "",
     Support_x0020_Team: "",
     Ticket_x0020_Type: "",
     Training: false,

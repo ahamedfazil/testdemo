@@ -54,7 +54,7 @@ export interface ITicketLocalState {
   Auditing_x0020_Standards: string[];
   Accounting_x0020_Framework: string[];
   Created: string;
-  _Category: string;
+  OData__Category: string;
   Support_x0020_Team: string;
   Ticket_x0020_Type: string;
   Training: boolean;

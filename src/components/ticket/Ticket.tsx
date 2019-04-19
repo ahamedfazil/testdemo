@@ -107,7 +107,9 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                   <TicketInfo
                     ticketId={this.state.TicketId}
                     status={this.state.OData__Status}
-                    category={this.state._Category}
+                    ticketDictionary={this.props.store.ticket.ticketDictionary}
+                    category={this.state.OData__Category}
+                    supportTeam ={this.state.Support_x0020_Team}
                     requiredConsultation={
                       this.state.Required_x0020_Consultation
                     }
@@ -122,6 +124,8 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     }}
                   />
                 }
+                isCollapsed={false}
+                title={"Ticket Information"}
               />
             </div>
             <div className="ms-Grid-row">
@@ -395,9 +399,9 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Category</label>
                 <KendoCombo
-                  textValue={this.state._Category}
+                  textValue={this.state.OData__Category}
                   getLabelValue={value => {
-                    this.setState({ _Category: value });
+                    this.setState({ OData__Category: value });
                     //Setting support group
                     this.settingSupportGroup(value);
                   }}
