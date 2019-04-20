@@ -5,8 +5,7 @@ import { CONST } from "../../utils/const";
 
 interface ITicketUsersProps {
   assigneeId: any;
-  submitterId: any;
-  watchers: any[];
+ watchers: any[];
   auditTeam: any[];
   engagementRiId: any;
   getUserValue?: (key: string, value: any[]) => void;
@@ -17,18 +16,6 @@ export const TicketUsers: React.SFC<ITicketUsersProps> = (
 ): JSX.Element => {
   return (
     <div className="ms-Grid-row">
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
-      <Label>Submitter</Label>
-        <PeoplePicker
-          getUserNames={person => {
-            props.getUserValue(CONST.Lists.Tickets.Columns.Submitted_x0020_ById.Internal_Name, person);
-          }}
-          defaultPeople={props.submitterId}
-          allowMulti={false}
-          disabled={false}
-          placeholder={"Provide Submitter"}
-        />
-      </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
       <Label>Engagement RI</Label>
         <PeoplePicker

@@ -75,7 +75,7 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
           placeholder={"DD/MM/YYYY"}
           allowTextInput={true}
           onSelectDate={val => {
-            CONST.Lists.Tickets.Columns.Accounting_x0020_Period_x0020_En,
+            CONST.Lists.Tickets.Columns.Accounting_x0020_Period_x0020_En =
               onFormatDate(val);
           }}
           formatDate={onFormatDate}
