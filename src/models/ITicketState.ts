@@ -67,7 +67,6 @@ export interface ITicketForm {
   FAQ: boolean;
   Label: string[];
   Detailed_x0020_Analysis: string;
-  IsUrgent: any;
   Reason_x0020_for_x0020_Urgency: string;
   AssigneeId: any[];
   ReviewerId: number;

@@ -1,5 +1,6 @@
 import { IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
 import { CONST } from "./const";
+import { IGroup } from "office-ui-fabric-react";
 
 export function UniqueValInArray(val: any[]) {
   return val.filter(function(elem, pos, arr) {
@@ -87,4 +88,45 @@ export const onFormatDate = (value: Date): any => {
   } else {
     return null;
   }
+};
+
+export const createGroup = (
+  groupCount: number,
+  groupDepth: number,
+  startIndex: number,
+  itemsPerGroup: number,
+  name: string,
+  level: number = 0,
+  key: string = "",
+  isCollapsed?: boolean
+): IGroup[] => {
+  if (key !== "") {
+    key = key + "-";
+  }
+  let count = Math.pow(itemsPerGroup, groupDepth);
+  return Array.apply(null, Array(groupCount)).map(
+    (value: number, index: number) => {
+      return {
+        count: count,
+        key: "group" + key + index,
+        name: name,
+        startIndex: index * count + startIndex,
+        level: level,
+        isCollapsed: isCollapsed,
+        children:
+          groupDepth > 1
+            ? createGroup(
+                groupCount,
+                groupDepth - 1,
+                index * count + startIndex,
+                itemsPerGroup,
+                name,
+                level + 1,
+                key + index,
+                isCollapsed
+              )
+            : []
+      };
+    }
+  );
 };

@@ -107,11 +107,9 @@ export const Ticket_Assigner = async (
     localTicket.OData__Status =
       ticketResponse[CONST.Lists.Tickets.Columns.OData__Status.Internal_Name] ||
       "";
-    localTicket.IsUrgent = ticketResponse[
-      CONST.Lists.Tickets.Columns.IsUrgent.Internal_Name
-    ]
-      ? 1
-      : 0;
+    localTicket.Priority = ticketResponse[
+      CONST.Lists.Tickets.Columns.Priority.Internal_Name
+    ] || "";
     //#endregion
 
     //#region People Picker Assigner

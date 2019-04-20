@@ -1,8 +1,12 @@
 @import "../../styles/variables";
 
 .new-ticket {
+  margin: auto;
+  max-width: 700px;
+  background-color: $ticket-form-bg-color;
   .header {
-    background-color: $ticket-header-bg-color;
+    background: linear-gradient(to bottom, $ticket-header-bg-color-dark 0%, $ticket-header-bg-color-light);
+    color: $ticket-header-text-color;
   }
   .cell {
     padding: 8px;

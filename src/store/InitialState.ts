@@ -91,7 +91,6 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       FAQ: false,
       Label: [],
       Detailed_x0020_Analysis: "",
-      IsUrgent: "",
       Reason_x0020_for_x0020_Urgency: "",
       AssigneeId: [],
       ReviewerId: null,

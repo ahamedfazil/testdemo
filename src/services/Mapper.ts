@@ -30,8 +30,8 @@ export const Ticket_Mapper = (value: ITicketForm) => {
     [CONST.Lists.Tickets.Columns.Training.Internal_Name]: value.Training,
     [CONST.Lists.Tickets.Columns.Required_x0020_Consultation.Internal_Name]:
       value.Required_x0020_Consultation,
-    [CONST.Lists.Tickets.Columns.IsUrgent.Internal_Name]:
-      value.IsUrgent === 1 ? true : false,
+    [CONST.Lists.Tickets.Columns.Priority.Internal_Name]:
+      value.Priority,
 
     // dropdown
     [CONST.Lists.Tickets.Columns.Label.Internal_Name]: value.Label.join(CONST.Others.ArraySplitter),
