@@ -4,7 +4,8 @@ import { debounce } from "throttle-debounce";
 import {
   ITicketLocalState,
   ITicketDictionary,
-  IDialogBlocking
+  IDialogBlocking,
+  ITicketForm
 } from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
@@ -31,7 +32,11 @@ import update from "immutability-helper";
 import { CONST } from "../../utils/const";
 import { KendoCombo } from "../support/KendoCombo";
 import { KatsTagPicker } from "../support/KatsTagPicker";
-import { createTicket, getTicketByID } from "../../services/TicketAPI";
+import {
+  createTicket,
+  getTicketByID,
+  updateTicket
+} from "../../services/TicketAPI";
 import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
 import { DialogBlocking } from "../support/DialogBlocking";
@@ -51,21 +56,40 @@ export class NewTicket extends React.Component<
 
   async componentDidMount() {
     await getTicketDictionary(this.props);
-    if (this.props.store.site.siteInfo.isEditForm) {
-      // get value from sharepoint using ID this.props.store.site.siteInfo.itemID
+    if (
+      this.props.store.site.siteInfo.isEditForm ||
+      this.props.store.site.siteInfo.isViewForm
+    ) {
+      let localTicketForm: ITicketForm = Object.assign(
+        {},
+        this.state.ticketForm
+      );
       let itemID = this.props.store.site.siteInfo.itemID;
-      await getTicketByID(itemID)
-      .then(item => this.setState(item))
-      // await function(). then( value => this.setState({
-      //   TicketId: "dd",
-      //   Ticket_x0020_Type: "dd"
-      // }))// -> create function in services/TicketAPI.ts file
-      // map the value to the state ITicketLocalState
+      await getTicketByID(itemID, localTicketForm)
+        .then(item => {
+          this.setState({
+            ticketForm: item
+          });
+        })
+        .catch(ticketByIDError => {
+          console.log("ticketByIDError", ticketByIDError);
+          this.setState({
+            ticketForm: ticketByIDError
+          });
+        });
+    } else {
+      this.setState({
+        ticketForm: {
+          ...this.state.ticketForm,
+          isFetched: true
+        }
+      });
     }
   }
 
   public render(): JSX.Element {
     const siteState: ISiteState = this.props.store.site;
+    const formState: ITicketForm = this.state.ticketForm;
     const isEdit: boolean = siteState.siteInfo.isEditForm;
     const userState: IUserState = this.props.store.user;
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
@@ -92,14 +116,14 @@ export class NewTicket extends React.Component<
           </div>
         </div>
 
-        {!ticketDictionary.isFetched ? (
-          this.props.store.ticket.error ? (
+        {!(ticketDictionary.isFetched && formState.isFetched) ? (
+          this.props.store.ticket.error || formState.error ? (
             <ErrorMessage error={"Something went wrong."} />
           ) : (
             <Spinner
               style={{ margin: "200px" }}
               size={SpinnerSize.large}
-              label="Retrieving field values..."
+              label="Retrieving field and ticket values..."
             />
           )
         ) : (
@@ -108,7 +132,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Ticket ID</label>
                 <TextField
-                  value={this.state.TicketId}
+                  value={this.state.ticketForm.TicketId}
                   name={CONST.Lists.Tickets.Columns.TicketId.Internal_Name}
                   placeholder={"KATS-00001"}
                   onChange={this._onTextChange}
@@ -118,7 +142,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Created</label>
                 <TextField
-                  value={this.state.Created}
+                  value={this.state.ticketForm.Created}
                   name={
                     CONST.Lists.Tickets.Columns.Created_x0020_Date.Internal_Name
                   }
@@ -130,10 +154,13 @@ export class NewTicket extends React.Component<
                 <Dropdown
                   placeholder={"Select Status"}
                   options={dropdownOptions(ticketDictionary.status)}
-                  selectedKey={this.state.OData__Status}
+                  selectedKey={this.state.ticketForm.OData__Status}
                   onChange={(event: any, option: any) => {
                     this.setState({
-                      OData__Status: option.key
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        OData__Status: option.key
+                      }
                     });
                   }}
                 />
@@ -145,10 +172,15 @@ export class NewTicket extends React.Component<
                 <Dropdown
                   placeholder={"Select Sentinel GIS ID"}
                   options={dropdownOptions(ticketDictionary.sentinelGisId)}
-                  selectedKey={this.state.Sentinel_x0020_GIS_x0020_ID}
+                  selectedKey={
+                    this.state.ticketForm.Sentinel_x0020_GIS_x0020_ID
+                  }
                   onChange={(event: any, option: any) => {
                     this.setState({
-                      Sentinel_x0020_GIS_x0020_ID: option.key
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        Sentinel_x0020_GIS_x0020_ID: option.key
+                      }
                     });
                   }}
                 />
@@ -161,10 +193,13 @@ export class NewTicket extends React.Component<
                     { key: 0, text: "Normal" },
                     { key: 1, text: "Urgent" }
                   ]}
-                  selectedKey={this.state.IsUrgent}
+                  selectedKey={this.state.ticketForm.IsUrgent}
                   onChange={(event: any, option: any) => {
                     this.setState({
-                      IsUrgent: option.key
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        IsUrgent: option.key
+                      }
                     });
                   }}
                 />
@@ -173,12 +208,20 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Submitter</label>
                 <PeoplePicker
                   getUserNames={person => {
-                    this.setState({
-                      Submitted_x0020_ById: person
-                    });
+                    this._onPeoplePicker(
+                      CONST.Lists.Tickets.Columns.Submitted_x0020_ById
+                        .Internal_Name,
+                      person
+                    );
+                    // this.setState({
+                    //   ticketForm: {
+                    //     ...this.state.ticketForm,
+                    //     Submitted_x0020_ById: person
+                    //   }
+                    // });
                   }}
                   allowMulti={false}
-                  defaultPeople={this.state.Submitted_x0020_ById}
+                  defaultPeople={this.state.ticketForm.Submitted_x0020_ById}
                   disabled={false}
                   placeholder={"Provide Submitter"}
                 />
@@ -188,7 +231,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Engagement Name</label>
                 <TextField
-                  value={this.state.Engagement_x0020_Name}
+                  value={this.state.ticketForm.Engagement_x0020_Name}
                   name={
                     CONST.Lists.Tickets.Columns.Engagement_x0020_Name
                       .Internal_Name
@@ -202,13 +245,16 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Period End</label>
                 <DatePicker
                   value={getDateFromString(
-                    this.state.Accounting_x0020_Period_x0020_En
+                    this.state.ticketForm.Accounting_x0020_Period_x0020_En
                   )}
                   placeholder={"DD/MM/YYYY"}
                   allowTextInput={true}
                   onSelectDate={val => {
                     this.setState({
-                      Accounting_x0020_Period_x0020_En: onFormatDate(val)
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        Accounting_x0020_Period_x0020_En: onFormatDate(val)
+                      }
                     });
                   }}
                   formatDate={onFormatDate}
@@ -218,11 +264,18 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Assignee</label>
                 <PeoplePicker
                   getUserNames={person => {
-                    this.setState({
-                      AssigneeId: person
-                    });
+                    this._onPeoplePicker(
+                      CONST.Lists.Tickets.Columns.AssigneeId.Internal_Name,
+                      person
+                    );
+                    // this.setState({
+                    //   ticketForm: {
+                    //     ...this.state.ticketForm,
+                    //     AssigneeId: person
+                    //   }
+                    // });
                   }}
-                  defaultPeople={this.state.AssigneeId}
+                  defaultPeople={this.state.ticketForm.AssigneeId}
                   allowMulti={false}
                   disabled={true}
                   placeholder={"Provide Assignee"}
@@ -239,10 +292,10 @@ export class NewTicket extends React.Component<
                     CONST.Lists.Tickets.Columns.Engagement_x0020_Type
                       .Internal_Name
                   }
-                  selectedKey={this.state.Engagement_x0020_Type}
+                  selectedKeys={this.state.ticketForm.Engagement_x0020_Type}
                   multiSelect
                   onChange={(event: any, option: any) => {
-                    const index = this.state.Engagement_x0020_Type.indexOf(
+                    const index = this.state.ticketForm.Engagement_x0020_Type.indexOf(
                       option.key
                     );
                     this._onMultiSelectDropdown(
@@ -257,7 +310,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Charge Code</label>
                 <TextField
-                  value={this.state.Engagement_x0020_Charge_x0020_Co}
+                  value={this.state.ticketForm.Engagement_x0020_Charge_x0020_Co}
                   name={
                     CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co
                       .Internal_Name
@@ -271,12 +324,16 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Audit Team</label>
                 <PeoplePicker
                   getUserNames={person => {
-                    this.setState({
-                      Audit_x0020_Team_x0020_CCId: person
-                    });
+                    this._onPeoplePicker(
+                      CONST.Lists.Tickets.Columns.Audit_x0020_Team_x0020_CCId
+                        .Internal_Name,
+                      person
+                    );
                   }}
                   allowMulti={true}
-                  defaultPeople={this.state.Audit_x0020_Team_x0020_CCId}
+                  defaultPeople={
+                    this.state.ticketForm.Audit_x0020_Team_x0020_CCId
+                  }
                   disabled={false}
                   placeholder={"Provide Audit Team"}
                 />
@@ -290,10 +347,12 @@ export class NewTicket extends React.Component<
                   options={dropdownOptions(
                     ticketDictionary.accountingFramework
                   )}
-                  selectedKey={this.state.Accounting_x0020_Framework}
+                  selectedKeys={
+                    this.state.ticketForm.Accounting_x0020_Framework
+                  }
                   multiSelect
                   onChange={(event: any, option: any) => {
-                    const index = this.state.Accounting_x0020_Framework.indexOf(
+                    const index = this.state.ticketForm.Accounting_x0020_Framework.indexOf(
                       option.key
                     );
                     this._onMultiSelectDropdown(
@@ -313,7 +372,9 @@ export class NewTicket extends React.Component<
                       .Internal_Name
                   }
                   label={"Required Consultation"}
-                  defaultChecked={this.state.Required_x0020_Consultation}
+                  defaultChecked={
+                    this.state.ticketForm.Required_x0020_Consultation
+                  }
                   onChange={this._onCheckboxChange}
                 />
               </div>
@@ -321,12 +382,22 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Engagement RI</label>
                 <PeoplePicker
                   getUserNames={person => {
-                    this.setState({
-                      Responsible_x0020_IndividualId: person
-                    });
+                    this._onPeoplePicker(
+                      CONST.Lists.Tickets.Columns.Responsible_x0020_IndividualId
+                        .Internal_Name,
+                      person
+                    );
+                    // this.setState({
+                    //   ticketForm: {
+                    //     ...this.state.ticketForm,
+                    //     Responsible_x0020_IndividualId: person
+                    //   }
+                    // });
                   }}
                   allowMulti={false}
-                  defaultPeople={this.state.Responsible_x0020_IndividualId}
+                  defaultPeople={
+                    this.state.ticketForm.Responsible_x0020_IndividualId
+                  }
                   disabled={false}
                   placeholder={"Provide Engagement RI"}
                 />
@@ -338,10 +409,10 @@ export class NewTicket extends React.Component<
                 <Dropdown
                   placeholder={"Select Auditing Standards"}
                   options={dropdownOptions(ticketDictionary.auditingStandard)}
-                  selectedKey={this.state.Auditing_x0020_Standards}
+                  selectedKeys={this.state.ticketForm.Auditing_x0020_Standards}
                   multiSelect
                   onChange={(event: any, option: any) => {
-                    const index = this.state.Auditing_x0020_Standards.indexOf(
+                    const index = this.state.ticketForm.Auditing_x0020_Standards.indexOf(
                       option.key
                     );
                     this._onMultiSelectDropdown(
@@ -356,9 +427,14 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Category</label>
                 <KendoCombo
-                  textValue={this.state._Category}
+                  textValue={this.state.ticketForm.OData__Category}
                   getLabelValue={value => {
-                    this.setState({ _Category: value });
+                    this.setState({
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        OData__Category: value
+                      }
+                    });
                     //Setting support group
                     this.settingSupportGroup(value);
                   }}
@@ -376,7 +452,7 @@ export class NewTicket extends React.Component<
                   aria-hidden="true"
                 />
                 <TextField
-                  value={this.state.Support_x0020_Team}
+                  value={this.state.ticketForm.Support_x0020_Team}
                   readOnly={true}
                   placeholder={"Set Based On Category"}
                 />
@@ -386,7 +462,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm6 ms-md4 ms-lg4 ms-TextField">
                 <label className="ms-Label">Subject</label>
                 <TextField
-                  value={this.state.Title}
+                  value={this.state.ticketForm.Title}
                   name={CONST.Lists.Tickets.Columns.Title.Internal_Name}
                   placeholder={"Enter Title"}
                   onChange={this._onTextChange}
@@ -398,23 +474,26 @@ export class NewTicket extends React.Component<
                 <KatsTagPicker
                   getValues={val => {
                     this.setState({
-                      Topics: val
+                      ticketForm: {
+                        ...this.state.ticketForm,
+                        Topics: val
+                      }
                     });
                   }}
                   headerText="Suggested Topics"
                   noResultText="No Topics Found"
                   getOnBlur={() => {
-                    // if (this.state.fields.length === 0) {
+                    // if (this.state.ticketForm.fields.length === 0) {
                     //   this.setState({
                     //     formErrors: {
-                    //       ...this.state.formErrors,
+                    //       ...this.state.ticketForm.formErrors,
                     //       label: true
                     //     }
                     //   });
                     // }
                   }}
                   placeholder={"Enter Topics"}
-                  defaultValue={this.state.Topics}
+                  values={this.state.ticketForm.Topics}
                   options={tagPickerOptionGenerator(categoryTopicsOptions)}
                 />
               </div>
@@ -422,12 +501,20 @@ export class NewTicket extends React.Component<
                 <label className="ms-Label">Watchers</label>
                 <PeoplePicker
                   getUserNames={person => {
-                    this.setState({
-                      WatcherId: person
-                    });
+                    console.log("TCL: person", person);
+                    this._onPeoplePicker(
+                      CONST.Lists.Tickets.Columns.WatcherId.Internal_Name,
+                      person
+                    );
+                    // this.setState({
+                    //   ticketForm: {
+                    //     ...this.state.ticketForm,
+                    //     WatcherId: person
+                    //   }
+                    // });
                   }}
                   allowMulti={true}
-                  defaultPeople={this.state.WatcherId}
+                  defaultPeople={this.state.ticketForm.WatcherId}
                   disabled={false}
                   placeholder={"Provide Watchers"}
                 />
@@ -437,7 +524,7 @@ export class NewTicket extends React.Component<
               <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12 ms-TextField">
                 <label className="ms-Label">Detailed Analysis</label>
                 <TextField
-                  value={this.state.Detailed_x0020_Analysis}
+                  value={this.state.ticketForm.Detailed_x0020_Analysis}
                   name={
                     CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis
                       .Internal_Name
@@ -456,7 +543,7 @@ export class NewTicket extends React.Component<
                   <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12 ms-TextField">
                     <label className="ms-Label">Conclusion</label>
                     <TextField
-                      value={this.state.Conclusion}
+                      value={this.state.ticketForm.Conclusion}
                       name={
                         CONST.Lists.Tickets.Columns.Conclusion.Internal_Name
                       }
@@ -473,10 +560,13 @@ export class NewTicket extends React.Component<
                     <Dropdown
                       placeholder={"Select Ticket Type"}
                       options={dropdownOptions(ticketDictionary.ticketType)}
-                      selectedKey={this.state.Ticket_x0020_Type}
+                      selectedKey={this.state.ticketForm.Ticket_x0020_Type}
                       onChange={(event: any, option: any) => {
                         this.setState({
-                          OData__Status: option.key
+                          ticketForm: {
+                            ...this.state.ticketForm,
+                            Ticket_x0020_Type: option.key
+                          }
                         });
                       }}
                     />
@@ -486,7 +576,7 @@ export class NewTicket extends React.Component<
                     <Checkbox
                       name={CONST.Lists.Tickets.Columns.Training.Internal_Name}
                       label={"Training candidate"}
-                      defaultChecked={this.state.Training}
+                      defaultChecked={this.state.ticketForm.Training}
                       onChange={this._onCheckboxChange}
                     />
                   </div>
@@ -495,7 +585,7 @@ export class NewTicket extends React.Component<
                     <Checkbox
                       name={CONST.Lists.Tickets.Columns.FAQ.Internal_Name}
                       label={"FAQ candidate"}
-                      defaultChecked={this.state.FAQ}
+                      defaultChecked={this.state.ticketForm.FAQ}
                       onChange={this._onCheckboxChange}
                     />
                   </div>
@@ -506,14 +596,17 @@ export class NewTicket extends React.Component<
                     <KatsTagPicker
                       getValues={val => {
                         this.setState({
-                          Label: val
+                          ticketForm: {
+                            ...this.state.ticketForm,
+                            Label: val
+                          }
                         });
                       }}
                       getOnBlur={() => {}}
                       headerText="Suggested Labels"
                       noResultText="No Label Found"
                       placeholder={"Enter Label"}
-                      defaultValue={this.state.Label}
+                      values={this.state.ticketForm.Label}
                       options={tagPickerOptionGenerator(
                         ticketDictionary.labels
                       )}
@@ -527,7 +620,9 @@ export class NewTicket extends React.Component<
                           .Internal_Name
                       }
                       label={"Knowledge Base candidate"}
-                      defaultChecked={this.state.Add_x0020_to_x0020_KB}
+                      defaultChecked={
+                        this.state.ticketForm.Add_x0020_to_x0020_KB
+                      }
                       onChange={this._onCheckboxChange}
                     />
                   </div>
@@ -549,10 +644,10 @@ export class NewTicket extends React.Component<
                   primary={true}
                   disabled={false}
                   onClick={e => {
-                    this._onButtonClick(e);
+                    this._onButtonClick(e, isEdit);
                   }}
                 >
-                  Create Ticket
+                  {isEdit ? "Update Ticket" : "Create Ticket"}
                 </PrimaryButton>
               </div>
             </div>
@@ -591,6 +686,17 @@ export class NewTicket extends React.Component<
     this.changedValue(event.target.name, isChecked);
   };
 
+  private _onPeoplePicker = (propertyName: string, person: any[]) => {
+    if (person) {
+      const newState = update(this.state, {
+        ticketForm: {
+          [propertyName]: { $set: person }
+        }
+      });
+      this.setState(newState);
+    }
+  };
+
   private _onMultiSelectDropdown = (
     propertyName: string,
     option: any,
@@ -598,12 +704,16 @@ export class NewTicket extends React.Component<
   ) => {
     if (option.selected) {
       const newState = update(this.state, {
-        [propertyName]: { $push: [option.key] }
+        ticketForm: {
+          [propertyName]: { $push: [option.key] }
+        }
       });
       this.setState(newState);
     } else {
       const newState = update(this.state, {
-        [propertyName]: { $splice: [[index, 1]] }
+        ticketForm: {
+          [propertyName]: { $splice: [[index, 1]] }
+        }
       });
       this.setState(newState);
     }
@@ -611,7 +721,9 @@ export class NewTicket extends React.Component<
 
   private changedValue(key: string, value: any) {
     const newState = update(this.state, {
-      [key]: { $set: value }
+      ticketForm: {
+        [key]: { $set: value }
+      }
     });
     this.setState(newState);
   }
@@ -622,19 +734,25 @@ export class NewTicket extends React.Component<
     )[0];
     if (supportTeam) {
       this.setState({
-        Support_x0020_Team: supportTeam.Support_x0020_Team
-          ? supportTeam.Support_x0020_Team.Name
-          : ""
+        ticketForm: {
+          ...this.state.ticketForm,
+          Support_x0020_Team: supportTeam.Support_x0020_Team
+            ? supportTeam.Support_x0020_Team.Name
+            : ""
+        }
       });
     } else {
       this.setState({
-        Support_x0020_Team: ""
+        ticketForm: {
+          ...this.state.ticketForm,
+          Support_x0020_Team: ""
+        }
       });
     }
   }
   //#endregion
 
-  private _onButtonClick(event: any) {
+  private _onButtonClick(event: any, isEdit?: boolean) {
     event.preventDefault();
     // check for form validation, go ahead only if form is valid
 
@@ -642,38 +760,74 @@ export class NewTicket extends React.Component<
       showConfirmDialog: { $set: false },
       showProgressDialog: { $set: true },
       showProgress: { $set: true },
-      progressDialogText: { $set: "saving your ticket..." },
-      dialogTitle: { $set: "Creating New Ticket" },
+      progressDialogText: { $set: "saving the ticket..." },
+      dialogTitle: {
+        $set: this.props.store.site.siteInfo.isNewForm
+          ? "Creating New Ticket"
+          : "Updating Ticket"
+      },
       error: { $set: null }
     });
     this.setState({
       dialogBlocking: newDialogState
     });
-    createTicket(this.state).then((res: any) => {
-      if (res) {
-        this.setState({
-          dialogBlocking: update(this.state.dialogBlocking, {
-            showConfirmDialog: { $set: false },
-            showProgressDialog: { $set: true },
-            showProgress: { $set: false },
-            progressDialogText: { $set: "" },
-            dialogTitle: { $set: "Ticket Created Successfully" },
-            error: { $set: null }
-          })
-        });
-      } else {
-        this.setState({
-          dialogBlocking: update(this.state.dialogBlocking, {
-            showConfirmDialog: { $set: false },
-            showProgressDialog: { $set: true },
-            showProgress: { $set: false },
-            progressDialogText: { $set: "" },
-            dialogTitle: { $set: "Something went wrong" },
-            error: { $set: "Something went wrong" }
-          })
-        });
-      }
-    });
+    if (!isEdit) {
+      createTicket(this.state.ticketForm).then((res: any) => {
+        if (res) {
+          this.setState({
+            dialogBlocking: update(this.state.dialogBlocking, {
+              showConfirmDialog: { $set: false },
+              showProgressDialog: { $set: true },
+              showProgress: { $set: false },
+              progressDialogText: { $set: "" },
+              dialogTitle: { $set: "Ticket Created Successfully" },
+              error: { $set: null }
+            })
+          });
+        } else {
+          this.setState({
+            dialogBlocking: update(this.state.dialogBlocking, {
+              showConfirmDialog: { $set: false },
+              showProgressDialog: { $set: true },
+              showProgress: { $set: false },
+              progressDialogText: { $set: "" },
+              dialogTitle: { $set: "Something went wrong" },
+              error: { $set: "Something went wrong" }
+            })
+          });
+        }
+      });
+    } else {
+      updateTicket(
+        this.state.ticketForm,
+        this.props.store.site.siteInfo.itemID
+      ).then((res: any) => {
+        if (res) {
+          this.setState({
+            dialogBlocking: update(this.state.dialogBlocking, {
+              showConfirmDialog: { $set: false },
+              showProgressDialog: { $set: true },
+              showProgress: { $set: false },
+              progressDialogText: { $set: "" },
+              dialogTitle: { $set: "Ticket Updated Successfully" },
+              error: { $set: null }
+            })
+          });
+        } else {
+          this.setState({
+            dialogBlocking: update(this.state.dialogBlocking, {
+              showConfirmDialog: { $set: false },
+              showProgressDialog: { $set: true },
+              showProgress: { $set: false },
+              progressDialogText: { $set: "" },
+              dialogTitle: { $set: "Something went wrong" },
+              error: { $set: "Something went wrong" }
+            })
+          });
+        }
+      });
+    }
+
     // setTimeout(() => {
     //   // using immutable helper
     //   const newDialogState = update(this.state.dialogBlocking, {

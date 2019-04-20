@@ -37,6 +37,12 @@ export interface IDialogBlocking {
 
 export interface ITicketLocalState {
   dialogBlocking: IDialogBlocking;
+  ticketForm: ITicketForm;
+}
+
+export interface ITicketForm {
+  isFetched: boolean;
+  error: any;
   Title: string;
   OData__ModerationComments: string;
   File_x0020_Type: string;
@@ -54,7 +60,7 @@ export interface ITicketLocalState {
   Auditing_x0020_Standards: string[];
   Accounting_x0020_Framework: string[];
   Created: string;
-  _Category: string;
+  OData__Category: string;
   Support_x0020_Team: string;
   Ticket_x0020_Type: string;
   Training: boolean;
@@ -71,7 +77,7 @@ export interface ITicketLocalState {
   Add_x0020_to_x0020_KB: boolean;
   TicketId: string;
   Engagement_x0020_Type: string[];
-  Sentinel_x0020_GIS_x0020_ID: number;
+  Sentinel_x0020_GIS_x0020_ID: string;
   Required_x0020_Consultation: boolean;
   Priority: string;
   Topics: string[];
