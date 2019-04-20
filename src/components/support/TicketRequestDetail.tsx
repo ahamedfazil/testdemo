@@ -121,7 +121,7 @@ export const TicketRequestDetail = React.memo(
           onChange={(event: any, value: string) => {
             props.getTicketRequestValue(event.target.name, value);
           }}
-          value={props.subject}
+          value={props.detailedAnalysis}
           name={
             CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis.Internal_Name
           }

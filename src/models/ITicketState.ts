@@ -38,6 +38,7 @@ export interface IDialogBlocking {
 export interface ITicketLocalState {
   dialogBlocking: IDialogBlocking;
   ticketForm: ITicketForm;
+  formCollapse: ITicketCollapse;
 }
 
 export interface ITicketForm {
@@ -80,4 +81,8 @@ export interface ITicketForm {
   Required_x0020_Consultation: boolean;
   Priority: string;
   Topics: string[];
+}
+
+export interface ITicketCollapse {
+  isDetailsCollapse: boolean;
 }

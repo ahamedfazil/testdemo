@@ -112,6 +112,9 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
           Id: store.user.currentUser.id
         }
       ]
+    },
+    formCollapse: {
+      isDetailsCollapse: false
     }
   };
   return initialState;

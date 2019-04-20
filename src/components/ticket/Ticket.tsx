@@ -5,7 +5,8 @@ import {
   ITicketLocalState,
   ITicketDictionary,
   IDialogBlocking,
-  ITicketForm
+  ITicketForm,
+  ITicketCollapse
 } from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
@@ -35,6 +36,8 @@ import { TicketInfo } from "../support/TicketInfo";
 import { TicketEngagementInfo } from "../support/TicketEngagement";
 import { TicketRequestDetail } from "../support/TicketRequestDetail";
 import { TicketSupportFields } from "../support/SupportFields";
+import Collapsible from "react-collapsible";
+import { TicketSubTitle } from "../support/TicketSubTitle";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
@@ -81,6 +84,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
 
   public render(): JSX.Element {
     const siteState: ISiteState = this.props.store.site;
+    const formCollapse: ITicketCollapse = this.state.formCollapse;
     const formState: ITicketForm = this.state.ticketForm;
     const isEdit: boolean = siteState.siteInfo.isEditForm;
     const userState: IUserState = this.props.store.user;
@@ -89,7 +93,6 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     const dialogBlocking: IDialogBlocking = this.state.dialogBlocking;
     if (ticketDictionary.isFetched) {
     }
-
     return (
       <div className="ms-Grid new-ticket">
         <TicketHeader isEdit={isEdit} className="header" />
@@ -107,22 +110,42 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
         ) : (
           <div>
             <div className="ms-Grid-row">
-              <TicketRequestDetail
-                submitter={this.state.ticketForm.Submitted_x0020_ById}
-                subject={this.state.ticketForm.Title}
-                detailedAnalysis={this.state.ticketForm.Detailed_x0020_Analysis}
-                priority={this.state.ticketForm.Priority}
-                getTicketRequestValue={(key, value) => {
-                  this._onTextChange(key, value);
+              <Collapsible
+                trigger={
+                  <TicketSubTitle
+                    title="Details"
+                    isCollapsed={formCollapse.isDetailsCollapse}
+                  />
+                }
+                onClosing={() => {
+                  this._onCollapseChange("isDetailsCollapse", true);
                 }}
-              />
+                onOpening={() => {
+                  this._onCollapseChange("isDetailsCollapse", false);
+                }}
+                open={true}
+              >
+                <TicketRequestDetail
+                  submitter={this.state.ticketForm.Submitted_x0020_ById}
+                  subject={this.state.ticketForm.Title}
+                  detailedAnalysis={
+                    this.state.ticketForm.Detailed_x0020_Analysis
+                  }
+                  priority={this.state.ticketForm.Priority}
+                  getTicketRequestValue={(key, value) => {
+                    this._onTextChange(key, value);
+                  }}
+                />
+              </Collapsible>
               {/* <CustomGroup
                 groupCollapse={null}
                 item={
                   <TicketRequestDetail
                     submitter={this.state.ticketForm.Submitted_x0020_ById}
                     subject={this.state.ticketForm.Title}
-                    detailedAnalysis={this.state.ticketForm.Detailed_x0020_Analysis}
+                    detailedAnalysis={
+                      this.state.ticketForm.Detailed_x0020_Analysis
+                    }
                     priority={this.state.ticketForm.Priority}
                     getTicketRequestValue={(key, value) => {
                       this._onTextChange(key, value);
@@ -131,7 +154,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                 }
                 isCollapsed={false}
                 title={"Detail"}
-              />*/}
+              /> */}
             </div>
             <div className="ms-Grid-row">
               <CustomGroup
@@ -292,6 +315,15 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   //#region helper functions
   private _onTextChange(key: string, value: any) {
     this.changedValue(key, value);
+  }
+
+  private _onCollapseChange(key: string, isCollapsed: boolean) {
+    const newState = update(this.state, {
+      formCollapse: {
+        [key]: { $set: isCollapsed }
+      }
+    });
+    this.setState(newState);
   }
 
   private _onCheckboxChange = (event: any, isChecked: boolean) => {
