@@ -24,7 +24,7 @@ interface ITicketInfoProps {
 export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
   return (
     <div className="ms-Grid-row">
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Ticket ID</Label>
         <TextField
           onChange={text => {
@@ -36,7 +36,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           disabled={true}
         />
       </div>
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Status</Label>
         <Dropdown
           placeholder={"Select Status"}
@@ -50,7 +50,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           }}
         />
       </div>
-      {/* <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      {/* <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Category</Label>
         <KendoCombo
           placeholder={"Select Category"}
@@ -61,7 +61,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           }}
         />
       </div> */}
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Support Team</Label>
         &nbsp;
         <i
@@ -75,10 +75,10 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           placeholder={"Set Based On Category"}
         />
       </div>
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Required Consultation</Label>
       </div>
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Topics</Label>
         <KatsTagPicker
           getValues={val => {
@@ -93,7 +93,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
                 options={tagPickerOptionGenerator(props.ticketDictionary.topic)}
         />
       </div>
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Accounting Frameworks</Label>
         <Dropdown
           placeholder={"Select Accounting Frameworks"}
@@ -105,7 +105,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           }}
         />
       </div>
-      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Auditing Standards</Label>
         <Dropdown
           placeholder={"Select Auditing Standards"}

@@ -41,6 +41,7 @@ import CustomGroup from "../support/CustomGroup";
 import { TicketUsers } from "../support/TicketUsers";
 import { TicketHeader } from "../support/TicketHeader";
 import { TicketInfo } from "../support/TicketInfo";
+import { TicketEngagementInfo } from "../support/EngagementInfo";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
@@ -109,7 +110,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     status={this.state.OData__Status}
                     ticketDictionary={this.props.store.ticket.ticketDictionary}
                     category={this.state.OData__Category}
-                    supportTeam ={this.state.Support_x0020_Team}
+                    supportTeam={this.state.Support_x0020_Team}
                     requiredConsultation={
                       this.state.Required_x0020_Consultation
                     }
@@ -126,6 +127,27 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                 }
                 isCollapsed={false}
                 title={"Ticket Information"}
+              />
+            </div>
+            <div className="ms-Grid-row">
+              <CustomGroup
+                groupCollapse={null}
+                item={
+                  <TicketEngagementInfo
+                    ticketDictionary={this.props.store.ticket.ticketDictionary}
+                    engagementName={this.state.Engagement_x0020_Name}
+                    sentinelGisId={this.state.Sentinel_x0020_GIS_x0020_ID}
+                    engagementType={this.state.Engagement_x0020_Type}
+                    periodEnd={this.state.Accounting_x0020_Period_x0020_En}
+                    chargeCode={this.state.Engagement_x0020_Charge_x0020_Co}
+                    getEngagementInfoValue={(key, value) => {
+                      this._onTextChange(key, value);
+                      this.changedValue(key, value);
+                    }}
+                  />
+                }
+                isCollapsed={false}
+                title={"Engagement Information"}
               />
             </div>
             <div className="ms-Grid-row">
