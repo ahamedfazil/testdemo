@@ -7,7 +7,8 @@ import {
   IGetTicketDictionaryActionSuccess,
   IGetSiteActionInProgress,
   IGetSiteActionSuccess,
-  IGetSiteActionError
+  IGetSiteActionError,
+  IUpdateSiteInfo
 } from "./IActions";
 
 type ActionTypes =
@@ -15,6 +16,7 @@ type ActionTypes =
   | IGetUserActionSuccess
   | IGetUserActionError
 
+  | IUpdateSiteInfo
   | IGetSiteActionInProgress
   | IGetSiteActionSuccess
   | IGetSiteActionError

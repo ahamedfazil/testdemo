@@ -38,6 +38,7 @@ import { TicketRequestDetail } from "../support/TicketRequestDetail";
 import { TicketSupportFields } from "../support/SupportFields";
 import Collapsible from "react-collapsible";
 import { TicketSubTitle } from "../support/TicketSubTitle";
+// import { setFormTypeAndID } from "../../services/SiteAPI";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
@@ -45,6 +46,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     this._onChangeValue = this._onChangeValue.bind(this);
     this._onChangeValue = debounce(300, this._onChangeValue);
     this.state = initialTicketLocalState(this.props.store);
+    // setFormTypeAndID(this.props);
   }
 
   async componentDidMount() {
@@ -322,7 +324,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                   {isEdit ? "Update Ticket" : "Create Ticket"}
                 </PrimaryButton>
               </div>
-            </div>*/}
+            </div>
           </div>
         )}
         <DialogBlocking
@@ -348,11 +350,6 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
       </div>
     );
   }
-
-  //#region helper functions
-  // private _onChangeValue(key: string, value: any) {
-  //   this.changedValue(key, value);
-  // }
 
   private _onCollapseChange(key: string, isCollapsed: boolean) {
     const newState = update(this.state, {

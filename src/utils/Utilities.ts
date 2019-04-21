@@ -2,6 +2,7 @@ import { IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
 import { CONST } from "./const";
 import { IGroup } from "office-ui-fabric-react";
 
+
 export function UniqueValInArray(val: any[]) {
   return val.filter(function(elem, pos, arr) {
     return arr.indexOf(elem) === pos;

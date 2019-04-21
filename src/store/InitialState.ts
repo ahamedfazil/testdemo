@@ -1,5 +1,6 @@
 import IStore from "./IStore";
 import { ITicketLocalState } from "../models/ITicketState";
+import { ITicketGridState } from "../models/ITicketGridState";
 import { onFormatDate } from "../utils/Utilities";
 
 export const initialState: IStore = {
@@ -25,9 +26,9 @@ export const initialState: IStore = {
     }
   },
   site: {
-    error: null,
     siteInfo: {
       isFetched: false,
+      error: null,
       serverRelativeURL: "",
       itemID: 50,
       isNewForm: false,
@@ -120,6 +121,19 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       isPeopleCollapse: false,
       isSupportCollapse: false
     }
+  };
+  return initialState;
+};
+
+
+export const initialTicketGridState = (store: IStore): ITicketGridState => {
+  const initialState: ITicketGridState = {
+    fullTicket: [],
+    isFetched: false,
+    skip: 0,
+    take: 10,
+    isPageable: true,
+    error: null
   };
   return initialState;
 };

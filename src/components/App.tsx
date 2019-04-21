@@ -1,6 +1,7 @@
 import * as React from "react";
 import pnp from "@pnp/pnpjs";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
+import { HashRouter as Router } from "react-router-dom";
 import { initializeIcons } from "@uifabric/icons";
 import "@progress/kendo-ui";
 import "@progress/kendo-theme-default/dist/all.css";
@@ -8,10 +9,9 @@ import { pnpConfig } from "../utils/pnp.config";
 
 import { getCurrentUser } from "../services/UserAPI";
 import { IAppProps } from "../models/IAppProps";
-import { ICurrentUserState } from "../models/IUserState";
-import Ticket from "../containers/ticket/Ticket";
 import { ErrorMessage } from "./support/ErrorMessage";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
+import AppNavigation from "./AppNavigation";
 
 export class App extends React.Component<IAppProps, {}> {
   constructor(props: IAppProps) {
@@ -25,9 +25,9 @@ export class App extends React.Component<IAppProps, {}> {
   }
 
   public render(): JSX.Element {
-    const userState: ICurrentUserState = this.props.store.user.currentUser;
     return (
-      <Fabric>
+      // <Router hashType="noslash">
+      <div>
         {!this.props.store.user.currentUser.isFetched ? (
           this.props.store.user.error ? (
             <ErrorMessage
@@ -43,11 +43,12 @@ export class App extends React.Component<IAppProps, {}> {
             />
           )
         ) : (
-          <div>
-            <Ticket />
+          <div className="ms-Grid">
+            <AppNavigation />
           </div>
         )}
-      </Fabric>
+      </div>
+      // </Router>
     );
   }
 }
