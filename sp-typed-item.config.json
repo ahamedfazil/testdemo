@@ -1,0 +1,14 @@
+[
+  {
+    "siteUrl": "https://xlitconsultinge.sharepoint.com/sites/katsdev",
+    "outputPath": "./Generated",
+    "lists": [
+      {
+        "url": "Lists/Tickets"
+      },
+      {
+        "url": "Lists/Topic"
+      }
+    ]
+  }
+]
