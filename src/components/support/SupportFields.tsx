@@ -34,16 +34,15 @@ export const TicketSupportFields: React.SFC<ISupportFieldsProps> = (
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Conclusion</Label>
         <TextField
-          onChange={text => {
+          onChange={(event: any, value: any) => {
             props.getSupportFieldValues(
-              CONST.Lists.Tickets.Columns.Conclusion.Internal_Name,
-              text
+              event.target.name,
+              value
             );
           }}
           value={props.conclusion}
           name={CONST.Lists.Tickets.Columns.Conclusion.Internal_Name}
           placeholder={"Enter Conclusion"}
-          disabled={false}
           multiline
           rows={5}
         />
@@ -68,7 +67,7 @@ export const TicketSupportFields: React.SFC<ISupportFieldsProps> = (
           name={CONST.Lists.Tickets.Columns.Training.Internal_Name}
           label={"Training candidate"}
           defaultChecked={props.training}
-          onChange={isChecked => {
+          onChange={(event: any, isChecked: boolean) => {
             props.getSupportFieldValues(
               CONST.Lists.Tickets.Columns.Training.Internal_Name,
               isChecked
@@ -82,7 +81,7 @@ export const TicketSupportFields: React.SFC<ISupportFieldsProps> = (
           name={CONST.Lists.Tickets.Columns.FAQ.Internal_Name}
           label={"FAQ candidate"}
           defaultChecked={props.faq}
-          onChange={isChecked => {
+          onChange={(event: any, isChecked: boolean) => {
             props.getSupportFieldValues(
               CONST.Lists.Tickets.Columns.FAQ.Internal_Name,
               isChecked
@@ -96,7 +95,7 @@ export const TicketSupportFields: React.SFC<ISupportFieldsProps> = (
           name={CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB.Internal_Name}
           label={"Knowledge Base candidate"}
           defaultChecked={props.training}
-          onChange={isChecked => {
+          onChange={(event: any, isChecked: boolean) => {
             props.getSupportFieldValues(
               CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB.Internal_Name,
               isChecked

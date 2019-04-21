@@ -85,4 +85,8 @@ export interface ITicketForm {
 
 export interface ITicketCollapse {
   isDetailsCollapse: boolean;
+  isInformationCollapse: boolean;
+  isEngaCollapse: boolean;
+  isPeopleCollapse: boolean;
+  isSupportCollapse: boolean;
 }

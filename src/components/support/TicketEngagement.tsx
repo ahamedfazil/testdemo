@@ -16,6 +16,7 @@ interface IEngagementInfoProps {
   periodEnd: string;
   chargeCode: string;
   getEngagementInfoValue: (key: string, value: any) => void;
+  getTicketEngValueMulti: (key: string, option: any, index: number) => void;
   ticketDictionary: ITicketDictionary;
 }
 
@@ -27,10 +28,10 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Engagement Name</Label>
         <TextField
-          onChange={text => {
+          onChange={(event: any, value: string) => {
             props.getEngagementInfoValue(
-              CONST.Lists.Tickets.Columns.Engagement_x0020_Name.Internal_Name,
-              text
+              event.target.name,
+              value
             );
           }}
           value={props.engagementName}
@@ -45,7 +46,7 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
           placeholder={"Select Sentinel GIS ID"}
           options={dropdownOptions(props.ticketDictionary.sentinelGisId)}
           selectedKey={props.sentinelGisId}
-          onChange={(key, option: any) => {
+          onChange={(event: any, option: any) => {
             props.getEngagementInfoValue(
               CONST.Lists.Tickets.Columns.Sentinel_x0020_GIS_x0020_ID
                 .Internal_Name,
@@ -59,11 +60,14 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
         <Dropdown
           placeholder={"Select Engagement Type"}
           options={dropdownOptions(props.ticketDictionary.engagementType)}
-          selectedKey={props.engagementType}
+          selectedKeys={props.engagementType}
+          multiSelect
           onChange={(key, option: any) => {
-            props.getEngagementInfoValue(
+            const index = props.engagementType.indexOf(option.key);
+            props.getTicketEngValueMulti(
               CONST.Lists.Tickets.Columns.Engagement_x0020_Type.Internal_Name,
-              option.key
+              option,
+              index
             );
           }}
         />
@@ -75,8 +79,11 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
           placeholder={"DD/MM/YYYY"}
           allowTextInput={true}
           onSelectDate={val => {
-            CONST.Lists.Tickets.Columns.Accounting_x0020_Period_x0020_En =
-              onFormatDate(val);
+            props.getEngagementInfoValue(
+              CONST.Lists.Tickets.Columns.Accounting_x0020_Period_x0020_En
+                .Internal_Name,
+                onFormatDate(val)
+            );
           }}
           formatDate={onFormatDate}
         />
@@ -84,13 +91,12 @@ export const TicketEngagementInfo: React.SFC<IEngagementInfoProps> = (
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Charge Code</Label>
         <TextField
-          onChange={text => {
-            props.getEngagementInfoValue(CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co.Internal_Name, text);
+          onChange={(event: any, value: string) => {
+            props.getEngagementInfoValue(event.target.name, value);
           }}
           value={props.chargeCode}
           name={CONST.Lists.Tickets.Columns.Engagement_x0020_Charge_x0020_Co.Internal_Name}
           placeholder={"Enter Charge Code"}
-          disabled={false}
         />
       </div>
     </div>

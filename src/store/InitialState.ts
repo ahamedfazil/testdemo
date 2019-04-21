@@ -114,7 +114,11 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       ]
     },
     formCollapse: {
-      isDetailsCollapse: false
+      isDetailsCollapse: false,
+      isInformationCollapse: false,
+      isEngaCollapse: false,
+      isPeopleCollapse: false,
+      isSupportCollapse: false
     }
   };
   return initialState;
