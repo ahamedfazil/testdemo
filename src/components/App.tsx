@@ -26,29 +26,31 @@ export class App extends React.Component<IAppProps, {}> {
 
   public render(): JSX.Element {
     return (
-      // <Router hashType="noslash">
-      <div>
-        {!this.props.store.user.currentUser.isFetched ? (
-          this.props.store.user.error ? (
-            <ErrorMessage
-              error={`Error while getting user - ${
-                this.props.store.user.error
-              }`}
-            />
-          ) : (
-            <Spinner
-              size={SpinnerSize.large}
-              style={{ margin: "200px" }}
-              label={"Getting current user info..."}
-            />
-          )
-        ) : (
-          <div className="ms-Grid">
-            <AppNavigation />
+      <Router hashType="noslash">
+        <Fabric>
+          <div>
+            {!this.props.store.user.currentUser.isFetched ? (
+              this.props.store.user.error ? (
+                <ErrorMessage
+                  error={`Error while getting user - ${
+                    this.props.store.user.error
+                  }`}
+                />
+              ) : (
+                <Spinner
+                  size={SpinnerSize.large}
+                  style={{ margin: "200px" }}
+                  label={"Getting current user info..."}
+                />
+              )
+            ) : (
+              <div className="ms-Grid">
+                <AppNavigation />
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      // </Router>
+        </Fabric>
+      </Router>
     );
   }
 }

@@ -12,12 +12,10 @@ import { history } from "../src/store/configureStore.dev";
 const storeObj = configureStore();
 
 ReactDOM.render(
-  <Fabric>
-    <Provider store={storeObj}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </Provider>
-  </Fabric>,
+  <Provider store={storeObj}>
+    {/* <ConnectedRouter history={history}> */}
+      <App />
+    {/* </ConnectedRouter> */}
+  </Provider>,
   document.getElementById("root") as HTMLElement
 );

@@ -32,7 +32,7 @@ export class TicketGrid extends React.Component<
         >
           Edit Ticket
         </PrimaryButton>
-        <ExcelExport
+        {/* <ExcelExport
           data={this.state.fullTicket}
           ref={exporter => {
             this._export = exporter;
@@ -72,7 +72,7 @@ export class TicketGrid extends React.Component<
             <Column field="TicketID" title="TicketID" />
             <Column field="EngagementName" title="Engagement Name" />
           </Grid>
-        </ExcelExport>
+        </ExcelExport> */}
       </div>
     );
   }
