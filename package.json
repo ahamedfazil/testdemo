@@ -25,6 +25,7 @@
     "office-ui-fabric-core": "^9.0.0",
     "office-ui-fabric-react": "^6.96.0",
     "react": "^16.8.3",
+    "react-collapsible": "^2.6.0",
     "react-dom": "^16.8.3",
     "react-redux": "^5.0.7",
     "react-router": "^5.0.0",

@@ -1,11 +1,20 @@
 import { IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
-import { IGroup } from "office-ui-fabric-react/lib/components/DetailsList";
+import { CONST } from "./const";
+import { IGroup } from "office-ui-fabric-react";
 
 export function UniqueValInArray(val: any[]) {
   return val.filter(function(elem, pos, arr) {
     return arr.indexOf(elem) === pos;
   });
 }
+
+export const getArrayFromString = (arrayString: string) => {
+  if (arrayString) {
+    return arrayString.split(CONST.Others.ArraySplitter);
+  } else {
+    return [];
+  }
+};
 
 export const dropdownOptions = (optionArray: any[]): IDropdownOption[] => {
   let dropdownOptionVal: IDropdownOption[] = [];

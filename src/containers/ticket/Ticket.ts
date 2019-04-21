@@ -3,7 +3,7 @@ import IStore from "../../store/IStore";
 import * as Actions from "../../actions/Actions";
 import { bindActionCreators } from "redux";
 import { ITicketProps } from "../../models/ITicketProps";
-import { NewTicket } from "../../components/ticket/Ticket";
+import { Ticket } from "../../components/ticket/Ticket";
 
 function mapStateToProps(store: IStore) {
   return {
@@ -35,4 +35,4 @@ function mapDispatchToProps(dispatch: Dispatch<IStore>) {
 export default connect<{}, {}, ITicketProps>(
   mapStateToProps,
   mapDispatchToProps
-)(NewTicket) as React.ComponentClass<{}>;
+)(Ticket) as React.ComponentClass<{}>;

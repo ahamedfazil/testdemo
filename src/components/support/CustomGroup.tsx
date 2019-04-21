@@ -45,22 +45,22 @@ export default class CustomGroup extends React.Component<
     };
   }
 
-  componentWillReceiveProps(newProps: ICustomGroupProps) {
-    if (newProps.isCollapsed !== this.props.isCollapsed) {
-      this.setState({
-        _groups: createGroup(
-          1,
-          1,
-          0,
-          1,
-          newProps.title,
-          0,
-          "",
-          newProps.isCollapsed
-        )
-      });
-    }
-  }
+  // componentWillReceiveProps(newProps: ICustomGroupProps) {
+  //   if (newProps.isCollapsed !== this.props.isCollapsed) {
+  //     this.setState({
+  //       _groups: createGroup(
+  //         1,
+  //         1,
+  //         0,
+  //         1,
+  //         newProps.title,
+  //         0,
+  //         "",
+  //         newProps.isCollapsed
+  //       )
+  //     });
+  //   }
+  // }
 
   public render(): JSX.Element {
     return (
