@@ -27,7 +27,7 @@ module.exports = env => {
                 multiple: [
                   {
                     // search: "http://UK-MP19U5FM:8080",
-                    search: "http://DESKTOP-Q9SQHGE:8080",
+                    search: "http://localhost:8080",
                     // search: "https://sites.kpmg.co.uk/apps/katsdev",
                     replace: URL[environment].siteUrl
                   }
