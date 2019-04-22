@@ -2,7 +2,6 @@ import { applyMiddleware, createStore, Store } from "redux";
 import promise from "redux-promise-middleware";
 import thunkMiddleware from "redux-thunk";
 import { routerMiddleware } from "react-router-redux";
-// import createHistory from "history/createHashHistory";
 import { createHashHistory as createHistory } from "history";
 // For Dev
 import logger from "redux-logger";

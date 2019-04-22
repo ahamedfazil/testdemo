@@ -38,6 +38,7 @@ import { TicketRequestDetail } from "../support/TicketRequestDetail";
 import { TicketSupportFields } from "../support/SupportFields";
 import Collapsible from "react-collapsible";
 import { TicketSubTitle } from "../support/TicketSubTitle";
+import { setFormTypeAndID } from "../../services/SiteAPI";
 // import { setFormTypeAndID } from "../../services/SiteAPI";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
@@ -46,7 +47,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     this._onChangeValue = this._onChangeValue.bind(this);
     this._onChangeValue = debounce(300, this._onChangeValue);
     this.state = initialTicketLocalState(this.props.store);
-    // setFormTypeAndID(this.props);
+    setFormTypeAndID(this.props);
   }
 
   async componentDidMount() {

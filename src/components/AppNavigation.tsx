@@ -16,12 +16,12 @@ class AppNavigation extends React.Component<{}> {
             <Route path="/" exact={true} component={Dashboard} />
             <Route path="/newticket" exact={true} component={Ticket} />
             <Route
-                path="/editticket/:itemId"
+                path="/editticket/:id"
                 exact={true}
                 component={Ticket}
               />
               <Route
-                path="/viewticket/:itemId"
+                path="/viewticket/:id"
                 exact={true}
                 component={Ticket}
               />

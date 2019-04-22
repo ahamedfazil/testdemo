@@ -3,7 +3,6 @@ import { IDashboardProps } from "../models/IDashboardProps";
 import TicketGrid from "../containers/ticket/TicketGrid";
 import { autobind } from "@uifabric/utilities";
 import { CompoundButton } from "office-ui-fabric-react";
-import { ISiteInfo } from "../models/ISiteState";
 import { navigateToNewForm } from "../services/SiteAPI";
 
 export class Dashboard extends React.Component<IDashboardProps, {}> {

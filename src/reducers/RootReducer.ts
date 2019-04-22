@@ -6,7 +6,7 @@ import { ticketReducer } from "./TicketReducer";
 import { siteReducer } from "./SiteReducer";
 
 const rootReducer = combineReducers<IStore>({
-  routing: routerReducer,
+  router: routerReducer,
   site: siteReducer,
   user: userReducer,
   ticket: ticketReducer

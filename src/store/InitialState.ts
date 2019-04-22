@@ -30,9 +30,9 @@ export const initialState: IStore = {
       isFetched: false,
       error: null,
       serverRelativeURL: "",
-      itemID: 50,
+      itemID: null,
       isNewForm: false,
-      isEditForm: true,
+      isEditForm: false,
       isViewForm: false
     }
   },

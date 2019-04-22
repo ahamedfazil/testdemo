@@ -28,7 +28,8 @@ function mapDispatchToProps(dispatch: Dispatch<IStore>) {
     getCurrentUserSuccess: bindActionCreators(
       Actions.getCurrentUserSuccess,
       dispatch
-    )
+    ),
+    updateSiteInfo: bindActionCreators(Actions.updateSiteInfo, dispatch)
   };
 }
 
