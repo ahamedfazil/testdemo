@@ -39,13 +39,14 @@ import { TicketSupportFields } from "../support/SupportFields";
 import Collapsible from "react-collapsible";
 import { TicketSubTitle } from "../support/TicketSubTitle";
 import { setFormTypeAndID } from "../../services/SiteAPI";
+import { TicketComments } from "../support/TicketComments";
 // import { setFormTypeAndID } from "../../services/SiteAPI";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
     super(props);
     this._onChangeValue = this._onChangeValue.bind(this);
-    this._onChangeValue = debounce(300, this._onChangeValue);
+    this._onChangeValue = debounce(200, this._onChangeValue);
     this.state = initialTicketLocalState(this.props.store);
     setFormTypeAndID(this.props);
   }
@@ -145,6 +146,9 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     this.state.ticketForm.Detailed_x0020_Analysis
                   }
                   priority={this.state.ticketForm.Priority}
+                  reasonForUrgency={
+                    this.state.ticketForm.Reason_x0020_for_x0020_Urgency
+                  }
                   getTicketRequestValue={(key, value) => {
                     this._onChangeValue(key, value);
                   }}
@@ -297,6 +301,33 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     faq={this.state.ticketForm.FAQ}
                     labels={this.state.ticketForm.Label}
                     getSupportFieldValues={(key, value) => {
+                      this._onChangeValue(key, value);
+                    }}
+                  />
+                </Collapsible>
+              </div>
+            )}
+
+            {isEdit && (
+              <div className="ms-Grid-row">
+                <Collapsible
+                  trigger={
+                    <TicketSubTitle
+                      title="Ticket Comments"
+                      isCollapsed={formCollapse.isTicketCommentCollapse}
+                    />
+                  }
+                  onClosing={() => {
+                    this._onCollapseChange("isTicketCommentCollapse", true);
+                  }}
+                  onOpening={() => {
+                    this._onCollapseChange("isTicketCommentCollapse", false);
+                  }}
+                  open={true}
+                >
+                  <TicketComments
+                    ticketComment={this.state.ticketForm.kats_comments}
+                    getTicketComment={(key, value) => {
                       this._onChangeValue(key, value);
                     }}
                   />

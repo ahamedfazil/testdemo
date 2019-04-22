@@ -42,6 +42,7 @@ export const CONST = {
         Accounting_x0020_Framework: {
           Internal_Name: "Accounting_x0020_Framework"
         },
+        kats_comments: {Internal_Name: "kats_comments"},
         OData__Category: { Internal_Name: "OData__Category" },
         Support_x0020_Team: { Internal_Name: "Support_x0020_Team" },
         TaxCatchAllId: { Internal_Name: "TaxCatchAllId" },

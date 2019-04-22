@@ -3,6 +3,7 @@ import { PeoplePicker } from "./PeoplePicker";
 import { Label, TextField, Dropdown } from "office-ui-fabric-react";
 import { CONST } from "../../utils/const";
 import { dropdownOptions } from "../../utils/Utilities";
+import { RichTextEditor } from "./RichTextEditor";
 
 interface ITicketRequestDetailProps {
   submitter: any[];
@@ -10,6 +11,7 @@ interface ITicketRequestDetailProps {
   subject: string;
   detailedAnalysis: string;
   priority: string;
+  reasonForUrgency: string;
   getTicketRequestValue: (key: string, value: any | any[]) => void;
 }
 
@@ -45,18 +47,15 @@ export const TicketRequestDetail = React.memo(
       </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Detail Analysis</Label>
-        <TextField
-          onChange={(event: any, value: string) => {
-            props.getTicketRequestValue(event.target.name, value);
-          }}
+        <RichTextEditor
           value={props.detailedAnalysis}
-          name={
-            CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis.Internal_Name
-          }
-          placeholder={"Enter brief description"}
-          disabled={false}
-          multiline
-          rows={5}
+          getEvent={event => {
+            props.getTicketRequestValue(
+              CONST.Lists.Tickets.Columns.Detailed_x0020_Analysis.Internal_Name,
+              event.sender.body.innerHTML
+            );
+          }}
+          placeholder="Enter brief description"
         />
       </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
@@ -73,6 +72,24 @@ export const TicketRequestDetail = React.memo(
           }}
         />
       </div>
+      {props.priority === "Urgent" && (
+        <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
+          <Label>Reason For Urgency</Label>
+          <TextField
+            onChange={(event: any, value: string) => {
+              props.getTicketRequestValue(event.target.name, value);
+            }}
+            value={props.reasonForUrgency}
+            name={
+              CONST.Lists.Tickets.Columns.Reason_x0020_for_x0020_Urgency
+                .Internal_Name
+            }
+            placeholder={"Enter reason for urgency"}
+            multiline
+            rows={5}
+          />
+        </div>
+      )}
     </div>
   )
 );

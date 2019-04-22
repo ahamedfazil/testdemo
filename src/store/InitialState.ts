@@ -97,6 +97,7 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       ReviewerId: null,
       WatcherId: [],
       OData__Status: "",
+      kats_comments: [],
       Conclusion: "",
       Add_x0020_to_x0020_KB: false,
       TicketId: "",
@@ -119,7 +120,8 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       isInformationCollapse: false,
       isEngaCollapse: false,
       isPeopleCollapse: false,
-      isSupportCollapse: false
+      isSupportCollapse: false,
+      isTicketCommentCollapse: false
     }
   };
   return initialState;
