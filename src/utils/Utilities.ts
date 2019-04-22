@@ -77,7 +77,7 @@ export const getDateFromString = (stringDate: string): Date => {
   }
 };
 
-export const onFormatDate = (value: Date): any => {
+export const onFormatDate = (value: Date, withTime?: boolean): any => {
   if (value) {
     let dateVal = value.getDate().toString();
     let monthVal = (value.getMonth() + 1).toString();
@@ -87,7 +87,24 @@ export const onFormatDate = (value: Date): any => {
     if (monthVal && monthVal.length < 2) {
       monthVal = "0" + monthVal;
     }
-    const fullDateVal = dateVal + "/" + monthVal + "/" + value.getFullYear();
+    let fullDateVal = dateVal + "/" + monthVal + "/" + value.getFullYear();
+    if (withTime) {
+      let hoursVal = value.getHours().toString();
+      let minutesVal = value.getMinutes().toString();
+      let secondsVal = value.getSeconds().toString();
+      if (hoursVal && hoursVal.length < 2) {
+        hoursVal = "0" + hoursVal;
+      }
+      if (minutesVal && minutesVal.length < 2) {
+        minutesVal = "0" + minutesVal;
+      }
+      if (secondsVal && secondsVal.length < 2) {
+        secondsVal = "0" + secondsVal;
+      }
+
+      fullDateVal =
+        fullDateVal + " " + hoursVal + ":" + minutesVal + ":" + secondsVal;
+    }
     return fullDateVal;
   } else {
     return null;

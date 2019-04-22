@@ -6,7 +6,8 @@ import {
   ITicketDictionary,
   IDialogBlocking,
   ITicketForm,
-  ITicketCollapse
+  ITicketCollapse,
+  ITicketComment
 } from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
@@ -22,7 +23,8 @@ import { CONST } from "../../utils/const";
 import {
   createTicket,
   getTicketByID,
-  updateTicket
+  updateTicket,
+  updateComment
 } from "../../services/TicketAPI";
 import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
@@ -301,6 +303,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     faq={this.state.ticketForm.FAQ}
                     labels={this.state.ticketForm.Label}
                     getSupportFieldValues={(key, value) => {
+                      // update only Comment
                       this._onChangeValue(key, value);
                     }}
                   />
@@ -326,9 +329,12 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                   open={true}
                 >
                   <TicketComments
-                    ticketComment={this.state.ticketForm.kats_comments}
+                    ticketComment={this.state.ticketForm.kats_comments.comments}
+                    isDisabled={false}
+                    currentUserName={userState.currentUser.firstName}
+                    currentUserEmail={userState.currentUser.email}
                     getTicketComment={(key, value) => {
-                      this._onChangeValue(key, value);
+                      this._onCommentsAdd(key, value);
                     }}
                   />
                 </Collapsible>
@@ -534,5 +540,51 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     //     dialogBlocking: newDialogState
     //   });
     // }, 3000);
+  }
+
+  private _onCommentsAdd(key: string, value: ITicketComment) {
+    const newStateForComments = update(this.state, {
+      ticketForm: {
+        kats_comments: {
+          comments: {
+            $push: [value]
+          }
+        }
+      }
+    });
+
+    const newDialogState = update(this.state.dialogBlocking, {
+      showConfirmDialog: { $set: false },
+      showProgressDialog: { $set: true },
+      showProgress: { $set: true },
+      progressDialogText: { $set: "adding your comment..." },
+      dialogTitle: {
+        $set: "Posting Comment"
+      },
+      error: { $set: null }
+    });
+    this.setState({
+      dialogBlocking: newDialogState
+    });
+
+    updateComment(
+      newStateForComments.ticketForm.kats_comments,
+      this.props.store.site.siteInfo.itemID
+    ).then((res: any) => {
+      if (res) {
+        this.setState(newStateForComments);
+      } else {
+        this.setState({
+          dialogBlocking: update(this.state.dialogBlocking, {
+            showConfirmDialog: { $set: false },
+            showProgressDialog: { $set: true },
+            showProgress: { $set: false },
+            progressDialogText: { $set: "" },
+            dialogTitle: { $set: "Something went wrong" },
+            error: { $set: "Something went wrong" }
+          })
+        });
+      }
+    });
   }
 }

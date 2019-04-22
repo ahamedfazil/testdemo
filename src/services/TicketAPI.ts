@@ -1,4 +1,4 @@
-import { ITicketForm } from "../models/ITicketState";
+import { ITicketForm, ITicketFullComment } from "../models/ITicketState";
 import pnp, { sp } from "@pnp/pnpjs";
 import { CONST } from "../utils/const";
 import { Ticket_Mapper } from "./Mapper";
@@ -50,6 +50,28 @@ export const updateTicket = async (ticketForm: ITicketForm, itemID: number) => {
     })
     .catch(e => {
       console.log("Error while updating Ticket" + e.message);
+      return false;
+    });
+};
+
+export const updateComment = async (
+  commentValue: ITicketFullComment,
+  itemID: number
+) => {
+  return await pnp.sp.web.lists
+    .getByTitle(CONST.Lists.Tickets.ListName)
+    .items.getById(itemID)
+    .update({
+      [CONST.Lists.Tickets.Columns.kats_comments.Internal_Name]: JSON.stringify(
+        commentValue
+      )
+    })
+    .then(() => {
+      console.log("successfully added comment.");
+      return true;
+    })
+    .catch(e => {
+      console.log("Error while adding comment" + e.message);
       return false;
     });
 };
