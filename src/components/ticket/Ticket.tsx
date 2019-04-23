@@ -277,69 +277,66 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                 />
               </Collapsible>
             </div>
-            {userState.currentUser.isSupportUser && (
-              <div className="ms-Grid-row">
-                <Collapsible
-                  trigger={
-                    <TicketSubTitle
-                      title="Support Information"
-                      isCollapsed={formCollapse.isSupportCollapse}
-                    />
-                  }
-                  onClosing={() => {
-                    this._onCollapseChange("isSupportCollapse", true);
-                  }}
-                  onOpening={() => {
-                    this._onCollapseChange("isSupportCollapse", false);
-                  }}
-                  open={true}
-                >
-                  <TicketSupportFields
-                    ticketDictionary={this.props.store.ticket.ticketDictionary}
-                    conclusion={this.state.ticketForm.Conclusion}
-                    ticketType={this.state.ticketForm.Ticket_x0020_Type}
-                    training={this.state.ticketForm.Training}
-                    addToKb={this.state.ticketForm.Add_x0020_to_x0020_KB}
-                    faq={this.state.ticketForm.FAQ}
-                    labels={this.state.ticketForm.Label}
-                    getSupportFieldValues={(key, value) => {
-                      // update only Comment
-                      this._onChangeValue(key, value);
-                    }}
-                  />
-                </Collapsible>
-              </div>
-            )}
 
-            {isEdit && (
-              <div className="ms-Grid-row">
-                <Collapsible
-                  trigger={
-                    <TicketSubTitle
-                      title="Ticket Comments"
-                      isCollapsed={formCollapse.isTicketCommentCollapse}
-                    />
-                  }
-                  onClosing={() => {
-                    this._onCollapseChange("isTicketCommentCollapse", true);
-                  }}
-                  onOpening={() => {
-                    this._onCollapseChange("isTicketCommentCollapse", false);
-                  }}
-                  open={true}
-                >
-                  <TicketComments
-                    ticketComment={this.state.ticketForm.kats_comments.comments}
-                    isDisabled={false}
-                    currentUserName={userState.currentUser.firstName}
-                    currentUserEmail={userState.currentUser.email}
-                    getTicketComment={(key, value) => {
-                      this._onCommentsAdd(key, value);
-                    }}
+            <div className="ms-Grid-row">
+              <Collapsible
+                trigger={
+                  <TicketSubTitle
+                    title="Support Information"
+                    isCollapsed={formCollapse.isSupportCollapse}
                   />
-                </Collapsible>
-              </div>
-            )}
+                }
+                onClosing={() => {
+                  this._onCollapseChange("isSupportCollapse", true);
+                }}
+                onOpening={() => {
+                  this._onCollapseChange("isSupportCollapse", false);
+                }}
+                open={true}
+              >
+                <TicketSupportFields
+                  ticketDictionary={this.props.store.ticket.ticketDictionary}
+                  conclusion={this.state.ticketForm.Conclusion}
+                  ticketType={this.state.ticketForm.Ticket_x0020_Type}
+                  training={this.state.ticketForm.Training}
+                  addToKb={this.state.ticketForm.Add_x0020_to_x0020_KB}
+                  faq={this.state.ticketForm.FAQ}
+                  labels={this.state.ticketForm.Label}
+                  getSupportFieldValues={(key, value) => {
+                    // update only Comment
+                    this._onChangeValue(key, value);
+                  }}
+                />
+              </Collapsible>
+            </div>
+
+            <div className="ms-Grid-row">
+              <Collapsible
+                trigger={
+                  <TicketSubTitle
+                    title="Ticket Comments"
+                    isCollapsed={formCollapse.isTicketCommentCollapse}
+                  />
+                }
+                onClosing={() => {
+                  this._onCollapseChange("isTicketCommentCollapse", true);
+                }}
+                onOpening={() => {
+                  this._onCollapseChange("isTicketCommentCollapse", false);
+                }}
+                open={true}
+              >
+                <TicketComments
+                  ticketComment={this.state.ticketForm.kats_comments.comments}
+                  isDisabled={false}
+                  currentUserName={userState.currentUser.firstName}
+                  currentUserEmail={userState.currentUser.email}
+                  getTicketComment={(key, value) => {
+                    this._onCommentsAdd(key, value);
+                  }}
+                />
+              </Collapsible>
+            </div>
 
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12">
@@ -567,24 +564,25 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
       dialogBlocking: newDialogState
     });
 
-    updateComment(
-      newStateForComments.ticketForm.kats_comments,
-      this.props.store.site.siteInfo.itemID
-    ).then((res: any) => {
-      if (res) {
-        this.setState(newStateForComments);
-      } else {
-        this.setState({
-          dialogBlocking: update(this.state.dialogBlocking, {
-            showConfirmDialog: { $set: false },
-            showProgressDialog: { $set: true },
-            showProgress: { $set: false },
-            progressDialogText: { $set: "" },
-            dialogTitle: { $set: "Something went wrong" },
-            error: { $set: "Something went wrong" }
-          })
-        });
-      }
-    });
+    this.setState(newStateForComments);
+    // updateComment(
+    //   newStateForComments.ticketForm.kats_comments,
+    //   this.props.store.site.siteInfo.itemID
+    // ).then((res: any) => {
+    //   if (res) {
+    //     this.setState(newStateForComments);
+    //   } else {
+    //     this.setState({
+    //       dialogBlocking: update(this.state.dialogBlocking, {
+    //         showConfirmDialog: { $set: false },
+    //         showProgressDialog: { $set: true },
+    //         showProgress: { $set: false },
+    //         progressDialogText: { $set: "" },
+    //         dialogTitle: { $set: "Something went wrong" },
+    //         error: { $set: "Something went wrong" }
+    //       })
+    //     });
+    //   }
+    // });
   }
 }
