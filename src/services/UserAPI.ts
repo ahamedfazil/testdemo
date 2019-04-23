@@ -4,12 +4,16 @@ import { IAppProps } from "../models/IAppProps";
 import { ICurrentUserState } from "../models/IUserState";
 
 export const getUserByID = (userID: any) => {
-  return pnp.sp.web.siteUsers
-    .getById(userID)
-    .get()
-    .then(response => {
-      return response;
-    });
+  if (userID) {
+    return pnp.sp.web.siteUsers
+      .getById(userID)
+      .get()
+      .then(response => {
+        return response;
+      });
+  } else {
+    return null;
+  }
 };
 
 export async function getUserIDFromPP(pplValue: any[]) {

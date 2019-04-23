@@ -1,3 +1,5 @@
+import { ITicketComment } from "../models/ITicketState";
+
 export const CONST = {
   Site: {
     IsFetched: false,
@@ -42,11 +44,9 @@ export const CONST = {
         Accounting_x0020_Framework: {
           Internal_Name: "Accounting_x0020_Framework"
         },
-        _Category: { Internal_Name: "OData__Category" },
+        kats_comments: { Internal_Name: "kats_comments" },
+        OData__Category: { Internal_Name: "OData__Category" },
         Support_x0020_Team: { Internal_Name: "Support_x0020_Team" },
-        o3595bc4afbb45abadeb9b37ccf9a23b: {
-          Internal_Name: "o3595bc4afbb45abadeb9b37ccf9a23b"
-        },
         TaxCatchAllId: { Internal_Name: "TaxCatchAllId" },
         TaxCatchAllLabelId: { Internal_Name: "TaxCatchAllLabelId" },
         Topic: { Internal_Name: "Topic" },
@@ -55,7 +55,7 @@ export const CONST = {
         FAQ: { Internal_Name: "FAQ" },
         Label: { Internal_Name: "Label" },
         Detailed_x0020_Analysis: { Internal_Name: "Detailed_x0020_Analysis" },
-        IsUrgent: { Internal_Name: "IsUrgent" },
+        Priority: { Internal_Name: "Priority" },
         Reason_x0020_for_x0020_Urgency: {
           Internal_Name: "Reason_x0020_for_x0020_Urgency"
         },
@@ -74,7 +74,7 @@ export const CONST = {
         Required_x0020_Consultation: {
           Internal_Name: "Required_x0020_Consultation"
         },
-        Priority: { Internal_Name: "Priority" },
+        // Priority: { Internal_Name: "Priority" },
         Topics: { Internal_Name: "Topics" },
         Edit: { Internal_Name: "Edit" },
         SelectTitle: { Internal_Name: "SelectTitle" },
@@ -199,5 +199,8 @@ export const CONST = {
         }
       }
     }
+  },
+  Others: {
+    ArraySplitter: ";#"
   }
 };

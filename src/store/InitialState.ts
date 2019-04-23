@@ -1,10 +1,11 @@
 import IStore from "./IStore";
 import { ITicketLocalState } from "../models/ITicketState";
+import { ITicketGridState } from "../models/ITicketGridState";
 import { onFormatDate } from "../utils/Utilities";
 
 export const initialState: IStore = {
   user: {
-    isinitialised: false,
+    isInitialised: false,
     currentUser: {
       isFetched: false,
       isSupportUser: false,
@@ -22,6 +23,17 @@ export const initialState: IStore = {
       memberOf: [],
       office: "",
       officeNumber: null
+    }
+  },
+  site: {
+    siteInfo: {
+      isFetched: false,
+      error: null,
+      serverRelativeURL: "",
+      itemID: null,
+      isNewForm: false,
+      isEditForm: false,
+      isViewForm: false
     }
   },
   ticket: {
@@ -54,51 +66,77 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       dialogTitle: "",
       error: null
     },
-    Title: "",
-    OData__ModerationComments: "",
-    Created: onFormatDate(new Date()),
-    File_x0020_Type: "",
-    JobTitle: "",
-    Office: "",
-    ol_Department: "",
-    CellPhone: "",
-    Office_x0020_Number: "",
-    Audit_x0020_Team_x0020_CCId: [],
-    Responsible_x0020_IndividualId: [],
-    Engagement_x0020_Name: "",
-    Engagement_x0020_Charge_x0020_Co: "",
-    Accounting_x0020_Period_x0020_En: null,
-    Auditing_x0020_Standards: [],
-    Accounting_x0020_Framework: [],
-    _Category: "",
-    Support_x0020_Team: "",
-    Ticket_x0020_Type: "",
-    Training: false,
-    FAQ: false,
-    Label: [],
-    Detailed_x0020_Analysis: "",
-    IsUrgent: "",
-    Reason_x0020_for_x0020_Urgency: "",
-    AssigneeId: [],
-    ReviewerId: null,
-    WatcherId: [],
-    OData__Status: "",
-    Conclusion: "",
-    Add_x0020_to_x0020_KB: false,
-    TicketId: "",
-    Engagement_x0020_Type: [],
-    Sentinel_x0020_GIS_x0020_ID: null,
-    Required_x0020_Consultation: false,
-    Priority: "",
-    Topics: [],
-    Submitted_x0020_ById: [
-      {
-        key: store.user.currentUser.accountName,
-        primaryText: store.user.currentUser.name,
-        secondaryText: store.user.currentUser.email,
-        Id: store.user.currentUser.id
-      }
-    ]
+    ticketForm: {
+      isFetched: false,
+      error: null,
+      Title: "",
+      OData__ModerationComments: "",
+      Created: onFormatDate(new Date()),
+      File_x0020_Type: "",
+      JobTitle: "",
+      Office: "",
+      ol_Department: "",
+      CellPhone: "",
+      Office_x0020_Number: "",
+      Audit_x0020_Team_x0020_CCId: [],
+      Responsible_x0020_IndividualId: [],
+      Engagement_x0020_Name: "",
+      Engagement_x0020_Charge_x0020_Co: "",
+      Accounting_x0020_Period_x0020_En: "",
+      Auditing_x0020_Standards: [],
+      Accounting_x0020_Framework: [],
+      OData__Category: "",
+      Support_x0020_Team: "",
+      Ticket_x0020_Type: "",
+      Training: false,
+      FAQ: false,
+      Label: [],
+      Detailed_x0020_Analysis: "",
+      Reason_x0020_for_x0020_Urgency: "",
+      AssigneeId: [],
+      ReviewerId: null,
+      WatcherId: [],
+      OData__Status: "",
+      kats_comments: {
+        comments: []
+      },
+      Conclusion: "",
+      Add_x0020_to_x0020_KB: false,
+      TicketId: "",
+      Engagement_x0020_Type: [],
+      Sentinel_x0020_GIS_x0020_ID: null,
+      Required_x0020_Consultation: false,
+      Priority: "",
+      Topics: [],
+      Submitted_x0020_ById: [
+        {
+          key: store.user.currentUser.accountName,
+          primaryText: store.user.currentUser.name,
+          secondaryText: store.user.currentUser.email,
+          Id: store.user.currentUser.id
+        }
+      ]
+    },
+    formCollapse: {
+      isDetailsCollapse: false,
+      isInformationCollapse: false,
+      isEngaCollapse: false,
+      isPeopleCollapse: false,
+      isSupportCollapse: false,
+      isTicketCommentCollapse: false
+    }
+  };
+  return initialState;
+};
+
+export const initialTicketGridState = (store: IStore): ITicketGridState => {
+  const initialState: ITicketGridState = {
+    fullTicket: [],
+    isFetched: false,
+    skip: 0,
+    take: 10,
+    isPageable: true,
+    error: null
   };
   return initialState;
 };

@@ -48,7 +48,7 @@ export class PeoplePicker extends BaseComponent<IPeoplePickerProps, {}> {
         }}
         onInputChange={this._onInputChange}
         defaultSelectedItems={this.props.defaultPeople}
-        itemLimit={this.props.allowMulti ? undefined : 1}
+        itemLimit={this.props.allowMulti ? 100 : 1}
       />
     );
     return (
@@ -68,9 +68,13 @@ export class PeoplePicker extends BaseComponent<IPeoplePickerProps, {}> {
 
   private _onItemsChange = (items: any[]): void => {
     if (items.length > 0) {
-      items.map(async user => {
+      let multiUser: any[] = [];
+      items.map(async (user, index) => {
         user.Id = await getUserIDFromPP([user]);
-        this.props.getUserNames([user]);
+        multiUser.push(user);
+        if (items.length === index + 1) {
+          this.props.getUserNames(multiUser);
+        }
       });
     } else {
       this.props.getUserNames(items);
@@ -91,19 +95,16 @@ export class PeoplePicker extends BaseComponent<IPeoplePickerProps, {}> {
           5
         )
         .then((principals: PrincipalInfo[] | any) => {
-          return principals.results.reduce(
-            (filtered: any, principal: any) => {
-              filtered.push({
-                key: principal.LoginName,
-                primaryText: principal.DisplayName,
-                secondaryText: `${principal.Email}`
-              });
-              filtered = this._removeDuplicates(filtered, currentPersonas);
-              // filtered = filtered.splice(0, 5);
-              return filtered;
-            },
-            []
-          );
+          return principals.results.reduce((filtered: any, principal: any) => {
+            filtered.push({
+              key: principal.LoginName,
+              primaryText: principal.DisplayName,
+              secondaryText: `${principal.Email}`
+            });
+            filtered = this._removeDuplicates(filtered, currentPersonas);
+            // filtered = filtered.splice(0, 5);
+            return filtered;
+          }, []);
         });
     } else {
       return [];

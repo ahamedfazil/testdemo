@@ -37,6 +37,13 @@ export interface IDialogBlocking {
 
 export interface ITicketLocalState {
   dialogBlocking: IDialogBlocking;
+  ticketForm: ITicketForm;
+  formCollapse: ITicketCollapse;
+}
+
+export interface ITicketForm {
+  isFetched: boolean;
+  error: any;
   Title: string;
   OData__ModerationComments: string;
   File_x0020_Type: string;
@@ -54,25 +61,46 @@ export interface ITicketLocalState {
   Auditing_x0020_Standards: string[];
   Accounting_x0020_Framework: string[];
   Created: string;
-  _Category: string;
+  OData__Category: string;
   Support_x0020_Team: string;
   Ticket_x0020_Type: string;
   Training: boolean;
   FAQ: boolean;
   Label: string[];
   Detailed_x0020_Analysis: string;
-  IsUrgent: any;
   Reason_x0020_for_x0020_Urgency: string;
   AssigneeId: any[];
   ReviewerId: number;
   WatcherId: any[];
   OData__Status: string;
   Conclusion: string;
+  kats_comments: ITicketFullComment;
   Add_x0020_to_x0020_KB: boolean;
   TicketId: string;
   Engagement_x0020_Type: string[];
-  Sentinel_x0020_GIS_x0020_ID: number;
+  Sentinel_x0020_GIS_x0020_ID: string;
   Required_x0020_Consultation: boolean;
   Priority: string;
   Topics: string[];
+}
+
+export interface ITicketCollapse {
+  isDetailsCollapse: boolean;
+  isInformationCollapse: boolean;
+  isEngaCollapse: boolean;
+  isPeopleCollapse: boolean;
+  isSupportCollapse: boolean;
+  isTicketCommentCollapse: boolean;
+}
+
+export interface ITicketFullComment {
+  comments: ITicketComment[];
+}
+
+export interface ITicketComment {
+  key: any;
+  commentValue: string;
+  userName: string;
+  userEmail: string;
+  timeStamp: any;
 }

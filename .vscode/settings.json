@@ -1,3 +1,4 @@
 {
-    "sp-typed-item.configPath": "sp-typed-item.config.json"
+    "sp-typed-item.configPath": "sp-typed-item.config.json",
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

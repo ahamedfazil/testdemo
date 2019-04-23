@@ -1,8 +1,9 @@
 import * as React from "react";
 import { TagPicker } from "office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker";
+import { ITag } from "office-ui-fabric-react";
 
 interface IKatsTagPickerProps {
-  defaultValue?: any[];
+  values?: any[];
   getValues?: (val: any[]) => void;
   getOnBlur?: () => void;
   disabled?: boolean;
@@ -19,12 +20,17 @@ export class KatsTagPicker extends React.Component<IKatsTagPickerProps, {}> {
   }
 
   public render(): JSX.Element {
+    let tagValues: ITag[] = [];
+    this.props.values.map(function(value: string) {
+      tagValues.push({ key: value, name: value } as ITag);
+    });
     return (
       <div>
         <TagPicker
+          selectedItems={tagValues}
           onChange={this._onItemsChanges}
           onResolveSuggestions={this._onFilterChanged}
-          defaultSelectedItems={this.props.defaultValue}
+          // defaultSelectedItems={this.props.values}
           pickerSuggestionsProps={{
             suggestionsHeaderText: this.props.headerText,
             noResultsFoundText: this.props.noResultText
