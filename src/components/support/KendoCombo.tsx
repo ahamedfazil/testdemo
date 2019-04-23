@@ -5,7 +5,7 @@ import { autobind } from "@uifabric/utilities";
 import "./KendoCombo.scss";
 
 interface IKendoComboProps {
-  getLabelValue: (value: string) => void;
+  getValue: (value: string) => void;
   fullValues?: any[];
   isRemote?: boolean;
   textValue: string;
@@ -77,6 +77,6 @@ export class KendoCombo extends React.Component<
   private _onItemsChange(event: any) {
     const value: string = event.sender._prev;
     this.setState({ keyValue: value });
-    this.props.getLabelValue(value);
+    this.props.getValue(value);
   }
 }

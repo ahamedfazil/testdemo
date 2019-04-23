@@ -74,6 +74,7 @@ export interface ITicketForm {
   WatcherId: any[];
   OData__Status: string;
   Conclusion: string;
+  kats_comments: ITicketFullComment;
   Add_x0020_to_x0020_KB: boolean;
   TicketId: string;
   Engagement_x0020_Type: string[];
@@ -89,4 +90,17 @@ export interface ITicketCollapse {
   isEngaCollapse: boolean;
   isPeopleCollapse: boolean;
   isSupportCollapse: boolean;
+  isTicketCommentCollapse: boolean;
+}
+
+export interface ITicketFullComment {
+  comments: ITicketComment[];
+}
+
+export interface ITicketComment {
+  key: any;
+  commentValue: string;
+  userName: string;
+  userEmail: string;
+  timeStamp: any;
 }

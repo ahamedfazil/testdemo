@@ -1,10 +1,11 @@
 import * as React from "react";
 import { PeoplePicker } from "./PeoplePicker";
-import { Label, TextField, Dropdown } from "office-ui-fabric-react";
+import { Label, TextField, Dropdown, Checkbox } from "office-ui-fabric-react";
 import { CONST } from "../../utils/const";
 import {
   dropdownOptions,
-  tagPickerOptionGenerator
+  tagPickerOptionGenerator,
+  kendoComboOptionGenerator
 } from "../../utils/Utilities";
 import { ITicketDictionary } from "../../models/ITicketState";
 import { KendoCombo } from "./KendoCombo";
@@ -14,18 +15,24 @@ interface ITicketInfoProps {
   ticketId: string;
   status: string;
   category: string;
+  categoryTitleOptions: any[];
   supportTeam: string;
   requiredConsultation: boolean;
   topics: any[];
+  topicsOptions: any[];
   accountingFrameworks: string[];
   auditingStandards: string[];
-  getTicketInfoValue?: (key: string, value: any) => void;
-  getTicketOptions?: (key: string, option: any) => void;
+  getTicketInfoValue?: (
+    key: string,
+    value: any | any[],
+    isCategory?: boolean
+  ) => void;
+  getTicketInfoValueMulti: (key: string, option: any, index: number) => void;
   ticketDictionary: ITicketDictionary;
 }
 
-export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
-  return (
+export const TicketInfo = React.memo(
+  (props: ITicketInfoProps): JSX.Element => (
     <div className="ms-Grid-row">
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Ticket ID</Label>
@@ -46,27 +53,31 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           options={dropdownOptions(props.ticketDictionary.status)}
           selectedKey={props.status}
           onChange={(event: any, option: any) => {
-            props.getTicketOptions(
+            props.getTicketInfoValue(
               CONST.Lists.Tickets.Columns.OData__Status.Internal_Name,
               option.key
             );
           }}
         />
       </div>
-      {/* <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
+      <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Category</Label>
         <KendoCombo
-          placeholder={"Select Category"}
-          options={dropdownOptions(props.ticketDictionary.category)}
-          selectedKey={props.category}
-          onChange={(key, option: any) => {
-            props.getTicketOptions(CONST.Lists.Tickets.Columns._Category.Internal_Name, option.key);
+          textValue={props.category}
+          getValue={value => {
+            props.getTicketInfoValue(
+              CONST.Lists.Tickets.Columns.OData__Category.Internal_Name,
+              value,
+              true
+            );
           }}
+          placeholder={"Enter Category"}
+          isRemote={false}
+          fullValues={kendoComboOptionGenerator(props.categoryTitleOptions)}
         />
-      </div> */}
+      </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Support Team</Label>
-        &nbsp;
         <i
           className="ms-Icon ms-Icon--Group"
           style={{ fontSize: "18px" }}
@@ -79,13 +90,23 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
         />
       </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
-        <Label>Required Consultation</Label>
+        <Checkbox
+          name={
+            CONST.Lists.Tickets.Columns.Required_x0020_Consultation
+              .Internal_Name
+          }
+          label={"Required Consultation"}
+          defaultChecked={props.requiredConsultation}
+          onChange={(event: any, checked: boolean) =>
+            props.getTicketInfoValue(event.target.name, checked)
+          }
+        />
       </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
         <Label>Topics</Label>
         <KatsTagPicker
           getValues={val => {
-            props.getTicketOptions(
+            props.getTicketInfoValue(
               CONST.Lists.Tickets.Columns.Topics.Internal_Name,
               val
             );
@@ -95,7 +116,7 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
           getOnBlur={() => {}}
           placeholder={"Enter Topics"}
           values={props.topics}
-          options={tagPickerOptionGenerator(props.ticketDictionary.topic)}
+          options={tagPickerOptionGenerator(props.topicsOptions)}
         />
       </div>
       <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg9">
@@ -103,13 +124,15 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
         <Dropdown
           placeholder={"Select Accounting Frameworks"}
           options={dropdownOptions(props.ticketDictionary.accountingFramework)}
-          selectedKey={props.accountingFrameworks}
+          selectedKeys={props.accountingFrameworks}
           multiSelect
-          onChange={(option: any) => {
-            props.getTicketOptions(
+          onChange={(event: any, option: any) => {
+            const index = props.accountingFrameworks.indexOf(option.key);
+            props.getTicketInfoValueMulti(
               CONST.Lists.Tickets.Columns.Accounting_x0020_Framework
                 .Internal_Name,
-              option.key
+              option,
+              index
             );
           }}
         />
@@ -119,17 +142,19 @@ export const TicketInfo: React.SFC<ITicketInfoProps> = (props): JSX.Element => {
         <Dropdown
           placeholder={"Select Auditing Standards"}
           options={dropdownOptions(props.ticketDictionary.auditingStandard)}
-          selectedKey={props.auditingStandards}
+          selectedKeys={props.auditingStandards}
           multiSelect
-          onChange={(key, option: any) => {
-            props.getTicketOptions(
+          onChange={(event: any, option: any) => {
+            const index = props.auditingStandards.indexOf(option.key);
+            props.getTicketInfoValueMulti(
               CONST.Lists.Tickets.Columns.Auditing_x0020_Standards
                 .Internal_Name,
-              option.key
+              option,
+              index
             );
           }}
         />
       </div>
     </div>
-  );
-};
+  )
+);

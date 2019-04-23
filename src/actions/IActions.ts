@@ -2,7 +2,7 @@ import { Action } from "redux";
 import keys from "./ActionTypeKey";
 import { ICurrentUserState } from "../models/IUserState";
 import { ITicketDictionary } from "../models/ITicketState";
-import { ISite } from "../models/ISiteState";
+import { ISiteInfo } from "../models/ISiteState";
 
 //#region UserActions
 export interface IGetUserActionInProgress extends Action {
@@ -25,8 +25,13 @@ export interface IGetUserActionError extends Action {
 //#endregion
 
 //#region SiteAction
-
-//#region UserActions
+export interface IUpdateSiteInfo extends Action {
+  readonly type: keys.UPDATE_SITE_INFO;
+  payload: {
+    value: any;
+    key: string;
+  };
+}
 export interface IGetSiteActionInProgress extends Action {
   readonly type: keys.GET_SITE_INPROGRESS;
 }
@@ -34,7 +39,7 @@ export interface IGetSiteActionInProgress extends Action {
 export interface IGetSiteActionSuccess extends Action {
   readonly type: keys.GET_SITE_SUCCESS;
   payload: {
-    siteInfo: ISite;
+    siteInfo: ISiteInfo;
   };
 }
 

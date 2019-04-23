@@ -1,10 +1,10 @@
 export interface ISiteState {
-  siteInfo: ISite;
-  error?: any;
+  siteInfo: ISiteInfo;
 }
 
-export interface ISite {
+export interface ISiteInfo {
   isFetched: boolean;
+  error?: any;
   serverRelativeURL: string;
   itemID: number;
   isNewForm?: boolean;

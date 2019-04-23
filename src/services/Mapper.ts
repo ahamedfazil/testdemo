@@ -22,7 +22,7 @@ export const Ticket_Mapper = (value: ITicketForm) => {
       value.Detailed_x0020_Analysis,
     [CONST.Lists.Tickets.Columns.Conclusion.Internal_Name]: value.Conclusion,
     [CONST.Lists.Tickets.Columns.Topics.Internal_Name]: value.Topics.join(CONST.Others.ArraySplitter),
-
+    [CONST.Lists.Tickets.Columns.kats_comments.Internal_Name]: JSON.stringify(value.kats_comments),
     // Checkbox, Radiobutton Field Mapper
     [CONST.Lists.Tickets.Columns.Add_x0020_to_x0020_KB.Internal_Name]:
       value.Add_x0020_to_x0020_KB,
