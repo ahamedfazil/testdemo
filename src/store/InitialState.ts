@@ -1,5 +1,6 @@
 import IStore from "./IStore";
 import { ITicketLocalState } from "../models/ITicketState";
+import { ITicketGridState } from "../models/ITicketGridState";
 import { onFormatDate } from "../utils/Utilities";
 
 export const initialState: IStore = {
@@ -7,7 +8,7 @@ export const initialState: IStore = {
     isInitialised: false,
     currentUser: {
       isFetched: false,
-      isSupportUser: true,
+      isSupportUser: false,
       isUser: false,
       id: null,
       name: "",
@@ -25,12 +26,12 @@ export const initialState: IStore = {
     }
   },
   site: {
-    error: null,
     siteInfo: {
       isFetched: false,
+      error: null,
       serverRelativeURL: "",
-      itemID: 50,
-      isNewForm: true,
+      itemID: null,
+      isNewForm: false,
       isEditForm: false,
       isViewForm: false
     }
@@ -96,6 +97,9 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       ReviewerId: null,
       WatcherId: [],
       OData__Status: "",
+      kats_comments: {
+        comments: []
+      },
       Conclusion: "",
       Add_x0020_to_x0020_KB: false,
       TicketId: "",
@@ -118,8 +122,21 @@ export const initialTicketLocalState = (store: IStore): ITicketLocalState => {
       isInformationCollapse: false,
       isEngaCollapse: false,
       isPeopleCollapse: false,
-      isSupportCollapse: false
+      isSupportCollapse: false,
+      isTicketCommentCollapse: false
     }
+  };
+  return initialState;
+};
+
+export const initialTicketGridState = (store: IStore): ITicketGridState => {
+  const initialState: ITicketGridState = {
+    fullTicket: [],
+    isFetched: false,
+    skip: 0,
+    take: 10,
+    isPageable: true,
+    error: null
   };
   return initialState;
 };

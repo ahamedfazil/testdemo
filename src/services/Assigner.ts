@@ -62,6 +62,15 @@ export const Ticket_Assigner = async (
     localTicket.Topics = getArrayFromString(
       ticketResponse[CONST.Lists.Tickets.Columns.Topics.Internal_Name]
     );
+    localTicket.kats_comments.comments = ticketResponse[
+      CONST.Lists.Tickets.Columns.kats_comments.Internal_Name
+    ]
+      ? JSON.parse(
+          ticketResponse[
+            CONST.Lists.Tickets.Columns.kats_comments.Internal_Name
+          ]
+        ).comments
+      : [];
     //#endregion
 
     //#region Checkbox, Radiobutton Field Assigner
@@ -107,9 +116,8 @@ export const Ticket_Assigner = async (
     localTicket.OData__Status =
       ticketResponse[CONST.Lists.Tickets.Columns.OData__Status.Internal_Name] ||
       "";
-    localTicket.Priority = ticketResponse[
-      CONST.Lists.Tickets.Columns.Priority.Internal_Name
-    ] || "";
+    localTicket.Priority =
+      ticketResponse[CONST.Lists.Tickets.Columns.Priority.Internal_Name] || "";
     //#endregion
 
     //#region People Picker Assigner

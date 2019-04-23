@@ -6,7 +6,8 @@ import {
   ITicketDictionary,
   IDialogBlocking,
   ITicketForm,
-  ITicketCollapse
+  ITicketCollapse,
+  ITicketComment
 } from "../../models/ITicketState";
 import { initialTicketLocalState } from "../../store/initialState";
 import { getTicketDictionary } from "../../services/DictionaryAPI";
@@ -22,7 +23,8 @@ import { CONST } from "../../utils/const";
 import {
   createTicket,
   getTicketByID,
-  updateTicket
+  updateTicket,
+  updateComment
 } from "../../services/TicketAPI";
 import "./Ticket.scss";
 import { ErrorMessage } from "../support/ErrorMessage";
@@ -38,13 +40,17 @@ import { TicketRequestDetail } from "../support/TicketRequestDetail";
 import { TicketSupportFields } from "../support/SupportFields";
 import Collapsible from "react-collapsible";
 import { TicketSubTitle } from "../support/TicketSubTitle";
+import { setFormTypeAndID } from "../../services/SiteAPI";
+import { TicketComments } from "../support/TicketComments";
+// import { setFormTypeAndID } from "../../services/SiteAPI";
 
 export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
   constructor(props: ITicketProps) {
     super(props);
-    this._onTextChange = this._onTextChange.bind(this);
-    this.changedValue = debounce(300, this.changedValue);
+    this._onChangeValue = this._onChangeValue.bind(this);
+    this._onChangeValue = debounce(200, this._onChangeValue);
     this.state = initialTicketLocalState(this.props.store);
+    setFormTypeAndID(this.props);
   }
 
   async componentDidMount() {
@@ -91,7 +97,17 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     const ticketDictionary: ITicketDictionary = this.props.store.ticket
       .ticketDictionary;
     const dialogBlocking: IDialogBlocking = this.state.dialogBlocking;
+    let categoryTitleOptions: any[] = [];
+    let categoryTopicsOptions: any[] = [];
     if (ticketDictionary.isFetched) {
+      categoryTitleOptions = getSpecificArrayFromJSONArray(
+        ticketDictionary.category,
+        CONST.Lists.Category.Columns.Title.Internal_Name
+      );
+      categoryTopicsOptions = getSpecificArrayFromJSONArray(
+        ticketDictionary.category,
+        CONST.Lists.Category.Columns.Topic.Internal_Name
+      );
     }
     return (
       <div className="ms-Grid new-ticket">
@@ -132,8 +148,11 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     this.state.ticketForm.Detailed_x0020_Analysis
                   }
                   priority={this.state.ticketForm.Priority}
+                  reasonForUrgency={
+                    this.state.ticketForm.Reason_x0020_for_x0020_Urgency
+                  }
                   getTicketRequestValue={(key, value) => {
-                    this._onTextChange(key, value);
+                    this._onChangeValue(key, value);
                   }}
                 />
               </Collapsible>
@@ -159,23 +178,35 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                   status={this.state.ticketForm.OData__Status}
                   ticketDictionary={this.props.store.ticket.ticketDictionary}
                   category={this.state.ticketForm.OData__Category}
+                  categoryTitleOptions={categoryTitleOptions}
                   supportTeam={this.state.ticketForm.Support_x0020_Team}
                   requiredConsultation={
                     this.state.ticketForm.Required_x0020_Consultation
                   }
                   topics={this.state.ticketForm.Topics}
+                  topicsOptions={categoryTopicsOptions}
                   accountingFrameworks={
                     this.state.ticketForm.Accounting_x0020_Framework
                   }
                   auditingStandards={
                     this.state.ticketForm.Auditing_x0020_Standards
                   }
-                  getTicketInfoValue={(key, value) => {
-                    this._onTextChange(key, value);
+                  getTicketInfoValue={(key, value, isCategory) => {
+                    if (!isCategory) {
+                      this._onChangeValue(key, value);
+                    } else {
+                      const newState = update(this.state, {
+                        ticketForm: {
+                          [key]: { $set: value }
+                        }
+                      });
+                      this.setState(newState);
+                      this._settingSupportGroup(value);
+                    }
                   }}
-                  getTicketOptions={(key, option) => {
-                    this.changedValue(key, option);
-                  }}
+                  getTicketInfoValueMulti={(key, option, index) =>
+                    this._onMultiSelectDropdown(key, option, index)
+                  }
                 />
               </Collapsible>
             </div>
@@ -209,9 +240,11 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                     this.state.ticketForm.Engagement_x0020_Charge_x0020_Co
                   }
                   getEngagementInfoValue={(key, value) => {
-                    this._onTextChange(key, value);
-                    this.changedValue(key, value);
+                    this._onChangeValue(key, value);
                   }}
+                  getTicketEngValueMulti={(key, option, index) =>
+                    this._onMultiSelectDropdown(key, option, index)
+                  }
                 />
               </Collapsible>
             </div>
@@ -239,35 +272,71 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
                   auditTeam={this.state.ticketForm.Audit_x0020_Team_x0020_CCId}
                   watchers={this.state.ticketForm.WatcherId}
                   getUserValue={(key, value) => {
-                    this.changedValue(key, value);
+                    this._onChangeValue(key, value);
                   }}
                 />
               </Collapsible>
             </div>
-            {userState.currentUser.isSupportUser && (
-              <div className="ms-Grid-row">
-                <CustomGroup
-                groupCollapse={null}
-                item={
-                  <TicketSupportFields
-                    ticketDictionary={this.props.store.ticket.ticketDictionary}
-                    conclusion={this.state.ticketForm.Conclusion}
-                    ticketType={this.state.ticketForm.Ticket_x0020_Type}
-                    training={this.state.ticketForm.Training}
-                    addToKb={this.state.ticketForm.Add_x0020_to_x0020_KB}
-                    faq={this.state.ticketForm.FAQ}
-                    labels={this.state.ticketForm.Label}
-                    getSupportFieldValues={(key, value) => {
-                      this.changedValue(key, value);
-                      this._onCheckboxChange(event, value);
-                    }}
+
+            <div className="ms-Grid-row">
+              <Collapsible
+                trigger={
+                  <TicketSubTitle
+                    title="Support Information"
+                    isCollapsed={formCollapse.isSupportCollapse}
                   />
                 }
-                isCollapsed={false}
-                title={"Support information"}
-              />
-              </div>
-            )}
+                onClosing={() => {
+                  this._onCollapseChange("isSupportCollapse", true);
+                }}
+                onOpening={() => {
+                  this._onCollapseChange("isSupportCollapse", false);
+                }}
+                open={true}
+              >
+                <TicketSupportFields
+                  ticketDictionary={this.props.store.ticket.ticketDictionary}
+                  conclusion={this.state.ticketForm.Conclusion}
+                  ticketType={this.state.ticketForm.Ticket_x0020_Type}
+                  training={this.state.ticketForm.Training}
+                  addToKb={this.state.ticketForm.Add_x0020_to_x0020_KB}
+                  faq={this.state.ticketForm.FAQ}
+                  labels={this.state.ticketForm.Label}
+                  getSupportFieldValues={(key, value) => {
+                    // update only Comment
+                    this._onChangeValue(key, value);
+                  }}
+                />
+              </Collapsible>
+            </div>
+
+            <div className="ms-Grid-row">
+              <Collapsible
+                trigger={
+                  <TicketSubTitle
+                    title="Ticket Comments"
+                    isCollapsed={formCollapse.isTicketCommentCollapse}
+                  />
+                }
+                onClosing={() => {
+                  this._onCollapseChange("isTicketCommentCollapse", true);
+                }}
+                onOpening={() => {
+                  this._onCollapseChange("isTicketCommentCollapse", false);
+                }}
+                open={true}
+              >
+                <TicketComments
+                  ticketComment={this.state.ticketForm.kats_comments.comments}
+                  isDisabled={false}
+                  currentUserName={userState.currentUser.firstName}
+                  currentUserEmail={userState.currentUser.email}
+                  getTicketComment={(key, value) => {
+                    this._onCommentsAdd(key, value);
+                  }}
+                />
+              </Collapsible>
+            </div>
 
             <div className="ms-Grid-row">
               <div className="cell ms-Grid-col ms-sm12 ms-md12 ms-lg12">
@@ -317,11 +386,6 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     );
   }
 
-  //#region helper functions
-  private _onTextChange(key: string, value: any) {
-    this.changedValue(key, value);
-  }
-
   private _onCollapseChange(key: string, isCollapsed: boolean) {
     const newState = update(this.state, {
       formCollapse: {
@@ -331,11 +395,7 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     this.setState(newState);
   }
 
-  private _onCheckboxChange = (event: any, isChecked: boolean) => {
-    this.changedValue(event.target.name, isChecked);
-  };
-
-  private changedValue(key: string, value: any) {
+  private _onChangeValue(key: string, value: any) {
     const newState = update(this.state, {
       ticketForm: {
         [key]: { $set: value }
@@ -343,6 +403,47 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     });
     this.setState(newState);
   }
+
+  private _settingSupportGroup(category: string) {
+    const supportTeam = this.props.store.ticket.ticketDictionary.category.filter(
+      cat => cat.Title === category
+    )[0];
+    if (supportTeam) {
+      this._onChangeValue(
+        CONST.Lists.Tickets.Columns.Support_x0020_Team.Internal_Name,
+        supportTeam.Support_x0020_Team
+          ? supportTeam.Support_x0020_Team.Name
+          : ""
+      );
+    } else {
+      this._onChangeValue(
+        CONST.Lists.Tickets.Columns.Support_x0020_Team.Internal_Name,
+        ""
+      );
+    }
+  }
+
+  private _onMultiSelectDropdown = (
+    propertyName: string,
+    option: any,
+    index?: number
+  ) => {
+    if (option.selected) {
+      const newState = update(this.state, {
+        ticketForm: {
+          [propertyName]: { $push: [option.key] }
+        }
+      });
+      this.setState(newState);
+    } else {
+      const newState = update(this.state, {
+        ticketForm: {
+          [propertyName]: { $splice: [[index, 1]] }
+        }
+      });
+      this.setState(newState);
+    }
+  };
 
   //#endregion
 
@@ -436,5 +537,52 @@ export class Ticket extends React.Component<ITicketProps, ITicketLocalState> {
     //     dialogBlocking: newDialogState
     //   });
     // }, 3000);
+  }
+
+  private _onCommentsAdd(key: string, value: ITicketComment) {
+    const newStateForComments = update(this.state, {
+      ticketForm: {
+        kats_comments: {
+          comments: {
+            $push: [value]
+          }
+        }
+      }
+    });
+
+    const newDialogState = update(this.state.dialogBlocking, {
+      showConfirmDialog: { $set: false },
+      showProgressDialog: { $set: true },
+      showProgress: { $set: true },
+      progressDialogText: { $set: "adding your comment..." },
+      dialogTitle: {
+        $set: "Posting Comment"
+      },
+      error: { $set: null }
+    });
+    this.setState({
+      dialogBlocking: newDialogState
+    });
+
+    this.setState(newStateForComments);
+    // updateComment(
+    //   newStateForComments.ticketForm.kats_comments,
+    //   this.props.store.site.siteInfo.itemID
+    // ).then((res: any) => {
+    //   if (res) {
+    //     this.setState(newStateForComments);
+    //   } else {
+    //     this.setState({
+    //       dialogBlocking: update(this.state.dialogBlocking, {
+    //         showConfirmDialog: { $set: false },
+    //         showProgressDialog: { $set: true },
+    //         showProgress: { $set: false },
+    //         progressDialogText: { $set: "" },
+    //         dialogTitle: { $set: "Something went wrong" },
+    //         error: { $set: "Something went wrong" }
+    //       })
+    //     });
+    //   }
+    // });
   }
 }

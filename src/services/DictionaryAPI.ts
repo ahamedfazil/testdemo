@@ -143,7 +143,7 @@ const setIsSupportUser = (props: ITicketProps, categoryList: any[]) => {
     {},
     props.store.user.currentUser
   );
-  currentUser.isSupportUser = true; // isSupportUser.length > 0 ? true : false;
+  currentUser.isSupportUser = isSupportUser.length > 0 ? true : false;
   props.getCurrentUserSuccess(currentUser);
 };
 

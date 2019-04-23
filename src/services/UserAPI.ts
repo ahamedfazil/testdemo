@@ -92,10 +92,9 @@ export async function getCurrentUser(props: IAppProps) {
           for (let groupTitle of groupsResponse) {
             userState.memberOf.push(groupTitle.Title);
           }
-          // userState.isSupportUser = userState.memberOf.includes(
-          //   CONST.Site.SupportGroup
-          // );
-          userState.isSupportUser = true;
+          userState.isSupportUser = userState.memberOf.includes(
+            CONST.Site.SupportGroup
+          );
           userState.isUser = userState.memberOf.includes(CONST.Site.UserGroup);
 
           //Dispatch an Action for Success in getCurrentUser
