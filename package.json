@@ -19,7 +19,7 @@
     "@progress/kendo-theme-default": "^3.5.1",
     "@progress/kendo-ui": "^2019.1.412",
     "@progress/kendo-upload-react-wrapper": "^2018.3.1017",
-    "class-transformer": "^0.2.0",
+    "class-transformer": "^0.3.1",
     "immutability-helper": "^2.6.6",
     "object-assign": "^4.1.1",
     "office-ui-fabric-core": "^9.0.0",
